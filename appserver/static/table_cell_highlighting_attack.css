@@ -1,0 +1,65 @@
+
+/* Cell Highlighting */
+
+/* 
+#highlight td {
+    background-color: #c1ffc3 !important;
+}
+*/
+
+#highlight td.range-nonexistent {
+    background-color: #f5f5f5 !important;
+    font-weight: bold;
+}
+
+#highlight td.range-existbutzero {
+    background-color: #ff6e6e !important;
+    font-weight: bold;
+}
+
+#highlight td.range-low {
+    background-color: #eca270 !important;
+    font-weight: bold;
+}
+
+#highlight td.range-mid {
+    background-color: #dd8724 !important;
+    font-weight: bold;
+}
+
+#highlight td.range-high {
+    background-color: #83bd69 !important;
+    font-weight: bold;
+}
+
+#highlight td.range-all {
+    background-color: #60d83c !important;
+    font-weight: bold;
+}
+
+
+/* Dark Theme */
+
+#highlight td.dark {
+    color: #F2F4F5;
+}
+
+#highlight td.range-low.dark {
+    color: #006D9C;
+}
+
+#highlight td.range-elevated.dark {
+    background-color: #EC9960 !important;
+    font-weight: bold;
+}
+
+#highlight td.range-severe.dark {
+    background-color: #AF575A !important;
+    font-weight: bold;
+}
+
+.tooltip-inner { max-width: 400px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: normal;
+    }
