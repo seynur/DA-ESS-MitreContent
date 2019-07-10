@@ -1,7 +1,7 @@
 /* TODO: jink to replace theme_utils with that from core */
 require.config({
   paths: {
-    theme_utils: '../app/da-ess-mitrecontent/theme_utils'
+    theme_utils: '../app/DA-ESS-MitreContent/theme_utils'
   }
 }); 
 
