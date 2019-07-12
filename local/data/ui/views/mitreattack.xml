@@ -1,5 +1,5 @@
 <form script="table_cell_highlighting_attack.js" stylesheet="table_cell_highlighting_attack.css">
-  <label>Mitre Attack Framework</label>
+  <label>Mitre Att&amp;ck Framework Triggered Technics</label>
   <fieldset submitButton="true">
     <input type="time" token="field1">
       <label></label>

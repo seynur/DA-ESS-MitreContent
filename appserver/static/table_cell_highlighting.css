@@ -8,32 +8,32 @@
 */
 
 #highlight td.range-nonexistent {
-    background-color: #f5f5f5 !important;
+    background-color: #c2d7ff !important;
     font-weight: bold;
 }
 
 #highlight td.range-existbutzero {
-    background-color: #ff6e6e !important;
+    background-color: #adc9ff !important;
     font-weight: bold;
 }
 
 #highlight td.range-low {
-    background-color: #eca270 !important;
+    background-color: #83aeff !important;
     font-weight: bold;
 }
 
 #highlight td.range-mid {
-    background-color: #dd8724 !important;
+    background-color: #5691ff !important;
     font-weight: bold;
 }
 
 #highlight td.range-high {
-    background-color: #83bd69 !important;
+    background-color: #357cff !important;
     font-weight: bold;
 }
 
 #highlight td.range-all {
-    background-color: #60d83c !important;
+    background-color: #065dff !important;
     font-weight: bold;
 }
 

@@ -13,12 +13,12 @@
 }
 
 #highlight td.range-existbutzero {
-    background-color: #ff6e6e !important;
+    background-color: #ffffff !important;
     font-weight: bold;
 }
 
 #highlight td.range-low {
-    background-color: #eca270 !important;
+    background-color: #ecea70 !important;
     font-weight: bold;
 }
 
@@ -28,12 +28,12 @@
 }
 
 #highlight td.range-high {
-    background-color: #83bd69 !important;
+    background-color: #ff4747 !important;
     font-weight: bold;
 }
 
 #highlight td.range-all {
-    background-color: #60d83c !important;
+    background-color: #ff0f0f !important;
     font-weight: bold;
 }
 

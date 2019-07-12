@@ -1,5 +1,5 @@
 <dashboard script="table_cell_highlighting.js" stylesheet="table_cell_highlighting.css">
-  <label>Mitre ATTACK</label>
+  <label>Mitre Att&amp;ck Compliance with Splunk ES</label>
   <description></description>
   <row>
     <panel>
@@ -21,8 +21,11 @@
           <earliest>-24h</earliest>
         </search>
         <option name="count">100</option>
-        <option name="drilldown">none</option>
+        <option name="drilldown">cell</option>
         <fields>["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]</fields>
+        <drilldown>
+          <link target="_blank">search?q=%7C%20rest%20/services/configs/conf-analyticstories%20%0A%7C%20where%20annotations!=%22%22%0A%7C%20spath%20input=annotations%20path=mitre_attack%7B%7D%20output=mitre_attack%20%0A%7C%20eval%20rule_name=ltrim(title,%22savedsearch://%22)%20%0A%7C%20fields%20rule_name,mitre_attack%0A%7C%20mvexpand%20mitre_attack%0A%7C%20eval%20drilldownfilter%20=%20mvindex(split(%22$click.value2$%22,%22%7C%22),0)%0A%7C%20where%20mitre_attack%20=%20drilldownfilter%0A%7C%20fields%20rule_name,mitre_attack&amp;earliest=$earliest$&amp;latest=$latest$</link>
+        </drilldown>
       </table>
     </panel>
   </row>
