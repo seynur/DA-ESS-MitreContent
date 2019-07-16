@@ -99,7 +99,7 @@
         <fields>["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]</fields>
         <drilldown>
           <eval token="rules_q"> if(mvindex(split('click.value2',"|"),2)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&source=]]>"),"|"),2),"*")</eval>
-          <link target="_blank"><![CDATA[https://localhost:8000/en-US/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=-24h%2540h&amp;latest=now&amp;urgency=critical&amp;urgency=high&amp;urgency=medium&amp;urgency=low&amp;urgency=informational&source=$rules_q|n$]]></link>
+          <link target="_blank"><![CDATA[https://localhost:8000/en-US/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$field1.earliest$%2540h&amp;latest=$field1.latest$&amp;urgency=critical&amp;urgency=high&amp;urgency=medium&amp;urgency=low&amp;urgency=informational&source=$rules_q|n$]]></link>
         </drilldown>
       </table>
     </panel>

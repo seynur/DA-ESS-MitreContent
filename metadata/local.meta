@@ -70,7 +70,7 @@ import = DA-ESS-AccessProtection, DA-ESS-ContentUpdate, DA-ESS-EndpointProtectio
 
 [views/mitreattack]
 version = 7.2.6
-modtime = 1563284890.956132000
+modtime = 1563285757.175108000
 
 [views/mitre_rule_finder]
 export = none
