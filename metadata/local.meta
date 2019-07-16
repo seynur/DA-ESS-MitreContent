@@ -1,10 +1,10 @@
 [app/ui]
-version = 7.2.4.2
-modtime = 1561964839.124799000
+version = 7.2.6
+modtime = 1563285962.204718000
 
 [app/launcher]
-version = 7.2.4.2
-modtime = 1561964839.146638000
+version = 7.2.6
+modtime = 1563285962.212356000
 
 [views/mitre_t]
 access = read : [ * ], write : [ * ]
@@ -14,8 +14,8 @@ version = 7.2.4.2
 modtime = 1561965544.200146000
 
 [app/package/check_for_updates]
-version = 7.2.4.2
-modtime = 1561964839.148931000
+version = 7.2.6
+modtime = 1563285962.215549000
 
 [lookups/mitre_lookup.csv]
 access = read : [ * ], write : [ * ]
@@ -33,7 +33,7 @@ modtime = 1561972793.734744000
 
 [views/mitre_compliance]
 version = 7.2.6
-modtime = 1563272134.832829000
+modtime = 1563285982.546039000
 
 [nav/default]
 version = 7.2.4.2
@@ -55,7 +55,7 @@ access = read : [ * ], write : [ * ]
 export = system
 owner = admin
 version = 7.2.6
-modtime = 1562588120.800826000
+modtime = 1563286008.960691000
 
 [indexes/mitre_triggered_attacks]
 owner = admin
@@ -70,7 +70,7 @@ import = DA-ESS-AccessProtection, DA-ESS-ContentUpdate, DA-ESS-EndpointProtectio
 
 [views/mitreattack]
 version = 7.2.6
-modtime = 1563285757.175108000
+modtime = 1563285939.166251000
 
 [views/mitre_rule_finder]
 export = none

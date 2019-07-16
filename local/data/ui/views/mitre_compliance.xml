@@ -1,6 +1,5 @@
 <dashboard script="table_cell_highlighting.js" stylesheet="table_cell_highlighting.css">
-  <label>Mitre Att&amp;ck Compliance with Splunk ES</label>
-  <description></description>
+  <label>Mitre ATT&amp;CK Compliance with Splunk ES</label>
   <row>
     <panel>
       <table id="highlight">
