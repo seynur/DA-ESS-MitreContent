@@ -33,7 +33,7 @@ modtime = 1561972793.734744000
 
 [views/mitre_compliance]
 version = 7.2.6
-modtime = 1562942020.384847000
+modtime = 1563272134.832829000
 
 [nav/default]
 version = 7.2.4.2
@@ -67,3 +67,13 @@ access = read : [ * ], write : [ admin, power ]
 version = 7.2.6
 modtime = 1562592253.527499000
 import = DA-ESS-AccessProtection, DA-ESS-ContentUpdate, DA-ESS-EndpointProtection, DA-ESS-IdentityManagement, DA-ESS-NetworkProtection, DA-ESS-ThreatIntelligence, SA-AccessProtection, SA-AuditAndDataProtection, SA-EndpointProtection, SA-IdentityManagement, SA-NetworkProtection, SA-ThreatIntelligence, SA-Utils, SplunkEnterpriseSecuritySuite, Splunk_DA-ESS_PCICompliance, Splunk_SA_CIM, Splunk_SA_ExtremeSearch, appsbrowser, search
+
+[views/mitreattack]
+version = 7.2.6
+modtime = 1563261569.624562000
+
+[views/mitre_rule_finder]
+export = none
+owner = admin
+version = 7.2.6
+modtime = 1563272218.213253000

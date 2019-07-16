@@ -1,0 +1,42 @@
+<form>
+  <label>Mitre Rule Finder</label>
+  <fieldset submitButton="false">
+    <input type="text" token="mitre_technic_name">
+      <label>Mitre Technic Name</label>
+      <prefix>"</prefix>
+      <suffix>"</suffix>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>| rest /services/configs/conf-analyticstories 
+| where annotations!=""
+| spath input=annotations path=mitre_attack{} output=mitre_attack 
+| eval rule_name=ltrim(title,"savedsearch://") 
+| eval drilldownfilter = mvindex(split($mitre_technic_name$,"|"),0)
+| where mitre_attack = drilldownfilter
+| fields rule_name,mitre_attack,drilldownfilter
+| join rule_name [
+    | rest services/configs/conf-savedsearches  
+    | eval rule_name=title 
+    | eval rule_disabled=disabled 
+    | eval rule_name=ltrim(title,"savedsearch://")
+    | table rule_name,rule_disabled
+    ] 
+| mvexpand mitre_attack
+| where mitre_attack = drilldownfilter
+| fields mitre_attack,rule_name,rule_disabled</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <link target="_blank">https://localhost:8000/en-US/app/SplunkEnterpriseSecuritySuite/ess_content_management?textFilter=$click.value2$</link>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+</form>
