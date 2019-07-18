@@ -7,36 +7,43 @@
 }
 */
 
+#highlight td.text-align-center {
+    text-align: center;
+}
+
+#highlight td.add-border {
+    border: 1px solid rgba(43, 42, 42, 0.233); 
+}
+
 #highlight td.range-nonexistent {
-    background-color: #c2d7ff !important;
+    background-color: #f1f3f5a6!important;
     font-weight: bold;
 }
 
 #highlight td.range-existbutzero {
-    background-color: #adc9ff !important;
+    background-color: #24d4f7a6 !important;
     font-weight: bold;
 }
 
 #highlight td.range-low {
-    background-color: #83aeff !important;
+    background-color: #1ca3bea6 !important;
     font-weight: bold;
 }
 
 #highlight td.range-mid {
-    background-color: #5691ff !important;
+    background-color: #cc4446a6 !important;
     font-weight: bold;
 }
 
 #highlight td.range-high {
-    background-color: #357cff !important;
+    background-color: #353637a6 !important;
     font-weight: bold;
 }
 
 #highlight td.range-all {
-    background-color: #065dff !important;
+    background-color: #065dffa6 !important;
     font-weight: bold;
 }
-
 
 /* Dark Theme */
 

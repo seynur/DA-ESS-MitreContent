@@ -23,7 +23,8 @@
         <option name="drilldown">cell</option>
         <fields>["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]</fields>
         <drilldown>
-          <link target="_blank">/app/DA-ESS-MitreContent/mitre_rule_finder?form.mitre_technic_name=$click.value2$</link>
+          <eval token="technique_q">mvindex(split('click.value2',"|"),0)</eval>
+          <link target="_blank">/app/DA-ESS-MitreContent/mitre_rule_finder?form.mitre_technique_name=$technique_q$</link>
         </drilldown>
       </table>
     </panel>

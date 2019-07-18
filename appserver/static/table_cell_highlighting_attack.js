@@ -21,7 +21,7 @@ require([
     var CustomRangeRenderer = TableView.BaseCellRenderer.extend({
         canRender: function(cell) {
             // Enable this custom cell renderer for both the active_hist_searches and the active_realtime_searches field
-            return _(['active_hist_searches', 'active_realtime_searches',"Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]).contains(cell.field);
+            return _(["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]).contains(cell.field);
         },
         render: function($td, cell) {
             // Add a class to the cell based on the returned value
@@ -29,18 +29,9 @@ require([
             spl_string = value.split("|")[0];
             spl_value = value.split("|")[1];
             
-        
-
-
-            //spl_total = value.split("|")[2];
-            //spl_enabled = value.split("|")[3];
-            
-            //ttl = "Enabled: " + spl_total + "\nTotal: " + spl_enabled + "\nPercentage: " + spl_value;
             ttl = "Found " + spl_value + " attacks."
             $td.tooltip();
             $td.prop('title', ttl);
-
-            //fields = ["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]
             
             if (spl_value != "NULL") {
                 spl_value =  parseFloat(spl_value);
@@ -81,6 +72,7 @@ require([
             }
             else {
                 $td.text(spl_string);
+                $td.addClass('add-border').addClass('text-align-center');
             }
         }
     });

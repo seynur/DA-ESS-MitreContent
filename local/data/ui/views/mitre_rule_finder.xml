@@ -1,8 +1,8 @@
 <form>
   <label>Mitre Rule Finder</label>
   <fieldset submitButton="false">
-    <input type="text" token="mitre_technic_name">
-      <label>Mitre Technic Name</label>
+    <input type="text" token="mitre_technique_name">
+      <label>Mitre Technique Name</label>
       <prefix>"</prefix>
       <suffix>"</suffix>
     </input>
@@ -15,7 +15,7 @@
 | where annotations!=""
 | spath input=annotations path=mitre_attack{} output=mitre_attack 
 | eval rule_name=ltrim(title,"savedsearch://") 
-| eval drilldownfilter = mvindex(split($mitre_technic_name$,"|"),0)
+| eval drilldownfilter = $mitre_technique_name$
 | where mitre_attack = drilldownfilter
 | fields rule_name,mitre_attack,drilldownfilter
 | join rule_name [
@@ -27,14 +27,16 @@
     ] 
 | mvexpand mitre_attack
 | where mitre_attack = drilldownfilter
-| fields mitre_attack,rule_name,rule_disabled</query>
+| eval Status = if(rule_disabled=0,"Enabled","Disabled")
+| rename rule_name as "Rule Name", mitre_attack as Technique
+| fields Technique, "Rule Name", Status</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
         </search>
         <option name="drilldown">cell</option>
         <option name="refresh.display">progressbar</option>
         <drilldown>
-          <link target="_blank">https://localhost:8000/en-US/app/SplunkEnterpriseSecuritySuite/ess_content_management?textFilter=$click.value2$</link>
+          <link target="_blank">/app/SplunkEnterpriseSecuritySuite/ess_content_management?textFilter=$click.value2$</link>
         </drilldown>
       </table>
     </panel>

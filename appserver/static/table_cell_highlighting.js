@@ -22,7 +22,7 @@ require([
     var CustomRangeRenderer = TableView.BaseCellRenderer.extend({
         canRender: function(cell) {
             // Enable this custom cell renderer for both the active_hist_searches and the active_realtime_searches field
-            return _(['active_hist_searches', 'active_realtime_searches',"Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]).contains(cell.field);
+            return _(["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]).contains(cell.field);
         },
         render: function($td, cell) {
             // Add a class to the cell based on the returned value
@@ -36,10 +36,9 @@ require([
 
             $td.tooltip();
             $td.prop('title', ttl);
-
-            //fields = ["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]
             
             if (spl_value != "NULL") {
+
                 spl_value =  parseFloat(spl_value);
                 if(spl_value >= 95){
                     $td.addClass('range-cell').addClass('range-all');
@@ -69,11 +68,14 @@ require([
 
             // Update the cell content
             //$td.text(value.toFixed(2)).addClass('numeric');
+
             if (spl_string==="NULL"){
                 $td.text(" ");
             }
             else {
                 $td.text(spl_string);
+                $td.addClass('add-border').addClass('text-align-center');
+                
         }
         }
     });

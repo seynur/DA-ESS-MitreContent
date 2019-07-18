@@ -33,7 +33,7 @@ modtime = 1561972793.734744000
 
 [views/mitre_compliance]
 version = 7.2.6
-modtime = 1563285982.546039000
+modtime = 1563479990.510847000
 
 [nav/default]
 version = 7.2.4.2
@@ -70,10 +70,10 @@ import = DA-ESS-AccessProtection, DA-ESS-ContentUpdate, DA-ESS-EndpointProtectio
 
 [views/mitreattack]
 version = 7.2.6
-modtime = 1563285939.166251000
+modtime = 1563482284.605586000
 
 [views/mitre_rule_finder]
 export = none
 owner = admin
 version = 7.2.6
-modtime = 1563272218.213253000
+modtime = 1563480372.956916000

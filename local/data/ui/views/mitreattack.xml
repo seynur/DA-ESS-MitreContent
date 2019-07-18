@@ -1,5 +1,5 @@
 <form script="table_cell_highlighting_attack.js" stylesheet="table_cell_highlighting_attack.css">
-  <label>Mitre ATT&amp;CK Framework Triggered Technics</label>
+  <label>Mitre ATT&amp;CK Framework Triggered Techniques</label>
   <search id="base_for_mitre_attack">
     <query>
       | inputlookup mitre_lookup.csv 
@@ -10,13 +10,12 @@
       | fields rule_name,mitre_attack
       | mvexpand mitre_attack 
       | fields title,rule_name,mitre_attack
-      | join rule_name [search  `notable` | rename search_name as rule_name | fields rule_name | stats count by rule_name]
+      | join rule_name [search  `notable` | search $urgency_field$ | rename search_name as rule_name | fields rule_name | stats count by rule_name]
       | stats sum list(rule_name) as rule_name_list by mitre_attack delim=";" 
       | nomv rule_name_list
       | rename sum(count) as triggered_count
       | outputlookup mitre_notable_result.csv]
-      
-      
+
       | lookup mitre_notable_result.csv mitre_attack as "Collection" OUTPUTNEW triggered_count as "Collection Attack Count", rule_name_list as "Collection Rule Name List"
 | fillnull value="NULL" "Collection","Collection Rule Name List" | fillnull value=0 "Collection Attack Count" | eval "Collection"='Collection'. "|" .'Collection Attack Count'. "|" .'Collection Rule Name List'
 | lookup mitre_notable_result.csv mitre_attack as "Command And Control" OUTPUTNEW triggered_count as "Command And Control Attack Count", rule_name_list as "Command And Control Rule Name List"
@@ -41,14 +40,27 @@
 | fillnull value="NULL" "Persistence","Persistence Rule Name List" | fillnull value=0 "Persistence Attack Count" | eval "Persistence"='Persistence'. "|" .'Persistence Attack Count'. "|" .'Persistence Rule Name List'
 | lookup mitre_notable_result.csv mitre_attack as "Privilege Escalation" OUTPUTNEW triggered_count as "Privilege Escalation Attack Count", rule_name_list as "Privilege Escalation Rule Name List"
 | fillnull value="NULL" "Privilege Escalation","Privilege Escalation Rule Name List" | fillnull value=0 "Privilege Escalation Attack Count" | eval "Privilege Escalation"='Privilege Escalation'. "|" .'Privilege Escalation Attack Count'. "|" .'Privilege Escalation Rule Name List'  </query>
+    <earliest>$attack_time_field.earliest$</earliest>
+    <latest>$attack_time_field.latest$</latest>
   </search>
   <fieldset submitButton="true">
-    <input type="time" token="field1">
-      <label></label>
+    <input type="time" token="attack_time_field" searchWhenChanged="false">
+      <label>Event Time Range</label>
       <default>
-        <earliest>-24h@h</earliest>
+        <earliest>-15m</earliest>
         <latest>now</latest>
       </default>
+    </input>
+    <input type="multiselect" token="urgency_field" searchWhenChanged="false">
+      <label>Urgency</label>
+      <choice value="critical">Critical</choice>
+      <choice value="high">High</choice>
+      <choice value="medium">Medium</choice>
+      <choice value="informational">Info</choice>
+      <choice value="low">Low</choice>
+      <default>critical,high,medium,informational,low</default>
+      <delimiter> OR </delimiter>
+      <valuePrefix>urgency=</valuePrefix>
     </input>
   </fieldset>
   <row>
@@ -72,8 +84,6 @@
 
 | fields "Collection Total","Command And Control Total","Credential Access Total","Defense Evasion Total","Discovery Total","Execution Total","Exfiltration Total","Impact Total","Initial Access Total","Lateral Movement Total","Persistence Total","Privilege Escalation Total"
 | dedup "Collection Total","Command And Control Total","Credential Access Total","Defense Evasion Total","Discovery Total","Execution Total","Exfiltration Total","Impact Total","Initial Access Total","Lateral Movement Total","Persistence Total","Privilege Escalation Total"</query>
-          <earliest>$field1.earliest$</earliest>
-          <latest>$field1.latest$</latest>
         </search>
         <option name="drilldown">none</option>
         <option name="height">240</option>
@@ -91,8 +101,6 @@
           <query>
 
 | fields "Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"</query>
-          <earliest>$field1.earliest$</earliest>
-          <latest>$field1.latest$</latest>
         </search>
         <option name="count">100</option>
         <option name="drilldown">cell</option>
@@ -100,7 +108,7 @@
         <drilldown>
           <eval token="rules_q">if(mvindex(split('click.value2',"|"),2)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&source=]]>"),"|"),2),"*")</eval>
           <link target="_blank">
-            <![CDATA[https://localhost:8000/en-US/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$field1.earliest$%2540h&amp;latest=$field1.latest$&amp;urgency=critical&amp;urgency=high&amp;urgency=medium&amp;urgency=low&amp;urgency=informational&source=$rules_q|n$]]>
+            <![CDATA[/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$attack_time_field.earliest$%2540h&amp;latest=$attack_time_field.latest$&amp;urgency=critical&amp;urgency=high&amp;urgency=medium&amp;urgency=low&amp;urgency=informational&source=$rules_q|n$]]>
           </link>
         </drilldown>
       </table>
