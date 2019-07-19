@@ -40,13 +40,13 @@ require([
             if (spl_value != "NULL") {
 
                 spl_value =  parseFloat(spl_value);
-                if(spl_value > 100){
+                /*if(spl_value > 100){
                     $td.addClass('range-cell').addClass('range-all');
-                }
+                } */
                 if(spl_value > 60){
                     $td.addClass('range-cell').addClass('range-high');
                 }
-		        if(spl_value > 40){
+		if(spl_value > 40){
                     $td.addClass('range-cell').addClass('range-mid');
                 }
                 if(spl_value > 15){
