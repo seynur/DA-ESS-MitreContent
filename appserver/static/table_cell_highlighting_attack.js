@@ -28,34 +28,50 @@ require([
             var value = cell.value;
             spl_string = value.split("|")[0];
             spl_value = value.split("|")[1];
-            
-            ttl = "Found " + spl_value + " attacks."
+            spl_maxurgency = value.split("|")[3];
+            var urgency_text = "";
+
+            if (spl_maxurgency==1){
+                urgency_text = "INFO";
+            }
+            else if (spl_maxurgency==2){
+                urgency_text = "Low";
+            }
+            else if (spl_maxurgency==3){
+                urgency_text = "Medium";
+            }
+            else if (spl_maxurgency==4){
+                urgency_text = "High";
+            }
+            else if (spl_maxurgency==5){
+                urgency_text = "Critical";
+            }
+
+            ttl = "Found " + spl_value + " attacks.\nUrgency: " + urgency_text;
             $td.tooltip();
             $td.prop('title', ttl);
             
             if (spl_value != "NULL") {
-                spl_value =  parseFloat(spl_value);
-                if(spl_value >= 4){
-                    $td.addClass('range-cell').addClass('range-all');
+                if(spl_maxurgency >= 4){
+                    $td.addClass('range-cell').addClass('range-crit');
                 }
-                if(spl_value == 3){
+                if(spl_maxurgency == 3){
                     $td.addClass('range-cell').addClass('range-high');
                 }
-		        if(spl_value == 2){
-                    $td.addClass('range-cell').addClass('range-mid');
+		        if(spl_maxurgency == 2){
+                    $td.addClass('range-cell').addClass('range-med');
                 }
-                if(spl_value ==1){
+                if(spl_maxurgency ==1){
                     $td.addClass('range-cell').addClass('range-low');
                 }
-                if(spl_value == 0){
-                    $td.addClass('range-cell').addClass('range-existbutzero');
+                if(spl_maxurgency == 0){
+                    $td.addClass('range-cell').addClass('range-info');
                 }
                 
             }
             else if(spl_value === "NULL"){
                 $td.addClass('range-cell').addClass('range-nonexistent');
             }
-
 
             if (isDarkTheme) {
               $td.addClass('dark');
@@ -64,7 +80,6 @@ require([
             // Update the cell content
             //$td.text(value.toFixed(2)).addClass('numeric');
             
-
             $td.text(value);
 
             if (spl_string==="NULL"){

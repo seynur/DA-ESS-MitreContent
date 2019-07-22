@@ -21,22 +21,22 @@
 }
 
 #highlight td.range-existbutzero {
-    background-color: #24d4f7a6 !important;
+    background-color: #24d4f742 !important;
     font-weight: bold;
 }
 
 #highlight td.range-low {
-    background-color: #1ca3bea6 !important;
+    background-color: #24d4f74f !important;
     font-weight: bold;
 }
 
 #highlight td.range-mid {
-    background-color: #cc4446a6 !important;
+    background-color: #24d4f7b0 !important;
     font-weight: bold;
 }
 
 #highlight td.range-high {
-    background-color: #353637a6 !important;
+    background-color: #24d4f7fa !important;
     font-weight: bold;
 }
 
