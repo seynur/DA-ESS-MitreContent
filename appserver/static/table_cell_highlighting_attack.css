@@ -21,27 +21,27 @@
 }
 
 #highlight td.range-info {
-    background-color: #cc44460c !important;
+    background-color: #fcb64e91 !important;
     font-weight: bold;
 }
 
 #highlight td.range-low {
-    background-color: #cc44463d !important;
+    background-color: #f26a3591 !important;
     font-weight: bold;
 }
 
 #highlight td.range-med {
-    background-color: #cc444691 !important;
+    background-color: #99d18b91 !important;
     font-weight: bold;
 }
 
 #highlight td.range-high {
-    background-color: #cc4446d3 !important;
+    background-color: #aed3e591 !important;
     font-weight: bold;
 }
 
 #highlight td.range-crit {
-    background-color: #cc4446e8 !important;
+    background-color: #b5010191 !important;
     font-weight: bold;
 }
 
