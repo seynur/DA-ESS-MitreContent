@@ -1,7 +1,5 @@
 <nav search_view="search">
-  <view name="search" default='true' />
-  <view name="datasets" />
+  <view name="mitre_compliance" default="true" />
+  <view name="mitreattack" />
   <view name="reports" />
-  <view name="alerts" />
-  <view name="dashboards" />
 </nav>

@@ -1,5 +1,0 @@
-<nav search_view="search">
-  <view name="mitre_compliance" default="true" />
-  <view name="mitreattack" />
-  <view name="reports" />
-</nav>
