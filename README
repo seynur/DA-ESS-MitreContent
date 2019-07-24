@@ -1,0 +1,5 @@
+## DA-ESS-MitreContent
+This application provides compliance and triage dashboards for Mitre ATT&CK Framework that are fully integrated with Splunk Enterprise Security(https://splunkbase.splunk.com/app/263/) and Splunk ES Content Update (https://splunkbase.splunk.com/app/3449/) with drilldown capabilities.
+
+
+
