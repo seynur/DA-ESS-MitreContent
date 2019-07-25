@@ -1,5 +1,0 @@
-[]
-access = read : [ * ], write : [ admin, power ]
-version = 7.2.6
-modtime = 1563801765.585257000
-import = DA-ESS-AccessProtection, DA-ESS-ContentUpdate, DA-ESS-EndpointProtection, DA-ESS-IdentityManagement, DA-ESS-NetworkProtection, DA-ESS-ThreatIntelligence, SA-AccessProtection, SA-AuditAndDataProtection, SA-EndpointProtection, SA-IdentityManagement, SA-NetworkProtection, SA-ThreatIntelligence, SA-Utils, SplunkEnterpriseSecuritySuite, Splunk_DA-ESS_PCICompliance, Splunk_SA_CIM, Splunk_SA_ExtremeSearch, appsbrowser, search

@@ -1,9 +1,0 @@
-title,"rule_name","mitre_attack","_mkv_child","_timediff",MaxScore,"Notable Asset",count
-,"Threat - Test Correlation Search 01 - Rule","Brute Force",0,,3,unknown,3
-,"Threat - Test Correlation Search 01 - Rule","Account Manipulation",1,,3,unknown,3
-,"Threat - Test Correlation Search 02 - Rule","Domain Trust Discovery",0,,3,"1.1.1.1",3
-,"Threat - Test Correlation Search 02 - Rule","Data Encoding",1,,3,"1.1.1.1",3
-,"Threat - Test Correlation Search 03 - Rule","Data Compressed",0,,3,"10.10.10.10",3
-,"Threat - Test Correlation Search 03 - Rule","Disk Structure Wipe",1,,3,"10.10.10.10",3
-,"Threat - Test Correlation Search 03 - Rule","Domain Trust Discovery",2,,3,"10.10.10.10",3
-,"Threat - Test Correlation Search 03 - Rule","Data Encoding",3,,3,"10.10.10.10",3

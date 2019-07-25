@@ -1,7 +1,0 @@
-"mitre_attack",MaxScore,"rule_name_list","triggered_count"
-"Account Manipulation",3,"Threat - Test Correlation Search 01 - Rule",3
-"Brute Force",3,"Threat - Test Correlation Search 01 - Rule",3
-"Data Compressed",3,"Threat - Test Correlation Search 03 - Rule",3
-"Data Encoding",3,"Threat - Test Correlation Search 02 - Rule;Threat - Test Correlation Search 03 - Rule",6
-"Disk Structure Wipe",3,"Threat - Test Correlation Search 03 - Rule",3
-"Domain Trust Discovery",3,"Threat - Test Correlation Search 02 - Rule;Threat - Test Correlation Search 03 - Rule",6
