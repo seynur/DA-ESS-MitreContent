@@ -2,7 +2,8 @@
 # Application-level permissions
 
 []
-access = read : [ * ], write : [ admin, power ]
+access = read : [ * ], write : [ admin ]
+export = system
 
 ### EVENT TYPES
 
@@ -38,5 +39,3 @@ export = system
 
 [savedsearches]
 export = system
-
-
