@@ -15,10 +15,15 @@ Upon initial installation you may need to manually run "MITRE Compliance Lookup 
 This application comes with a predefined saved search (MITRE Compliance Lookup Gen) which checks currently enabled correlation rules via analytic stories and creates a lookup file to match them to MITRE ATT&CK Framework techniques for compliance.  By default this search is scheduled to run at midnight everyday to populate the lookup table.
 
 #### Release Notes:
+Version 1.1.0
+- Bug fixes & typos
+- Added descriptions to dashboards
+
 Version 1.0.0
 - Initial version for Splunkbase
 - Test to run on 7.3.0 and ES App 5.3
 
 
 #### Support
-Contact information for reporting an issue: support@seynur.com
+Contact information for reporting an issue: development@seynur.com
+For latest fixes/changes: https://github.com/seynur/DA-ESS-MitreContent 
