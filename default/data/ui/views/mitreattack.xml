@@ -159,7 +159,7 @@
       <title>Techniques Triggered by Hosts</title>
       <table>
         <search base="basesearch_mitre_by_assets">
-          <query>| stats values(triggered_count) as "Total Attack Count", list(mitre_attack) as mitre_attack_list by notable_asset delim="; "
+          <query>| stats sum(triggered_count) as "Total Attack Count", list(mitre_attack) as mitre_attack_list by notable_asset delim="; "
 | nomv mitre_attack_list
 | rename mitre_attack_list as "Attack Techniques"</query>
         </search>
