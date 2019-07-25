@@ -26,4 +26,5 @@ Version 1.0.0
 
 #### Support
 Contact information for reporting an issue: development@seynur.com
+
 For latest fixes/changes: https://github.com/seynur/DA-ESS-MitreContent 
