@@ -1,8 +1,9 @@
 <form>
-  <label>Mitre Rule Finder</label>
+  <label>MITRE ATT&amp; Rule Finder</label>
+  <description>Please enter the technique name in order to find the related correlation rules defined within Enterprise Security.</description>
   <fieldset submitButton="false">
     <input type="text" token="mitre_technique_name">
-      <label>Mitre Technique Name</label>
+      <label>MITRE ATT&amp;CK Technique Name</label>
       <prefix>"</prefix>
       <suffix>"</suffix>
     </input>
@@ -11,20 +12,20 @@
     <panel>
       <table>
         <search>
-          <query>| rest /services/configs/conf-analyticstories 
+          <query>| rest /services/configs/conf-analyticstories
 | where annotations!=""
-| spath input=annotations path=mitre_attack{} output=mitre_attack 
-| eval rule_name=ltrim(title,"savedsearch://") 
+| spath input=annotations path=mitre_attack{} output=mitre_attack
+| eval rule_name=ltrim(title,"savedsearch://")
 | eval drilldownfilter = $mitre_technique_name$
 | where mitre_attack = drilldownfilter
 | fields rule_name,mitre_attack,drilldownfilter
 | join rule_name [
-    | rest services/configs/conf-savedsearches  
-    | eval rule_name=title 
-    | eval rule_disabled=disabled 
+    | rest services/configs/conf-savedsearches
+    | eval rule_name=title
+    | eval rule_disabled=disabled
     | eval rule_name=ltrim(title,"savedsearch://")
     | table rule_name,rule_disabled
-    ] 
+    ]
 | mvexpand mitre_attack
 | where mitre_attack = drilldownfilter
 | eval Status = if(rule_disabled=0,"Enabled","Disabled")

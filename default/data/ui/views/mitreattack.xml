@@ -1,80 +1,81 @@
 <form script="table_cell_highlighting_attack.js" stylesheet="table_cell_highlighting_attack.css">
-  <label>Mitre ATT&amp;CK Framework Triggered Techniques</label>
+  <label>MITRE ATT&amp;CK Framework Triggered Techniques</label>
+  <description>This dashboard provides an overview of triggered techniques based on enabled correlation rules with related MITRE ATT&amp;CK annotations.</description>
   <search id="basesearch_mitre_attack_table">
     <query>
-      | inputlookup mitre_lookup.csv 
-| join "dummy" type=left 
-    [| rest /services/configs/conf-analyticstories 
-    | where annotations!="" 
-    | spath input=annotations path=mitre_attack{} output=mitre_attack 
-    | eval rule_name=ltrim(title,"savedsearch://") 
-    | fields rule_name,mitre_attack 
-    | mvexpand mitre_attack 
-    | fields title,rule_name,mitre_attack 
-    | join rule_name 
-        [ search `notable` 
-        | search $urgency_field$ 
-        | rename search_name as rule_name 
-        | eval notable_asset = coalesce(src,dest,user,"unknown") 
-        | fields rule_name, urgency, notable_asset 
-        | lookup urgency_score.csv urgency 
-        | stats max(score) as max_score, count by rule_name, notable_asset] 
-    | stats sum(count) as triggered_count list(rule_name) as rule_name_list by mitre_attack, max_score delim=";" 
+      | inputlookup mitre_lookup.csv
+| join "dummy" type=left
+    [| rest /services/configs/conf-analyticstories
+    | where annotations!=""
+    | spath input=annotations path=mitre_attack{} output=mitre_attack
+    | eval rule_name=ltrim(title,"savedsearch://")
+    | fields rule_name,mitre_attack
+    | mvexpand mitre_attack
+    | fields title,rule_name,mitre_attack
+    | join rule_name
+        [ search `notable`
+        | search $urgency_field$
+        | rename search_name as rule_name
+        | eval notable_asset = coalesce(src,dest,user,"unknown")
+        | fields rule_name, urgency, notable_asset
+        | lookup urgency_score.csv urgency
+        | stats max(score) as max_score, count by rule_name, notable_asset]
+    | stats sum(count) as triggered_count list(rule_name) as rule_name_list by mitre_attack, max_score delim=";"
     | nomv rule_name_list
-    | outputlookup mitre_notable_results.csv] 
+    | outputlookup mitre_notable_results.csv]
 </query>
     <earliest>$attack_time_field.earliest$</earliest>
     <latest>$attack_time_field.latest$</latest>
   </search>
   <search base="basesearch_mitre_attack_table" id="post_process_mitre_attack_triage">
     <query>
-      | lookup mitre_notable_results.csv mitre_attack as "Collection" OUTPUTNEW triggered_count as "Collection Attack Count", rule_name_list as "Collection Rule Name List", max_score as "Collection Max Score" 
-| fillnull value="NULL" "Collection","Collection Rule Name List" 
-| fillnull value=0 "Collection Attack Count", "Collection Max Score" 
-| eval "Collection"='Collection'. "|" .'Collection Attack Count'. "|" .'Collection Rule Name List'. "|" .'Collection Max Score' 
-| lookup mitre_notable_results.csv mitre_attack as "Command And Control" OUTPUTNEW triggered_count as "Command And Control Attack Count", rule_name_list as "Command And Control Rule Name List", max_score as "Command And Control Max Score" 
-| fillnull value="NULL" "Command And Control","Command And Control Rule Name List" 
-| fillnull value=0 "Command And Control Attack Count", "Command And Control Max Score" 
-| eval "Command And Control"='Command And Control'. "|" .'Command And Control Attack Count'. "|" .'Command And Control Rule Name List'. "|" .'Command And Control Max Score' 
-| lookup mitre_notable_results.csv mitre_attack as "Credential Access" OUTPUTNEW triggered_count as "Credential Access Attack Count", rule_name_list as "Credential Access Rule Name List", max_score as "Credential Access Max Score" 
-| fillnull value="NULL" "Credential Access","Credential Access Rule Name List" 
-| fillnull value=0 "Credential Access Attack Count", "Credential Access Max Score" 
-| eval "Credential Access"='Credential Access'. "|" .'Credential Access Attack Count'. "|" .'Credential Access Rule Name List'. "|" .'Credential Access Max Score' 
-| lookup mitre_notable_results.csv mitre_attack as "Defense Evasion" OUTPUTNEW triggered_count as "Defense Evasion Attack Count", rule_name_list as "Defense Evasion Rule Name List", max_score as "Defense Evasion Max Score" 
-| fillnull value="NULL" "Defense Evasion","Defense Evasion Rule Name List" 
-| fillnull value=0 "Defense Evasion Attack Count", "Defense Evasion Max Score" 
-| eval "Defense Evasion"='Defense Evasion'. "|" .'Defense Evasion Attack Count'. "|" .'Defense Evasion Rule Name List'. "|" .'Defense Evasion Max Score' 
-| lookup mitre_notable_results.csv mitre_attack as "Discovery" OUTPUTNEW triggered_count as "Discovery Attack Count", rule_name_list as "Discovery Rule Name List", max_score as "Discovery Max Score" 
-| fillnull value="NULL" "Discovery","Discovery Rule Name List" 
-| fillnull value=0 "Discovery Attack Count", "Discovery Max Score" 
-| eval "Discovery"='Discovery'. "|" .'Discovery Attack Count'. "|" .'Discovery Rule Name List'. "|" .'Discovery Max Score' 
-| lookup mitre_notable_results.csv mitre_attack as "Execution" OUTPUTNEW triggered_count as "Execution Attack Count", rule_name_list as "Execution Rule Name List", max_score as "Execution Max Score" 
-| fillnull value="NULL" "Execution","Execution Rule Name List" 
-| fillnull value=0 "Execution Attack Count", "Execution Max Score" 
-| eval "Execution"='Execution'. "|" .'Execution Attack Count'. "|" .'Execution Rule Name List'. "|" .'Execution Max Score' 
-| lookup mitre_notable_results.csv mitre_attack as "Exfiltration" OUTPUTNEW triggered_count as "Exfiltration Attack Count", rule_name_list as "Exfiltration Rule Name List", max_score as "Exfiltration Max Score" 
-| fillnull value="NULL" "Exfiltration","Exfiltration Rule Name List" 
-| fillnull value=0 "Exfiltration Attack Count", "Exfiltration Max Score" 
-| eval "Exfiltration"='Exfiltration'. "|" .'Exfiltration Attack Count'. "|" .'Exfiltration Rule Name List'. "|" .'Exfiltration Max Score' 
-| lookup mitre_notable_results.csv mitre_attack as "Impact" OUTPUTNEW triggered_count as "Impact Attack Count", rule_name_list as "Impact Rule Name List", max_score as "Impact Max Score" 
-| fillnull value="NULL" "Impact","Impact Rule Name List" 
-| fillnull value=0 "Impact Attack Count", "Impact Max Score" 
-| eval "Impact"='Impact'. "|" .'Impact Attack Count'. "|" .'Impact Rule Name List'. "|" .'Impact Max Score' 
-| lookup mitre_notable_results.csv mitre_attack as "Initial Access" OUTPUTNEW triggered_count as "Initial Access Attack Count", rule_name_list as "Initial Access Rule Name List", max_score as "Initial Access Max Score" 
-| fillnull value="NULL" "Initial Access","Initial Access Rule Name List" 
-| fillnull value=0 "Initial Access Attack Count", "Initial Access Max Score" 
-| eval "Initial Access"='Initial Access'. "|" .'Initial Access Attack Count'. "|" .'Initial Access Rule Name List'. "|" .'Initial Access Max Score' 
-| lookup mitre_notable_results.csv mitre_attack as "Lateral Movement" OUTPUTNEW triggered_count as "Lateral Movement Attack Count", rule_name_list as "Lateral Movement Rule Name List", max_score as "Lateral Movement Max Score" 
-| fillnull value="NULL" "Lateral Movement","Lateral Movement Rule Name List" 
-| fillnull value=0 "Lateral Movement Attack Count", "Lateral Movement Max Score" 
-| eval "Lateral Movement"='Lateral Movement'. "|" .'Lateral Movement Attack Count'. "|" .'Lateral Movement Rule Name List'. "|" .'Lateral Movement Max Score' 
-| lookup mitre_notable_results.csv mitre_attack as "Persistence" OUTPUTNEW triggered_count as "Persistence Attack Count", rule_name_list as "Persistence Rule Name List", max_score as "Persistence Max Score" 
-| fillnull value="NULL" "Persistence","Persistence Rule Name List" 
-| fillnull value=0 "Persistence Attack Count", "Persistence Max Score" 
-| eval "Persistence"='Persistence'. "|" .'Persistence Attack Count'. "|" .'Persistence Rule Name List'. "|" .'Persistence Max Score' 
-| lookup mitre_notable_results.csv mitre_attack as "Privilege Escalation" OUTPUTNEW triggered_count as "Privilege Escalation Attack Count", rule_name_list as "Privilege Escalation Rule Name List", max_score as "Privilege Escalation Max Score" 
-| fillnull value="NULL" "Privilege Escalation","Privilege Escalation Rule Name List" 
-| fillnull value=0 "Privilege Escalation Attack Count", "Privilege Escalation Max Score" 
+      | lookup mitre_notable_results.csv mitre_attack as "Collection" OUTPUTNEW triggered_count as "Collection Attack Count", rule_name_list as "Collection Rule Name List", max_score as "Collection Max Score"
+| fillnull value="NULL" "Collection","Collection Rule Name List"
+| fillnull value=0 "Collection Attack Count", "Collection Max Score"
+| eval "Collection"='Collection'. "|" .'Collection Attack Count'. "|" .'Collection Rule Name List'. "|" .'Collection Max Score'
+| lookup mitre_notable_results.csv mitre_attack as "Command And Control" OUTPUTNEW triggered_count as "Command And Control Attack Count", rule_name_list as "Command And Control Rule Name List", max_score as "Command And Control Max Score"
+| fillnull value="NULL" "Command And Control","Command And Control Rule Name List"
+| fillnull value=0 "Command And Control Attack Count", "Command And Control Max Score"
+| eval "Command And Control"='Command And Control'. "|" .'Command And Control Attack Count'. "|" .'Command And Control Rule Name List'. "|" .'Command And Control Max Score'
+| lookup mitre_notable_results.csv mitre_attack as "Credential Access" OUTPUTNEW triggered_count as "Credential Access Attack Count", rule_name_list as "Credential Access Rule Name List", max_score as "Credential Access Max Score"
+| fillnull value="NULL" "Credential Access","Credential Access Rule Name List"
+| fillnull value=0 "Credential Access Attack Count", "Credential Access Max Score"
+| eval "Credential Access"='Credential Access'. "|" .'Credential Access Attack Count'. "|" .'Credential Access Rule Name List'. "|" .'Credential Access Max Score'
+| lookup mitre_notable_results.csv mitre_attack as "Defense Evasion" OUTPUTNEW triggered_count as "Defense Evasion Attack Count", rule_name_list as "Defense Evasion Rule Name List", max_score as "Defense Evasion Max Score"
+| fillnull value="NULL" "Defense Evasion","Defense Evasion Rule Name List"
+| fillnull value=0 "Defense Evasion Attack Count", "Defense Evasion Max Score"
+| eval "Defense Evasion"='Defense Evasion'. "|" .'Defense Evasion Attack Count'. "|" .'Defense Evasion Rule Name List'. "|" .'Defense Evasion Max Score'
+| lookup mitre_notable_results.csv mitre_attack as "Discovery" OUTPUTNEW triggered_count as "Discovery Attack Count", rule_name_list as "Discovery Rule Name List", max_score as "Discovery Max Score"
+| fillnull value="NULL" "Discovery","Discovery Rule Name List"
+| fillnull value=0 "Discovery Attack Count", "Discovery Max Score"
+| eval "Discovery"='Discovery'. "|" .'Discovery Attack Count'. "|" .'Discovery Rule Name List'. "|" .'Discovery Max Score'
+| lookup mitre_notable_results.csv mitre_attack as "Execution" OUTPUTNEW triggered_count as "Execution Attack Count", rule_name_list as "Execution Rule Name List", max_score as "Execution Max Score"
+| fillnull value="NULL" "Execution","Execution Rule Name List"
+| fillnull value=0 "Execution Attack Count", "Execution Max Score"
+| eval "Execution"='Execution'. "|" .'Execution Attack Count'. "|" .'Execution Rule Name List'. "|" .'Execution Max Score'
+| lookup mitre_notable_results.csv mitre_attack as "Exfiltration" OUTPUTNEW triggered_count as "Exfiltration Attack Count", rule_name_list as "Exfiltration Rule Name List", max_score as "Exfiltration Max Score"
+| fillnull value="NULL" "Exfiltration","Exfiltration Rule Name List"
+| fillnull value=0 "Exfiltration Attack Count", "Exfiltration Max Score"
+| eval "Exfiltration"='Exfiltration'. "|" .'Exfiltration Attack Count'. "|" .'Exfiltration Rule Name List'. "|" .'Exfiltration Max Score'
+| lookup mitre_notable_results.csv mitre_attack as "Impact" OUTPUTNEW triggered_count as "Impact Attack Count", rule_name_list as "Impact Rule Name List", max_score as "Impact Max Score"
+| fillnull value="NULL" "Impact","Impact Rule Name List"
+| fillnull value=0 "Impact Attack Count", "Impact Max Score"
+| eval "Impact"='Impact'. "|" .'Impact Attack Count'. "|" .'Impact Rule Name List'. "|" .'Impact Max Score'
+| lookup mitre_notable_results.csv mitre_attack as "Initial Access" OUTPUTNEW triggered_count as "Initial Access Attack Count", rule_name_list as "Initial Access Rule Name List", max_score as "Initial Access Max Score"
+| fillnull value="NULL" "Initial Access","Initial Access Rule Name List"
+| fillnull value=0 "Initial Access Attack Count", "Initial Access Max Score"
+| eval "Initial Access"='Initial Access'. "|" .'Initial Access Attack Count'. "|" .'Initial Access Rule Name List'. "|" .'Initial Access Max Score'
+| lookup mitre_notable_results.csv mitre_attack as "Lateral Movement" OUTPUTNEW triggered_count as "Lateral Movement Attack Count", rule_name_list as "Lateral Movement Rule Name List", max_score as "Lateral Movement Max Score"
+| fillnull value="NULL" "Lateral Movement","Lateral Movement Rule Name List"
+| fillnull value=0 "Lateral Movement Attack Count", "Lateral Movement Max Score"
+| eval "Lateral Movement"='Lateral Movement'. "|" .'Lateral Movement Attack Count'. "|" .'Lateral Movement Rule Name List'. "|" .'Lateral Movement Max Score'
+| lookup mitre_notable_results.csv mitre_attack as "Persistence" OUTPUTNEW triggered_count as "Persistence Attack Count", rule_name_list as "Persistence Rule Name List", max_score as "Persistence Max Score"
+| fillnull value="NULL" "Persistence","Persistence Rule Name List"
+| fillnull value=0 "Persistence Attack Count", "Persistence Max Score"
+| eval "Persistence"='Persistence'. "|" .'Persistence Attack Count'. "|" .'Persistence Rule Name List'. "|" .'Persistence Max Score'
+| lookup mitre_notable_results.csv mitre_attack as "Privilege Escalation" OUTPUTNEW triggered_count as "Privilege Escalation Attack Count", rule_name_list as "Privilege Escalation Rule Name List", max_score as "Privilege Escalation Max Score"
+| fillnull value="NULL" "Privilege Escalation","Privilege Escalation Rule Name List"
+| fillnull value=0 "Privilege Escalation Attack Count", "Privilege Escalation Max Score"
 | eval "Privilege Escalation"='Privilege Escalation'. "|" .'Privilege Escalation Attack Count'. "|" .'Privilege Escalation Rule Name List'. "|" .'Privilege Escalation Max Score'
 </query>
   </search>
@@ -83,17 +84,17 @@
       | rest /services/configs/conf-analyticstories
 | where annotations!=""
 | spath input=annotations path=mitre_attack{} output=mitre_attack
-| eval rule_name=ltrim(title,"savedsearch://") 
+| eval rule_name=ltrim(title,"savedsearch://")
 | fields rule_name,mitre_attack
-| mvexpand mitre_attack 
+| mvexpand mitre_attack
 | fields title,rule_name,mitre_attack
-| join rule_name 
-    [ search `notable` 
-    | search $urgency_field$ 
+| join rule_name
+    [ search `notable`
+    | search $urgency_field$
     | rename search_name as rule_name
     | eval notable_asset = coalesce(src,dest,user,"unknown")
     | fields rule_name, urgency, notable_asset
-    | lookup urgency_score.csv urgency 
+    | lookup urgency_score.csv urgency
     | stats max(score) as max_score, count by rule_name, notable_asset]
 | stats sum(count) as triggered_count list(rule_name) as rule_name_list by mitre_attack, max_score, notable_asset delim=";"
 </query>
@@ -156,12 +157,12 @@
   </row>
   <row>
     <panel>
-      <title>Techniques Triggered by Hosts</title>
+      <title>Techniques Triggered by Notable Assets</title>
       <table>
         <search base="basesearch_mitre_by_assets">
           <query>| stats sum(triggered_count) as "Total Attack Count", list(mitre_attack) as mitre_attack_list by notable_asset delim="; "
 | nomv mitre_attack_list
-| rename mitre_attack_list as "Attack Techniques"</query>
+| rename mitre_attack_list as "Attack Techniques", notable_asset as "Notable Asset"</query>
         </search>
         <option name="count">10</option>
         <option name="drilldown">none</option>
@@ -170,7 +171,7 @@
   </row>
   <row>
     <panel>
-      <title>Mitre ATT&amp;CK Framework</title>
+      <title>MITRE ATT&amp;CK Framework</title>
       <table id="highlight">
         <search base="post_process_mitre_attack_triage">
           <query>
