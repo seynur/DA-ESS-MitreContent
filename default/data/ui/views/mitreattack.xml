@@ -170,7 +170,10 @@
 | rename mitre_attack_list as "Attack Techniques", notable_asset as "Notable Asset"</query>
         </search>
         <option name="count">10</option>
-        <option name="drilldown">none</option>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <link target="_blank">/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$attack_time_field.earliest$&amp;amp;latest=$attack_time_field.latest$&amp;amp;urgency=critical&amp;amp;urgency=high&amp;amp;urgency=medium&amp;amp;urgency=low&amp;amp;urgency=informational&amp;search=$click.value$</link>
+        </drilldown>
       </table>
     </panel>
   </row>
