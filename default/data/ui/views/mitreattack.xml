@@ -1,6 +1,11 @@
 <form script="table_cell_highlighting_attack.js" stylesheet="table_cell_highlighting_attack.css">
   <label>MITRE ATT&amp;CK Framework Triggered Techniques</label>
   <description>This dashboard provides an overview of triggered techniques based on enabled correlation rules with related MITRE ATT&amp;CK annotations.</description>
+    <search id="init_mitre_attack_table">
+    <query>
+    | outputlookup mitre_notable_results.csv override_if_empty=false
+    </query>
+  </search> 
   <search id="basesearch_mitre_attack_table">
     <query>
       | inputlookup mitre_lookup.csv
