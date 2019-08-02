@@ -1,9 +1,34 @@
 <dashboard script="table_cell_highlighting.js" stylesheet="table_cell_highlighting.css">
   <label>MITRE ATT&amp;CK Compliance with Splunk ES</label>
   <description>This dashboard provides an overview of available correlation searches that match MITRE ATT&amp;CK techniques.  Darker colors indicate higher ratio of enabled rules and you can view the actual numbers when hovering over the cells and click to drilldown further for editing the rules.</description>
+   <row>
+    <panel>
+      <table>
+        <title>MITRE Compliant Search Scanner</title>
+        <search>
+          <query>|rest /services/saved/searches/ 
+| search title="Mitre Compliance Lookup Gen" 
+| fields title, next_scheduled_time, updated 
+| rename title as "Lookup Generator Name", next_scheduled_time as "Next Run", updated as "Last Run" 
+| join "Lookup Generator Name" type=left [ | rest /services/data/lookup-table-files | search title = "mitre_attack_comp.csv" | fields title, updated | rename title as "Lookup Table Name", updated as "Time of Latest Lookup Table" | eval "Lookup Generator Name" = "Mitre Compliance Lookup Gen" ]
+| fillnull value=""
+| eval Instruction=if('Lookup Table Name'="","Scanner for MITRE Compliant searches must be run initially. To run click here.","If you want to update your MITRE compliant searches click here to re-run the scanner.")</query>
+          <earliest>-15m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <link target="_blank">/app/DA-ESS-MitreContent/report?s=Mitre%20Compliance%20Lookup%20Gen</link>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
   <row>
     <panel>
       <table id="highlight">
+        <title>MITRE ATT&amp;CK Compliance</title>
         <search>
           <query>| inputlookup mitre_lookup.csv
 | lookup mitre_attack_comp.csv mitre_attack as "Collection" OUTPUTNEW enabled_percentage as "Collection Percentage", count as "Collection Count", enabled_count as "Collection Enabled" | fillnull value="NULL" "Collection","Collection Percentage","Collection Count", "Collection Enabled" | eval "Collection"='Collection'. "|" .'Collection Percentage'. "|" .'Collection Enabled'. "|" .'Collection Count'
