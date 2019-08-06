@@ -4,15 +4,15 @@
    <row>
     <panel>
       <table>
-        <title>MITRE Compliant Search Scanner</title>
+        <title>MITRE ATT&amp;CK Compliance Lookup Gen Status</title>
         <search>
           <query>|rest /services/saved/searches/ 
-| search title="Mitre Compliance Lookup Gen" 
+| search title="MITRE Compliance Lookup Gen" 
 | fields title, next_scheduled_time, updated 
 | rename title as "Lookup Generator Name", next_scheduled_time as "Next Run", updated as "Last Run" 
 | join "Lookup Generator Name" type=left [ | rest /services/data/lookup-table-files | search title = "mitre_attack_comp.csv" | fields title, updated | rename title as "Lookup Table Name", updated as "Time of Latest Lookup Table" | eval "Lookup Generator Name" = "Mitre Compliance Lookup Gen" ]
 | fillnull value=""
-| eval Instruction=if('Lookup Table Name'="","Scanner for MITRE Compliant searches must be run initially. To run click here.","If you want to update your MITRE compliant searches click here to re-run the scanner.")</query>
+| eval Instruction=if('Lookup Table Name'="","Lookup table is empty, CLICK HERE to manually run the report and populate the lookup file.","If you want to REFRESH the below table you need CLICK HERE to manually run the report and repopulate the lookup file.")</query>
           <earliest>-15m</earliest>
           <latest>now</latest>
         </search>
