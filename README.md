@@ -18,6 +18,7 @@ This application comes with a predefined saved search (MITRE Compliance Lookup G
 Version 1.1.0
 - Bug fixes & typos
 - Added descriptions to dashboards
+- Added improvements for initial lookup generator
 
 Version 1.0.0
 - Initial version for Splunkbase
