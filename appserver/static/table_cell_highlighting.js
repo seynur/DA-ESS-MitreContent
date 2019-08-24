@@ -3,7 +3,7 @@ require.config({
   paths: {
     theme_utils: '../app/DA-ESS-MitreContent/theme_utils'
   }
-}); 
+});
 
 
 require([
@@ -31,31 +31,31 @@ require([
             spl_value = value.split("|")[1];
             spl_total = value.split("|")[2];
             spl_enabled = value.split("|")[3];
-            
+
             ttl = "Enabled: " + spl_total + "\nTotal: " + spl_enabled + "\nPercentage: " + spl_value;
 
             $td.tooltip();
             $td.prop('title', ttl);
-            
+
             if (spl_value != "NULL") {
 
                 spl_value =  parseFloat(spl_value);
                 /*if(spl_value > 100){
                     $td.addClass('range-cell').addClass('range-all');
                 } */
-                if(spl_value > 60){
+                if(spl_value > 70){
                     $td.addClass('range-cell').addClass('range-high');
                 }
-		        if(spl_value > 40){
+		        if(spl_value > 50){
                     $td.addClass('range-cell').addClass('range-mid');
                 }
-                if(spl_value > 15){
+                if(spl_value > 30){
                     $td.addClass('range-cell').addClass('range-low');
                 }
                 if(spl_value >= 0){
                     $td.addClass('range-cell').addClass('range-existbutzero');
                 }
-                
+
             }
             else if(spl_value === "NULL"){
                 $td.addClass('range-cell').addClass('range-nonexistent');
@@ -75,7 +75,7 @@ require([
             else {
                 $td.text(spl_string);
                 $td.addClass('add-border').addClass('text-align-center');
-                
+
         }
         }
     });

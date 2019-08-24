@@ -1,0 +1,22 @@
+{% extends "!layout.html" %}
+
+
+{% block rootrellink %}
+        <li><a href="{{ pathto('index') }}">Home</a>|&nbsp;</li>
+        <li><a href="{{ pathto('installation') }}">Installation</a>|&nbsp;</li>
+        <li><a href="{{ pathto('userguide') }}">User Guide</a>|&nbsp;</li>
+        <li><a href="{{ pathto('search') }}">Search</a>|&nbsp;</li>
+{% endblock %}
+
+
+{% block relbar1 %}
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="{{ pathto('index') }}"><h1 style="font-size: 2em;">Documentation for MITRE ATT&CK App for Splunk</h1></a>
+</div>
+{{ super() }}
+{% endblock %}
+
+{# put the sidebar before the body #}
+{% block sidebar1 %}{{ sidebar() }}{% endblock %}
+{% block sidebar2 %}{% endblock %}
