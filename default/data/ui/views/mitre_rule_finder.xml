@@ -1,5 +1,5 @@
 <form>
-  <label>MITRE ATT&amp; Rule Finder</label>
+  <label>MITRE ATT&amp;CK Rule Finder</label>
   <description>Please enter the technique name in order to find the related correlation rules defined within Enterprise Security.</description>
   <fieldset submitButton="false">
     <input type="text" token="mitre_technique_name">
