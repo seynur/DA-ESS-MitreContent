@@ -1,0 +1,21 @@
+.. _installation:
+
+
+***************
+Installation
+***************
+
+.. _getting_the_app:
+
+Downloading and Installing the application
+==========================================
+
+Blah blah Blah
+
+
+.. _initial_setup:
+
+Initial Setup
+=============
+
+Blah blah Blah

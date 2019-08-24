@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Getting started &#8212; DA-ESS-MITREContent 1.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>DA-ESS-MITREContent 1.1.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Getting started</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <div class="section" id="getting-started">
+<span id="id1"></span><h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installing-your-doc-directory">
+<span id="installing-docdir"></span><h2>Installing your doc directory<a class="headerlink" href="#installing-your-doc-directory" title="Permalink to this headline">¶</a></h2>
+<p>You may already have sphinx <a class="reference external" href="http://sphinx.pocoo.org/">sphinx</a>
+installed – you can check by doing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;import sphinx&#39;</span>
+</pre></div>
+</div>
+<p>If that fails grab the latest version of and install it with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">sudo</span> <span class="n">easy_install</span> <span class="o">-</span><span class="n">U</span> <span class="n">Sphinx</span>
+</pre></div>
+</div>
+<p>Now you are ready to build a template for your docs, using
+sphinx-quickstart:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">quickstart</span>
+</pre></div>
+</div>
+<p>accepting most of the defaults.  I choose “sampledoc” as the name of my
+project.  cd into your new directory and check the contents:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">home</span><span class="p">:</span><span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">sampledoc</span><span class="o">&gt;</span> <span class="n">ls</span>
+<span class="n">Makefile</span>      <span class="n">_static</span>         <span class="n">conf</span><span class="o">.</span><span class="n">py</span>
+<span class="n">_build</span>                <span class="n">_templates</span>      <span class="n">index</span><span class="o">.</span><span class="n">rst</span>
+</pre></div>
+</div>
+<p>The index.rst is the master ReST for your project, but before adding
+anything, let’s see if we can build some html:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="n">html</span>
+</pre></div>
+</div>
+<p>If you now point your browser to <code class="file docutils literal notranslate"><span class="pre">_build/html/index.html</span></code>, you
+should see a basic sphinx site.</p>
+<img alt="_static/basic_screenshot.png" src="_static/basic_screenshot.png" />
+<div class="section" id="fetching-the-data">
+<span id="id2"></span><h3>Fetching the data<a class="headerlink" href="#fetching-the-data" title="Permalink to this headline">¶</a></h3>
+<p>Now we will start to customize out docs.  Grab a couple of files from
+the <a class="reference external" href="https://github.com/matplotlib/sampledoc">web site</a>
+or git.  You will need <code class="file docutils literal notranslate"><span class="pre">getting_started.rst</span></code> and
+<code class="file docutils literal notranslate"><span class="pre">_static/basic_screenshot.png</span></code>.  All of the files live in the
+“completed” version of this tutorial, but since this is a tutorial,
+we’ll just grab them one at a time, so you can learn what needs to be
+changed where.  Since we have more files to come, I’m going to grab
+the whole git directory and just copy the files I need over for now.
+First, I’ll cd up back into the directory containing my project, check
+out the “finished” product from git, and then copy in just the files I
+need into my <code class="file docutils literal notranslate"><span class="pre">sampledoc</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">home</span><span class="p">:</span><span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">sampledoc</span><span class="o">&gt;</span> <span class="n">pwd</span>
+<span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">jdhunter</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">sampledoc</span>
+<span class="n">home</span><span class="p">:</span><span class="o">~/</span><span class="n">tmp</span><span class="o">/</span><span class="n">sampledoc</span><span class="o">&gt;</span> <span class="n">cd</span> <span class="o">..</span>
+<span class="n">home</span><span class="p">:</span><span class="o">~/</span><span class="n">tmp</span><span class="o">&gt;</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">matplotlib</span><span class="o">/</span><span class="n">sampledoc</span><span class="o">.</span><span class="n">git</span> <span class="n">tutorial</span>
+<span class="n">Cloning</span> <span class="n">into</span> <span class="s1">&#39;tutorial&#39;</span><span class="o">...</span>
+<span class="n">remote</span><span class="p">:</span> <span class="n">Counting</span> <span class="n">objects</span><span class="p">:</span> <span class="mi">87</span><span class="p">,</span> <span class="n">done</span><span class="o">.</span>
+<span class="n">remote</span><span class="p">:</span> <span class="n">Compressing</span> <span class="n">objects</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">43</span><span class="o">/</span><span class="mi">43</span><span class="p">),</span> <span class="n">done</span><span class="o">.</span>
+<span class="n">remote</span><span class="p">:</span> <span class="n">Total</span> <span class="mi">87</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">45</span><span class="p">),</span> <span class="n">reused</span> <span class="mi">83</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">41</span><span class="p">)</span>
+<span class="n">Unpacking</span> <span class="n">objects</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">87</span><span class="o">/</span><span class="mi">87</span><span class="p">),</span> <span class="n">done</span><span class="o">.</span>
+<span class="n">Checking</span> <span class="n">connectivity</span><span class="o">...</span> <span class="n">done</span>
+<span class="n">home</span><span class="p">:</span><span class="o">~/</span><span class="n">tmp</span><span class="o">&gt;</span> <span class="n">cp</span> <span class="n">tutorial</span><span class="o">/</span><span class="n">getting_started</span><span class="o">.</span><span class="n">rst</span> <span class="n">sampledoc</span><span class="o">/</span>
+<span class="n">home</span><span class="p">:</span><span class="o">~/</span><span class="n">tmp</span><span class="o">&gt;</span> <span class="n">cp</span> <span class="n">tutorial</span><span class="o">/</span><span class="n">_static</span><span class="o">/</span><span class="n">basic_screenshot</span><span class="o">.</span><span class="n">png</span> <span class="n">sampledoc</span><span class="o">/</span><span class="n">_static</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>The last step is to modify <code class="file docutils literal notranslate"><span class="pre">index.rst</span></code> to include the
+<code class="file docutils literal notranslate"><span class="pre">getting_started.rst</span></code> file (be careful with the indentation, the
+“g” in “getting_started” should line up with the ‘:’ in <code class="docutils literal notranslate"><span class="pre">:maxdepth</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Contents</span><span class="p">:</span>
+
+<span class="o">..</span> <span class="n">toctree</span><span class="p">::</span>
+   <span class="p">:</span><span class="n">maxdepth</span><span class="p">:</span> <span class="mi">2</span>
+
+   <span class="n">getting_started</span><span class="o">.</span><span class="n">rst</span>
+</pre></div>
+</div>
+<p>and then rebuild the docs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">sampledoc</span>
+<span class="n">make</span> <span class="n">html</span>
+</pre></div>
+</div>
+<p>When you reload the page by refreshing your browser pointing to
+<code class="file docutils literal notranslate"><span class="pre">_build/html/index.html</span></code>, you should see a link to the
+“Getting Started” docs, and in there this page with the screenshot.
+<cite>Voila!</cite></p>
+<p>We can also use the image directive in <code class="file docutils literal notranslate"><span class="pre">index.rst</span></code> to include to the screenshot above
+with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span> <span class="n">image</span><span class="p">::</span>
+   <span class="n">_static</span><span class="o">/</span><span class="n">basic_screenshot</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+<p>Next we’ll customize the look and feel of our site to give it a logo,
+some custom css, and update the navigation panels to look more like
+the <a class="reference external" href="http://sphinx.pocoo.org/">sphinx</a> site itself – see
+<span class="xref std std-ref">custom_look</span>.</p>
+</div>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Seynur Bilgi Teknolojileri A.Ş..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>

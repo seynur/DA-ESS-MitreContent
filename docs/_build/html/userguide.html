@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>User Guide &#8212; DA-ESS-MITREContent 1.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/seynur.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+  </head><body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="index.html"><h1 style="font-size: 2em;">Documentation for MITRE ATT&CK App for Splunk</h1></a>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="installation.html">Installation</a>|&nbsp;</li>
+        <li><a href="#">User Guide</a>|&nbsp;</li>
+        <li><a href="search.html">Search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">User Guide</a><ul>
+<li><a class="reference internal" href="#mitre-att-ck-compliance-with-splunk-es">MITRE ATT&amp;CK Compliance with Splunk ES</a></li>
+<li><a class="reference internal" href="#mitre-att-ck-framework-triggered-techniques">MITRE ATT&amp;CK Framework Triggered Techniques</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="previous chapter">Installation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/userguide.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="user-guide">
+<span id="userguide"></span><h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline">¶</a></h1>
+<p>By default, this application comes with 2 views.</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#compliance-view"><span class="std std-ref">MITRE ATT&amp;CK Compliance with Splunk ES</span></a></p></li>
+<li><p><a class="reference internal" href="#triggered-attacks-view"><span class="std std-ref">MITRE ATT&amp;CK Framework Triggered Techniques</span></a></p></li>
+</ol>
+<div class="section" id="mitre-att-ck-compliance-with-splunk-es">
+<span id="compliance-view"></span><h2>MITRE ATT&amp;CK Compliance with Splunk ES<a class="headerlink" href="#mitre-att-ck-compliance-with-splunk-es" title="Permalink to this headline">¶</a></h2>
+<p>Each cell containing a technique is colored based on the percentage of enabled correlation searches.</p>
+<p>If there isn’t any related correlation searches, the cell is left uncolored.</p>
+<p>If there are available correlation searches within Enterprise Security, then cells are colored based on percentage of enabled/active ones.</p>
+<p>Currently the ranges are set as follows:</p>
+<ul class="simple">
+<li><p>low: 0-30% enabled</p></li>
+<li><p>medium: 30-50% enabled</p></li>
+<li><p>high: 70%+ enabled</p></li>
+</ul>
+<dl>
+<dt>You can mouse over to the cells that contain techniques in order to view the number of available and enabled correlation rules that are specific to that technique.</dt><dd><img alt="_images/mitreapp_setup3.png" src="_images/mitreapp_setup3.png" />
+</dd>
+</dl>
+</div>
+<div class="section" id="mitre-att-ck-framework-triggered-techniques">
+<span id="triggered-attacks-view"></span><h2>MITRE ATT&amp;CK Framework Triggered Techniques<a class="headerlink" href="#mitre-att-ck-framework-triggered-techniques" title="Permalink to this headline">¶</a></h2>
+<p>This dashboard/form has filtering options based on “<strong>Event Time Range</strong>” and “<strong>Urgency</strong>” level of Notable Events.  Currently following panels are available:</p>
+<ol class="arabic simple">
+<li><p><strong>Triggered Tactics</strong>: Shows an overview of number of triggered Notable Events according to MITRE ATT&amp;CK tactics.</p></li>
+<li><p><strong>Techniques Triggered by Notable Assets</strong>: Shows the number of triggered Notable Events according to MITRE ATT&amp;CK techniques grouped by Notable Assets.  <code class="docutils literal notranslate"><span class="pre">notable_asset</span></code> is populated by <code class="docutils literal notranslate"><span class="pre">src</span></code>, <code class="docutils literal notranslate"><span class="pre">dest</span></code> or <code class="docutils literal notranslate"><span class="pre">user</span></code> from related Data Models.</p></li>
+<li><p><strong>MITRE ATT&amp;CK Framework</strong>: Provides a detailed match of triggered correlation searches with techniques and colored based on urgency level.</p></li>
+</ol>
+<img alt="_images/mitreapp_attack1.png" src="_images/mitreapp_attack1.png" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             >previous</a> |</li>
+        <li><a href="index.html">Home</a>|&nbsp;</li>
+        <li><a href="installation.html">Installation</a>|&nbsp;</li>
+        <li><a href="#">User Guide</a>|&nbsp;</li>
+        <li><a href="search.html">Search</a>|&nbsp;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Seynur Bilgi Teknolojileri A.Ş..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.
+    </div>
+  </body>
+</html>
