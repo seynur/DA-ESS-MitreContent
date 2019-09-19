@@ -184,11 +184,11 @@
         <search base="post_process_mitre_attack_triage">
           <query>
 
-| fields "Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"</query>
+| fields "Initial Access","Execution","Persistence","Privilege Escalation","Defense Evasion","Credential Access","Discovery","Lateral Movement","Collection","Command And Control","Exfiltration","Impact"</query>
         </search>
         <option name="count">100</option>
         <option name="drilldown">cell</option>
-        <fields>["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]</fields>
+        <fields>["Initial Access","Execution","Persistence","Privilege Escalation","Defense Evasion","Credential Access","Discovery","Lateral Movement","Collection","Command And Control","Exfiltration","Impact"]</fields>
         <drilldown>
           <eval token="rules_q">if(mvindex(split('click.value2',"|"),2)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&source=]]>"),"|"),2),"*")</eval>
           <link target="_blank">
