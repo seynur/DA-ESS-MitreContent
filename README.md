@@ -17,6 +17,10 @@ Upon initial installation you may need to manually run "MITRE Compliance Lookup 
 This application comes with a predefined saved search (MITRE Compliance Lookup Gen) which checks currently enabled correlation rules via analytic stories and creates a lookup file to match them to MITRE ATT&CK Framework techniques for compliance.  By default this search is scheduled to run at midnight everyday to populate the lookup table.
 
 #### Release Notes:
+Version 1.2.1
+- Bug fixes with javascript table population
+- Ordering of table fields to align with MITRE ATT&CK content
+
 Version 1.2.0
 - Date: 24 Aug 2019
 - Bug fixes & typos
