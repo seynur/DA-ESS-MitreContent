@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>User Guide &#8212; DA-ESS-MITREContent 1.1.0 documentation</title>
+    <title>User Guide &#8212; DA-ESS-MITREContent 1.2.0 documentation</title>
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/seynur.css" />
@@ -46,6 +46,7 @@
 <li><a class="reference internal" href="#">User Guide</a><ul>
 <li><a class="reference internal" href="#mitre-att-ck-compliance-with-splunk-es">MITRE ATT&amp;CK Compliance with Splunk ES</a></li>
 <li><a class="reference internal" href="#mitre-att-ck-framework-triggered-techniques">MITRE ATT&amp;CK Framework Triggered Techniques</a></li>
+<li><a class="reference internal" href="#how-to-match-a-correlation-search-with-framework">How To Match a Correlation Search with Framework</a></li>
 </ul>
 </li>
 </ul>
@@ -84,6 +85,7 @@
 <ol class="arabic simple">
 <li><p><a class="reference internal" href="#compliance-view"><span class="std std-ref">MITRE ATT&amp;CK Compliance with Splunk ES</span></a></p></li>
 <li><p><a class="reference internal" href="#triggered-attacks-view"><span class="std std-ref">MITRE ATT&amp;CK Framework Triggered Techniques</span></a></p></li>
+<li><p><a class="reference internal" href="#how-to-analytic-story"><span class="std std-ref">How To Match a Correlation Search with Framework</span></a></p></li>
 </ol>
 <div class="section" id="mitre-att-ck-compliance-with-splunk-es">
 <span id="compliance-view"></span><h2>MITRE ATT&amp;CK Compliance with Splunk ES<a class="headerlink" href="#mitre-att-ck-compliance-with-splunk-es" title="Permalink to this headline">¶</a></h2>
@@ -110,6 +112,29 @@
 <li><p><strong>MITRE ATT&amp;CK Framework</strong>: Provides a detailed match of triggered correlation searches with techniques and colored based on urgency level.</p></li>
 </ol>
 <img alt="_images/mitreapp_attack1.png" src="_images/mitreapp_attack1.png" />
+</div>
+<div class="section" id="how-to-match-a-correlation-search-with-framework">
+<span id="how-to-analytic-story"></span><h2>How To Match a Correlation Search with Framework<a class="headerlink" href="#how-to-match-a-correlation-search-with-framework" title="Permalink to this headline">¶</a></h2>
+<p>The view in the application utilized <em>Analytic Stories</em> that are tagged with the <em>Correlation Searches</em>.  Hence, in order to associate a <em>Correlation Search</em> with MITRE ATT&amp;CK Techniques, you will need to create a new <em>Analytic Story</em> and add your <em>Correlation Search</em> with the appropriate tags.</p>
+<p><strong>Note:</strong> Please go to Splunk Documentation on <a class="reference external" href="https://docs.splunk.com/Documentation/ES/latest/Admin/Createcorrelationsearches">how to create a Correlation Search</a> .</p>
+<p>For example, if we want the <em>Correlation Search</em> “<strong>Brute Force Access Behavior Detected</strong>” to be associated with “<strong>Brute Force</strong>” Technique under “<strong>Credential Access</strong>” tactic, we need to perform the following steps:</p>
+<ol class="arabic simple">
+<li><p>Go to “<strong>Configure –&gt; Content –&gt; Content Management</strong>” from Enterprise Security Application menu.  Click on “<strong>Create New Content</strong>” and select “<strong>Analytic Story</strong>”</p></li>
+</ol>
+<img alt="_images/analyticstory1.png" src="_images/analyticstory1.png" />
+<ol class="arabic simple" start="2">
+<li><p>Enter a <strong>Name</strong> and fill other details as necessary for this analytic story.  Click on “<strong>Add Search</strong>” and select “<strong>Brute Force Access Behavior Detected</strong>”</p></li>
+</ol>
+<img alt="_images/analyticstory2.png" src="_images/analyticstory2.png" />
+<img alt="_images/analyticstory3.png" src="_images/analyticstory3.png" />
+<ol class="arabic simple" start="3">
+<li><p>Enter <code class="docutils literal notranslate"><span class="pre">detection</span></code> for <strong>Type</strong> field and under <strong>Annotations</strong> enter <code class="docutils literal notranslate"><span class="pre">mitre_attack</span></code> for <strong>Name</strong> and <code class="docutils literal notranslate"><span class="pre">Brute</span> <span class="pre">Force</span></code> for <strong>Mappings</strong> (this should match the technique)</p></li>
+</ol>
+<img alt="_images/analyticstory4.png" src="_images/analyticstory4.png" />
+<ol class="arabic simple" start="4">
+<li><p>Click <strong>Save</strong> to save the <em>Analytic Story</em> with annotation and mapping with the defined correlation search.  You can add many correlation searches under one analytic story with defined mappings.</p></li>
+</ol>
+<p>Once saved, the correlation search will populate both the Compliance and Triggered Techniques dashboards.</p>
 </div>
 </div>
 

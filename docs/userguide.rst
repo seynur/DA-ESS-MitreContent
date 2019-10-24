@@ -11,6 +11,8 @@ By default, this application comes with 2 views.
 
 2. :ref:`MITRE ATT&CK Framework Triggered Techniques<triggered_attacks_view>`
 
+3. :ref:`How To Match a Correlation Search with Framework<how_to_analytic_story>`
+
 .. _compliance_view:
 
 MITRE ATT&CK Compliance with Splunk ES
@@ -48,3 +50,32 @@ This dashboard/form has filtering options based on "**Event Time Range**" and "*
 3. **MITRE ATT&CK Framework**: Provides a detailed match of triggered correlation searches with techniques and colored based on urgency level.
 
 .. image:: _static/mitreapp_attack1.png
+
+.. _how_to_analytic_story:
+
+How To Match a Correlation Search with Framework
+================================================
+
+The view in the application utilized *Analytic Stories* that are tagged with the *Correlation Searches*.  Hence, in order to associate a *Correlation Search* with MITRE ATT&CK Techniques, you will need to create a new *Analytic Story* and add your *Correlation Search* with the appropriate tags.
+
+**Note:** Please go to Splunk Documentation on `how to create a Correlation Search <https://docs.splunk.com/Documentation/ES/latest/Admin/Createcorrelationsearches>`_ .
+
+For example, if we want the *Correlation Search* "**Brute Force Access Behavior Detected**" to be associated with "**Brute Force**" Technique under "**Credential Access**" tactic, we need to perform the following steps:
+
+1. Go to "**Configure --> Content --> Content Management**" from Enterprise Security Application menu.  Click on "**Create New Content**" and select "**Analytic Story**"
+
+.. image:: _static/analyticstory1.png
+
+2. Enter a **Name** and fill other details as necessary for this analytic story.  Click on "**Add Search**" and select "**Brute Force Access Behavior Detected**"
+
+.. image:: _static/analyticstory2.png
+
+.. image:: _static/analyticstory3.png
+
+3. Enter ``detection`` for **Type** field and under **Annotations** enter ``mitre_attack`` for **Name** and ``Brute Force`` for **Mappings** (this should match the technique)
+
+.. image:: _static/analyticstory4.png
+
+4. Click **Save** to save the *Analytic Story* with annotation and mapping with the defined correlation search.  You can add many correlation searches under one analytic story with defined mappings.
+
+Once saved, the correlation search will populate both the Compliance and Triggered Techniques dashboards.
