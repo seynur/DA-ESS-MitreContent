@@ -18,7 +18,7 @@
     | mvexpand mitre_attack
     | fields title,rule_name,mitre_attack
     | join rule_name
-        [ search `notable`
+        [ search [| rest /services/configs/conf-analyticstories | where annotations!="" | eval rule_name=ltrim(title,"savedsearch://") | fields rule_name | rename rule_name as search_name] `notable`
         | search $urgency_field$
         | rename search_name as rule_name
         | eval notable_asset = coalesce(src,dest,user,"unknown")
@@ -94,7 +94,7 @@
 | mvexpand mitre_attack
 | fields title,rule_name,mitre_attack
 | join rule_name
-    [ search `notable`
+    [ search [| rest /services/configs/conf-analyticstories | where annotations!="" | eval rule_name=ltrim(title,"savedsearch://") | fields rule_name | rename rule_name as search_name] `notable`
     | search $urgency_field$
     | rename search_name as rule_name
     | eval notable_asset = coalesce(src,dest,user,"unknown")
