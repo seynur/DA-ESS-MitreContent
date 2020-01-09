@@ -1,5 +1,6 @@
 <nav search_view="search">
   <view name="mitre_compliance" default="true" />
-  <view name="mitreattack" />
+  <view name="mitre_attck_matrix" />
+  <view name="mitre_triggered_tactics__techniques" />
   <view name="reports" />
 </nav>

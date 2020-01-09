@@ -9,6 +9,7 @@ require([
     'underscore',
     'jquery',
     'splunkjs/mvc',
+    'splunkjs/ready!',
     'splunkjs/mvc/tableview',
     'theme_utils',
     'splunkjs/mvc/simplexml/ready!'
