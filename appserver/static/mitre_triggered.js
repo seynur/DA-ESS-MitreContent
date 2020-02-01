@@ -31,9 +31,9 @@ require([
             triggered_count = value_arr[1];
             rule_name = value_arr[2];
             max_urgency = value_arr[3];
-	    var urgency_str = "None"
+	          var urgency_str = "None"
 
-	    if (max_urgency==1){
+	          if (max_urgency==1){
                 urgency_str = "Info";
 		            $td.addClass('range-cell').addClass('range-info');
             }
