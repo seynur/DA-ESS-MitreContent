@@ -21,44 +21,40 @@ require([
 
     var CustomRangeRenderer = TableView.BaseCellRenderer.extend({
         canRender: function(cell) {
-            // Enable this custom cell renderer for both the active_hist_searches and the active_realtime_searches field
             return _(["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]).contains(cell.field);
         },
         render: function($td, cell) {
             // Add a class to the cell based on the returned value
-            var value = cell.value;
-            spl_string = value.split("|")[0];
-            spl_value = value.split("|")[1];
-            spl_total = value.split("|")[2];
-            spl_enabled = value.split("|")[3];
+            var value_arr = cell.value.split("|");
+            technique_name = value_arr[0];
+            percentage = value_arr[1];
+            enabled_count = value_arr[2];
+            total_count = value_arr[3];
+            var urgency_str = "None"
 
-            ttl = "Enabled: " + spl_total + "\nTotal: " + spl_enabled + "\nPercentage: " + spl_value;
+            ttl = "Total: " + total_count + "\nEnabled: " + enabled_count + "\nPercentage: " + percentage;
 
             $td.tooltip();
             $td.prop('title', ttl);
 
-            if (spl_value != "NULL") {
-
-                spl_value =  parseFloat(spl_value);
-                /*if(spl_value > 100){
-                    $td.addClass('range-cell').addClass('range-all');
-                } */
-                if(spl_value > 70){
-                    $td.addClass('range-cell').addClass('range-high');
+            if (percentage != "NULL") {
+                percentage =  parseFloat(percentage);
+                if(percentage > 70){
+                    $td.addClass('range-cell').addClass('range-compliance_high');
                 }
-		        if(spl_value > 50){
-                    $td.addClass('range-cell').addClass('range-mid');
+	        if(percentage > 50){
+                    $td.addClass('range-cell').addClass('range-compliance_mid');
                 }
-                if(spl_value > 30){
-                    $td.addClass('range-cell').addClass('range-low');
+                if(percentage > 30){
+                    $td.addClass('range-cell').addClass('range-compliance_low');
                 }
-                if(spl_value >= 0){
-                    $td.addClass('range-cell').addClass('range-existbutzero');
+                if(percentage >= 0){
+                    $td.addClass('range-cell').addClass('range-compliance_zero');
                 }
 
             }
-            else if(spl_value === "NULL"){
-                $td.addClass('range-cell').addClass('range-nonexistent');
+            else if(percentage == "NULL"){
+                $td.addClass('range-cell').addClass('range-none');
             }
 
 
@@ -69,11 +65,11 @@ require([
             // Update the cell content
             //$td.text(value.toFixed(2)).addClass('numeric');
 
-            if (spl_string==="NULL"){
+            if (technique_name=="NULL"){
                 $td.text(" ");
             }
             else {
-                $td.text(spl_string);
+                $td.text(technique_name);
                 $td.addClass('add-border').addClass('text-align-center');
 
         }

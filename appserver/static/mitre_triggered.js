@@ -3,13 +3,13 @@ require.config({
   paths: {
     theme_utils: '../app/DA-ESS-MitreContent/theme_utils'
   }
-}); 
+});
+
 
 require([
     'underscore',
     'jquery',
     'splunkjs/mvc',
-    'splunkjs/ready!',
     'splunkjs/mvc/tableview',
     'theme_utils',
     'splunkjs/mvc/simplexml/ready!'
@@ -26,49 +26,41 @@ require([
         },
         render: function($td, cell) {
             // Add a class to the cell based on the returned value
-            var value = cell.value;
-            spl_string = value.split("|")[0];
-            spl_value = value.split("|")[1];
-            spl_maxurgency = value.split("|")[3];
-            var urgency = "None";
+            var value_arr = cell.value.split("|");
+            technique_name = value_arr[0];
+            triggered_count = value_arr[1];
+            rule_name = value_arr[2];
+            max_urgency = value_arr[3];
+	    var urgency_str = "None"
+	    
+	    if (max_urgency==1){
+                urgency_str = "Info";
+		$td.addClass('range-cell').addClass('range-info');
+            }
+            else if (max_urgency==2){
+                urgency_str = "Low";
+		$td.addClass('range-cell').addClass('range-low');
+            }
+            else if (max_urgency==3){
+                urgency_str = "Medium";
+		$td.addClass('range-cell').addClass('range-med');
+            }
+            else if (max_urgency==4){
+                urgency_str = "High";
+		$td.addClass('range-cell').addClass('range-high');
+            }
+            else if (max_urgency==5){
+                urgency_str = "Critical";
+		$td.addClass('range-cell').addClass('range-crit');
+            }
+	    else {
+		$td.addClass('range-cell').addClass('range-none');
+	    }
 
-            if (spl_maxurgency==1){
-                urgency = "INFO";
-            }
-            else if (spl_maxurgency==2){
-                urgency = "Low";
-            }
-            else if (spl_maxurgency==3){
-                urgency = "Medium";
-            }
-            else if (spl_maxurgency==4){
-                urgency = "High";
-            }
-            else if (spl_maxurgency==5){
-                urgency = "Critical";
-            }
-
-            ttl = "Found " + spl_value + " attacks.\nUrgency: " + urgency;
+            ttl = "Found " + triggered_count + " attacks.\nUrgency: " + urgency_str;
             $td.tooltip();
             $td.prop('title', ttl);
-            
-            if (spl_value != "NULL") {
-                if(spl_maxurgency >= 5){
-                    $td.addClass('range-cell').addClass('range-crit');
-                }
-                if(spl_maxurgency == 4){
-                    $td.addClass('range-cell').addClass('range-high');
-                }
-		        if(spl_maxurgency == 3){
-                    $td.addClass('range-cell').addClass('range-med');
-                }
-                if(spl_maxurgency == 2){
-                    $td.addClass('range-cell').addClass('range-low');
-                }
-                if(spl_maxurgency == 1){
-                    $td.addClass('range-cell').addClass('range-info');
-                }
-            }
+
 
             if (isDarkTheme) {
               $td.addClass('dark');
@@ -76,17 +68,15 @@ require([
 
             // Update the cell content
             //$td.text(value.toFixed(2)).addClass('numeric');
-            
-            $td.text(value);
 
-            if (spl_string==="NULL"){
-                $td.addClass('range-cell').addClass('range-nonexistent');
+            if (technique_name=="NULL"){
                 $td.text(" ");
             }
             else {
-                $td.text(spl_string);
+                $td.text(technique_name);
                 $td.addClass('add-border').addClass('text-align-center');
-            }
+
+        }
         }
     });
 

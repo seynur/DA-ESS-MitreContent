@@ -12,25 +12,11 @@
     <panel>
       <table>
         <search>
-          <query>| rest /services/configs/conf-analyticstories
-| where annotations!=""
-| spath input=annotations path=mitre_attack{} output=mitre_attack
-| eval rule_name=ltrim(title,"savedsearch://")
-| eval drilldownfilter = $mitre_technique_name$
-| where mitre_attack = drilldownfilter
-| fields rule_name,mitre_attack,drilldownfilter
-| join rule_name [
-    | rest services/configs/conf-savedsearches
-    | eval rule_name=title
-    | eval rule_disabled=disabled
-    | eval rule_name=ltrim(title,"savedsearch://")
-    | table rule_name,rule_disabled
-    ]
-| mvexpand mitre_attack
-| where mitre_attack = drilldownfilter
+          <query>| inputlookup mitre_all_rule_technique_lookup.csv 
+| `lookup_technique_tactic_from_rule_name`
+| search technique_name=$mitre_technique_name$
 | eval Status = if(rule_disabled=0,"Enabled","Disabled")
-| lookup mitre_tt.csv rule_name
-| rename rule_name as "Rule Name", mitre_tactic as "Tactic ID", mitre_tactic_display as "Tactic", mitre_technique as "Technique ID", mitre_technique_display as "Technique", mitre_threat_groups as "Threat Groups"
+| rename rule_name as "Rule Name", tactic_id as "Tactic ID", tactic_name as "Tactic", technique_id as "Technique ID", technique_name as "Technique"
 | fields "Rule Name", Status, "Tactic ID", "Tactic", "Technique ID", "Technique"</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
