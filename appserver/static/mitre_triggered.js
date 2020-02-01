@@ -32,30 +32,30 @@ require([
             rule_name = value_arr[2];
             max_urgency = value_arr[3];
 	    var urgency_str = "None"
-	    
+
 	    if (max_urgency==1){
                 urgency_str = "Info";
-		$td.addClass('range-cell').addClass('range-info');
+		            $td.addClass('range-cell').addClass('range-info');
             }
             else if (max_urgency==2){
                 urgency_str = "Low";
-		$td.addClass('range-cell').addClass('range-low');
+		            $td.addClass('range-cell').addClass('range-low');
             }
             else if (max_urgency==3){
                 urgency_str = "Medium";
-		$td.addClass('range-cell').addClass('range-med');
+		            $td.addClass('range-cell').addClass('range-med');
             }
             else if (max_urgency==4){
                 urgency_str = "High";
-		$td.addClass('range-cell').addClass('range-high');
+		            $td.addClass('range-cell').addClass('range-high');
             }
             else if (max_urgency==5){
                 urgency_str = "Critical";
-		$td.addClass('range-cell').addClass('range-crit');
+		            $td.addClass('range-cell').addClass('range-crit');
             }
-	    else {
-		$td.addClass('range-cell').addClass('range-none');
-	    }
+	          else {
+		            $td.addClass('range-cell').addClass('range-none');
+	          }
 
             ttl = "Found " + triggered_count + " attacks.\nUrgency: " + urgency_str;
             $td.tooltip();
