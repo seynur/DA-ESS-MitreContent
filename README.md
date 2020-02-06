@@ -6,21 +6,30 @@ Detailed documentation can be found at: https://da-ess-mitrecontent.readthedocs.
 #### Overview
 This application provides compliance and triage dashboards for MITRE ATT&CK Framework that are fully integrated with Splunk Enterprise Security(https://splunkbase.splunk.com/app/263/) and Splunk ES Content Update (https://splunkbase.splunk.com/app/3449/) with drill-down capabilities.
 
-#### Prerequisites:
-Splunk Enterprise Security 5.2 or above
-Splunk ES Content Update 1.0.40 or above
+#### Required Splunk Apps:
+Splunk Enterprise Security 5.2 or above (https://splunkbase.splunk.com/app/263/)
+Sankey Diagram - Custom Visualization (https://splunkbase.splunk.com/app/3112/)
+
+#### Recommended Splunk Apps:
+Splunk ES Content Update 1.0.40 or above (https://splunkbase.splunk.com/app/3449/)
+Lookup File Editor (https://splunkbase.splunk.com/app/1724/)
+
+__Note__: Although the app will work without ES Content Update, it is highly recommended to install since it comes with many correlation rules that have mitre_attack annotations already.
 
 #### Setup Instructions
-Upon initial installation you may need to manually run "MITRE ATT&CK All Rules and Techniques Lookup Gen" saved search/report in order to populate the lookup table.
+Upon initial installation you will be on Compliance Dashboard.  If the matrix is not populated, click on the table to run manually, which will direct you to the Setup dashboard (searches run automatically on that dashboard).
 
 #### Saved Searches
-This application comes with a predefined saved search (MITRE ATT&CK All Rules and Techniques Lookup Gen) which checks currently enabled correlation rules via analytic stories and creates a lookup file to match them to MITRE ATT&CK Framework techniques for compliance.  By default this search is scheduled to run at midnight everyday to populate the lookup table.
+This application comes with predefined saved searches.  Lookup Gen searches are scheduled to run  daily after midnight.
+MITRE ATT&CK All Rules and Techniques Lookup Gen: This lookup generator checks currently enabled correlation rules via analytic stories and combines the searches with user-defined mitre_user_rule_technique_lookup.csv file that matches MITRE ATT&CK technique IDs with rules.
+MITRE ATT&CK Compliance Lookup Gen: This lookup generator relies on mitre_all_rule_technique_lookup.csv in order to generate a new lookup to properly display MITRE ATT&CK Compliance martix.
+
 
 #### Release Notes:
 Version 2.0.0
 - Updated lookup tables to correctly define MITRE ATT&CK tactics and techniques
 - Introduced a new macro to utilize technique and tactic IDs/names
-- Updated dashboards to utilize new lookup table and macro 
+- Updated dashboards to utilize new lookup table and macro
 - Performance improvements
 - Updated CSS and JS files
 - Introduced a setup view for ease of initial lookup generation
