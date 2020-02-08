@@ -14,7 +14,7 @@ Sankey Diagram - Custom Visualization (https://splunkbase.splunk.com/app/3112/)
 Splunk ES Content Update 1.0.40 or above (https://splunkbase.splunk.com/app/3449/)
 Lookup File Editor (https://splunkbase.splunk.com/app/1724/)
 
-__Note__: Although the app will work without ES Content Update, it is highly recommended to install since it comes with many correlation rules that have mitre_attack annotations already.
+__Note__: Although the app will work without ES Content Update, it is highly recommended since it comes with many correlation rules that have mitre_attack annotations already.
 
 #### Setup Instructions
 Upon initial installation you will be on Compliance Dashboard.  If the matrix is not populated, click on the table to run manually, which will direct you to the Setup dashboard (searches run automatically on that dashboard).
