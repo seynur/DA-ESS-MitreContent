@@ -27,6 +27,7 @@ MITRE ATT&CK Compliance Lookup Gen: This lookup generator relies on mitre_all_ru
 
 #### Release Notes:
 Version 2.0.0
+- Date: 08 Feb 2020
 - Updated lookup tables to correctly define MITRE ATT&CK tactics and techniques
 - Introduced a new macro to utilize technique and tactic IDs/names
 - Updated dashboards to utilize new lookup table and macro
@@ -35,12 +36,14 @@ Version 2.0.0
 - Introduced a setup view for ease of initial lookup generation
 
 Version 1.3.0
+- Date: 09 Jan 2020
 - Updated ATT&CK Matrix dashboard
 - Added new dashboard for detailed view of triggered rules by notable assets and tactics/techniques
 - Improved search performance and dependency on lookups
 - Added a new lookup to match correlation rules to MITRE ATT&CK tactics/techniques
 
 Version 1.2.1
+- Date: 24 Oct 2019
 - Bug fixes with javascript table population
 - Ordering of table fields to align with MITRE ATT&CK content
 
