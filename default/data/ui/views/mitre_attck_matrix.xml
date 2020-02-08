@@ -1,29 +1,17 @@
-<form script="table_cell_highlighting_attack.js" stylesheet="table_cell_highlighting_attack.css" theme="dark">
+<form script="mitre_triggered.js" stylesheet="mitre_matrix.css" theme="dark">
   <label>MITRE ATT&amp;CK Matrix</label>
   <description>This dashboard provides an overview of triggered tactics and techniques based on enabled correlation rules with related MITRE ATT&amp;CK annotations.</description>
   <search id="init_attack_search">
     <query>
-| rest /services/configs/conf-analyticstories 
-| where annotations!="" 
-| eval rule_name=ltrim(title,"savedsearch://") 
-| rex field=annotations "\"mitre_attack\":\s?\[(?&lt;mitre_attack_list&gt;[^\]]+)\]" 
-| eval mitre_attack=trim(trim(split(mitre_attack_list,",")," "),"\"") 
-| mvexpand mitre_attack 
-| fields rule_name, mitre_attack 
+| inputlookup mitre_all_rule_technique_lookup.csv | lookup mitre_tt_lookup.csv technique_id
+| fields rule_name, technique_name 
 | join rule_name 
-    [ search 
-        [| rest /services/configs/conf-analyticstories 
-        | where annotations!="" 
-        | eval rule_name=ltrim(title,"savedsearch://") 
-        | dedup rule_name 
-        | rename rule_name as source 
-        | fields source ] `notable_by_id("*")` 
+    [  search `notable_by_id("*")` 
     | rename search_name as rule_name 
-    | search * 
     | fields rule_name, urgency 
     | lookup urgency_score.csv urgency 
     | stats max(score) as max_score, count by rule_name] 
-| stats sum(count) as triggered_count list(rule_name) as rule_name_list, max(max_score) as max_score by mitre_attack delim=";" 
+| stats sum(count) as triggered_count list(rule_name) as rule_name_list, max(max_score) as max_score by technique_name delim=";" 
 | nomv rule_name_list
     </query>
     <earliest>$attack_time_field.earliest$</earliest>
@@ -43,73 +31,73 @@
     <query>
       | join type=left 
     [| loadjob $subsearch_id$ 
-    | rename mitre_attack as "Collection", triggered_count as "Collection Attack Count", rule_name_list as "Collection Rule Name List", max_score as "Collection Max Score" ] 
+    | rename technique_name as "Collection", triggered_count as "Collection Attack Count", rule_name_list as "Collection Rule Name List", max_score as "Collection Max Score" ] 
 | fillnull value="NULL" "Collection","Collection Rule Name List" 
 | fillnull value=0 "Collection Attack Count", "Collection Max Score" 
 | eval "Collection"='Collection'. "|" .'Collection Attack Count'. "|" .'Collection Rule Name List'. "|" .'Collection Max Score' 
 | join type=left 
     [| loadjob $subsearch_id$ 
-    | rename mitre_attack as "Command And Control" , triggered_count as "Command And Control Attack Count", rule_name_list as "Command And Control Rule Name List", max_score as "Command And Control Max Score" ] 
+    | rename technique_name as "Command And Control" , triggered_count as "Command And Control Attack Count", rule_name_list as "Command And Control Rule Name List", max_score as "Command And Control Max Score" ] 
 | fillnull value="NULL" "Command And Control","Command And Control Rule Name List" 
 | fillnull value=0 "Command And Control Attack Count", "Command And Control Max Score" 
 | eval "Command And Control"='Command And Control'. "|" .'Command And Control Attack Count'. "|" .'Command And Control Rule Name List'. "|" .'Command And Control Max Score' 
 | join type=left 
     [| loadjob $subsearch_id$ 
-    | rename mitre_attack as "Credential Access" , triggered_count as "Credential Access Attack Count", rule_name_list as "Credential Access Rule Name List", max_score as "Credential Access Max Score" ] 
+    | rename technique_name as "Credential Access" , triggered_count as "Credential Access Attack Count", rule_name_list as "Credential Access Rule Name List", max_score as "Credential Access Max Score" ] 
 | fillnull value="NULL" "Credential Access","Credential Access Rule Name List" 
 | fillnull value=0 "Credential Access Attack Count", "Credential Access Max Score" 
 | eval "Credential Access"='Credential Access'. "|" .'Credential Access Attack Count'. "|" .'Credential Access Rule Name List'. "|" .'Credential Access Max Score' 
 | join type=left 
     [| loadjob $subsearch_id$ 
-    | rename mitre_attack as "Defense Evasion" , triggered_count as "Defense Evasion Attack Count", rule_name_list as "Defense Evasion Rule Name List", max_score as "Defense Evasion Max Score" ] 
+    | rename technique_name as "Defense Evasion" , triggered_count as "Defense Evasion Attack Count", rule_name_list as "Defense Evasion Rule Name List", max_score as "Defense Evasion Max Score" ] 
 | fillnull value="NULL" "Defense Evasion","Defense Evasion Rule Name List" 
 | fillnull value=0 "Defense Evasion Attack Count", "Defense Evasion Max Score" 
 | eval "Defense Evasion"='Defense Evasion'. "|" .'Defense Evasion Attack Count'. "|" .'Defense Evasion Rule Name List'. "|" .'Defense Evasion Max Score' 
 | join type=left 
     [| loadjob $subsearch_id$ 
-    | rename mitre_attack as "Discovery" , triggered_count as "Discovery Attack Count", rule_name_list as "Discovery Rule Name List", max_score as "Discovery Max Score" ] 
+    | rename technique_name as "Discovery" , triggered_count as "Discovery Attack Count", rule_name_list as "Discovery Rule Name List", max_score as "Discovery Max Score" ] 
 | fillnull value="NULL" "Discovery","Discovery Rule Name List" 
 | fillnull value=0 "Discovery Attack Count", "Discovery Max Score" 
 | eval "Discovery"='Discovery'. "|" .'Discovery Attack Count'. "|" .'Discovery Rule Name List'. "|" .'Discovery Max Score' 
 | join type=left 
     [| loadjob $subsearch_id$ 
-    | rename mitre_attack as "Execution" , triggered_count as "Execution Attack Count", rule_name_list as "Execution Rule Name List", max_score as "Execution Max Score" ] 
+    | rename technique_name as "Execution" , triggered_count as "Execution Attack Count", rule_name_list as "Execution Rule Name List", max_score as "Execution Max Score" ] 
 | fillnull value="NULL" "Execution","Execution Rule Name List" 
 | fillnull value=0 "Execution Attack Count", "Execution Max Score" 
 | eval "Execution"='Execution'. "|" .'Execution Attack Count'. "|" .'Execution Rule Name List'. "|" .'Execution Max Score' 
 | join type=left 
     [| loadjob $subsearch_id$ 
-    | rename mitre_attack as "Exfiltration" , triggered_count as "Exfiltration Attack Count", rule_name_list as "Exfiltration Rule Name List", max_score as "Exfiltration Max Score" ] 
+    | rename technique_name as "Exfiltration" , triggered_count as "Exfiltration Attack Count", rule_name_list as "Exfiltration Rule Name List", max_score as "Exfiltration Max Score" ] 
 | fillnull value="NULL" "Exfiltration","Exfiltration Rule Name List" 
 | fillnull value=0 "Exfiltration Attack Count", "Exfiltration Max Score" 
 | eval "Exfiltration"='Exfiltration'. "|" .'Exfiltration Attack Count'. "|" .'Exfiltration Rule Name List'. "|" .'Exfiltration Max Score' 
 | join type=left 
     [| loadjob $subsearch_id$ 
-    | rename mitre_attack as "Impact" , triggered_count as "Impact Attack Count", rule_name_list as "Impact Rule Name List", max_score as "Impact Max Score" ] 
+    | rename technique_name as "Impact" , triggered_count as "Impact Attack Count", rule_name_list as "Impact Rule Name List", max_score as "Impact Max Score" ] 
 | fillnull value="NULL" "Impact","Impact Rule Name List" 
 | fillnull value=0 "Impact Attack Count", "Impact Max Score" 
 | eval "Impact"='Impact'. "|" .'Impact Attack Count'. "|" .'Impact Rule Name List'. "|" .'Impact Max Score' 
 | join type=left 
     [| loadjob $subsearch_id$ 
-    | rename mitre_attack as "Initial Access" , triggered_count as "Initial Access Attack Count", rule_name_list as "Initial Access Rule Name List", max_score as "Initial Access Max Score" ] 
+    | rename technique_name as "Initial Access" , triggered_count as "Initial Access Attack Count", rule_name_list as "Initial Access Rule Name List", max_score as "Initial Access Max Score" ] 
 | fillnull value="NULL" "Initial Access","Initial Access Rule Name List" 
 | fillnull value=0 "Initial Access Attack Count", "Initial Access Max Score" 
 | eval "Initial Access"='Initial Access'. "|" .'Initial Access Attack Count'. "|" .'Initial Access Rule Name List'. "|" .'Initial Access Max Score' 
 | join type=left 
     [| loadjob $subsearch_id$ 
-    | rename mitre_attack as "Lateral Movement" , triggered_count as "Lateral Movement Attack Count", rule_name_list as "Lateral Movement Rule Name List", max_score as "Lateral Movement Max Score" ] 
+    | rename technique_name as "Lateral Movement" , triggered_count as "Lateral Movement Attack Count", rule_name_list as "Lateral Movement Rule Name List", max_score as "Lateral Movement Max Score" ] 
 | fillnull value="NULL" "Lateral Movement","Lateral Movement Rule Name List" 
 | fillnull value=0 "Lateral Movement Attack Count", "Lateral Movement Max Score" 
 | eval "Lateral Movement"='Lateral Movement'. "|" .'Lateral Movement Attack Count'. "|" .'Lateral Movement Rule Name List'. "|" .'Lateral Movement Max Score' 
 | join type=left 
     [| loadjob $subsearch_id$ 
-    | rename mitre_attack as "Persistence" , triggered_count as "Persistence Attack Count", rule_name_list as "Persistence Rule Name List", max_score as "Persistence Max Score" ] 
+    | rename technique_name as "Persistence" , triggered_count as "Persistence Attack Count", rule_name_list as "Persistence Rule Name List", max_score as "Persistence Max Score" ] 
 | fillnull value="NULL" "Persistence","Persistence Rule Name List" 
 | fillnull value=0 "Persistence Attack Count", "Persistence Max Score" 
 | eval "Persistence"='Persistence'. "|" .'Persistence Attack Count'. "|" .'Persistence Rule Name List'. "|" .'Persistence Max Score' 
 | join type=left 
     [| loadjob $subsearch_id$ 
-    | rename mitre_attack as "Privilege Escalation" , triggered_count as "Privilege Escalation Attack Count", rule_name_list as "Privilege Escalation Rule Name List", max_score as "Privilege Escalation Max Score" ] 
+    | rename technique_name as "Privilege Escalation" , triggered_count as "Privilege Escalation Attack Count", rule_name_list as "Privilege Escalation Rule Name List", max_score as "Privilege Escalation Max Score" ] 
 | fillnull value="NULL" "Privilege Escalation","Privilege Escalation Rule Name List" 
 | fillnull value=0 "Privilege Escalation Attack Count", "Privilege Escalation Max Score" 
 | eval "Privilege Escalation"='Privilege Escalation'. "|" .'Privilege Escalation Attack Count'. "|" .'Privilege Escalation Rule Name List'. "|" .'Privilege Escalation Max Score'

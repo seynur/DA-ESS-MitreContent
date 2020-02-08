@@ -2,13 +2,8 @@
   <label>MITRE ATT&amp;CK Triggered Tactics &amp; Techniques</label>
   <search id="basesearch_mitre_by_assets">
     <query>
-      | rest /services/configs/conf-analyticstories
-| where annotations!=""
-| spath input=annotations path=mitre_attack{} output=mitre_attack
-| eval rule_name=ltrim(title,"savedsearch://")
-| fields rule_name,mitre_attack
-| mvexpand mitre_attack
-| fields title,rule_name,mitre_attack
+      | inputlookup mitre_all_rule_technique_lookup.csv
+| fields rule_name 
 | join rule_name
     [ search `notable`
     | search $urgency_field$
@@ -19,19 +14,18 @@
     | fields rule_name, urgency,notable_src, notable_dest, notable_user
     | lookup urgency_score.csv urgency
     | stats max(score) as max_score, count by rule_name,notable_src, notable_dest, notable_user]
-| lookup mitre_tt.csv rule_name
-| fields *
+| `lookup_technique_tactic_from_rule_name`
 </query>
     <earliest>$attack_time_field.earliest$</earliest>
     <latest>$attack_time_field.latest$</latest>
   </search>
   <search id="post_process_tt_by_rule" base="basesearch_mitre_by_assets">
     <query>
-| fields mitre_tactic_display, mitre_technique_display, rule_name
-| makemv tokenizer="([^\n]+)" mitre_tactic_display
-| mvexpand mitre_tactic_display
-| makemv tokenizer="([^\n]+)" mitre_technique_display
-| mvexpand mitre_technique_display</query>
+| fields tactic_name, technique_name, rule_name
+| makemv tokenizer="([^\n]+)" tactic_name
+| mvexpand tactic_name
+| makemv tokenizer="([^\n]+)" technique_name
+| mvexpand technique_name</query>
   </search>
   <fieldset autoRun="true" submitButton="true">
     <input type="time" searchWhenChanged="false" token="attack_time_field">
@@ -60,15 +54,13 @@
       <title>Triggered Tactics by Notable Assets</title>
       <viz type="sankey_diagram_app.sankey_diagram">
         <search base="basesearch_mitre_by_assets">
-          <query>
-| fields notable_src, notable_dest, notable_user, mitre_tactic_display
-| makemv tokenizer="([^\n]+)" mitre_tactic_display
-| mvexpand mitre_tactic_display
+          <query>| fields notable_src, notable_dest, notable_user, tactic_name
 | eval notable_asset=mvappend(notable_src, notable_dest)
 | mvexpand notable_asset
-| stats count by notable_asset mitre_tactic_display</query>
+| stats count by notable_asset tactic_name</query>
         </search>
         <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
         <option name="sankey_diagram_app.sankey_diagram.colorMode">categorical</option>
         <option name="sankey_diagram_app.sankey_diagram.maxColor">#3fc77a</option>
         <option name="sankey_diagram_app.sankey_diagram.minColor">#d93f3c</option>
@@ -89,12 +81,10 @@
       <title>Triggered Tactics by Notable Assets</title>
       <table>
         <search base="basesearch_mitre_by_assets">
-          <query>| fields notable_src, notable_dest, notable_user, mitre_tactic_display
-| makemv tokenizer="([^\n]+)" mitre_tactic_display
-| mvexpand mitre_tactic_display
+          <query>| fields notable_src, notable_dest, notable_user, tactic_name
 | eval notable_asset=mvappend(notable_src, notable_dest)
 | mvexpand notable_asset
-| stats count by notable_asset mitre_tactic_display | sort -count</query>
+| stats count by notable_asset tactic_name | sort -count</query>
         </search>
         <option name="drilldown">cell</option>
         <option name="refresh.display">progressbar</option>
@@ -109,10 +99,8 @@
       <title>Triggered Tactics by Notable User</title>
       <viz type="sankey_diagram_app.sankey_diagram">
         <search base="basesearch_mitre_by_assets">
-          <query>| fields notable_src, notable_dest, notable_user, mitre_tactic_display
-| makemv tokenizer="([^\n]+)" mitre_tactic_display
-| mvexpand mitre_tactic_display
-| stats count by notable_user mitre_tactic_display</query>
+          <query>| fields notable_src, notable_dest, notable_user, tactic_name
+| stats count by notable_user tactic_name</query>
         </search>
         <option name="drilldown">none</option>
         <option name="refresh.display">progressbar</option>
@@ -136,10 +124,8 @@
       <title>Triggered Tactics by Notable User</title>
       <table>
         <search base="basesearch_mitre_by_assets">
-          <query>| fields notable_src, notable_dest, notable_user, mitre_tactic_display
-| makemv tokenizer="([^\n]+)" mitre_tactic_display
-| mvexpand mitre_tactic_display
-| stats count by notable_user mitre_tactic_display
+          <query>| fields notable_src, notable_dest, notable_user, tactic_name
+| stats count by notable_user tactic_name
 | sort -count</query>
         </search>
         <option name="drilldown">cell</option>
@@ -155,10 +141,10 @@
       <title>Initial Access</title>
       <table>
         <search base="post_process_tt_by_rule">
-          <query>| search mitre_tactic_display="Initial Access"
-| stats count by mitre_technique_display rule_name 
+          <query>| search tactic_name="Initial Access"
+| stats count by technique_name rule_name 
 | sort -count
-| rename count as "Triggered Rule Count", mitre_technique_display as "Technique", rule_name as "Rule"</query>
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
@@ -174,10 +160,10 @@
       <title>Execution</title>
       <table>
         <search base="post_process_tt_by_rule">
-          <query>| search mitre_tactic_display="Execution"
-| stats count by mitre_technique_display rule_name 
+          <query>| search tactic_name="Execution"
+| stats count by technique_name rule_name 
 | sort -count
-| rename count as "Triggered Rule Count", mitre_technique_display as "Technique", rule_name as "Rule"</query>
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
@@ -193,10 +179,10 @@
       <title>Persistence</title>
       <table>
         <search base="post_process_tt_by_rule">
-          <query>| search mitre_tactic_display="Persistence"
-| stats count by mitre_technique_display rule_name 
+          <query>| search tactic_name="Persistence"
+| stats count by technique_name rule_name 
 | sort -count
-| rename count as "Triggered Rule Count", mitre_technique_display as "Technique", rule_name as "Rule"</query>
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
@@ -214,10 +200,10 @@
       <title>Privilege Escalation</title>
       <table>
         <search base="post_process_tt_by_rule">
-          <query>| search mitre_tactic_display="Privilege Escalation"
-| stats count by mitre_technique_display rule_name 
+          <query>| search tactic_name="Privilege Escalation"
+| stats count by technique_name rule_name 
 | sort -count
-| rename count as "Triggered Rule Count", mitre_technique_display as "Technique", rule_name as "Rule"</query>
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
@@ -233,10 +219,10 @@
       <title>Defense Evasion</title>
       <table>
         <search base="post_process_tt_by_rule">
-          <query>| search mitre_tactic_display="Defense Evasion"
-| stats count by mitre_technique_display rule_name 
+          <query>| search tactic_name="Defense Evasion"
+| stats count by technique_name rule_name 
 | sort -count
-| rename count as "Triggered Rule Count", mitre_technique_display as "Technique", rule_name as "Rule"</query>
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
@@ -252,10 +238,10 @@
       <title>Credential Access</title>
       <table>
         <search base="post_process_tt_by_rule">
-          <query>| search mitre_tactic_display="Credential Access"
-| stats count by mitre_technique_display rule_name 
+          <query>| search tactic_name="Credential Access"
+| stats count by technique_name rule_name 
 | sort -count
-| rename count as "Triggered Rule Count", mitre_technique_display as "Technique", rule_name as "Rule"</query>
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
@@ -273,10 +259,10 @@
       <title>Discovery</title>
       <table>
         <search base="post_process_tt_by_rule">
-          <query>| search mitre_tactic_display="Discovery"
-| stats count by mitre_technique_display rule_name 
+          <query>| search tactic_name="Discovery"
+| stats count by technique_name rule_name 
 | sort -count
-| rename count as "Triggered Rule Count", mitre_technique_display as "Technique", rule_name as "Rule"</query>
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
@@ -292,10 +278,10 @@
       <title>Lateral Movement</title>
       <table>
         <search base="post_process_tt_by_rule">
-          <query>| search mitre_tactic_display="Lateral Movement"
-| stats count by mitre_technique_display rule_name 
+          <query>| search tactic_name="Lateral Movement"
+| stats count by technique_name rule_name 
 | sort -count
-| rename count as "Triggered Rule Count", mitre_technique_display as "Technique", rule_name as "Rule"</query>
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
@@ -311,10 +297,10 @@
       <title>Collection</title>
       <table>
         <search base="post_process_tt_by_rule">
-          <query>| search mitre_tactic_display="Collection"
-| stats count by mitre_technique_display rule_name 
+          <query>| search tactic_name="Collection"
+| stats count by technique_name rule_name 
 | sort -count
-| rename count as "Triggered Rule Count", mitre_technique_display as "Technique", rule_name as "Rule"</query>
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
@@ -332,10 +318,10 @@
       <title>Command And Control</title>
       <table>
         <search base="post_process_tt_by_rule">
-          <query>| search mitre_tactic_display="Command And Control"
-| stats count by mitre_technique_display rule_name 
+          <query>| search tactic_name="Command And Control"
+| stats count by technique_name rule_name 
 | sort -count
-| rename count as "Triggered Rule Count", mitre_technique_display as "Technique", rule_name as "Rule"</query>
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
@@ -351,10 +337,10 @@
       <title>Exfiltration</title>
       <table>
         <search base="post_process_tt_by_rule">
-          <query>| search mitre_tactic_display="Exfiltration"
-| stats count by mitre_technique_display rule_name 
+          <query>| search tactic_name="Exfiltration"
+| stats count by technique_name rule_name 
 | sort -count
-| rename count as "Triggered Rule Count", mitre_technique_display as "Technique", rule_name as "Rule"</query>
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
@@ -370,10 +356,10 @@
       <title>Impact</title>
       <table>
         <search base="post_process_tt_by_rule">
-          <query>| search mitre_tactic_display="Impact"
-| stats count by mitre_technique_display rule_name 
+          <query>| search tactic_name="Impact"
+| stats count by technique_name rule_name 
 | sort -count
-| rename count as "Triggered Rule Count", mitre_technique_display as "Technique", rule_name as "Rule"</query>
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>

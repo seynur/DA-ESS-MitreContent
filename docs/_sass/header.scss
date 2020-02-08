@@ -1,0 +1,24 @@
+#header {
+  display: block;
+  height: 30px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+#header_title {
+  float: left;
+  text-align: left;
+  vertical-align: middle;
+  font-weight: bolder;
+  font-size: 1.25em;
+}
+
+#header .logo {
+  float: right;
+  vertical-align: middle;
+}
+
+#header .logo img {
+  width:200px;
+  height:28px;
+}

@@ -1,0 +1,93 @@
+
+/* Cell Highlighting */
+#mitre_status_table td {
+    font-family:Splunk Platform Sans,Proxima Nova,Roboto,Droid,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+ 
+#highlight td {
+    background-color: #FFF;
+    color: #353637;
+}
+
+
+#highlight td.text-align-center {
+    text-align: center;
+    font-family:Splunk Platform Sans,Proxima Nova,Roboto,Droid,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+#highlight td.add-border {
+    border: 1px solid rgba(43, 42, 42, 0.233); 
+}
+
+/* 
+ * Splunk ES App colors 
+ * info: 53a051
+ * low:  0877a6
+ * med:  f8be34
+ * high: f1813f
+ * crit: dc4e41
+*/
+
+#highlight td.range-none {
+    color: #888 !important;
+}
+
+/*
+ * Compliance CSS
+*/
+#highlight td.range-compliance_zero {
+    background-color: #24d4f742 !important;
+}
+
+#highlight td.range-compliance_low {
+    background-color: #24d4f74f !important;
+}
+
+#highlight td.range-compliance_mid {
+    background-color: #24d4f7b0 !important;
+}
+
+#highlight td.range-compliance_high {
+    background-color: #24d4f7fa !important;
+}
+/*
+ * Triggered CSS
+*/
+#highlight td.range-info {
+    background-color: #53a051 !important;
+    color: #FFFFFF !important;
+}
+
+#highlight td.range-low {
+    background-color: #0877a6 !important;
+    color: #FFFFFF !important;
+}
+
+#highlight td.range-med {
+    background-color: #f8be34 !important;
+    color: #FFFFFF !important;
+}
+
+#highlight td.range-high {
+    background-color: #f1813f !important;
+    color: #FFFFFF !important;
+}
+
+#highlight td.range-crit {
+    background-color: #dc4e41 !important;
+    color: #FFFFFF !important;
+}
+
+/* Dark Theme */
+
+#highlight td.dark {
+            color: #F1F3F5;
+	    background-color: #00000020;
+           }        
+
+.tooltip-inner { max-width: 400px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: normal;
+    }
+
