@@ -1,8 +1,8 @@
 - name: Overview
-  link: /
+  link: index.html
 - name: Installation
-  link: /installation.html
+  link: installation.html
 - name: User Guide
-  link: /user_guide.html
+  link: user_guide.html
 - name: Release Notes
-  link: /release_notes.html
+  link: release_notes.html

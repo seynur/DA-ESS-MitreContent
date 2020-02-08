@@ -92,11 +92,11 @@ The lookup file expects 3 fields:
 **NOTE**: We are hoping to improve upon this manual process in the future releases.
 
 
-[setup4]: /assets/img/setup4.png
-[triggered_techniques1]: /assets/img/triggered_techniques1.png
-[triggered_techniques2]: /assets/img/triggered_techniques2.png
-[analyticstory1]: /assets/img/analyticstory1.png
-[analyticstory2]: /assets/img/analyticstory2.png
-[analyticstory3]: /assets/img/analyticstory3.png
-[analyticstory4]: /assets/img/analyticstory4.png
-[lookup_editor1]: /assets/img/lookup_editor1.png
+[setup4]: assets/img/setup4.png
+[triggered_techniques1]: assets/img/triggered_techniques1.png
+[triggered_techniques2]: assets/img/triggered_techniques2.png
+[analyticstory1]: assets/img/analyticstory1.png
+[analyticstory2]: assets/img/analyticstory2.png
+[analyticstory3]: assets/img/analyticstory3.png
+[analyticstory4]: assets/img/analyticstory4.png
+[lookup_editor1]: assets/img/lookup_editor1.png

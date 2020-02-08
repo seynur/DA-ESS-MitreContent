@@ -38,10 +38,10 @@ Upon initial installation you will be on Compliance Dashboard.  If the matrix is
 
 
 
-[logo]: /assets/img/seynur_logo_dark.png
-[setup1]: /assets/img/setup1.png
-[setup2]: /assets/img/setup2.png
-[setup3]: /assets/img/setup3.png
-[setup4]: /assets/img/setup4.png
-[setup5]: /assets/img/setup5.png
-[setup6]: /assets/img/setup6.png
+[logo]: assets/img/seynur_logo_dark.png
+[setup1]: assets/img/setup1.png
+[setup2]: assets/img/setup2.png
+[setup3]: assets/img/setup3.png
+[setup4]: assets/img/setup4.png
+[setup5]: assets/img/setup5.png
+[setup6]: assets/img/setup6.png
