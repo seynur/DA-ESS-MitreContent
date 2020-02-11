@@ -19,7 +19,7 @@ require([
 
     var isDarkTheme = themeUtils.getCurrentTheme && themeUtils.getCurrentTheme() === 'dark';
 
-    var CustomRangeRenderer = TableView.BaseCellRenderer.extend({
+    var MitreMatrixRenderer = TableView.BaseCellRenderer.extend({
         canRender: function(cell) {
             // Enable this custom cell renderer for both the active_hist_searches and the active_realtime_searches field
             return _(["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]).contains(cell.field);
@@ -31,31 +31,31 @@ require([
             triggered_count = value_arr[1];
             rule_name = value_arr[2];
             max_urgency = value_arr[3];
-	          var urgency_str = "None"
-
-	          if (max_urgency==1){
+	    var urgency_str = "None"
+	    
+	    if (max_urgency==1){
                 urgency_str = "Info";
-		            $td.addClass('range-cell').addClass('range-info');
+		$td.addClass('range-cell').addClass('range-info');
             }
             else if (max_urgency==2){
                 urgency_str = "Low";
-		            $td.addClass('range-cell').addClass('range-low');
+		$td.addClass('range-cell').addClass('range-low');
             }
             else if (max_urgency==3){
                 urgency_str = "Medium";
-		            $td.addClass('range-cell').addClass('range-med');
+		$td.addClass('range-cell').addClass('range-med');
             }
             else if (max_urgency==4){
                 urgency_str = "High";
-		            $td.addClass('range-cell').addClass('range-high');
+		$td.addClass('range-cell').addClass('range-high');
             }
             else if (max_urgency==5){
                 urgency_str = "Critical";
-		            $td.addClass('range-cell').addClass('range-crit');
+		$td.addClass('range-cell').addClass('range-crit');
             }
-	          else {
-		            $td.addClass('range-cell').addClass('range-none');
-	          }
+	    else {
+		$td.addClass('range-cell').addClass('range-none');
+	    }
 
             ttl = "Found " + triggered_count + " attacks.\nUrgency: " + urgency_str;
             $td.tooltip();
@@ -79,10 +79,63 @@ require([
         }
         }
     });
+	
+    var MitreTitleRenderer = TableView.BaseCellRenderer.extend({
+        canRender: function(cell) {
+            // Enable this custom cell renderer for both the active_hist_searches and the active_realtime_searches field
+            return _(["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]).contains(cell.field);
+        },
+        render: function($td, cell) {
+            // Add a class to the cell based on the returned value
+            var value_arr = cell.value.split("|");
+            triggered_count = value_arr[0];
+            max_urgency = value_arr[1];
 
-    mvc.Components.get('highlight').getVisualization(function(tableView) {
+            $td.addClass('add-border').addClass('text-align-center');
+	    
+	    if (max_urgency==1){
+		$td.addClass('title-range-cell').addClass('title-range-info');
+            }
+            else if (max_urgency==2){
+		$td.addClass('title-range-cell').addClass('title-range-low');
+            }
+            else if (max_urgency==3){
+		$td.addClass('title-range-cell').addClass('title-range-med');
+            }
+            else if (max_urgency==4){
+		$td.addClass('title-range-cell').addClass('title-range-high');
+            }
+            else if (max_urgency==5){
+		$td.addClass('title-range-cell').addClass('title-range-crit');
+            }
+	    else {
+		$td.addClass('title-range-cell').addClass('title-range-none');
+	    }
+
+            if (isDarkTheme) {
+              $td.addClass('dark');
+            }
+
+            // Update the cell content
+            //$td.text(value.toFixed(2)).addClass('numeric');
+
+            if (triggered_count=="NULL"){
+                $td.text("0");
+            }
+            else {
+                $td.text(triggered_count);
+            }
+        }
+    });
+
+    mvc.Components.get('mitrematrix').getVisualization(function(tableView) {
         // Add custom cell renderer, the table will re-render automatically.
-        tableView.addCellRenderer(new CustomRangeRenderer());
+        tableView.addCellRenderer(new MitreMatrixRenderer());
+    });
+
+    mvc.Components.get('mitretitle').getVisualization(function(tableView) {
+        // Add custom cell renderer, the table will re-render automatically.
+        tableView.addCellRenderer(new MitreTitleRenderer());
     });
 
 });

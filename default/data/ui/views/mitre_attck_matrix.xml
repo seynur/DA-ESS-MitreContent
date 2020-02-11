@@ -4,14 +4,14 @@
   <search id="init_attack_search">
     <query>
 | inputlookup mitre_all_rule_technique_lookup.csv | lookup mitre_tt_lookup.csv technique_id
-| fields rule_name, technique_name 
-| join rule_name 
-    [  search `notable_by_id("*")` 
-    | rename search_name as rule_name 
-    | fields rule_name, urgency 
-    | lookup urgency_score.csv urgency 
-    | stats max(score) as max_score, count by rule_name] 
-| stats sum(count) as triggered_count list(rule_name) as rule_name_list, max(max_score) as max_score by technique_name delim=";" 
+| fields rule_name, technique_name
+| join rule_name
+    [  search `notable_by_id("*")`
+    | rename search_name as rule_name
+    | fields rule_name, urgency
+    | lookup urgency_score.csv urgency
+    | stats max(score) as max_score, count by rule_name]
+| stats sum(count) as triggered_count list(rule_name) as rule_name_list, max(max_score) as max_score by technique_name delim=";"
 | nomv rule_name_list
     </query>
     <earliest>$attack_time_field.earliest$</earliest>
@@ -29,77 +29,77 @@
   </search>
   <search base="init_mitre_attack_table" id="post_process_mitre_attack_triage">
     <query>
-      | join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_name as "Collection", triggered_count as "Collection Attack Count", rule_name_list as "Collection Rule Name List", max_score as "Collection Max Score" ] 
-| fillnull value="NULL" "Collection","Collection Rule Name List" 
-| fillnull value=0 "Collection Attack Count", "Collection Max Score" 
-| eval "Collection"='Collection'. "|" .'Collection Attack Count'. "|" .'Collection Rule Name List'. "|" .'Collection Max Score' 
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_name as "Command And Control" , triggered_count as "Command And Control Attack Count", rule_name_list as "Command And Control Rule Name List", max_score as "Command And Control Max Score" ] 
-| fillnull value="NULL" "Command And Control","Command And Control Rule Name List" 
-| fillnull value=0 "Command And Control Attack Count", "Command And Control Max Score" 
-| eval "Command And Control"='Command And Control'. "|" .'Command And Control Attack Count'. "|" .'Command And Control Rule Name List'. "|" .'Command And Control Max Score' 
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_name as "Credential Access" , triggered_count as "Credential Access Attack Count", rule_name_list as "Credential Access Rule Name List", max_score as "Credential Access Max Score" ] 
-| fillnull value="NULL" "Credential Access","Credential Access Rule Name List" 
-| fillnull value=0 "Credential Access Attack Count", "Credential Access Max Score" 
-| eval "Credential Access"='Credential Access'. "|" .'Credential Access Attack Count'. "|" .'Credential Access Rule Name List'. "|" .'Credential Access Max Score' 
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_name as "Defense Evasion" , triggered_count as "Defense Evasion Attack Count", rule_name_list as "Defense Evasion Rule Name List", max_score as "Defense Evasion Max Score" ] 
-| fillnull value="NULL" "Defense Evasion","Defense Evasion Rule Name List" 
-| fillnull value=0 "Defense Evasion Attack Count", "Defense Evasion Max Score" 
-| eval "Defense Evasion"='Defense Evasion'. "|" .'Defense Evasion Attack Count'. "|" .'Defense Evasion Rule Name List'. "|" .'Defense Evasion Max Score' 
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_name as "Discovery" , triggered_count as "Discovery Attack Count", rule_name_list as "Discovery Rule Name List", max_score as "Discovery Max Score" ] 
-| fillnull value="NULL" "Discovery","Discovery Rule Name List" 
-| fillnull value=0 "Discovery Attack Count", "Discovery Max Score" 
-| eval "Discovery"='Discovery'. "|" .'Discovery Attack Count'. "|" .'Discovery Rule Name List'. "|" .'Discovery Max Score' 
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_name as "Execution" , triggered_count as "Execution Attack Count", rule_name_list as "Execution Rule Name List", max_score as "Execution Max Score" ] 
-| fillnull value="NULL" "Execution","Execution Rule Name List" 
-| fillnull value=0 "Execution Attack Count", "Execution Max Score" 
-| eval "Execution"='Execution'. "|" .'Execution Attack Count'. "|" .'Execution Rule Name List'. "|" .'Execution Max Score' 
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_name as "Exfiltration" , triggered_count as "Exfiltration Attack Count", rule_name_list as "Exfiltration Rule Name List", max_score as "Exfiltration Max Score" ] 
-| fillnull value="NULL" "Exfiltration","Exfiltration Rule Name List" 
-| fillnull value=0 "Exfiltration Attack Count", "Exfiltration Max Score" 
-| eval "Exfiltration"='Exfiltration'. "|" .'Exfiltration Attack Count'. "|" .'Exfiltration Rule Name List'. "|" .'Exfiltration Max Score' 
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_name as "Impact" , triggered_count as "Impact Attack Count", rule_name_list as "Impact Rule Name List", max_score as "Impact Max Score" ] 
-| fillnull value="NULL" "Impact","Impact Rule Name List" 
-| fillnull value=0 "Impact Attack Count", "Impact Max Score" 
-| eval "Impact"='Impact'. "|" .'Impact Attack Count'. "|" .'Impact Rule Name List'. "|" .'Impact Max Score' 
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_name as "Initial Access" , triggered_count as "Initial Access Attack Count", rule_name_list as "Initial Access Rule Name List", max_score as "Initial Access Max Score" ] 
-| fillnull value="NULL" "Initial Access","Initial Access Rule Name List" 
-| fillnull value=0 "Initial Access Attack Count", "Initial Access Max Score" 
-| eval "Initial Access"='Initial Access'. "|" .'Initial Access Attack Count'. "|" .'Initial Access Rule Name List'. "|" .'Initial Access Max Score' 
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_name as "Lateral Movement" , triggered_count as "Lateral Movement Attack Count", rule_name_list as "Lateral Movement Rule Name List", max_score as "Lateral Movement Max Score" ] 
-| fillnull value="NULL" "Lateral Movement","Lateral Movement Rule Name List" 
-| fillnull value=0 "Lateral Movement Attack Count", "Lateral Movement Max Score" 
-| eval "Lateral Movement"='Lateral Movement'. "|" .'Lateral Movement Attack Count'. "|" .'Lateral Movement Rule Name List'. "|" .'Lateral Movement Max Score' 
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_name as "Persistence" , triggered_count as "Persistence Attack Count", rule_name_list as "Persistence Rule Name List", max_score as "Persistence Max Score" ] 
-| fillnull value="NULL" "Persistence","Persistence Rule Name List" 
-| fillnull value=0 "Persistence Attack Count", "Persistence Max Score" 
-| eval "Persistence"='Persistence'. "|" .'Persistence Attack Count'. "|" .'Persistence Rule Name List'. "|" .'Persistence Max Score' 
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_name as "Privilege Escalation" , triggered_count as "Privilege Escalation Attack Count", rule_name_list as "Privilege Escalation Rule Name List", max_score as "Privilege Escalation Max Score" ] 
-| fillnull value="NULL" "Privilege Escalation","Privilege Escalation Rule Name List" 
-| fillnull value=0 "Privilege Escalation Attack Count", "Privilege Escalation Max Score" 
+      | join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_name as "Collection", triggered_count as "Collection Attack Count", rule_name_list as "Collection Rule Name List", max_score as "Collection Max Score" ]
+| fillnull value="NULL" "Collection","Collection Rule Name List"
+| fillnull value=0 "Collection Attack Count", "Collection Max Score"
+| eval "Collection"='Collection'. "|" .'Collection Attack Count'. "|" .'Collection Rule Name List'. "|" .'Collection Max Score'
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_name as "Command And Control" , triggered_count as "Command And Control Attack Count", rule_name_list as "Command And Control Rule Name List", max_score as "Command And Control Max Score" ]
+| fillnull value="NULL" "Command And Control","Command And Control Rule Name List"
+| fillnull value=0 "Command And Control Attack Count", "Command And Control Max Score"
+| eval "Command And Control"='Command And Control'. "|" .'Command And Control Attack Count'. "|" .'Command And Control Rule Name List'. "|" .'Command And Control Max Score'
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_name as "Credential Access" , triggered_count as "Credential Access Attack Count", rule_name_list as "Credential Access Rule Name List", max_score as "Credential Access Max Score" ]
+| fillnull value="NULL" "Credential Access","Credential Access Rule Name List"
+| fillnull value=0 "Credential Access Attack Count", "Credential Access Max Score"
+| eval "Credential Access"='Credential Access'. "|" .'Credential Access Attack Count'. "|" .'Credential Access Rule Name List'. "|" .'Credential Access Max Score'
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_name as "Defense Evasion" , triggered_count as "Defense Evasion Attack Count", rule_name_list as "Defense Evasion Rule Name List", max_score as "Defense Evasion Max Score" ]
+| fillnull value="NULL" "Defense Evasion","Defense Evasion Rule Name List"
+| fillnull value=0 "Defense Evasion Attack Count", "Defense Evasion Max Score"
+| eval "Defense Evasion"='Defense Evasion'. "|" .'Defense Evasion Attack Count'. "|" .'Defense Evasion Rule Name List'. "|" .'Defense Evasion Max Score'
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_name as "Discovery" , triggered_count as "Discovery Attack Count", rule_name_list as "Discovery Rule Name List", max_score as "Discovery Max Score" ]
+| fillnull value="NULL" "Discovery","Discovery Rule Name List"
+| fillnull value=0 "Discovery Attack Count", "Discovery Max Score"
+| eval "Discovery"='Discovery'. "|" .'Discovery Attack Count'. "|" .'Discovery Rule Name List'. "|" .'Discovery Max Score'
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_name as "Execution" , triggered_count as "Execution Attack Count", rule_name_list as "Execution Rule Name List", max_score as "Execution Max Score" ]
+| fillnull value="NULL" "Execution","Execution Rule Name List"
+| fillnull value=0 "Execution Attack Count", "Execution Max Score"
+| eval "Execution"='Execution'. "|" .'Execution Attack Count'. "|" .'Execution Rule Name List'. "|" .'Execution Max Score'
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_name as "Exfiltration" , triggered_count as "Exfiltration Attack Count", rule_name_list as "Exfiltration Rule Name List", max_score as "Exfiltration Max Score" ]
+| fillnull value="NULL" "Exfiltration","Exfiltration Rule Name List"
+| fillnull value=0 "Exfiltration Attack Count", "Exfiltration Max Score"
+| eval "Exfiltration"='Exfiltration'. "|" .'Exfiltration Attack Count'. "|" .'Exfiltration Rule Name List'. "|" .'Exfiltration Max Score'
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_name as "Impact" , triggered_count as "Impact Attack Count", rule_name_list as "Impact Rule Name List", max_score as "Impact Max Score" ]
+| fillnull value="NULL" "Impact","Impact Rule Name List"
+| fillnull value=0 "Impact Attack Count", "Impact Max Score"
+| eval "Impact"='Impact'. "|" .'Impact Attack Count'. "|" .'Impact Rule Name List'. "|" .'Impact Max Score'
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_name as "Initial Access" , triggered_count as "Initial Access Attack Count", rule_name_list as "Initial Access Rule Name List", max_score as "Initial Access Max Score" ]
+| fillnull value="NULL" "Initial Access","Initial Access Rule Name List"
+| fillnull value=0 "Initial Access Attack Count", "Initial Access Max Score"
+| eval "Initial Access"='Initial Access'. "|" .'Initial Access Attack Count'. "|" .'Initial Access Rule Name List'. "|" .'Initial Access Max Score'
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_name as "Lateral Movement" , triggered_count as "Lateral Movement Attack Count", rule_name_list as "Lateral Movement Rule Name List", max_score as "Lateral Movement Max Score" ]
+| fillnull value="NULL" "Lateral Movement","Lateral Movement Rule Name List"
+| fillnull value=0 "Lateral Movement Attack Count", "Lateral Movement Max Score"
+| eval "Lateral Movement"='Lateral Movement'. "|" .'Lateral Movement Attack Count'. "|" .'Lateral Movement Rule Name List'. "|" .'Lateral Movement Max Score'
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_name as "Persistence" , triggered_count as "Persistence Attack Count", rule_name_list as "Persistence Rule Name List", max_score as "Persistence Max Score" ]
+| fillnull value="NULL" "Persistence","Persistence Rule Name List"
+| fillnull value=0 "Persistence Attack Count", "Persistence Max Score"
+| eval "Persistence"='Persistence'. "|" .'Persistence Attack Count'. "|" .'Persistence Rule Name List'. "|" .'Persistence Max Score'
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_name as "Privilege Escalation" , triggered_count as "Privilege Escalation Attack Count", rule_name_list as "Privilege Escalation Rule Name List", max_score as "Privilege Escalation Max Score" ]
+| fillnull value="NULL" "Privilege Escalation","Privilege Escalation Rule Name List"
+| fillnull value=0 "Privilege Escalation Attack Count", "Privilege Escalation Max Score"
 | eval "Privilege Escalation"='Privilege Escalation'. "|" .'Privilege Escalation Attack Count'. "|" .'Privilege Escalation Rule Name List'. "|" .'Privilege Escalation Max Score'
 </query>
   </search>
@@ -127,184 +127,50 @@
   </fieldset>
   <row>
     <panel>
-      <title>Initial Access</title>
-      <single>
+      <title>MITRE ATT&amp;CK Tactics</title>
+      <table id="mitretitle">
         <search base="post_process_mitre_attack_triage">
-          <query>
-
-| stats sum("Initial Access Attack Count") as "Initial Access"
-		</query>
+          <query>| stats sum("Initial Access Attack Count") as initial_access_sum,
+sum("Execution Attack Count") as execution_sum,
+sum("Persistence Attack Count") as persistence_sum,
+sum("Privilege Escalation Attack Count") as privilege_escalation_sum,
+sum("Defense Evasion Attack Count") as defense_evasion_sum,
+sum("Credential Access Attack Count") as credential_access_sum,
+sum("Discovery Attack Count") as discovery_sum,
+sum("Lateral Movement Attack Count") as lateral_movement_sum,
+sum("Collection Attack Count") as collection_sum,
+sum("Command And Control Attack Count") as command_and_control_sum,
+sum("Exfiltration Attack Count") as exfiltration_sum
+sum("Impact Attack Count") as impact_sum,
+max("Initial Access Max Score") as initial_access_max_score,
+max("Execution Max Score") as execution_max_score,
+max("Persistence Max Score") as persistence_max_score,
+max("Privilege Escalation Max Score") as privilege_escalation_max_score,
+max("Defense Evasion Max Score") as defense_evasion_max_score,
+max("Credential Access Max Score") as credential_access_max_score,
+max("Discovery Max Score") as discovery_max_score,
+max("Lateral Movement Max Score") as lateral_movement_max_score,
+max("Collection Max Score") as collection_max_score,
+max("Command And Control Max Score") as command_and_control_max_score,
+max("Exfiltration Max Score") as exfiltration_max_score,
+max("Impact Max Score") as impact_max_score
+| eval "Initial Access"=initial_access_sum."|".initial_access_max_score,
+"Execution"=execution_sum."|".execution_max_score,
+"Persistence"=persistence_sum."|".persistence_max_score,
+"Privilege Escalation"=privilege_escalation_sum."|".privilege_escalation_max_score,
+"Defense Evasion"=defense_evasion_sum."|".defense_evasion_max_score,
+"Credential Access"=credential_access_sum."|".credential_access_max_score,
+"Discovery"=discovery_sum."|".discovery_max_score,
+"Lateral Movement"=lateral_movement_sum."|".lateral_movement_max_score,
+"Collection"=collection_sum."|".collection_max_score,
+"Command And Control"=command_and_control_sum."|".command_and_control_max_score,
+"Exfiltration"=exfiltration_sum."|".exfiltration_max_score,
+"Impact"=impact_sum."|".impact_max_score
+| table "Initial Access" "Execution" "Persistence" "Privilege Escalation" "Defense Evasion" "Credential Access" "Discovery" "Lateral Movement" "Collection" "Command And Control" "Exfiltration" "Impact"</query>
         </search>
-        <option name="colorMode">none</option>
-        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[0,3,5,8]</option>
-        <option name="useColors">1</option>
-      </single>
-    </panel>
-    <panel>
-      <title>Execution</title>
-      <single>
-        <search base="post_process_mitre_attack_triage">
-          <query>
-
-| stats sum("Execution Attack Count") as "Execution"
-		</query>
-        </search>
-        <option name="colorMode">none</option>
-        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[0,3,5,8]</option>
-        <option name="useColors">1</option>
-      </single>
-    </panel>
-    <panel>
-      <title>Persistence</title>
-      <single>
-        <search base="post_process_mitre_attack_triage">
-          <query>
-
-| stats sum("Persistence Attack Count") as "Persistence"
-		</query>
-        </search>
-        <option name="colorMode">none</option>
-        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[0,3,5,8]</option>
-        <option name="useColors">1</option>
-      </single>
-    </panel>
-    <panel>
-      <title>Privilege Escalation</title>
-      <single>
-        <search base="post_process_mitre_attack_triage">
-          <query>
-
-| stats sum("Privilege Escalation Attack Count") as "Privilege Escalation"
-		</query>
-        </search>
-        <option name="colorMode">none</option>
-        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[0,3,5,8]</option>
-        <option name="useColors">1</option>
-      </single>
-    </panel>
-    <panel>
-      <title>Defense Evasion</title>
-      <single>
-        <search base="post_process_mitre_attack_triage">
-          <query>
-
-| stats sum("Defense Evasion Attack Count") as "Defense Evasion"
-		</query>
-        </search>
-        <option name="colorMode">none</option>
-        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[0,3,5,8]</option>
-        <option name="useColors">1</option>
-      </single>
-    </panel>
-    <panel>
-      <title>Credential Access</title>
-      <single>
-        <search base="post_process_mitre_attack_triage">
-          <query>
-
-| stats sum("Credential Access Attack Count") as "Credential Access"
-		</query>
-        </search>
-        <option name="colorMode">none</option>
-        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[0,3,5,8]</option>
-        <option name="useColors">1</option>
-      </single>
-    </panel>
-    <panel>
-      <title>Discovery</title>
-      <single>
-        <search base="post_process_mitre_attack_triage">
-          <query>
-
-| stats sum("Discovery Attack Count") as "Discovery"
-		</query>
-        </search>
-        <option name="colorMode">none</option>
-        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[0,3,5,8]</option>
-        <option name="useColors">1</option>
-      </single>
-    </panel>
-    <panel>
-      <title>Lateral Movement</title>
-      <single>
-        <search base="post_process_mitre_attack_triage">
-          <query>
-
-| stats sum("Lateral Movement Attack Count") as "Lateral Movement"
-		</query>
-        </search>
-        <option name="colorMode">none</option>
-        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[0,3,5,8]</option>
-        <option name="useColors">1</option>
-      </single>
-    </panel>
-    <panel>
-      <title>Collection</title>
-      <single>
-        <search base="post_process_mitre_attack_triage">
-          <query>
-
-| stats sum("Collection Attack Count") as "Collection"
-		</query>
-        </search>
-        <option name="colorMode">none</option>
-        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[0,3,5,8]</option>
-        <option name="useColors">1</option>
-      </single>
-    </panel>
-    <panel>
-      <title>Command And Control</title>
-      <single>
-        <search base="post_process_mitre_attack_triage">
-          <query>
-
-| stats sum("Command And Control Attack Count") as "Command And Control"
-		</query>
-        </search>
-        <option name="colorMode">none</option>
-        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[0,3,5,8]</option>
-        <option name="useColors">1</option>
-      </single>
-    </panel>
-    <panel>
-      <title>Exfiltration</title>
-      <single>
-        <search base="post_process_mitre_attack_triage">
-          <query>
-
-| stats sum("Exfiltration Attack Count") as "Exfiltration"
-		</query>
-        </search>
-        <option name="colorMode">none</option>
-        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[0,3,5,8]</option>
-        <option name="useColors">1</option>
-      </single>
-    </panel>
-    <panel>
-      <title>Impact</title>
-      <single>
-        <search base="post_process_mitre_attack_triage">
-          <query>
-
-| stats sum("Impact Attack Count") as "Impact"
-		</query>
-        </search>
-        <option name="colorMode">none</option>
-        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
-        <option name="rangeValues">[0,3,5,8]</option>
-        <option name="useColors">1</option>
-      </single>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
     </panel>
   </row>
   <row>
@@ -314,13 +180,13 @@
          <style>
             #highlight2 .string {
             color: #00FF00 !important;
-           }        
+           }
            #highlight2 .td {
             background-color: #FFFFFF !important;
-           }        
+           }
          </style>
        </html>
-      <table id="highlight">
+      <table id="mitrematrix">
         <search base="post_process_mitre_attack_triage">
           <query>
 | fields "Initial Access","Execution","Persistence","Privilege Escalation","Defense Evasion","Credential Access","Discovery","Lateral Movement","Collection","Command And Control","Exfiltration","Impact"

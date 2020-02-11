@@ -76,7 +76,7 @@ require([
         }
     });
 
-    mvc.Components.get('highlight').getVisualization(function(tableView) {
+    mvc.Components.get('mitrematrix').getVisualization(function(tableView) {
         // Add custom cell renderer, the table will re-render automatically.
         tableView.addCellRenderer(new CustomRangeRenderer());
     });
