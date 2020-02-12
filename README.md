@@ -26,6 +26,11 @@ MITRE ATT&CK Compliance Lookup Gen: This lookup generator relies on mitre_all_ru
 
 
 #### Release Notes:
+Version 2.0.1
+- Date: 12 Feb 2020
+- Bug fix for appinspect validation
+- Tactics overview displayed as table with updated js and css
+
 Version 2.0.0
 - Date: 08 Feb 2020
 - Updated lookup tables to correctly define MITRE ATT&CK tactics and techniques
