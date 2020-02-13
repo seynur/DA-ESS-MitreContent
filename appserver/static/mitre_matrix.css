@@ -1,26 +1,32 @@
-
-/* Cell Highlighting */
-#mitre_status_table td {
-    font-family:Splunk Platform Sans,Proxima Nova,Roboto,Droid,Helvetica Neue,Helvetica,Arial,sans-serif;
+table {
+    width: 100%;
+    table-layout: fixed;
 }
- 
-#highlight td {
+
+td {
+    font-family:Splunk Platform Sans,Proxima Nova,Roboto,Droid,Helvetica Neue,Helvetica,Arial,sans-serif;
     background-color: #FFF;
     color: #353637;
 }
 
+#mitrematrix td {
+    width: 8%;
+}
 
-#highlight td.text-align-center {
+#mitretitle td {
+    width: 8%;
+}
+
+td.text-align-center {
     text-align: center;
-    font-family:Splunk Platform Sans,Proxima Nova,Roboto,Droid,Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
-#highlight td.add-border {
-    border: 1px solid rgba(43, 42, 42, 0.233); 
+td.add-border {
+    border: 1px solid rgba(43, 42, 42, 0.233);
 }
 
-/* 
- * Splunk ES App colors 
+/*
+ * Splunk ES App colors
  * info: 53a051
  * low:  0877a6
  * med:  f8be34
@@ -28,66 +34,92 @@
  * crit: dc4e41
 */
 
-#highlight td.range-none {
+td.range-none {
     color: #888 !important;
 }
 
 /*
  * Compliance CSS
 */
-#highlight td.range-compliance_zero {
+td.range-compliance_zero {
     background-color: #24d4f742 !important;
 }
 
-#highlight td.range-compliance_low {
+td.range-compliance_low {
     background-color: #24d4f74f !important;
 }
 
-#highlight td.range-compliance_mid {
+td.range-compliance_mid {
     background-color: #24d4f7b0 !important;
 }
-
-#highlight td.range-compliance_high {
+td.range-compliance_high {
     background-color: #24d4f7fa !important;
 }
 /*
  * Triggered CSS
 */
-#highlight td.range-info {
+td.range-info {
     background-color: #53a051 !important;
     color: #FFFFFF !important;
 }
 
-#highlight td.range-low {
+td.range-low {
     background-color: #0877a6 !important;
     color: #FFFFFF !important;
 }
 
-#highlight td.range-med {
+td.range-med {
     background-color: #f8be34 !important;
     color: #FFFFFF !important;
 }
 
-#highlight td.range-high {
+td.range-high {
     background-color: #f1813f !important;
     color: #FFFFFF !important;
 }
 
-#highlight td.range-crit {
+td.range-crit {
     background-color: #dc4e41 !important;
     color: #FFFFFF !important;
 }
 
+td.title-range-cell {
+    font-size: 4em;
+    font-weight: bold;
+    line-height: 1em;
+}
+
+td.title-range-info {
+    color: #53a051 !important;
+}
+
+td.title-range-low {
+    color: #0877a6 !important;
+}
+
+td.title-range-med {
+    color: #f8be34 !important;
+}
+
+td.title-range-high {
+    color: #f1813f !important;
+}
+td.title-range-crit {
+    color: #dc4e41 !important;
+}
+
+td.title-range-none {
+    color: #888 !important;
+}
 /* Dark Theme */
 
-#highlight td.dark {
+td.dark {
             color: #F1F3F5;
-	    background-color: #00000020;
-           }        
+            background-color: #00000020;
+           }
 
 .tooltip-inner { max-width: 400px;
     text-align: left;
     font-size: 14px;
     font-weight: normal;
     }
-
