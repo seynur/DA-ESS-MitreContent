@@ -14,12 +14,12 @@
           <query>| rest /services/saved/searches/
 | search title="MITRE ATT&amp;CK Compliance Lookup Gen"
 | fields title, next_scheduled_time, updated
-| rename title as "Lookup Generator Name", next_scheduled_time as "Next Run", updated as "Last Run"
+| rename title as "Lookup Generator Name", next_scheduled_time as "Next Scheduled Run", updated as "Last Scheduled Run"
 | join "Lookup Generator Name" type=left
     [| rest /services/data/lookup-table-files
     | search title = "mitre_all_rule_compliance_lookup.csv"
     | fields title, updated
-    | rename title as "Lookup Table Name", updated as "Time of Latest Lookup Table"
+    | rename title as "Lookup Table Name", updated as "Time of Latest Lookup Table Update"
     | eval "Lookup Generator Name" = "MITRE ATT&amp;CK Compliance Lookup Gen" ]
 | fillnull value=""
 | eval Instruction=if('Lookup Table Name'="","Lookup table is empty, CLICK HERE to manually run the report and populate the lookup file.","If you want to REFRESH the below table you need CLICK HERE to manually run the setup and repopulate the lookup file.")</query>

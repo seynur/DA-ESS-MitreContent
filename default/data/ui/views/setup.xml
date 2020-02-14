@@ -1,5 +1,5 @@
-<form theme="dark">
-  <label></label>
+<dashboard theme="dark">
+  <label>Setup: Lookup File Generation</label>
   <row>
     <panel>
       <html>
@@ -74,4 +74,4 @@
       </table>
     </panel>
   </row>
-</form>
+</dashboard>
