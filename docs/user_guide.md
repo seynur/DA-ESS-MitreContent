@@ -13,6 +13,17 @@ This guide will provide description for the views that comes with this applicati
   - [Match with Analytic Story](#match-with-analytic-story)
   - [Match with Lookup](#match-with-lookup)
 
+
+  &nbsp;
+
+
+  ---
+
+
+  &nbsp;
+
+
+
 ### MITRE ATT&CK Compliance with Splunk ES View
 Each cell containing a technique is colored based on the percentage of enabled correlation searches.
 
@@ -29,12 +40,32 @@ You can mouse over to the cells that contain techniques in order to view the num
 ![setup4]
 
 
+&nbsp;
+
+
+---
+
+
+&nbsp;
+
+
 ### MITRE ATT&CK Matrix View
 This dashboard/form has filtering options based on "**Event Time Range**" and "**Urgency**" level of Notable Events.  It provides and overview of triggered techniques within MITRE ATT&CK Matrix colored according to the "**Urgency**" level of Notable Events.
 
 You can click on the triggered technique which provides the drill-down functionality and opens up Enterprise Security App **Incident Review** view for further analysis/investigation.
 
 ![triggered_techniques1]
+
+
+&nbsp;
+
+
+---
+
+
+&nbsp;
+
+
 
 ### MITRE ATT&CK Triggered Tactics & Techniques View
 This dashboard/form provides an overview of triggered rules based on MITRE ATT&CK Tactics and Notable assets/identities.  This is an effort to provide a better visibility for a notable asset/identity journey through MITRE ATT&CK Framework.  The number of triggered Notable Events according to MITRE ATT&CK techniques are aggregated by Notable Assets where ``notable_asset`` is populated by ``src``, ``dest`` or ``user`` from related Data Models.
@@ -45,6 +76,16 @@ Currently following panels are available:
 3. **Triggered Techniques by Tactic**: There's a separate panel for each MITRE ATT&CK Framework Tactic that shows details on triggered Technique, associated correlation rule name, and count of occurrences.
 
 ![triggered_techniques2]
+
+
+&nbsp;
+
+
+---
+
+
+&nbsp;
+
 
 ### How To Match a Correlation Search with Framework
 There are 2 ways to accomplish this task.
@@ -75,21 +116,69 @@ For example, if we want the *Correlation Search* "**Brute Force Access Behavior 
 
 Once saved, the correlation search will populate both the Compliance and Triggered Techniques dashboards.
 
+&nbsp;
+
+&nbsp;
+
+
 #### Match with Lookup
-Each correlation rule is associated with 1 or more technique IDs.  For a given correlation rule you if you simply want to add the technique ID, then you'll need to edit ``mitre_user_rule_technique_lookup.csv``.  The scheduled searches combine this lookup along with analytic stories and checks against exisitng saved/correlation searches in order to create ``mitre_all_rule_technique_lookup.csv``, which is used within the app.
+Each correlation rule is associated with 1 or more technique IDs.  For a given correlation rule you if you simply want to add the technique ID(s), then you have 2 choices:
+1. Utilize **Map Rule to Technique** views
+
+   _OR_
+2. Edit ``mitre_user_rule_technique_lookup.csv`` directly.  
+
+__NOTE:__ The scheduled searches combine this lookup along with analytic stories and checks against existing saved/correlation searches in order to create ``mitre_all_rule_technique_lookup.csv``, which is used within the app.
 
 
+
+&nbsp;
+
+
+
+
+__(1)__ Utilize **Map Rule to Technique** views
+
+a. Go to "**Configuration --> Map Rule to Technique**" from MITRE ATT&CK Framework App menu.  Initially it should appear something similar to following image.
+
+![map_rule_to_technique1]
+
+*__Panel Descriptions__*:
+
+__Existing User Defined Mappings__: This panel displays the contents of user defined mappings and refreshed every 30 seconds to display updates.
+
+__Newly Added User Defined Mapping__: This panel displays the newly selected rule-to-technique mapping which is added to the lookup table.
+
+
+&nbsp;
+
+
+b. Next, select the rule name form __Rule Name__ dropdown menu item and associate with technique IDs from __MITRE ATT&CK Technique__ multi-select then hit __Submit__.  Both panels will be updated accordingly.
+
+
+![map_rule_to_technique2]
+
+
+__Important NOTE__: If a rule name is already defined, this view does NOT add any mappings to the lookup in order to avoid duplicates.  You will see ``No results found`` message and will need to edit the lookup table manually.
+
+
+
+
+
+&nbsp;
+
+
+
+__(2)__ Edit ``mitre_user_rule_technique_lookup.csv`` directly.  
 You can edit the csv directly or utilize Lookup Editor app from web interface.
 
 
 ![lookup_editor1]
 
-The lookup file expects 3 fields:
+The lookup file expects 2 fields:
 * ``rule_name`` : The rule name as it appears in ``savedsearches.conf`` (e.g. "Access - Excessive Failed Logins - Rule")
-* ``rule_disabled`` : ``0`` or ``1`` to indicate status (``0`` meaning enabled rule)
-* ``technique_id`` : MITRE ATT&CK Technique ID (e.g. T1078 for Valid Accounts)
+* ``technique_id`` : MITRE ATT&CK Technique ID (e.g. T1078 for Valid Accounts) list separated by spaces
 
-**NOTE**: We are hoping to improve upon this manual process in the future releases.
 
 
 [setup4]: assets/img/setup4.png
@@ -100,3 +189,6 @@ The lookup file expects 3 fields:
 [analyticstory3]: assets/img/analyticstory3.png
 [analyticstory4]: assets/img/analyticstory4.png
 [lookup_editor1]: assets/img/lookup_editor1.png
+[map_rule_to_technique1]: assets/img/map_rule_to_technique1.png
+[map_rule_to_technique2]: assets/img/map_rule_to_technique2.png
+[map_rule_to_technique3]: assets/img/map_rule_to_technique3.png

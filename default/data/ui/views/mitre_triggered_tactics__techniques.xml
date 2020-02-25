@@ -22,9 +22,9 @@
   <search id="post_process_tt_by_rule" base="basesearch_mitre_by_assets">
     <query>
 | fields tactic_name, technique_name, rule_name
-| makemv tokenizer="([^\n]+)" tactic_name
+| makemv tokenizer="([^\n\s]+)" tactic_name
 | mvexpand tactic_name
-| makemv tokenizer="([^\n]+)" technique_name
+| makemv tokenizer="([^\n\s]+)" technique_name
 | mvexpand technique_name</query>
   </search>
   <fieldset autoRun="true" submitButton="true">
