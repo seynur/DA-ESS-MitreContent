@@ -1,4 +1,4 @@
-## MITRE ATT&CK App for Splunk(TM)
+## MITRE ATT&CK App for Splunk&reg;
 
 #### Documentation
 Detailed documentation can be found at: https://seynur.github.io/DA-ESS-MitreContent/
