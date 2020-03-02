@@ -13,7 +13,7 @@
                  var username_div = $('#item-\\/storage\\/passwords\\/_new\\/name');
                  username_div.hide();
                  var username_input = $('#\\/storage\\/passwords\\/_new\\/name_id');
-                 username_input.val('api_key');
+                 username_input.val('apikey');
              });
            </script> ]]></text>
    </block>
