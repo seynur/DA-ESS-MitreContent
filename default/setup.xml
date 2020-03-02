@@ -1,0 +1,20 @@
+<setup><block title="API Key" endpoint="storage/passwords" entity="_new">
+     <text>Enter your API Key here</text>
+           <input field="name">
+                   <label>API Key Username (enter api_key as the username)</label>
+                   <type>text</type>
+           </input>
+           <input field="password">
+                   <label>API Key</label>
+                   <type>text</type>
+           </input>
+           <text><![CDATA[ <script type="text/javascript">
+             $(function(){
+                 var username_div = $('#item-\\/storage\\/passwords\\/_new\\/name');
+                 username_div.hide();
+                 var username_input = $('#\\/storage\\/passwords\\/_new\\/name_id');
+                 username_input.val('api_key');
+             });
+           </script> ]]></text>
+   </block>
+   </setup>
