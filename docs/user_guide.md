@@ -32,8 +32,9 @@ If there isn't any related correlation searches, the cell is left uncolored.
 If there are available correlation searches within Enterprise Security (and ESCU), then cells are colored based on percentage of enabled/active ones.
 
 Currently the ranges are set as follows:
-* low: 0-30% enabled
-* medium: 30-50% enabled
+* none: 0–30% (uncolored)
+* low: 30–50% enabled 
+* medium: 50–70% enabled 
 * high: 70%+ enabled
 
 You can mouse over to the cells that contain techniques in order to view the number of available and enabled correlation rules that are specific to that technique.
