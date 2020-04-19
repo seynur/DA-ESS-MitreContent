@@ -12,12 +12,13 @@
     <panel>
       <table>
         <search>
-          <query>| inputlookup mitre_all_rule_technique_lookup.csv 
+          <query>| inputlookup mitre_all_rule_technique_lookup.csv
 | `lookup_technique_tactic_from_rule_name`
 | search technique_name=$mitre_technique_name$
+| eval app_name=mvdedup(app_name), rule_disabled=mvdedup(rule_disabled)
 | eval Status = if(rule_disabled=0,"Enabled","Disabled")
-| rename rule_name as "Rule Name", tactic_id as "Tactic ID", tactic_name as "Tactic", technique_id as "Technique ID", technique_name as "Technique"
-| fields "Rule Name", Status, "Tactic ID", "Tactic", "Technique ID", "Technique"</query>
+| rename rule_name as "Rule Name", app_name as "Application", tactic_id as "Tactic ID", tactic_name as "Tactic", technique_id as "Technique ID", technique_name as "Technique"
+| fields "Rule Name", "Application", Status, "Tactic ID", "Tactic", "Technique ID", "Technique"</query>
           <earliest>-24h@h</earliest>
           <latest>now</latest>
         </search>
