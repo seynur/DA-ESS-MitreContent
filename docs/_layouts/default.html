@@ -5,11 +5,8 @@
     <title>{{ page.title }}</title>
     <link rel="stylesheet" href="assets/css/seynur.css">
   </head>
-  <body>
-    {% include header.html %}
-    {% include navigation.html %}
-    {{ content }}
-    {% include footer.html %}
-    {% include versions.html %}
-  </body>
+  {% include header.html %}
+  {% include sidebar.html%}
+  {% include navigation.html %}
+  {% include contentNew.html %}
 </html>
