@@ -2,8 +2,8 @@
   <label>MITRE ATT&amp;CK Triggered Tactics &amp; Techniques</label>
   <search id="basesearch_mitre_by_assets">
     <query>
-      | inputlookup mitre_all_rule_technique_lookup.csv
-| fields rule_name 
+      | inputlookup mitre_all_rule_technique_lookup
+| fields rule_name
 | join rule_name
     [ search `notable`
     | search $urgency_field$
@@ -12,7 +12,7 @@
     | eval notable_dest = coalesce(dest,"unknown")
     | eval notable_user = coalesce(user,"unknown")
     | fields rule_name, urgency,notable_src, notable_dest, notable_user
-    | lookup urgency_score.csv urgency
+    | lookup urgency_score_lookup urgency
     | stats max(score) as max_score, count by rule_name,notable_src, notable_dest, notable_user]
 | `lookup_technique_tactic_from_rule_name`
 </query>
@@ -142,7 +142,7 @@
       <table>
         <search base="post_process_tt_by_rule">
           <query>| search tactic_name="Initial Access"
-| stats count by technique_name rule_name 
+| stats count by technique_name rule_name
 | sort -count
 | rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
@@ -161,7 +161,7 @@
       <table>
         <search base="post_process_tt_by_rule">
           <query>| search tactic_name="Execution"
-| stats count by technique_name rule_name 
+| stats count by technique_name rule_name
 | sort -count
 | rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
@@ -180,7 +180,7 @@
       <table>
         <search base="post_process_tt_by_rule">
           <query>| search tactic_name="Persistence"
-| stats count by technique_name rule_name 
+| stats count by technique_name rule_name
 | sort -count
 | rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
@@ -201,7 +201,7 @@
       <table>
         <search base="post_process_tt_by_rule">
           <query>| search tactic_name="Privilege Escalation"
-| stats count by technique_name rule_name 
+| stats count by technique_name rule_name
 | sort -count
 | rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
@@ -220,7 +220,7 @@
       <table>
         <search base="post_process_tt_by_rule">
           <query>| search tactic_name="Defense Evasion"
-| stats count by technique_name rule_name 
+| stats count by technique_name rule_name
 | sort -count
 | rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
@@ -239,7 +239,7 @@
       <table>
         <search base="post_process_tt_by_rule">
           <query>| search tactic_name="Credential Access"
-| stats count by technique_name rule_name 
+| stats count by technique_name rule_name
 | sort -count
 | rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
@@ -260,7 +260,7 @@
       <table>
         <search base="post_process_tt_by_rule">
           <query>| search tactic_name="Discovery"
-| stats count by technique_name rule_name 
+| stats count by technique_name rule_name
 | sort -count
 | rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
@@ -279,7 +279,7 @@
       <table>
         <search base="post_process_tt_by_rule">
           <query>| search tactic_name="Lateral Movement"
-| stats count by technique_name rule_name 
+| stats count by technique_name rule_name
 | sort -count
 | rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
@@ -298,7 +298,7 @@
       <table>
         <search base="post_process_tt_by_rule">
           <query>| search tactic_name="Collection"
-| stats count by technique_name rule_name 
+| stats count by technique_name rule_name
 | sort -count
 | rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
@@ -319,7 +319,7 @@
       <table>
         <search base="post_process_tt_by_rule">
           <query>| search tactic_name="Command And Control"
-| stats count by technique_name rule_name 
+| stats count by technique_name rule_name
 | sort -count
 | rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
@@ -338,7 +338,7 @@
       <table>
         <search base="post_process_tt_by_rule">
           <query>| search tactic_name="Exfiltration"
-| stats count by technique_name rule_name 
+| stats count by technique_name rule_name
 | sort -count
 | rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>
@@ -357,7 +357,7 @@
       <table>
         <search base="post_process_tt_by_rule">
           <query>| search tactic_name="Impact"
-| stats count by technique_name rule_name 
+| stats count by technique_name rule_name
 | sort -count
 | rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
         </search>

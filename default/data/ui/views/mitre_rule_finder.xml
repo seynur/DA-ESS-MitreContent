@@ -12,7 +12,7 @@
     <panel>
       <table>
         <search>
-          <query>| inputlookup mitre_all_rule_technique_lookup.csv
+          <query>| inputlookup mitre_all_rule_technique_lookup
 | `lookup_technique_tactic_from_rule_name`
 | search technique_name=$mitre_technique_name$
 | eval app_name=mvdedup(app_name), rule_disabled=mvdedup(rule_disabled)
