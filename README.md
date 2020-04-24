@@ -26,6 +26,16 @@ MITRE ATT&CK Compliance Lookup Gen: This lookup generator relies on mitre_all_ru
 
 
 #### Release Notes:
+Version 2.2.0
+- Date: XX Apr/May 2020
+- Bug fix: Duplication issue for Rule Finder
+- Feature: Added option to display compliance matrix without default rules (user-defined rules only)
+  - Added lookup file definitions
+  - Added default rules lookup files for ES 6.1.1 and ESCU 1.0.53 out-of-the-box rules
+  - Updated Lookup Generation view
+- Feature: Setup.xml for API integration for continuous new rule updates (free service but requires registration)
+
+
 Version 2.1.0
 - Date: 25 Feb 2020
 - Added a new view for mapping rules to Techniques
