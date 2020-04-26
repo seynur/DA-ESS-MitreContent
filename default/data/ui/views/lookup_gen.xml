@@ -1,5 +1,5 @@
 <dashboard theme="dark">
-  <label>Setup: Lookup File Generation</label>
+  <label>Lookup File Generation</label>
   <row>
     <panel>
       <html>
