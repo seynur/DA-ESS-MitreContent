@@ -1,20 +1,43 @@
-<setup><block title="API Key" endpoint="storage/passwords" entity="_new">
-     <text>Enter your API Key here</text>
-           <input field="name">
-                   <label>API Key Username (enter api_key as the username)</label>
-                   <type>text</type>
-           </input>
-           <input field="password">
-                   <label>API Key</label>
-                   <type>text</type>
-           </input>
-           <text><![CDATA[ <script type="text/javascript">
-             $(function(){
-                 var username_div = $('#item-\\/storage\\/passwords\\/_new\\/name');
-                 username_div.hide();
-                 var username_input = $('#\\/storage\\/passwords\\/_new\\/name_id');
-                 username_input.val('apikey');
-             });
-           </script> ]]></text>
-   </block>
-   </setup>
+<setup>
+  <block title="MITRE ATT&amp;CK App for Splunk - Initial Setup">
+    <text>
+      This setup page provides configuration options for API integration and Lookup Generating searches.
+      &lt;br /&gt;&lt;br /&gt;
+      You can find more information on &lt;a href="https://api.seynur.com" target="_blank" &gt;https://api.seynur.com&lt;/a&gt;
+      &lt;br /&gt;&lt;br /&gt;
+      For a quick start simply hit Save button to continue
+      &lt;br /&gt;&lt;br /&gt;
+
+      &lt;b&gt;Note:&lt;/b&gt; "Get Attack Detection Rules" search tries to connect to API gateway
+      &lt;br /&gt;&lt;hr&gt;&lt;br /&gt;
+    </text>
+  </block>
+    <block title="Attack Detection API Key" endpoint="storage/passwords" entity="attackdetection_apikey*" mode="iter" eai_strict="false">
+    <input field="password">
+      <label>API Key</label>
+      <type>text</type>
+    </input>
+  </block>
+  <block title="Enable/Disable API and Lookup generating searches."
+    endpoint="saved/searches" entity="MITRE ATT&amp;CK*">
+    <text>
+      &lt;i&gt;These are saved searches and can also be modified via Settings after setup.&lt;/i&gt;
+    </text>
+
+    <!-- The field "is_scheduled" maps to the enableSched setting in savedsearches.conf -->
+    <input field="is_scheduled">
+      <label>$name$</label>
+      <type>bool</type>
+    </input>
+  </block>
+  <block title="Configure Cron Schedule"
+    endpoint="saved/searches" entity="MITRE ATT&amp;CK*" mode="iter">
+    <text>
+      &lt;i&gt;Only applicable if enabled.  These are saved searches and can also be modified via Settings after setup.&lt;/i&gt;
+    </text>
+    <input field="cron_schedule">
+        <label>$name$</label>
+        <type>text</type>
+      </input>
+  </block>
+</setup>
