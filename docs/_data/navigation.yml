@@ -32,6 +32,8 @@ items:
 - name: Release Notes
   link: release_notes.html
   subitems:
+    - name: Version 2.2.0
+      anchor: release_notes.html#version-220
     - name: Version 2.1.0
       anchor: release_notes.html#version-210
     - name: Version 2.0.1

@@ -1,3 +1,6 @@
 <div id="versions">
-  For previous {{ site.data.versions.previous_name }} version of the documentation click <a href="versions/{{ site.data.versions.previous_link }}" target="_blank">here</a>.
+  Previous Versions:
+  {% for item in site.data.versions.previous_list %}
+    <a href="/versions/{{ item.link }}" target="_blank">{{item.name}}</a>&nbsp;|&nbsp;
+  {% endfor %}
 </div>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>User Guide</title>
+    <link rel="stylesheet" href="assets/css/seynur.css">
+  </head>
+  <body>
+    <div id="header">
+  <div id="header_title">
+    MITRE ATT&CK App for Splunk&reg; - Documentation
+  </div>
+  <div class="logo">
+    <a href="https://www.seynur.com" target="_blank"><img src="assets/img/seynur_logo_dark.png" /></a>
+  </div>
+</div>
+
+    <nav>
+  <ul>
+
+    <li>
+      <a href="index.html">
+        Overview
+      </a>
+    </li>
+
+    <li>
+      <a href="installation.html">
+        Installation
+      </a>
+    </li>
+
+    <li>
+      <a href="user_guide.html">
+        User Guide
+      </a>
+    </li>
+
+    <li>
+      <a href="release_notes.html">
+        Release Notes
+      </a>
+    </li>
+
+  </ul>
+</nav>
+
+    <h3 id="user-guide">User Guide</h3>
+<p>This guide will provide description for the views that comes with this application and steps on how to create additional correlation searches.</p>
+
+<ul>
+  <li><a href="#mitre-attck-compliance-with-splunk-es-view">MITRE ATT&amp;CK Compliance with Splunk ES View</a></li>
+  <li><a href="#mitre-attck-matrix-view">MITRE ATT&amp;CK Matrix View</a></li>
+  <li><a href="#mitre-attck-triggered-tactics--techniques-view">MITRE ATT&amp;CK Triggered Tactics &amp; Techniques View</a></li>
+  <li><a href="#how-to-match-a-correlation-search-with-framework">How To Match a Correlation Search with Framework</a>
+    <ul>
+      <li><a href="#match-with-analytic-story">Match with Analytic Story</a></li>
+      <li><a href="#match-with-lookup">Match with Lookup</a></li>
+    </ul>
+
+    <p> </p>
+  </li>
+</ul>
+
+<hr />
+
+<p> </p>
+
+<h3 id="mitre-attck-compliance-with-splunk-es-view">MITRE ATT&amp;CK Compliance with Splunk ES View</h3>
+<p>Each cell containing a technique is colored based on the percentage of enabled correlation searches.</p>
+
+<p>If there isn’t any related correlation searches, the cell is left uncolored.</p>
+
+<p>If there are available correlation searches within Enterprise Security (and ESCU), then cells are colored based on percentage of enabled/active ones.</p>
+
+<p>Currently the ranges are set as follows:</p>
+<ul>
+  <li>none: 0–30% (uncolored)</li>
+  <li>low: 30–50% enabled </li>
+  <li>medium: 50–70% enabled </li>
+  <li>high: 70%+ enabled</li>
+</ul>
+
+<p>You can mouse over to the cells that contain techniques in order to view the number of available and enabled correlation rules that are specific to that technique.
+<img src="assets/img/setup4.png" alt="setup4" /></p>
+
+<p> </p>
+
+<hr />
+
+<p> </p>
+
+<h3 id="mitre-attck-matrix-view">MITRE ATT&amp;CK Matrix View</h3>
+<p>This dashboard/form has filtering options based on “<strong>Event Time Range</strong>” and “<strong>Urgency</strong>” level of Notable Events.  It provides and overview of triggered techniques within MITRE ATT&amp;CK Matrix colored according to the “<strong>Urgency</strong>” level of Notable Events.</p>
+
+<p>You can click on the triggered technique which provides the drill-down functionality and opens up Enterprise Security App <strong>Incident Review</strong> view for further analysis/investigation.</p>
+
+<p><img src="assets/img/triggered_techniques1.png" alt="triggered_techniques1" /></p>
+
+<p> </p>
+
+<hr />
+
+<p> </p>
+
+<h3 id="mitre-attck-triggered-tactics--techniques-view">MITRE ATT&amp;CK Triggered Tactics &amp; Techniques View</h3>
+<p>This dashboard/form provides an overview of triggered rules based on MITRE ATT&amp;CK Tactics and Notable assets/identities.  This is an effort to provide a better visibility for a notable asset/identity journey through MITRE ATT&amp;CK Framework.  The number of triggered Notable Events according to MITRE ATT&amp;CK techniques are aggregated by Notable Assets where <code class="highlighter-rouge">notable_asset</code> is populated by <code class="highlighter-rouge">src</code>, <code class="highlighter-rouge">dest</code> or <code class="highlighter-rouge">user</code> from related Data Models.</p>
+
+<p>Currently following panels are available:</p>
+<ol>
+  <li><strong>Triggered Tactics by Notable Assets</strong>: Shows an overview of number of triggered Notable Events according to MITRE ATT&amp;CK tactics by Notable Assets.  This is provided in both Sankey Diagram and Table formats.</li>
+  <li><strong>Triggered Tactics by Notable User</strong>: Shows an overview of number of triggered Notable Events according to MITRE ATT&amp;CK tactics by Notable User/Identity.  This is provided in both Sankey Diagram and Table formats.</li>
+  <li><strong>Triggered Techniques by Tactic</strong>: There’s a separate panel for each MITRE ATT&amp;CK Framework Tactic that shows details on triggered Technique, associated correlation rule name, and count of occurrences.</li>
+</ol>
+
+<p><img src="assets/img/triggered_techniques2.png" alt="triggered_techniques2" /></p>
+
+<p> </p>
+
+<hr />
+
+<p> </p>
+
+<h3 id="how-to-match-a-correlation-search-with-framework">How To Match a Correlation Search with Framework</h3>
+<p>There are 2 ways to accomplish this task.</p>
+<ol>
+  <li><a href="#match-with-analytic-story">Match with Analytic Story</a>: Enable a new or existing <em>Analytic Story</em> to be tagged with the relevant <em>Correlation Search</em></li>
+  <li><a href="#match-with-lookup">Match with Lookup</a>: Edit the <code class="highlighter-rouge">mitre_user_rule_technique_lookup.csv</code> file.</li>
+</ol>
+
+<h4 id="match-with-analytic-story">Match with Analytic Story</h4>
+<p>The view in the application utilized <em>Analytic Stories</em> that are tagged with the <em>Correlation Searches</em>.  Hence, in order to associate a <em>Correlation Search</em> with MITRE ATT&amp;CK Techniques, you will need to create a new <em>Analytic Story</em> and add your <em>Correlation Search</em> with the appropriate tags.</p>
+
+<p><strong>Note:</strong> Please go to Splunk Documentation on <a href="https://docs.splunk.com/Documentation/ES/latest/Admin/Createcorrelationsearches">How to create a Correlation Search</a></p>
+
+<p>For example, if we want the <em>Correlation Search</em> “<strong>Brute Force Access Behavior Detected</strong>” to be associated with “<strong>Brute Force</strong>” Technique under “<strong>Credential Access</strong>” tactic, we need to perform the following steps:</p>
+
+<ol>
+  <li>
+    <p>Go to “<strong>Configure –&gt; Content –&gt; Content Management</strong>” from Enterprise Security Application menu.  Click on “<strong>Create New Content</strong>” and select “<strong>Analytic Story</strong>”</p>
+
+    <p><img src="assets/img/analyticstory1.png" alt="analyticstory1" /></p>
+  </li>
+  <li>
+    <p>Enter a <strong>Name</strong> and fill other details as necessary for this analytic story.  Click on “<strong>Add Search</strong>” and select “<strong>Brute Force Access Behavior Detected</strong>”</p>
+
+    <p><img src="assets/img/analyticstory2.png" alt="analyticstory2" />
+<img src="assets/img/analyticstory3.png" alt="analyticstory3" /></p>
+  </li>
+  <li>
+    <p>Enter <code class="highlighter-rouge">detection</code> for <strong>Type</strong> field and under <strong>Annotations</strong> enter <code class="highlighter-rouge">mitre_attack</code> for <strong>Name</strong> and <code class="highlighter-rouge">Brute Force</code> for <strong>Mappings</strong> (this should match the technique)</p>
+
+    <p><img src="assets/img/analyticstory4.png" alt="analyticstory4" /></p>
+  </li>
+  <li>
+    <p>Click <strong>Save</strong> to save the <em>Analytic Story</em> with annotation and mapping with the defined correlation search.  You can add many correlation searches under one analytic story with defined mappings.</p>
+  </li>
+</ol>
+
+<p>Once saved, the correlation search will populate both the Compliance and Triggered Techniques dashboards.</p>
+
+<p> </p>
+
+<p> </p>
+
+<h4 id="match-with-lookup">Match with Lookup</h4>
+<p>Each correlation rule is associated with 1 or more technique IDs.  For a given correlation rule you if you simply want to add the technique ID(s), then you have 2 choices:</p>
+<ol>
+  <li>
+    <p>Utilize <strong>Map Rule to Technique</strong> views</p>
+
+    <p><em>OR</em></p>
+  </li>
+  <li>
+    <p>Edit <code class="highlighter-rouge">mitre_user_rule_technique_lookup.csv</code> directly.</p>
+  </li>
+</ol>
+
+<p><strong>NOTE:</strong> The scheduled searches combine this lookup along with analytic stories and checks against existing saved/correlation searches in order to create <code class="highlighter-rouge">mitre_all_rule_technique_lookup.csv</code>, which is used within the app.</p>
+
+<p> </p>
+
+<p><strong>(1)</strong> Utilize <strong>Map Rule to Technique</strong> views</p>
+
+<p>a. Go to “<strong>Configuration –&gt; Map Rule to Technique</strong>” from MITRE ATT&amp;CK Framework App menu.  Initially it should appear something similar to following image.</p>
+
+<p><img src="assets/img/map_rule_to_technique1.png" alt="map_rule_to_technique1" /></p>
+
+<p><em><strong>Panel Descriptions</strong></em>:</p>
+
+<p><strong>Existing User Defined Mappings</strong>: This panel displays the contents of user defined mappings and refreshed every 30 seconds to display updates.</p>
+
+<p><strong>Newly Added User Defined Mapping</strong>: This panel displays the newly selected rule-to-technique mapping which is added to the lookup table.</p>
+
+<p> </p>
+
+<p>b. Next, select the rule name form <strong>Rule Name</strong> dropdown menu item and associate with technique IDs from <strong>MITRE ATT&amp;CK Technique</strong> multi-select then hit <strong>Submit</strong>.  Both panels will be updated accordingly.</p>
+
+<p><img src="assets/img/map_rule_to_technique2.png" alt="map_rule_to_technique2" /></p>
+
+<p><strong>Important NOTE</strong>: If a rule name is already defined, this view does NOT add any mappings to the lookup in order to avoid duplicates.  You will see <code class="highlighter-rouge">No results found</code> message and will need to edit the lookup table manually.</p>
+
+<p> </p>
+
+<p><strong>(2)</strong> Edit <code class="highlighter-rouge">mitre_user_rule_technique_lookup.csv</code> directly.<br />
+You can edit the csv directly or utilize Lookup Editor app from web interface.</p>
+
+<p><img src="assets/img/lookup_editor1.png" alt="lookup_editor1" /></p>
+
+<p>The lookup file expects 2 fields:</p>
+<ul>
+  <li><code class="highlighter-rouge">rule_name</code> : The rule name as it appears in <code class="highlighter-rouge">savedsearches.conf</code> (e.g. “Access - Excessive Failed Logins - Rule”)</li>
+  <li><code class="highlighter-rouge">technique_id</code> : MITRE ATT&amp;CK Technique ID (e.g. T1078 for Valid Accounts) list separated by spaces</li>
+</ul>
+
+
+    <div id="footer">
+  <hr>
+  <div class="copyright">
+    <small>&copy; Copyright 2020, <a href="https://www.seynur.com" target="_blank">Seynur Bilgi Teknolojileri A.Ş.</a> </small>
+  </div>
+</div>
+
+  </body>
+</html>

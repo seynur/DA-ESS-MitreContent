@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>About</title>
+    <link rel="stylesheet" href="assets/css/seynur.css">
+  </head>
+  <body>
+    <div id="header">
+  <div id="header_title">
+    MITRE ATT&CK App for Splunk&reg; - Documentation
+  </div>
+  <div class="logo">
+    <a href="https://www.seynur.com" target="_blank"><img src="assets/img/seynur_logo_dark.png" /></a>
+  </div>
+</div>
+
+    <nav>
+  <ul>
+
+    <li>
+      <a href="index.html">
+        Overview
+      </a>
+    </li>
+
+    <li>
+      <a href="installation.html">
+        Installation
+      </a>
+    </li>
+
+    <li>
+      <a href="user_guide.html">
+        User Guide
+      </a>
+    </li>
+
+    <li>
+      <a href="release_notes.html">
+        Release Notes
+      </a>
+    </li>
+
+  </ul>
+</nav>
+
+    <h3 id="overview">Overview</h3>
+<p>This application (<a href="https://splunkbase.splunk.com/app/4617/">https://splunkbase.splunk.com/app/4617/</a>) provides compliance and triage dashboards for MITRE ATT&amp;CK Framework that are fully integrated with Splunk Enterprise Security (<a href="https://splunkbase.splunk.com/app/263/">https://splunkbase.splunk.com/app/263/</a>) and Splunk ES Content Update (<a href="https://splunkbase.splunk.com/app/3449/">https://splunkbase.splunk.com/app/3449/</a>) with drill-down capabilities.</p>
+
+<h3 id="required-splunk-apps">Required Splunk Apps:</h3>
+<ul>
+  <li>Splunk Enterprise Security 5.2 or above: <a href="https://splunkbase.splunk.com/app/263/">https://splunkbase.splunk.com/app/263/</a></li>
+  <li>Sankey Diagram - Custom Visualization: <a href="https://splunkbase.splunk.com/app/3112/">https://splunkbase.splunk.com/app/3112/</a></li>
+</ul>
+
+<h3 id="recommended-splunk-apps">Recommended Splunk Apps:</h3>
+<ul>
+  <li>Splunk ES Content Update 1.0.40 or above: <a href="https://splunkbase.splunk.com/app/3449/">https://splunkbase.splunk.com/app/3449/</a></li>
+  <li>Lookup File Editor: <a href="https://splunkbase.splunk.com/app/1724/">https://splunkbase.splunk.com/app/1724/</a></li>
+</ul>
+
+<p><strong>Note</strong>: Although the app will work without ES Content Update, it is highly recommended since it comes with many correlation rules that have mitre_attack annotations already.</p>
+
+<h3 id="saved-searches">Saved Searches</h3>
+<p>This application comes with predefined saved searches.  Lookup Gen searches are scheduled to run  daily after midnight.</p>
+<ul>
+  <li><strong>MITRE ATT&amp;CK All Rules and Techniques Lookup Gen</strong>: This lookup generator checks currently enabled correlation rules via analytic stories and combines the searches with user-defined ``mitre_user_rule_technique_lookup.csv** file that matches MITRE ATT&amp;CK technique IDs with rules.</li>
+  <li><strong>MITRE ATT&amp;CK Compliance Lookup Gen</strong>: This lookup generator relies on <code class="highlighter-rouge">mitre_all_rule_technique_lookup.csv</code> in order to generate a new lookup to properly display MITRE ATT&amp;CK Compliance martix.</li>
+</ul>
+
+    <div id="footer">
+  <hr>
+  <div class="copyright">
+    <small>&copy; Copyright 2020, <a href="https://www.seynur.com" target="_blank">Seynur Bilgi Teknolojileri A.Ş.</a> </small>
+  </div>
+</div>
+
+  </body>
+</html>
