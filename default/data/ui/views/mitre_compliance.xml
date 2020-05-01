@@ -38,7 +38,7 @@
         <option name="drilldown">cell</option>
         <option name="refresh.display">progressbar</option>
         <drilldown>
-          <link target="_self">/app/DA-ESS-MitreContent/setup</link>
+          <link target="_self">/app/DA-ESS-MitreContent/lookup_gen</link>
         </drilldown>
       </table>
     </panel>

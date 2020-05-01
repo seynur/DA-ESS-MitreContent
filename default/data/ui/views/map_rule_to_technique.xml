@@ -37,7 +37,7 @@
   <row>
     <panel>
       <html>
-        <h3>This form enables easy mapping of correlation searches/rules to MITRE ATT&amp;CK Techniques.  Once you're done with mappings and updates, you may want to run <a href="setup" target="_blank">setup</a> manually in order to generate the overall lookup files or wait until the scheduled searches run.</h3>
+        <h3>This form enables easy mapping of correlation searches/rules to MITRE ATT&amp;CK Techniques.  Once you're done with mappings and updates, you may want to run <a href="lookup_gen" target="_blank">Lookup File Generation</a> manually in order to generate the overall lookup files or wait until the scheduled searches run.</h3>
         <br/>
       </html>
     </panel>
