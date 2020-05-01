@@ -10,7 +10,7 @@
     <input type="radio" token="lookup_file" searchWhenChanged="true">
       <label>Matrix Display Scope</label>
       <choice value="mitre_all_rule_compliance_lookup">ALL Rules</choice>
-      <choice value="mitre_user_rule_compliance_lookup">User-Defined Rules</choice>
+      <choice value="mitre_user_rule_compliance_lookup">User-Defined and API Rules</choice>
       <default>mitre_all_rule_compliance_lookup</default>
     </input>
   </fieldset>
