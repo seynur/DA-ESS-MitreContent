@@ -75,8 +75,8 @@ class GetAttackDetectionRulesCommand(GeneratingCommand):
         rule_name_case_string = ''
         technique_id_case_string = ''
         for rule in rules:
-            rule_name_case_string = rule_name_case_string + "," + base_case_string.format(rule['rule_id'], rule['rule_name'])
-            technique_id_case_string = technique_id_case_string + "," + base_case_string.format(rule['rule_id'], rule['technique_id'])
+            rule_name_case_string = rule_name_case_string + "," + base_case_string.format(rule['id'], rule['rule_name'])
+            technique_id_case_string = technique_id_case_string + "," + base_case_string.format(rule['id'], rule['technique_id'])
         rule_name_case_string = rule_name_case_string[1:]
         technique_id_case_string = technique_id_case_string[1:]
         base_rule_name_string = '| eval rule_name=case({})'
