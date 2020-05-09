@@ -1,24 +1,32 @@
 #header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: block;
   height: 30px;
-  padding-top: 10px;
-  padding-bottom: 5px;
+  padding: 10px;
+  background-color: #f1f3f5;
 }
 
 #header_title {
-  float: left;
-  text-align: left;
+  float: right;
+  text-align: right;
   vertical-align: middle;
+  padding: 10px;
   font-weight: bolder;
   font-size: 1.25em;
+  background-color: #f1f3f5;
 }
 
 #header .logo {
-  float: right;
+  float: left;
   vertical-align: middle;
+  background-color: #f1f3f5;
 }
 
 #header .logo img {
   width:200px;
   height:28px;
+  background-color: #f1f3f5;
 }

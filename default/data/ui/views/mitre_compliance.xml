@@ -1,4 +1,4 @@
-<dashboard script="mitre_compliance.js" stylesheet="mitre_matrix.css">
+<form script="mitre_compliance.js" stylesheet="mitre_matrix.css">
   <label>MITRE ATT&amp;CK Compliance with Splunk ES</label>
   <description>This dashboard provides an overview of available correlation searches that match MITRE ATT&amp;CK techniques.  Darker colors indicate higher ratio of enabled rules and you can view the actual numbers when hovering over the cells and click to drilldown further for editing the rules.</description>
   <search>
@@ -6,6 +6,14 @@
 
 </query>
   </search>
+  <fieldset submitButton="false">
+    <input type="radio" token="lookup_file" searchWhenChanged="true">
+      <label>Matrix Display Scope</label>
+      <choice value="mitre_all_rule_compliance_lookup">ALL Rules</choice>
+      <choice value="mitre_user_rule_compliance_lookup">User-Defined and API Rules</choice>
+      <default>mitre_all_rule_compliance_lookup</default>
+    </input>
+  </fieldset>
   <row>
     <panel>
       <table id="mitre_status_table">
@@ -30,7 +38,7 @@
         <option name="drilldown">cell</option>
         <option name="refresh.display">progressbar</option>
         <drilldown>
-          <link target="_self">/app/DA-ESS-MitreContent/setup</link>
+          <link target="_self">/app/DA-ESS-MitreContent/lookup_gen</link>
         </drilldown>
       </table>
     </panel>
@@ -41,22 +49,24 @@
         <title>MITRE ATT&amp;CK Compliance</title>
         <search>
           <query>| inputlookup mitre_lookup.csv
-| lookup mitre_all_rule_compliance_lookup.csv technique_name as "Collection" OUTPUTNEW enabled_percentage as "Collection Percentage", count as "Collection Count", enabled_count as "Collection Enabled" | fillnull value="NULL" "Collection","Collection Percentage","Collection Count", "Collection Enabled" | eval "Collection"='Collection'. "|" .'Collection Percentage'. "|" .'Collection Enabled'. "|" .'Collection Count'
-| lookup mitre_all_rule_compliance_lookup.csv technique_name as "Command And Control" OUTPUTNEW enabled_percentage as "Command And Control Percentage", count as "Command And Control Count", enabled_count as "Command And Control Enabled" | fillnull value="NULL" "Command And Control","Command And Control Percentage","Command And Control Count", "Command And Control Enabled" | eval "Command And Control"='Command And Control'. "|" .'Command And Control Percentage'. "|" .'Command And Control Enabled'. "|" .'Command And Control Count'
-| lookup mitre_all_rule_compliance_lookup.csv technique_name as "Credential Access" OUTPUTNEW enabled_percentage as "Credential Access Percentage", count as "Credential Access Count", enabled_count as "Credential Access Enabled" | fillnull value="NULL" "Credential Access","Credential Access Percentage","Credential Access Count", "Credential Access Enabled" | eval "Credential Access"='Credential Access'. "|" .'Credential Access Percentage'. "|" .'Credential Access Enabled'. "|" .'Credential Access Count'
-| lookup mitre_all_rule_compliance_lookup.csv technique_name as "Defense Evasion" OUTPUTNEW enabled_percentage as "Defense Evasion Percentage", count as "Defense Evasion Count", enabled_count as "Defense Evasion Enabled" | fillnull value="NULL" "Defense Evasion","Defense Evasion Percentage","Defense Evasion Count", "Defense Evasion Enabled" | eval "Defense Evasion"='Defense Evasion'. "|" .'Defense Evasion Percentage'. "|" .'Defense Evasion Enabled'. "|" .'Defense Evasion Count'
-| lookup mitre_all_rule_compliance_lookup.csv technique_name as "Discovery" OUTPUTNEW enabled_percentage as "Discovery Percentage", count as "Discovery Count", enabled_count as "Discovery Enabled" | fillnull value="NULL" "Discovery","Discovery Percentage","Discovery Count", "Discovery Enabled" | eval "Discovery"='Discovery'. "|" .'Discovery Percentage'. "|" .'Discovery Enabled'. "|" .'Discovery Count'
-| lookup mitre_all_rule_compliance_lookup.csv technique_name as "Execution" OUTPUTNEW enabled_percentage as "Execution Percentage", count as "Execution Count", enabled_count as "Execution Enabled" | fillnull value="NULL" "Execution","Execution Percentage","Execution Count", "Execution Enabled" | eval "Execution"='Execution'. "|" .'Execution Percentage'. "|" .'Execution Enabled'. "|" .'Execution Count'
-| lookup mitre_all_rule_compliance_lookup.csv technique_name as "Exfiltration" OUTPUTNEW enabled_percentage as "Exfiltration Percentage", count as "Exfiltration Count", enabled_count as "Exfiltration Enabled" | fillnull value="NULL" "Exfiltration","Exfiltration Percentage","Exfiltration Count", "Exfiltration Enabled" | eval "Exfiltration"='Exfiltration'. "|" .'Exfiltration Percentage'. "|" .'Exfiltration Enabled'. "|" .'Exfiltration Count'
-| lookup mitre_all_rule_compliance_lookup.csv technique_name as "Impact" OUTPUTNEW enabled_percentage as "Impact Percentage", count as "Impact Count", enabled_count as "Impact Enabled" | fillnull value="NULL" "Impact","Impact Percentage","Impact Count", "Impact Enabled" | eval "Impact"='Impact'. "|" .'Impact Percentage'. "|" .'Impact Enabled'. "|" .'Impact Count'
-| lookup mitre_all_rule_compliance_lookup.csv technique_name as "Initial Access" OUTPUTNEW enabled_percentage as "Initial Access Percentage", count as "Initial Access Count", enabled_count as "Initial Access Enabled" | fillnull value="NULL" "Initial Access","Initial Access Percentage","Initial Access Count", "Initial Access Enabled" | eval "Initial Access"='Initial Access'. "|" .'Initial Access Percentage'. "|" .'Initial Access Enabled'. "|" .'Initial Access Count'
-| lookup mitre_all_rule_compliance_lookup.csv technique_name as "Lateral Movement" OUTPUTNEW enabled_percentage as "Lateral Movement Percentage", count as "Lateral Movement Count", enabled_count as "Lateral Movement Enabled" | fillnull value="NULL" "Lateral Movement","Lateral Movement Percentage","Lateral Movement Count", "Lateral Movement Enabled" | eval "Lateral Movement"='Lateral Movement'. "|" .'Lateral Movement Percentage'. "|" .'Lateral Movement Enabled'. "|" .'Lateral Movement Count'
-| lookup mitre_all_rule_compliance_lookup.csv technique_name as "Persistence" OUTPUTNEW enabled_percentage as "Persistence Percentage", count as "Persistence Count", enabled_count as "Persistence Enabled" | fillnull value="NULL" "Persistence","Persistence Percentage","Persistence Count", "Persistence Enabled" | eval "Persistence"='Persistence'. "|" .'Persistence Percentage'. "|" .'Persistence Enabled'. "|" .'Persistence Count'
-| lookup mitre_all_rule_compliance_lookup.csv technique_name as "Privilege Escalation" OUTPUTNEW enabled_percentage as "Privilege Escalation Percentage", count as "Privilege Escalation Count", enabled_count as "Privilege Escalation Enabled" | fillnull value="NULL" "Privilege Escalation","Privilege Escalation Percentage","Privilege Escalation Count", "Privilege Escalation Enabled" | eval "Privilege Escalation"='Privilege Escalation'. "|" .'Privilege Escalation Percentage'. "|" .'Privilege Escalation Enabled'. "|" .'Privilege Escalation Count'</query>
+| lookup $lookup_file$ technique_name as "Collection" OUTPUTNEW enabled_percentage as "Collection Percentage", count as "Collection Count", enabled_count as "Collection Enabled" | fillnull value="NULL" "Collection","Collection Percentage","Collection Count", "Collection Enabled" | eval "Collection"='Collection'. "|" .'Collection Percentage'. "|" .'Collection Enabled'. "|" .'Collection Count'
+| lookup $lookup_file$ technique_name as "Command And Control" OUTPUTNEW enabled_percentage as "Command And Control Percentage", count as "Command And Control Count", enabled_count as "Command And Control Enabled" | fillnull value="NULL" "Command And Control","Command And Control Percentage","Command And Control Count", "Command And Control Enabled" | eval "Command And Control"='Command And Control'. "|" .'Command And Control Percentage'. "|" .'Command And Control Enabled'. "|" .'Command And Control Count'
+| lookup $lookup_file$ technique_name as "Credential Access" OUTPUTNEW enabled_percentage as "Credential Access Percentage", count as "Credential Access Count", enabled_count as "Credential Access Enabled" | fillnull value="NULL" "Credential Access","Credential Access Percentage","Credential Access Count", "Credential Access Enabled" | eval "Credential Access"='Credential Access'. "|" .'Credential Access Percentage'. "|" .'Credential Access Enabled'. "|" .'Credential Access Count'
+| lookup $lookup_file$ technique_name as "Defense Evasion" OUTPUTNEW enabled_percentage as "Defense Evasion Percentage", count as "Defense Evasion Count", enabled_count as "Defense Evasion Enabled" | fillnull value="NULL" "Defense Evasion","Defense Evasion Percentage","Defense Evasion Count", "Defense Evasion Enabled" | eval "Defense Evasion"='Defense Evasion'. "|" .'Defense Evasion Percentage'. "|" .'Defense Evasion Enabled'. "|" .'Defense Evasion Count'
+| lookup $lookup_file$ technique_name as "Discovery" OUTPUTNEW enabled_percentage as "Discovery Percentage", count as "Discovery Count", enabled_count as "Discovery Enabled" | fillnull value="NULL" "Discovery","Discovery Percentage","Discovery Count", "Discovery Enabled" | eval "Discovery"='Discovery'. "|" .'Discovery Percentage'. "|" .'Discovery Enabled'. "|" .'Discovery Count'
+| lookup $lookup_file$ technique_name as "Execution" OUTPUTNEW enabled_percentage as "Execution Percentage", count as "Execution Count", enabled_count as "Execution Enabled" | fillnull value="NULL" "Execution","Execution Percentage","Execution Count", "Execution Enabled" | eval "Execution"='Execution'. "|" .'Execution Percentage'. "|" .'Execution Enabled'. "|" .'Execution Count'
+| lookup $lookup_file$ technique_name as "Exfiltration" OUTPUTNEW enabled_percentage as "Exfiltration Percentage", count as "Exfiltration Count", enabled_count as "Exfiltration Enabled" | fillnull value="NULL" "Exfiltration","Exfiltration Percentage","Exfiltration Count", "Exfiltration Enabled" | eval "Exfiltration"='Exfiltration'. "|" .'Exfiltration Percentage'. "|" .'Exfiltration Enabled'. "|" .'Exfiltration Count'
+| lookup $lookup_file$ technique_name as "Impact" OUTPUTNEW enabled_percentage as "Impact Percentage", count as "Impact Count", enabled_count as "Impact Enabled" | fillnull value="NULL" "Impact","Impact Percentage","Impact Count", "Impact Enabled" | eval "Impact"='Impact'. "|" .'Impact Percentage'. "|" .'Impact Enabled'. "|" .'Impact Count'
+| lookup $lookup_file$ technique_name as "Initial Access" OUTPUTNEW enabled_percentage as "Initial Access Percentage", count as "Initial Access Count", enabled_count as "Initial Access Enabled" | fillnull value="NULL" "Initial Access","Initial Access Percentage","Initial Access Count", "Initial Access Enabled" | eval "Initial Access"='Initial Access'. "|" .'Initial Access Percentage'. "|" .'Initial Access Enabled'. "|" .'Initial Access Count'
+| lookup $lookup_file$ technique_name as "Lateral Movement" OUTPUTNEW enabled_percentage as "Lateral Movement Percentage", count as "Lateral Movement Count", enabled_count as "Lateral Movement Enabled" | fillnull value="NULL" "Lateral Movement","Lateral Movement Percentage","Lateral Movement Count", "Lateral Movement Enabled" | eval "Lateral Movement"='Lateral Movement'. "|" .'Lateral Movement Percentage'. "|" .'Lateral Movement Enabled'. "|" .'Lateral Movement Count'
+| lookup $lookup_file$ technique_name as "Persistence" OUTPUTNEW enabled_percentage as "Persistence Percentage", count as "Persistence Count", enabled_count as "Persistence Enabled" | fillnull value="NULL" "Persistence","Persistence Percentage","Persistence Count", "Persistence Enabled" | eval "Persistence"='Persistence'. "|" .'Persistence Percentage'. "|" .'Persistence Enabled'. "|" .'Persistence Count'
+| lookup $lookup_file$ technique_name as "Privilege Escalation" OUTPUTNEW enabled_percentage as "Privilege Escalation Percentage", count as "Privilege Escalation Count", enabled_count as "Privilege Escalation Enabled" | fillnull value="NULL" "Privilege Escalation","Privilege Escalation Percentage","Privilege Escalation Count", "Privilege Escalation Enabled" | eval "Privilege Escalation"='Privilege Escalation'. "|" .'Privilege Escalation Percentage'. "|" .'Privilege Escalation Enabled'. "|" .'Privilege Escalation Count'</query>
           <earliest>-24h</earliest>
+          <latest></latest>
         </search>
         <option name="count">100</option>
         <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
         <fields>["Initial Access","Execution","Persistence","Privilege Escalation","Defense Evasion","Credential Access","Discovery","Lateral Movement","Collection","Command And Control","Exfiltration","Impact"]</fields>
         <drilldown>
           <eval token="technique_q">mvindex(split('click.value2',"|"),0)</eval>
@@ -65,4 +75,4 @@
       </table>
     </panel>
   </row>
-</dashboard>
+</form>

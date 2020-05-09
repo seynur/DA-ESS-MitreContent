@@ -1,8 +1,52 @@
+items:
 - name: Overview
   link: index.html
+  subitems:
+    - name: Required Splunk Apps
+      anchor: index.html#required-splunk-apps
+    - name: Recommended Splunk Apps
+      anchor: index.html#recommended-splunk-apps
+    - name: Saved Searches
+      anchor: index.html#saved-searches
 - name: Installation
   link: installation.html
+  subitems:
+    - name: Initial Setup
+      anchor: installation.html#initial-setup
 - name: User Guide
   link: user_guide.html
+  subitems:
+    - name: MITRE ATT&CK Compliance with Splunk ES View
+      anchor: user_guide.html#mitre-attck-compliance-with-splunk-es-view
+    - name: MITRE ATT&CK Matrix View
+      anchor: user_guide.html#mitre-attck-matrix-view
+    - name: MITRE ATT&CK Triggered Tactics & Techniques View
+      anchor: user_guide.html#mitre-attck-triggered-tactics--techniques-view
+    - name: How To Match a Correlation Search with Framework
+      anchor: user_guide.html#how-to-match-a-correlation-search-with-framework
+      subsubitems:
+          - name: Match with Analytic Story
+            anchor: user_guide.html#match-with-analytic-story
+          - name: Match with Lookup
+            anchor: user_guide.html#match-with-lookup
 - name: Release Notes
   link: release_notes.html
+  subitems:
+    - name: Version 2.2.0
+      anchor: release_notes.html#version-220
+    - name: Version 2.1.0
+      anchor: release_notes.html#version-210
+    - name: Version 2.0.1
+      anchor: release_notes.html#version-201
+    - name: Version 2.0.0
+      anchor: release_notes.html#version-200
+    - name: Version 1.3.0
+      anchor: release_notes.html#version-130
+    - name: Version 1.2.1
+      anchor: release_notes.html#version-121
+    - name: Version 1.2.0
+      anchor: release_notes.html#version-120
+    - name: Version 1.1.0
+      anchor: release_notes.html#version-110
+    - name: Version 1.0.0
+      anchor: release_notes.html#version-100

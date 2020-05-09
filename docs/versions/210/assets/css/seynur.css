@@ -1,0 +1,39 @@
+body { font-family: 'Helvetica', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif; font-size: 14px; letter-spacing: -0.01em; line-height: 125%; /*text-align: center;*/ /*background-color: #AFC1C4; */ background-color: #f1f3f5; color: #353637; padding: 0; /*border: 1px solid #aaa;*/ margin: 0px 80px 0px 80px; min-width: 740px; }
+
+h3 { margin-top: 15px; margin-bottom: 5px; }
+
+h4 { margin-top: 15px; margin-bottom: 5px; }
+
+img { max-width: 800px; }
+
+p { margin: 0; padding: 0; }
+
+a { color: #1ca3be; text-decoration: none; }
+
+a:hover { color: #24d4f7; }
+
+pre { font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace; font-size: 0.95em; letter-spacing: 0.015em; padding: 0.5em; border: 1px solid #ccc; background-color: #f3f3f3; }
+
+#header { display: block; height: 30px; padding-top: 10px; padding-bottom: 5px; }
+
+#header_title { float: left; text-align: left; vertical-align: middle; font-weight: bolder; font-size: 1.25em; }
+
+#header .logo { float: right; vertical-align: middle; }
+
+#header .logo img { width: 200px; height: 28px; }
+
+nav ul { list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #353637; }
+
+nav li { float: left; }
+
+nav li a { display: block; color: #f1f3f5; text-align: center; padding: 14px 16px; text-decoration: none; }
+
+nav li a:hover { /*background-color: #111;*/ color: #24d4f7; }
+
+nav li a:active { background-color: #111; }
+
+#footer { color: #6D6D6D; padding-top: 15px; }
+
+#versions { float: right; display: block; padding: 10px; margin: 10px; border: solid 1px #6D6D6D; font-size: 0.8em; }
+
+/*# sourceMappingURL=seynur.css.map */

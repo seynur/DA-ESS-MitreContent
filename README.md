@@ -17,15 +17,26 @@ Lookup File Editor (https://splunkbase.splunk.com/app/1724/)
 __Note__: Although the app will work without ES Content Update, it is highly recommended since it comes with many correlation rules that have mitre_attack annotations already.
 
 #### Setup Instructions
-Upon initial installation you will be on Compliance Dashboard.  If the matrix is not populated, click on the table to run manually, which will direct you to the Setup dashboard (searches run automatically on that dashboard).
+After installation of the application you will be on Setup page.  Please enter the API Key if you have one or simply hit Save to continue.  Default view will be the Compliance Dashboard.  If the matrix is not populated, click on the table to run manually, which will direct you to the Lookup Generation dashboard (searches run automatically on that dashboard).
 
 #### Saved Searches
-This application comes with predefined saved searches.  Lookup Gen searches are scheduled to run  daily after midnight.
+This application comes with predefined saved searches.  Lookup Gen searches are scheduled to run  daily after midnight.  The main ones that are used by views:
 MITRE ATT&CK All Rules and Techniques Lookup Gen: This lookup generator checks currently enabled correlation rules via analytic stories and combines the searches with user-defined mitre_user_rule_technique_lookup.csv file that matches MITRE ATT&CK technique IDs with rules.
 MITRE ATT&CK Compliance Lookup Gen: This lookup generator relies on mitre_all_rule_technique_lookup.csv in order to generate a new lookup to properly display MITRE ATT&CK Compliance martix.
 
 
 #### Release Notes:
+Version 2.2.0
+- Date: 11 May 2020
+- Bug fix: Duplication issue for Rule Finder
+- Feature: Added option to display compliance matrix without default rules (user-defined/API rules only)
+  - Added lookup file definitions
+  - Added default rules lookup files for ES 6.1.1 and ESCU 1.0.53 out-of-the-box rules
+  - Updated Lookup Generation view
+- Feature: Setup.xml for API integration for continuous new rule updates (free service but requires registration)
+  - Added custom search command (| getattackdetectionrules)
+
+
 Version 2.1.0
 - Date: 25 Feb 2020
 - Added a new view for mapping rules to Techniques

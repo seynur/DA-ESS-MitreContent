@@ -6,9 +6,9 @@
       <fieldForLabel>rule_name</fieldForLabel>
       <fieldForValue>rule_name</fieldForValue>
       <search>
-        <query>| rest services/configs/conf-savedsearches 
-| eval rule_name=title 
-| eval rule_disabled=disabled 
+        <query>| rest services/configs/conf-savedsearches
+| eval rule_name=title
+| eval rule_disabled=disabled
 | table rule_name</query>
         <earliest>-24h@h</earliest>
         <latest>now</latest>
@@ -24,10 +24,10 @@
       <fieldForLabel>technique_display</fieldForLabel>
       <fieldForValue>technique_id</fieldForValue>
       <search>
-        <query>| inputlookup mitre_tt_lookup.csv 
-| table technique_id technique_name 
-| dedup technique_id 
-| eval technique_display=technique_id.": ".technique_name 
+        <query>| inputlookup mitre_tt_lookup
+| table technique_id technique_name
+| dedup technique_id
+| eval technique_display=technique_id.": ".technique_name
 | sort technique_id</query>
         <earliest>-24h@h</earliest>
         <latest>now</latest>
@@ -37,7 +37,7 @@
   <row>
     <panel>
       <html>
-        <h3>This form enables easy mapping of correlation searches/rules to MITRE ATT&amp;CK Techniques.  Once you're done with mappings and updates, you may want to run <a href="setup" target="_blank">setup</a> manually in order to generate the overall lookup files or wait until the scheduled searches run.</h3>
+        <h3>This form enables easy mapping of correlation searches/rules to MITRE ATT&amp;CK Techniques.  Once you're done with mappings and updates, you may want to run <a href="lookup_gen" target="_blank">Lookup File Generation</a> manually in order to generate the overall lookup files or wait until the scheduled searches run.</h3>
         <br/>
       </html>
     </panel>
@@ -48,7 +48,7 @@
       <table>
         <title>This table will refresh every 30seconds.</title>
         <search>
-          <query>| inputlookup mitre_user_rule_technique_lookup.csv</query>
+          <query>| inputlookup mitre_user_rule_technique_lookup</query>
           <earliest>-15m</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>
@@ -69,14 +69,14 @@
       <table>
         <title>If you are getting 'No results found' then mapping for the rule name already exists.  You will need to edit the lookup file manually.</title>
         <search>
-          <query>| makeresults 
-| eval new_rule_name=if(isnull($tok_rule_name$), null(),$tok_rule_name$), new_technique_id=if(isnull($tok_technique_id$),null(),$tok_technique_id$) 
-| table new_rule_name new_technique_id 
-| lookup mitre_user_rule_technique_lookup.csv rule_name as new_rule_name
+          <query>| makeresults
+| eval new_rule_name=if(isnull($tok_rule_name$), null(),$tok_rule_name$), new_technique_id=if(isnull($tok_technique_id$),null(),$tok_technique_id$)
+| table new_rule_name new_technique_id
+| lookup mitre_user_rule_technique_lookup rule_name as new_rule_name
 | where isnull(technique_id)
 | eval rule_name=new_rule_name, technique_id=new_technique_id
 | table rule_name technique_id
-| outputlookup  mitre_user_rule_technique_lookup.csv append=true</query>
+| outputlookup  mitre_user_rule_technique_lookup append=true</query>
           <earliest>-15m</earliest>
           <latest>now</latest>
           <sampleRatio>1</sampleRatio>

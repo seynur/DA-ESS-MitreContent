@@ -3,13 +3,13 @@
   <description>This dashboard provides an overview of triggered tactics and techniques based on enabled correlation rules with related MITRE ATT&amp;CK annotations.</description>
   <search id="init_attack_search">
     <query>
-| inputlookup mitre_all_rule_technique_lookup.csv | lookup mitre_tt_lookup.csv technique_id
+| inputlookup mitre_all_rule_technique_lookup | lookup mitre_tt_lookup technique_id
 | fields rule_name, technique_name
 | join rule_name
     [  search `notable_by_id("*")`
     | rename search_name as rule_name
     | fields rule_name, urgency
-    | lookup urgency_score.csv urgency
+    | lookup urgency_score_lookup urgency
     | stats max(score) as max_score, count by rule_name]
 | stats sum(count) as triggered_count list(rule_name) as rule_name_list, max(max_score) as max_score by technique_name delim=";"
 | nomv rule_name_list
@@ -24,7 +24,7 @@
   </search>
   <search id="init_mitre_attack_table">
     <query>
-          | inputlookup mitre_lookup.csv
+          | inputlookup mitre_lookup
     </query>
   </search>
   <search base="init_mitre_attack_table" id="post_process_mitre_attack_triage">

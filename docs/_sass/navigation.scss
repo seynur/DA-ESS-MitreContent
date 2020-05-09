@@ -1,16 +1,22 @@
-nav ul {
+#navigation nav ul {
   list-style-type: none;
+  position: fixed;
+  top: 45px;
+  left: 0;
+  width: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color: #353637;
+  box-sizing: content-box;
+
 }
 
-nav li {
+#navigation nav ul li {
   float: left;
 }
 
-nav li a {
+#navigation nav ul li a {
   display: block;
   color: #f1f3f5;
   text-align: center;
@@ -18,11 +24,11 @@ nav li a {
   text-decoration: none;
 }
 
-nav li a:hover {
+#navigation nav ul li a:hover {
   /*background-color: #111;*/
   color: #24d4f7;
 }
 
-nav li a:active {
+#navigation nav ul li a:active {
   background-color: #111;
 }
