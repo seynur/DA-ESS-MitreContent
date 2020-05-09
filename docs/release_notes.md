@@ -7,7 +7,7 @@ title: Release Notes
 #### Version 2.2.0
 - Date: 11 May 2020
 - Bug fix: Duplication issue for Rule Finder
-- Feature: Added option to display compliance matrix without default rules (user-defined rules only)
+- Feature: Added option to display compliance matrix without default rules (user-defined/API rules only)
   - Added lookup file definitions
   - Added default rules lookup files for ES 6.1.1 and ESCU 1.0.53 out-of-the-box rules
   - Updated Lookup Generation view
