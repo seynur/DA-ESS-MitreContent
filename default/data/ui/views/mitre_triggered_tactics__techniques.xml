@@ -5,9 +5,8 @@
       | inputlookup mitre_all_rule_technique_lookup
 | fields rule_name
 | join rule_name
-    [ search `notable`
+    [ `mitre_rules`
     | search $urgency_field$
-    | rename search_name as rule_name
     | eval notable_src = coalesce(src,"unknown")
     | eval notable_dest = coalesce(dest,"unknown")
     | eval notable_user = coalesce(user,"unknown")
