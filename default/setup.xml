@@ -40,4 +40,44 @@
         <type>text</type>
       </input>
   </block>
+  <block title="Configure Enterprise Security Integration" endpoint="configs/conf-macros" entity="(^mitre_use_es$|^mitre_rules$)" mode="iter">
+    <text>
+      &lt;i&gt;Using Enterprise Security Application is strongly recommended.  However, if you'd like to use Alert Manager instead, please uncheck the following checkbox. (Note: Form field values will update automatically according to checkbox.)&lt;/i&gt;
+      &lt;p/&gt;
+      &lt;div&gt;
+      &lt;label for="use_es_check"&gt;Use Enterprise Security App:&lt;/label&gt;
+      &lt;input type="checkbox" id="use_es_check" onclick="updateMacroConfig()" checked&gt;
+      &lt;style onload="updateCheckboxStatus()"&gt;p {color:#353637;}&lt;/style&gt;
+      &lt;/div&gt;
+
+      &lt;script&gt;
+      function updateCheckboxStatus() {
+        var checkBox = document.getElementById("use_es_check");
+        var mitreUseES = document.getElementById("/configs/conf-macros/mitre_use_es/definition_id");
+	if (mitreUseES.value == "\"1\"") {
+          checkBox.checked = true;
+        } else {
+          checkBox.checked = false;
+        }
+      }
+      function updateMacroConfig() {
+        var checkBox = document.getElementById("use_es_check");
+        var mitreRules = document.getElementById("/configs/conf-macros/mitre_rules/definition_id");
+        var mitreUseES = document.getElementById("/configs/conf-macros/mitre_use_es/definition_id");
+        if (checkBox.checked == true){
+          mitreUseES.value="\"1\""
+          mitreRules.value="`mitre_rules_from_notable`"
+        } else {
+         mitreUseES.value="\"0\""
+         mitreRules.value="`mitre_rules_from_alerts`"
+        }
+      }
+      &lt;/script&gt;
+
+    </text>
+    <input field="definition">
+        <label>$name$</label>
+        <type>text</type>
+    </input>
+  </block>
 </setup>
