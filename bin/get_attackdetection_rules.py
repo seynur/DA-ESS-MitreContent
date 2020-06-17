@@ -52,6 +52,7 @@ class GetAttackDetectionRulesCommand(GeneratingCommand):
 
         kwargs_createsearch = {"description": rule_description,
                                 "disabled": 1,
+                                "action.alert_manager.param.title": "$name$",
                                 "action.correlationsearch.enabled": 1,
                                 "action.correlationsearch.label": rule_label,
                                 "alert.suppress" : 0,
