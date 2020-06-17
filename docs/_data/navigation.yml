@@ -16,8 +16,8 @@ items:
 - name: User Guide
   link: user_guide.html
   subitems:
-    - name: MITRE ATT&CK Compliance with Splunk ES View
-      anchor: user_guide.html#mitre-attck-compliance-with-splunk-es-view
+    - name: MITRE ATT&CK Compliance View
+      anchor: user_guide.html#mitre-attck-compliance-view
     - name: MITRE ATT&CK Matrix View
       anchor: user_guide.html#mitre-attck-matrix-view
     - name: MITRE ATT&CK Triggered Tactics & Techniques View
@@ -32,6 +32,8 @@ items:
 - name: Release Notes
   link: release_notes.html
   subitems:
+    - name: Version 2.3.0
+      anchor: release_notes.html#version-230
     - name: Version 2.2.0
       anchor: release_notes.html#version-220
     - name: Version 2.1.0

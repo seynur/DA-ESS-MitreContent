@@ -6,7 +6,7 @@ title: User Guide
 ### User Guide
 This guide will provide description for the views that comes with this application and steps on how to create additional correlation searches.
 
-* [MITRE ATT&CK Compliance with Splunk ES View](#mitre-attck-compliance-with-splunk-es-view)
+* [MITRE ATT&CK Compliance View](#mitre-attck-compliance-view)
 * [MITRE ATT&CK Matrix View](#mitre-attck-matrix-view)
 * [MITRE ATT&CK Triggered Tactics & Techniques View](#mitre-attck-triggered-tactics--techniques-view)
 * [How To Match a Correlation Search with Framework](#how-to-match-a-correlation-search-with-framework)
@@ -24,12 +24,12 @@ This guide will provide description for the views that comes with this applicati
 
 
 
-### MITRE ATT&CK Compliance with Splunk ES View
+### MITRE ATT&CK Compliance View
 Each cell containing a technique is colored based on the percentage of enabled correlation searches.
 
 If there isn't any related correlation searches, the cell is left uncolored.
 
-If there are available correlation searches within Enterprise Security (and ESCU), then cells are colored based on percentage of enabled/active ones.
+If there are available correlation searches either within Enterprise Security (and ESCU) or as regular saved searches with matching MITRE ATT&CK techniques, then cells are colored based on percentage of enabled/active ones.
 
 Currently the ranges are set as follows:
 * none: 0–30% (uncolored)
@@ -51,9 +51,9 @@ You can mouse over to the cells that contain techniques in order to view the num
 
 
 ### MITRE ATT&CK Matrix View
-This dashboard/form has filtering options based on "**Event Time Range**" and "**Urgency**" level of Notable Events.  It provides and overview of triggered techniques within MITRE ATT&CK Matrix colored according to the "**Urgency**" level of Notable Events.
+This dashboard/form has filtering options based on "**Event Time Range**" and "**Urgency**" level and it provides and overview of triggered techniques within MITRE ATT&CK Matrix colored according to the "**Urgency**" level of Notable Events or Alert Manager populated index.
 
-You can click on the triggered technique which provides the drill-down functionality and opens up Enterprise Security App **Incident Review** view for further analysis/investigation.
+You can click on the triggered technique which provides the drill-down functionality.  Depending on your setup you will either drill-down via Enterprise Security App **Incident Review** view or Alert Manager **Incident Posture** for further analysis/investigation.
 
 ![triggered_techniques1]
 
