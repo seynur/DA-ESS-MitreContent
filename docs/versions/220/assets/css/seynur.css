@@ -1,0 +1,106 @@
+body { font-family: 'Helvetica', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif; font-size: 14px; letter-spacing: -0.01em; line-height: 125%; /*text-align: center;*/ /*background-color: #AFC1C4; */ background-color: #f1f3f5; display: inline-block; color: #353637; padding: 0; /*border: 1px solid #aaa;*/ min-width: 680px; }
+
+h3 { margin-top: 5px; margin-bottom: 5px; margin-left: 5px; }
+
+h4 { margin-top: 15px; margin-bottom: 5px; margin-left: 5px; }
+
+img { max-width: 680px; }
+
+p { margin: 0; padding: 0; margin-left: 5px; }
+
+ul { margin-left: 5px; }
+
+a { color: #1ca3be; text-decoration: none; }
+
+a:hover { color: #24d4f7; }
+
+pre { font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace; font-size: 0.95em; letter-spacing: 0.015em; padding: 0.5em; border: 1px solid #ccc; background-color: #f3f3f3; }
+
+#header { position: fixed; top: 0; left: 0; width: 100%; display: block; height: 30px; padding: 10px; background-color: #f1f3f5; }
+
+#header_title { float: right; text-align: right; vertical-align: middle; padding: 10px; font-weight: bolder; font-size: 1.25em; background-color: #f1f3f5; }
+
+#header .logo { float: left; vertical-align: middle; background-color: #f1f3f5; }
+
+#header .logo img { width: 200px; height: 28px; background-color: #f1f3f5; }
+
+#navigation nav ul { list-style-type: none; position: fixed; top: 45px; left: 0; width: 100%; margin: 0; padding: 0; overflow: hidden; background-color: #353637; box-sizing: content-box; }
+
+#navigation nav ul li { float: left; }
+
+#navigation nav ul li a { display: block; color: #f1f3f5; text-align: center; padding: 14px 16px; text-decoration: none; }
+
+#navigation nav ul li a:hover { /*background-color: #111;*/ color: #24d4f7; }
+
+#navigation nav ul li a:active { background-color: #111; }
+
+#breadcrumb { /*centering*/ font-family: 'Helvetica', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif; font-size: 14px; letter-spacing: -0.01em; line-height: 125%; display: inline-block; position: fixed; top: 45px; left: 0; width: 100%; box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.1); overflow: hidden; border-radius: 0px; background-color: #353637; color: #fff; /*Lets add the numbers for each link using CSS counters. flag is the name of the counter. to be defined using counter-reset in the parent element of the links*/ counter-reset: flag; }
+
+#breadcrumb a { text-decoration: none; outline: none; display: block; float: left; font-size: 14px; line-height: 36px; color: white; width: 115px; /*need more margin on the left of links to accomodate the numbers*/ padding: 0 30px 0 30px; background-color: #353637; position: relative; background: #333; background: linear-gradient(#333, #000); }
+
+#breadcrumb a p a { text-decoration: none; outline: none; display: block; float: left; font-size: 14px; line-height: 36px; color: white; width: 115px; /*need more margin on the left of links to accomodate the numbers*/ padding: 0 30px 0 30px; background-color: #353637; position: relative; }
+
+/*since the first link does not have a triangle before it we can reduce the left padding to make it look consistent with other links*/
+#breadcrumb a:first-child { padding-left: 5px; padding-right: 0px; border-radius: 0px 0 0 0px; /*to match with the parent's radius*/ }
+
+#breadcrumb a:first-child:before { left: 14px; }
+
+#breadcrumb a:last-child { border-radius: 0 0px 0px 0; /*this was to prevent glitches on hover*/ padding-right: 20px; }
+
+/*hover/active styles*/
+#breadcrumb a.active, #breadcrumb a:hover { background: #333; background: linear-gradient(#333, #000); }
+
+#breadcrumb a.active:after, #breadcrumb a:hover:after { background: #fff; background: linear-gradient(135deg, #333, #000); }
+
+/*adding the arrows for the breadcrumbs using rotated pseudo elements*/
+#breadcrumb a:after { content: ''; position: fixed; top: 47px; left: 102px; /*same dimension as the line-height of #breadcrumb a */ width: 34px; height: 34px; /*as you see the rotated square takes a larger height. which makes it tough to position it properly. So we are going to scale it down so that the diagonals become equal to the line-height of the link. We scale it to 70.7% because if square's: length = 1; diagonal = (1^2 + 1^2)^0.5 = 1.414 (pythagoras theorem) if diagonal required = 1; length = 1/1.414 = 0.707*/ transform: scale(0.707) rotate(45deg); /*we need to prevent the arrows from getting buried under the next link*/ z-index: 1; /*background same as links but the gradient will be rotated to compensate with the transform applied*/ background-color: #353637; /*stylish arrow design using box shadow*/ box-shadow: 2px -2px 0 2px rgba(0, 0, 0, 0.4), 3px -3px 0 3px rgba(255, 255, 255, 0.1); /* 5px - for rounded arrows and 50px - to prevent hover glitches on the border created using shadows*/ border-radius: 0 0px 0 0px; background: #fff; background: linear-gradient(135deg, #333, #000); }
+
+/*we dont need an arrow after the last link*/
+#breadcrumb a:last-child:after { content: none; }
+
+/*we will use the :before element to show numbers*/
+#contentNew { font-family: 'Helvetica', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif; font-size: 14px; letter-spacing: -0.01em; line-height: 125%; height: 85vh; /*text-align: center;*/ /*background-color: #AFC1C4; */ background-color: #f1f3f5; color: #353637; position: absolute; top: 90px; left: 125px; /*border: 1px solid #aaa;*/ overflow-y: scroll; }
+
+#contentNew h3 { margin-top: 5px; margin-bottom: 5px; margin-left: 5px; }
+
+#contentNew h4 { margin-top: 15px; margin-bottom: 5px; margin-left: 5px; }
+
+#contentNew img { max-width: 680px; }
+
+#contentNew p { margin: 0; padding: 0; margin-left: 5px; }
+
+#contentNew ul { margin-left: 5px; }
+
+#contentNew a { color: #1ca3be; text-decoration: none; }
+
+#contentNew a:hover { color: #24d4f7; }
+
+#contentNew pre { font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace; font-size: 0.95em; letter-spacing: 0.015em; padding: 0.5em; border: 1px solid #ccc; background-color: #f3f3f3; }
+
+#sidebar { background: #353637; font-family: 'Helvetica', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif; font-size: 14px; color: #fff; float: left; height: 100%; overflow: auto; position: fixed; top: 90px; left: 0; width: 122px; }
+
+#sidebar h1 { background: #111; font-size: 12px; margin: 0; padding: 12px; text-transform: uppercase; }
+
+#sidebar h2 { color: #888; font-size: 14px; margin: 0; }
+
+#sidebar ul { list-style: none; margin: 0; padding: 0; }
+
+#sidebar ul#links { padding: 20px; }
+
+#sidebar ul ul { padding-left: 20px; }
+
+#sidebar ul li a { color: #fff; display: block; text-align: left; padding: 10px 19px 10px 10px; font-size: 12px; text-decoration: underline; /*padding-left: 5px;*/ }
+
+#sidebar ul li a a { color: #fff; display: block; text-align: left; padding: 10px 19px 10px 10px; font-size: 12px; /*padding-left: 5px;*/ }
+
+#sidebar ul li a:active, #sidebar ul li a.active { background-color: #111; }
+
+#sidebar ul li a:hover { /*background-color: #111;*/ color: #24d4f7; }
+
+#footer { color: #6D6D6D; padding-top: 15px; }
+
+#footer hr { width: calc(100vmax - 125px); }
+
+#versions { float: right; display: block; padding: 10px; margin: 10px; border: solid 1px #6D6D6D; font-size: 0.8em; }
+
+/*# sourceMappingURL=seynur.css.map */

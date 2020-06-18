@@ -5,10 +5,9 @@
     <title>Installation</title>
     <link rel="stylesheet" href="assets/css/seynur.css">
   </head>
-  <body>
-    <div id="header">
+  <div id="header">
   <div id="header_title">
-    <span style="color: #cc4446;">This version 2.1.0 is not the most recent version of documentation.  Click <a href="/DA-ESS-MitreContent/">here</a> for the latest version.</span>&nbsp;
+    <span style="color: #cc4446;">This version 2.2.0 is not the most recent version of documentation.  Click <a href="/DA-ESS-MitreContent/">here</a> for the latest version.</span>&nbsp;
     MITRE ATT&CK App for Splunk&reg; - Documentation
   </div>
   <div class="logo">
@@ -16,7 +15,34 @@
   </div>
 </div>
 
-    <nav>
+  <div id="sidebar">
+  <ul>
+    <li>
+
+
+
+
+    <h1 href="installation.html">
+        Installation
+    </h1>
+
+      <a href="installation.html#initial-setup">
+          Initial Setup
+      </a>
+
+
+
+
+
+
+
+    </li>
+  </ul>
+  <script src='assets/assets.js' type='text/javascript'></script>
+</div>
+
+  <div id="navigation">
+<nav>
   <ul>
 
     <li>
@@ -45,7 +71,9 @@
 
   </ul>
 </nav>
+</div>
 
+  <div id="contentNew">
     <h3 id="installation">Installation</h3>
 <ol>
   <li>
@@ -60,18 +88,25 @@
 </ol>
 
 <h3 id="initial-setup">Initial Setup</h3>
-<p>Upon initial installation you will be on Compliance Dashboard.  If the matrix is not populated, click on the table row to run manually, which will direct you to the Setup dashboard (searches run automatically on that dashboard).</p>
-
+<p>Upon installation of the application you will be redirected to the Setup page.</p>
 <ol>
   <li>
-    <p>Click on the table row.</p>
+    <p>This setup page provides configuration options for API integration.  If you do not have an API key or prefer not to have the integration you can simply hit Save button and continue.  You can always go back to this Setup page and overwrite the settings.  Note that Setup also provides information on scheduled Lookup Generating searches and their schedules.  These can also be edited from Settings.
+  </p>
+
+    <p><img src="assets/img/setup0.png" alt="setup0" /></p>
+
+    <p> </p>
+  </li>
+  <li>
+    <p>After the initial setup you will be on Compliance Dashboard.  If the matrix is not populated, click on the table row to run manually, which will direct you to the Lookup File Generation dashboard (searches run automatically on that dashboard).  Click on the table row.</p>
 
     <p><img src="assets/img/setup1.png" alt="setup1" /></p>
 
     <p> </p>
   </li>
   <li>
-    <p>This setup page will run lookup generating searches for the initial usage. These reports are scheduled to run daily at midnight in order to populate/update the lookup tables for enabled correlation rules pertinent to MITRE ATT&amp;CK Framework.</p>
+    <p>This dashboard will run lookup generating searches for the initial usage. These reports are scheduled to run daily at midnight in order to populate/update the lookup tables for enabled correlation rules pertinent to MITRE ATT&amp;CK Framework.</p>
 
     <p><img src="assets/img/setup2.png" alt="setup2" /></p>
 
@@ -105,12 +140,15 @@
 </ol>
 
 
-    <div id="footer">
+
+      <div id="footer">
   <hr>
   <div class="copyright">
     <small>&copy; Copyright 2020, <a href="https://www.seynur.com" target="_blank">Seynur Bilgi Teknolojileri A.Ş.</a> </small>
   </div>
 </div>
 
-  </body>
+
+</div>
+
 </html>
