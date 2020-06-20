@@ -12,6 +12,7 @@ This guide will provide description for the views that comes with this applicati
 * [How To Match a Correlation Search with Framework](#how-to-match-a-correlation-search-with-framework)
   - [Match with Analytic Story](#match-with-analytic-story)
   - [Match with Lookup](#match-with-lookup)
+* [How to integrate with Alert Manager](#how-to-integrate-with-alert-manager)
 
 
   &nbsp;
@@ -89,6 +90,10 @@ Currently following panels are available:
 
 
 ### How To Match a Correlation Search with Framework
+In order to view a saved/correlation search integrated with the MITRE ATT&amp;CK Matrix, following tasks need to be completed.
+1. alert action (ES or Alert Manager) - triggered view TODO:
+2. associate rule with technique TODO:
+
 There are 2 ways to accomplish this task.
 1. [Match with Analytic Story](#match-with-analytic-story): Enable a new or existing *Analytic Story* to be tagged with the relevant *Correlation Search*
 2. [Match with Lookup](#match-with-lookup): Edit the ``mitre_user_rule_technique_lookup.csv`` file.
@@ -180,7 +185,30 @@ The lookup file expects 2 fields:
 * ``rule_name`` : The rule name as it appears in ``savedsearches.conf`` (e.g. "Access - Excessive Failed Logins - Rule")
 * ``technique_id`` : MITRE ATT&CK Technique ID (e.g. T1078 for Valid Accounts) list separated by spaces
 
+&nbsp;
 
+
+---
+
+
+&nbsp;
+
+### How to integrate with Alert Manager
+__NOTE__:This section is applicable for users who do not have Enterprise Security Application installed and would like to integrate with Alert Manager app.
+
+&nbsp;
+
+
+The Alert Manager application provides simple incident workflows in order to investigate fired alerts or notable events. For any correlation/saved search that is applicable as a MITRE ATT&amp;CK technique you need to select/add Alert Manager as a Splunk alert action.
+
+![alert_manager_action]
+&nbsp;
+
+__IMPORTANT NOTE__: In order to have drill-down working with Alert Manager seamlessly the ```Title``` must match the search name, therefore leaving it as (shown in the example screenshot) ```$name$``` instead of typing the search title/name is recommended.
+
+
+
+&nbsp;
 
 [setup4]: assets/img/setup4.png
 [triggered_techniques1]: assets/img/triggered_techniques1.png
@@ -193,3 +221,4 @@ The lookup file expects 2 fields:
 [map_rule_to_technique1]: assets/img/map_rule_to_technique1.png
 [map_rule_to_technique2]: assets/img/map_rule_to_technique2.png
 [map_rule_to_technique3]: assets/img/map_rule_to_technique3.png
+[alert_manager_action]: assets/img/alert_manager_action.png

@@ -29,6 +29,8 @@ items:
             anchor: user_guide.html#match-with-analytic-story
           - name: Match with Lookup
             anchor: user_guide.html#match-with-lookup
+    - name: How to integrate with Alert Manager
+      anchor: user_guide.html#how-to-integrate-with-alert-manager
 - name: Release Notes
   link: release_notes.html
   subitems:
