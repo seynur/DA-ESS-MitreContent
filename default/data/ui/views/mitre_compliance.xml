@@ -1,5 +1,5 @@
 <form script="mitre_compliance.js" stylesheet="mitre_matrix.css">
-  <label>MITRE ATT&amp;CK Compliance with Splunk ES</label>
+  <label>MITRE ATT&amp;CK Compliance</label>
   <description>This dashboard provides an overview of available correlation searches that match MITRE ATT&amp;CK techniques.  Darker colors indicate higher ratio of enabled rules and you can view the actual numbers when hovering over the cells and click to drilldown further for editing the rules.</description>
   <search>
     <query>

@@ -1,13 +1,23 @@
 <form script="mitre_triggered.js" stylesheet="mitre_matrix.css" theme="dark">
   <label>MITRE ATT&amp;CK Matrix</label>
   <description>This dashboard provides an overview of triggered tactics and techniques based on enabled correlation rules with related MITRE ATT&amp;CK annotations.</description>
+  <search id="mitre_use_es">
+    <query>| makeresults | eval mitre_use_es=`mitre_use_es` | eval results=if(mitre_use_es=="1",1,null()) | table results</query>
+    <done>
+      <condition match=" $job.resultCount$ &gt; 0">
+        <set token="mitre_use_es">1</set>
+      </condition>
+      <condition match=" $job.resultCount$ == 0">
+        <set token="mitre_use_es">0</set>
+      </condition>
+    </done>
+  </search>
   <search id="init_attack_search">
     <query>
 | inputlookup mitre_all_rule_technique_lookup | lookup mitre_tt_lookup technique_id
 | fields rule_name, technique_name
 | join rule_name
-    [  search `notable_by_id("*")`
-    | rename search_name as rule_name
+    [  `mitre_rules`
     | fields rule_name, urgency
     | lookup urgency_score_lookup urgency
     | stats max(score) as max_score, count by rule_name]
@@ -194,10 +204,18 @@ max("Impact Max Score") as impact_max_score
         </search>
         <option name="count">100</option>
         <drilldown>
-          <eval token="rules_q">if(mvindex(split('click.value2',"|"),2)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&source=]]>"),"|"),2),"*")</eval>
-          <link target="_blank">
-            <![CDATA[/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$attack_time_field.earliest$&amp;latest=$attack_time_field.latest$&amp;urgency=critical&amp;urgency=high&amp;urgency=medium&amp;urgency=low&amp;urgency=informational&source=$rules_q|n$]]>
-          </link>
+          <condition match="'mitre_use_es' == &quot;1&quot;">
+            <eval token="rules_q">if(mvindex(split('click.value2',"|"),2)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&source=]]>"),"|"),2),"*")</eval>
+            <link target="_blank">
+              <![CDATA[/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$attack_time_field.earliest$&amp;latest=$attack_time_field.latest$&amp;urgency=critical&amp;urgency=high&amp;urgency=medium&amp;urgency=low&amp;urgency=informational&source=$rules_q|n$]]>
+            </link>
+          </condition>
+          <condition match="'mitre_use_es' == &quot;0&quot;">
+            <eval token="rules_q">if(mvindex(split('click.value2',"|"),2)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&form.s_title=]]>"),"|"),2),"*")</eval>
+            <link target="_blank">
+              <![CDATA[/app/alert_manager/incident_posture?form.global_time.earliest=$attack_time_field.earliest$&form.global_time.latest=$attack_time_field.latest$&form.owner=*&form.alert=*&form.category=*&form.subcategory=*&form.tags=*&form.tags=[Untagged]&form.status=status!%3D"*resolved" status!%3D"suppressed"&form.s_incident_id=&form.s_title=$rules_q|n$&form.impact=*&form.urgency=*&form.priority=*&form.freeform=]]>
+            </link>
+          </condition>
         </drilldown>-</table>
     </panel>
   </row>

@@ -4,6 +4,12 @@ title: Release Notes
 ---
 
 ### Release Notes:
+#### Version 2.3.0
+- Date: 22 Jun 2020
+- Feature: Option to work with plain Splunk Enterprise (no ES requirement)
+  - Added macros for flexible deployment option (default is ES app)
+  - Updated views to use the macros
+
 #### Version 2.2.0
 - Date: 09 May 2020
 - Bug fix: Duplication issue for Rule Finder

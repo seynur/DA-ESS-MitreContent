@@ -1,6 +1,17 @@
 <form>
   <label>MITRE ATT&amp;CK Rule Finder</label>
   <description>Please enter the technique name in order to find the related correlation rules defined within Enterprise Security.</description>
+  <search id="mitre_use_es">
+    <query>| makeresults | eval mitre_use_es=`mitre_use_es` | eval results=if(mitre_use_es=="1",1,null()) | table results</query>
+    <done>
+      <condition match=" $job.resultCount$ &gt; 0">
+        <set token="mitre_use_es">1</set>
+      </condition>
+      <condition match=" $job.resultCount$ == 0">
+        <set token="mitre_use_es">0</set>
+      </condition>
+    </done>
+  </search>
   <fieldset submitButton="false">
     <input type="text" token="mitre_technique_name">
       <label>MITRE ATT&amp;CK Technique Name</label>
@@ -23,9 +34,13 @@
           <latest>now</latest>
         </search>
         <option name="drilldown">cell</option>
-        <option name="refresh.display">progressbar</option>
         <drilldown>
-          <link target="_blank">/app/SplunkEnterpriseSecuritySuite/ess_content_management?textFilter=$click.value2$</link>
+          <condition match="'mitre_use_es' == &quot;1&quot;">
+            <link target="_blank">/app/SplunkEnterpriseSecuritySuite/ess_content_management?textFilter=$click.value2$</link>
+          </condition>
+          <condition match="'mitre_use_es' == &quot;0&quot;">
+            <link target="_blank">/manager/system/saved/searches?app=&amp;count=10&amp;offset=0&amp;itemType=&amp;owner=&amp;search=$click.value2$</link>
+          </condition>
         </drilldown>
       </table>
     </panel>
