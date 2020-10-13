@@ -5,7 +5,7 @@
   <collection label="Configuration">
     <view name="lookup_gen" />
     <view name="map_rule_to_technique" />
-    <a name="setup" href='/manager/DA-ESS-MitreContent/apps/local/DA-ESS-MitreContent/setup?action=edit'>Setup</a>
+    <view name="mitre_setup_view"/>
   </collection>
   <collection label="Search">
     <view name="reports" />

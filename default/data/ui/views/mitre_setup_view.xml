@@ -1,0 +1,20 @@
+<!--
+Both of the <dashboard> element's `styles` and `script` attribute search for
+files in `$SPLUNK_HOME/etc/<SPLUNK_APP_NAME>/appserver/static/*`
+
+Documentation link:
+http://docs.splunk.com/Documentation/Splunk/latest/Viz/PanelreferenceforSimplifiedXML#dashboard_or_form
+-->
+<dashboard isDashboard="false"
+           hideEdit="true"
+           script="setup_view/mitre_setup_page.js"
+           stylesheet="setup_view/styles/mitre_setup_page.css">
+    <label>MITRE ATT&amp;CK Configuration</label>
+    <row>
+        <panel id="setup_panel">
+            <html>
+                <div id="main_container"></div>
+            </html>
+        </panel>
+    </row>
+</dashboard>

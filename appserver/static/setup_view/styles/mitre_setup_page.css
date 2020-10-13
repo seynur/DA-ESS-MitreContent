@@ -1,0 +1,178 @@
+/* -------------------------------------------------------------------------- */
+/* General Styling                                                            */
+/* -------------------------------------------------------------------------- */
+#setup_panel .dashboard-panel{
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+#main_container{
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+#main_container .title img{
+  float: right;
+  width: 100px;
+}
+
+#main_container .title h1{
+  float: left;
+}
+
+#main_container .spinnerBG {
+  max-width: 800px;
+  height: 100%;
+	/*-Lets Center the Spinner-*/
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+
+    /*Centering my shade */
+    /*margin-top: 130px;*/
+    margin-left: auto;
+    margin-right: auto;
+
+    background-color: rgba(255,255,255,0.7);
+    z-index:9999;
+    display: block;
+}
+
+@-webkit-keyframes spin {
+	from {-webkit-transform:rotate(0deg);}
+	to {-webkit-transform:rotate(360deg);}
+}
+
+@keyframes spin {
+	from {transform:rotate(0deg);}
+	to {transform:rotate(360deg);}
+}
+
+#main_container .spinnerShow {
+    content:'';
+    display:block;
+    position:absolute;
+    left:48%;top:40%;
+    width:80px;height:80px;
+    border-style:solid;
+    border: 5px solid black;
+	  border-top-color: #6CC4EE;
+    border-width: 7px;
+    z-index:10000;
+    border-radius:50%;
+    -webkit-animation: spin .8s linear infinite;
+
+    /* Lets make it go round */
+    animation: spin .8s linear infinite;
+}
+
+.setup.container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.setup.container label {
+  display: block;
+  padding-left: 15px;
+  text-indent: -15px;
+}
+.setup.container .checkbox-lookup {
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  margin:0;
+  vertical-align: bottom;
+  position: relative;
+  top: -4px;
+  *overflow: hidden;
+}
+
+.setup.container .checkbox-es {
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  margin:0;
+  vertical-align: bottom;
+  position: relative;
+  top: -4px;
+  *overflow: hidden;
+}
+
+.setup.container .description {
+    /* none */
+}
+
+.setup.container .field {
+    /* none */
+}
+
+.setup.container .field.hostname .protocol {
+    /* none */
+}
+
+.setup.container .field .user_input .text {
+    vertical-align: middle;
+    height: 20px;
+    width: 100%;
+}
+
+.setup.container .field .user_input .text label {
+    float: left;
+    height: 15px;
+}
+
+
+.setup.container .field .user_input .text label input {
+    float: right;
+    width: 45%;
+    height: 15px;
+    position: absolute;
+    right: 0;
+
+}
+
+.setup.container .field .user_input .text label input {
+    float: right;
+    width: 45%;
+    height: 15px;
+    position: absolute;
+    right: 0;
+
+}
+
+.setup.container .error.output {
+    /* Used to set defaults for JQuery Fade In/Fade Out */
+    display: none;
+    opacity: 1;
+}
+
+.setup.container .error.output ul li {
+    /* Styling for each line of the errors */
+    color: rgba(255, 0, 0, 1);
+}
+.setup.container .success.output {
+    /* Used to set defaults for JQuery Fade In/Fade Out */
+    display: none;
+    opacity: 1;
+}
+
+.setup.container .success.output ul{
+    /* Styling for each line of the success message */
+    color: rgba(0, 140, 0, 1);
+}
+
+.setup.container .setup_button {
+    float: right;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    border-radius: 4px;
+    padding: 10px 35px;
+}
