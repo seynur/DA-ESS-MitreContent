@@ -7,6 +7,7 @@ import requests
 
 splunkhome = os.environ['SPLUNK_HOME']
 sys.path.append(os.path.join(splunkhome, 'etc', 'apps', 'DA-ESS-MitreContent', 'lib'))
+from seynurlib.validation import *
 from splunklib.searchcommands import dispatch, GeneratingCommand, Configuration, Option, validators
 from splunklib.six.moves import range
 
@@ -98,27 +99,30 @@ class GetAttackDetectionRulesCommand(GeneratingCommand):
     def generate(self):
         try:
           api_key = self.getApiKey()
-          api_rules = self.getRulesFromApi(api_key)
+          if not is_alphanumeric(api_key, 32):
+              text = 'GetAttackDetectionRules Error: Unable to send request.  The API key must be a 32 character string comprised of alphanumeric characters.'
+              self.logger.error(text)
+          else:
+              api_rules = self.getRulesFromApi(api_key)
 
-          splunk_rule_names = []
-          for search in self.service.saved_searches:
-              splunk_rule_names.append(search.name)
+              splunk_rule_names = []
+              for search in self.service.saved_searches:
+                  splunk_rule_names.append(search.name)
 
-          for api_rule in api_rules:
-              if api_rule['rule_name'] not in splunk_rule_names :
-                  self.addSavedSearch(api_rule['rule_name'],
-                                  api_rule['description'],
-                                  api_rule['spl'],
-                                  api_rule['technique_id'],
-                                  api_rule['security_domain'],
-                                  api_rule['severity'],
-                                  api_rule['fields'])
+              for api_rule in api_rules:
+                  if api_rule['rule_name'] not in splunk_rule_names :
+                      self.addSavedSearch(api_rule['rule_name'],
+                                      api_rule['description'],
+                                      api_rule['spl'],
+                                      api_rule['technique_id'],
+                                      api_rule['security_domain'],
+                                      api_rule['severity'],
+                                      api_rule['fields'])
 
-          self.createLookup(api_rules)
+              self.createLookup(api_rules)
 
-          self.logger.info("Attack Detection API: Successfully completed.")
-          text = 'Attack Detection API: Successfully completed.'
-
+              self.logger.info("Attack Detection API: Successfully completed.")
+              text = 'Attack Detection API: Successfully completed.'
         except: # catch *all* exceptions
           t, value, tb = sys.exc_info()
           self.logger.error( "Attack Detection API: EXCEPTION %s: %s" % (t,value) )

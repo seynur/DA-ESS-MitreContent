@@ -153,9 +153,9 @@
     opacity: 1;
 }
 
-.setup.container .error.output ul li {
+.setup.container .error.output ul{
     /* Styling for each line of the errors */
-    color: rgba(255, 0, 0, 1);
+    color: rgba(200, 0, 0, 1);
 }
 .setup.container .success.output {
     /* Used to set defaults for JQuery Fade In/Fade Out */
