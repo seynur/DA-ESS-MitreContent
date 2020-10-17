@@ -9,7 +9,7 @@ http://docs.splunk.com/Documentation/Splunk/latest/Viz/PanelreferenceforSimplifi
            hideEdit="true"
            script="setup_view/mitre_setup_page.js"
            stylesheet="setup_view/styles/mitre_setup_page.css">
-    <label>MITRE ATT&amp;CK Configuration</label>
+    <label>Setup</label>
     <row>
         <panel id="setup_panel">
             <html>
