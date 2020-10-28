@@ -5,12 +5,9 @@ async function create_password_storage(splunk_js_sdk_service, api_key){
   var user_name_to_delete = ":attackdetection_apikey:";
   var user_name = "attackdetection_apikey";
   await storagePasswords.fetch();
-  console.log(storagePasswords);
   var storages_found = storagePasswords.list();
-  console.log(storages_found);
   for (var index = 0; index < storages_found.length; index++) {
       var storage_found = storages_found[index].name;
-      console.log(storage_found);
       if (storage_found === user_name_to_delete ) {
           console.log('trying to delete');
           await storagePasswords.del(user_name);

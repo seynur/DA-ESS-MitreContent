@@ -74,7 +74,7 @@ define(
                 if (verified_api_key !== 'dummyapikey') {
                   this.perform_password_setup(
                     splunk_js_sdk,
-                    api_key
+                    verified_api_key
                   )
                 }
 
@@ -172,13 +172,15 @@ define(
                 var sanitized_apikey = api_key.trim();
                 var is_alphanumeric_regex = RegExp('^[A-Za-z0-9]{32}$');
                 var is_apikey_alphanumeric = is_alphanumeric_regex.test(sanitized_apikey);
-                if (is_apikey_alphanumeric){
+                if (is_apikey_alphanumeric || sanitized_apikey==='dummyapikey'){
                   return sanitized_apikey;
                 }
                 else {
                   var api_key_error = 'Error: Please check your API Key!';
-                  this.is_error_occured = true;
+                  var is_error = true;
+                  this.is_error_occured = is_error;
                   this.display_error_output(api_key_error);
+                  return 'dummyapikey';
                 }
             },
 
@@ -188,11 +190,11 @@ define(
             display_success_output: function display_success_output(success_message, is_error_occured) {
                 var did_success_messages_occur = success_message.length > 0;
                 var success_output_element = jquery(".setup.container .success.output");
+                console.log(is_error_occured)
                 if (did_success_messages_occur && !is_error_occured) {
                     var new_success_output_string = "";
                     new_success_output_string += "<ul>" + success_message + "</ul>" ;
                     success_output_element.html(new_success_output_string);
-                    $(".setup.container .error.output").fadeOut();
                     $("div[class='spinnerBG']").fadeOut();
                     $("div[class='spinnerShow']").fadeOut();
                     success_output_element.stop();
