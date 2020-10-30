@@ -37,6 +37,12 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 2.4.0
+- Date: 30 Oct 2020
+- Feature: New setup view to be compatible with Splunk Cloud 
+  - Setup.xml replaced by custom javascript scripts.  
+- Bug fix: Alert Manager 3.0.4 compatibility issues
+
 Version 2.3.0
 - Date: 22 Jun 2020
 - Feature: Option to work with plain Splunk Enterprise (no ES requirement)
