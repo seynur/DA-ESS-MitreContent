@@ -1,4 +1,77 @@
 ﻿tactic_id,tactic_name,technique_id,technique_name
+TA0043,Reconnaissance,T1595,Active Scanning
+TA0043,Reconnaissance,T1595.001,Scanning IP Blocks
+TA0043,Reconnaissance,T1595.002,Vulnerability Scanning
+TA0043,Reconnaissance,T1592,Gather Victim Host Information
+TA0043,Reconnaissance,T1592.001,Hardware
+TA0043,Reconnaissance,T1592.002,Software
+TA0043,Reconnaissance,T1592.003,Firmware
+TA0043,Reconnaissance,T1592.004,Client Configurations
+TA0043,Reconnaissance,T1589,Gather Victim Identity Information
+TA0043,Reconnaissance,T1589.001,Credentials
+TA0043,Reconnaissance,T1589.002,Email Addresses
+TA0043,Reconnaissance,T1589.003,Employee Names
+TA0043,Reconnaissance,T1590,Gather Victim Network Information
+TA0043,Reconnaissance,T1590.001,Domain Properties
+TA0043,Reconnaissance,T1590.002,DNS
+TA0043,Reconnaissance,T1590.003,Network Trust Dependencies
+TA0043,Reconnaissance,T1590.004,Network Topology
+TA0043,Reconnaissance,T1590.005,IP Addresses
+TA0043,Reconnaissance,T1590.006,Network Security Appliances
+TA0043,Reconnaissance,T1591,Gather Victim Org Information
+TA0043,Reconnaissance,T1591.001,Determine Physical Locations
+TA0043,Reconnaissance,T1591.002,Business Relationships
+TA0043,Reconnaissance,T1591.003,Identify Business Tempo
+TA0043,Reconnaissance,T1591.004,Identify Roles
+TA0043,Reconnaissance,T1598,Phishing for Information
+TA0043,Reconnaissance,T1598.001,Spearphishing Service
+TA0043,Reconnaissance,T1598.002,Spearphishing Attachment
+TA0043,Reconnaissance,T1598.003,Spearphishing Link
+TA0043,Reconnaissance,T1597,Search Closed Sources
+TA0043,Reconnaissance,T1597.001,Threat Intel Vendors
+TA0043,Reconnaissance,T1597.002,Purchase Technical Data
+TA0043,Reconnaissance,T1596,Search Open Technical Databases
+TA0043,Reconnaissance,T1596.001,DNS/Passive DNS
+TA0043,Reconnaissance,T1596.002,WHOIS
+TA0043,Reconnaissance,T1596.003,Digital Certificates
+TA0043,Reconnaissance,T1596.004,CDNs
+TA0043,Reconnaissance,T1596.005,Scan Databases
+TA0043,Reconnaissance,T1593,Search Open Websites/Domains
+TA0043,Reconnaissance,T1593.001,Social Media
+TA0043,Reconnaissance,T1593.002,Search Engines
+TA0043,Reconnaissance,T1594,Search Victim-Owned Websites
+TA0042,Resource Development,T1583,Acquire Infrastructure
+TA0042,Resource Development,T1583.001,Domains
+TA0042,Resource Development,T1583.002,DNS Server
+TA0042,Resource Development,T1583.003,Virtual Private Server
+TA0042,Resource Development,T1583.004,Server
+TA0042,Resource Development,T1583.005,Botnet
+TA0042,Resource Development,T1583.006,Web Services
+TA0042,Resource Development,T1586,Compromise Accounts
+TA0042,Resource Development,T1586.001,Social Media Accounts
+TA0042,Resource Development,T1586.002,Email Accounts
+TA0042,Resource Development,T1584,Compromise Infrastructure
+TA0042,Resource Development,T1584.001,Domains
+TA0042,Resource Development,T1584.002,DNS Server
+TA0042,Resource Development,T1584.003,Virtual Private Server
+TA0042,Resource Development,T1584.004,Server
+TA0042,Resource Development,T1584.005,Botnet
+TA0042,Resource Development,T1584.006,Web Services
+TA0042,Resource Development,T1587,Develop Capabilities
+TA0042,Resource Development,T1587.001,Malware
+TA0042,Resource Development,T1587.002,Code Signing Certificates
+TA0042,Resource Development,T1587.003,Digital Certificates
+TA0042,Resource Development,T1587.004,Exploits
+TA0042,Resource Development,T1585,Establish Accounts
+TA0042,Resource Development,T1585.001,Social Media Accounts
+TA0042,Resource Development,T1585.002,Email Accounts
+TA0042,Resource Development,T1588,Obtain Capabilities
+TA0042,Resource Development,T1588.001,Malware
+TA0042,Resource Development,T1588.002,Tool
+TA0042,Resource Development,T1588.003,Code Signing Certificates
+TA0042,Resource Development,T1588.004,Digital Certificates
+TA0042,Resource Development,T1588.005,Exploits
+TA0042,Resource Development,T1588.006,Vulnerabilities
 TA0001,Initial Access,T1189,Drive-by Compromise
 TA0001,Initial Access,T1190,Exploit Public-Facing Application
 TA0001,Initial Access,T1133,External Remote Services
