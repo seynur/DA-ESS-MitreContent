@@ -25,6 +25,10 @@ td.add-border {
     border: 1px solid rgba(43, 42, 42, 0.233);
 }
 
+td.subtechnique {
+    color: red !important;
+    border: 5px;
+}
 /*
  * Splunk ES App colors
  * info: 53a051
@@ -123,3 +127,4 @@ td.dark {
     font-size: 14px;
     font-weight: normal;
     }
+

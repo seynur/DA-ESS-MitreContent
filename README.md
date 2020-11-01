@@ -37,9 +37,13 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.0.0
+- Date: X Nov 2020
+- Feature: Compatibility with ATT&CK Content version 8.0
+
 Version 2.4.0
 - Date: 30 Oct 2020
-- Feature: New setup view to be compatible with Splunk Cloud 
+- Feature: New setup view to be compatible with Splunk Cloud
   - Setup.xml replaced by custom javascript scripts.  
 - Bug fix: Alert Manager 3.0.4 compatibility issues
 

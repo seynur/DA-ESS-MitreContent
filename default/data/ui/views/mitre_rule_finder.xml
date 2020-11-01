@@ -13,7 +13,7 @@
     </done>
   </search>
   <fieldset submitButton="false">
-    <input type="text" token="mitre_technique_name">
+    <input type="text" token="mitre_technique_id">
       <label>MITRE ATT&amp;CK Technique Name</label>
       <prefix>"</prefix>
       <suffix>"</suffix>
@@ -25,7 +25,7 @@
         <search>
           <query>| inputlookup mitre_all_rule_technique_lookup
 | `lookup_technique_tactic_from_rule_name`
-| search technique_name=$mitre_technique_name$
+| search technique_id=$mitre_technique_id$
 | eval app_name=mvdedup(app_name), rule_disabled=mvdedup(rule_disabled)
 | eval Status = if(rule_disabled=0,"Enabled","Disabled")
 | rename rule_name as "Rule Name", app_name as "Application", tactic_id as "Tactic ID", tactic_name as "Tactic", technique_id as "Technique ID", technique_name as "Technique"
@@ -34,6 +34,7 @@
           <latest>now</latest>
         </search>
         <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
         <drilldown>
           <condition match="'mitre_use_es' == &quot;1&quot;">
             <link target="_blank">/app/SplunkEnterpriseSecuritySuite/ess_content_management?textFilter=$click.value2$</link>

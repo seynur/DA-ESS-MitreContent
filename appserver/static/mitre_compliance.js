@@ -21,18 +21,27 @@ require([
 
     var CustomRangeRenderer = TableView.BaseCellRenderer.extend({
         canRender: function(cell) {
-            return _(["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]).contains(cell.field);
+            //return _(["Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion", "Credential Access", "Discovery", "Lateral Movement", "Collection", "Command and Control", "Exfiltration", "Impact", "TA0001:Initial Access", "TA0002:Execution", "TA0003:Persistence", "TA0004:Privilege Escalation", "TA0005:Defense Evasion", "TA0006:Credential Access", "TA0007:Discovery", "TA0008:Lateral Movement", "TA0009:Collection", "TA0011:Command and Control", "TA0010:Exfiltration", "TA0040:Impact","TA0001","TA0002","TA0003","TA0004","TA0005","TA0006","TA0007","TA0008","TA0009","TA0011","TA0010","TA0040"]).contains(cell.field);
+            return _(["Reconnaissance", "Resource Development", "Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion", "Credential Access", "Discovery", "Lateral Movement", "Collection", "Command and Control", "Exfiltration", "Impact"]).contains(cell.field);
         },
+        render: function($th, cell) {
+		$th.text('did it work?');
+	},
         render: function($td, cell) {
             // Add a class to the cell based on the returned value
             var value_arr = cell.value.split("|");
-            technique_name = value_arr[0];
-            percentage = value_arr[1];
-            enabled_count = value_arr[2];
-            total_count = value_arr[3];
+            var technique_id = value_arr[0];
+            var technique_name = value_arr[1];
+            var percentage = value_arr[2];
+            var enabled_count = value_arr[3];
+            var total_count = value_arr[4];
             var urgency_str = "None"
 
-            ttl = "Total: " + total_count + "\nEnabled: " + enabled_count + "\nPercentage: " + percentage;
+            var ttl = "Total: " + total_count + "\nEnabled: " + enabled_count + "\nPercentage: " + percentage;
+
+	    if(technique_id.includes('.')) {
+		$td.addClass('subtechnique');
+	    }
 
             $td.tooltip();
             $td.prop('title', ttl);
@@ -69,10 +78,10 @@ require([
                 $td.text(" ");
             }
             else {
-                $td.text(technique_name);
+                $td.text(technique_id + ": " + technique_name);
                 $td.addClass('add-border').addClass('text-align-center');
 
-        }
+            }
         }
     });
 
