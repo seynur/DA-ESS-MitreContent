@@ -189,8 +189,8 @@
 , max(TA0011_max_score) as TA0011_max_score
 , max(TA0010_max_score) as TA0010_max_score
 , max(TA0040_max_score) as TA0040_max_score
-| eval TA0001=TA0043_sum."|".TA0043_max_score
-, TA0042=TA0001_sum."|".TA0042_max_score
+| eval TA0043=TA0043_sum."|".TA0043_max_score
+, TA0042=TA0042_sum."|".TA0042_max_score
 , TA0001=TA0001_sum."|".TA0001_max_score
 , TA0002=TA0002_sum."|".TA0002_max_score
 , TA0003=TA0003_sum."|".TA0003_max_score
