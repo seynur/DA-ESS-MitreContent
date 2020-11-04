@@ -14,7 +14,7 @@
   </search>
   <search id="init_attack_search">
     <query>
-| inputlookup mitre_all_rule_technique_lookup 
+| inputlookup mitre_all_rule_technique_lookup
 | fields rule_name, technique_id
 | join rule_name
     [  search `mitre_rules`
@@ -35,81 +35,93 @@
   <search id="init_mitre_attack_table">
     <query>
           | inputlookup $tok_display_option$
-          | foreach TA00* 
-    [| lookup mitre_tt_lookup technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUT technique_name as &lt;&lt;FIELD&gt;&gt;_technique_name 
+          | foreach TA00*
+    [| lookup mitre_tt_lookup technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUT technique_name as &lt;&lt;FIELD&gt;&gt;_technique_name
     | eval &lt;&lt;FIELD&gt;&gt;_technique_name=mvindex(&lt;&lt;FIELD&gt;&gt;_technique_name,0)]
     </query>
   </search>
   <search base="init_mitre_attack_table" id="post_process_mitre_attack_triage">
     <query>
-      | join type=left
+  | join type=left
+      [| loadjob $subsearch_id$
+      | rename technique_id as TA0043, triggered_count as TA0043_attack_count, rule_name_list as TA0043_rule_name_list, max_score as TA0043_max_score ]
+      | fillnull value="NULL" TA0043,TA0043_rule_name_list,TA0043_technique_name
+      | fillnull value=0 TA0043_attack_count,TA0043_max_score
+      | eval TA0043=TA0043."|".TA0043_technique_name."|".TA0043_attack_count."|".TA0043_rule_name_list."|".TA0043_max_score
+  | join type=left
+      [| loadjob $subsearch_id$
+      | rename technique_id as TA0042, triggered_count as TA0042_attack_count, rule_name_list as TA0042_rule_name_list, max_score as TA0042_max_score ]
+      | fillnull value="NULL" TA0042,TA0042_rule_name_list,TA0042_technique_name
+      | fillnull value=0 TA0042_attack_count,TA0042_max_score
+      | eval TA0042=TA0042."|".TA0042_technique_name."|".TA0042_attack_count."|".TA0042_rule_name_list."|".TA0042_max_score
+  | join type=left
     [| loadjob $subsearch_id$
     | rename technique_id as TA0001, triggered_count as TA0001_attack_count, rule_name_list as TA0001_rule_name_list, max_score as TA0001_max_score ]
     | fillnull value="NULL" TA0001,TA0001_rule_name_list,TA0001_technique_name
     | fillnull value=0 TA0001_attack_count,TA0001_max_score
     | eval TA0001=TA0001."|".TA0001_technique_name."|".TA0001_attack_count."|".TA0001_rule_name_list."|".TA0001_max_score
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_id as TA0002, triggered_count as TA0002_attack_count, rule_name_list as TA0002_rule_name_list, max_score as TA0002_max_score ] 
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0002, triggered_count as TA0002_attack_count, rule_name_list as TA0002_rule_name_list, max_score as TA0002_max_score ]
     | fillnull value="NULL" TA0002,TA0002_rule_name_list,TA0002_technique_name
     | fillnull value=0 TA0002_attack_count,TA0002_max_score
     | eval TA0002=TA0002."|".TA0002_technique_name."|".TA0002_attack_count."|".TA0002_rule_name_list."|".TA0002_max_score
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_id as TA0003, triggered_count as TA0003_attack_count, rule_name_list as TA0003_rule_name_list, max_score as TA0003_max_score ] 
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0003, triggered_count as TA0003_attack_count, rule_name_list as TA0003_rule_name_list, max_score as TA0003_max_score ]
     | fillnull value="NULL" TA0003,TA0003_rule_name_list,TA0003_technique_name
     | fillnull value=0 TA0003_attack_count,TA0003_max_score
     | eval TA0003=TA0003."|".TA0003_technique_name."|".TA0003_attack_count."|".TA0003_rule_name_list."|".TA0003_max_score
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_id as TA0004, triggered_count as TA0004_attack_count, rule_name_list as TA0004_rule_name_list, max_score as TA0004_max_score ] 
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0004, triggered_count as TA0004_attack_count, rule_name_list as TA0004_rule_name_list, max_score as TA0004_max_score ]
     | fillnull value="NULL" TA0004,TA0004_rule_name_list,TA0004_technique_name
     | fillnull value=0 TA0004_attack_count,TA0004_max_score
     | eval TA0004=TA0004."|".TA0004_technique_name."|".TA0004_attack_count."|".TA0004_rule_name_list."|".TA0004_max_score
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_id as TA0005, triggered_count as TA0005_attack_count, rule_name_list as TA0005_rule_name_list, max_score as TA0005_max_score ] 
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0005, triggered_count as TA0005_attack_count, rule_name_list as TA0005_rule_name_list, max_score as TA0005_max_score ]
     | fillnull value="NULL" TA0005,TA0005_rule_name_list,TA0005_technique_name
     | fillnull value=0 TA0005_attack_count,TA0005_max_score
     | eval TA0005=TA0005."|".TA0005_technique_name."|".TA0005_attack_count."|".TA0005_rule_name_list."|".TA0005_max_score
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_id as TA0006, triggered_count as TA0006_attack_count, rule_name_list as TA0006_rule_name_list, max_score as TA0006_max_score ] 
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0006, triggered_count as TA0006_attack_count, rule_name_list as TA0006_rule_name_list, max_score as TA0006_max_score ]
     | fillnull value="NULL" TA0006,TA0006_rule_name_list,TA0006_technique_name
     | fillnull value=0 TA0006_attack_count,TA0006_max_score
     | eval TA0006=TA0006."|".TA0006_technique_name."|".TA0006_attack_count."|".TA0006_rule_name_list."|".TA0006_max_score
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_id as TA0007, triggered_count as TA0007_attack_count, rule_name_list as TA0007_rule_name_list, max_score as TA0007_max_score ] 
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0007, triggered_count as TA0007_attack_count, rule_name_list as TA0007_rule_name_list, max_score as TA0007_max_score ]
     | fillnull value="NULL" TA0007,TA0007_rule_name_list,TA0007_technique_name
     | fillnull value=0 TA0007_attack_count,TA0007_max_score
     | eval TA0007=TA0007."|".TA0007_technique_name."|".TA0007_attack_count."|".TA0007_rule_name_list."|".TA0007_max_score
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_id as TA0008, triggered_count as TA0008_attack_count, rule_name_list as TA0008_rule_name_list, max_score as TA0008_max_score ] 
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0008, triggered_count as TA0008_attack_count, rule_name_list as TA0008_rule_name_list, max_score as TA0008_max_score ]
     | fillnull value="NULL" TA0008,TA0008_rule_name_list,TA0008_technique_name
     | fillnull value=0 TA0008_attack_count,TA0008_max_score
     | eval TA0008=TA0008."|".TA0008_technique_name."|".TA0008_attack_count."|".TA0008_rule_name_list."|".TA0008_max_score
-| join type=left 
-    [| loadjob $subsearch_id$ 
-    | rename technique_id as TA0009, triggered_count as TA0009_attack_count, rule_name_list as TA0009_rule_name_list, max_score as TA0009_max_score ] 
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0009, triggered_count as TA0009_attack_count, rule_name_list as TA0009_rule_name_list, max_score as TA0009_max_score ]
     | fillnull value="NULL" TA0009,TA0009_rule_name_list,TA0009_technique_name
     | fillnull value=0 TA0009_attack_count,TA0009_max_score
     | eval TA0009=TA0009."|".TA0009_technique_name."|".TA0009_attack_count."|".TA0009_rule_name_list."|".TA0009_max_score
-| join type=left 
-    [| loadjob $subsearch_id$ 
+| join type=left
+    [| loadjob $subsearch_id$
     | rename technique_id as TA0011, triggered_count as TA0011_attack_count, rule_name_list as TA0011_rule_name_list, max_score as TA0011_max_score ]
     | fillnull value="NULL" TA0011,TA0011_rule_name_list,TA0011_technique_name
     | fillnull value=0 TA0011_attack_count,TA0011_max_score
     | eval TA0011=TA0011."|".TA0011_technique_name."|".TA0011_attack_count."|".TA0011_rule_name_list."|".TA0011_max_score
-| join type=left 
-    [| loadjob $subsearch_id$ 
+| join type=left
+    [| loadjob $subsearch_id$
     | rename technique_id as TA0010, triggered_count as TA0010_attack_count, rule_name_list as TA0010_rule_name_list, max_score as TA0010_max_score ]
     | fillnull value="NULL" TA0010,TA0010_rule_name_list,TA0010_technique_name
     | fillnull value=0 TA0010_attack_count,TA0010_max_score
     | eval TA0010=TA0010."|".TA0010_technique_name."|".TA0010_attack_count."|".TA0010_rule_name_list."|".TA0010_max_score
-| join type=left 
-    [| loadjob $subsearch_id$ 
+| join type=left
+    [| loadjob $subsearch_id$
     | rename technique_id as TA0040, triggered_count as TA0040_attack_count, rule_name_list as TA0040_rule_name_list, max_score as TA0040_max_score ]
     | fillnull value="NULL" TA0040,TA0040_rule_name_list,TA0040_technique_name
     | fillnull value=0 TA0040_attack_count,TA0040_max_score
@@ -149,7 +161,9 @@
       <title>MITRE ATT&amp;CK Tactics</title>
       <table id="mitretitle">
         <search base="post_process_mitre_attack_triage">
-          <query>|  stats sum(TA0001_attack_count) as TA0001_sum
+          <query>|  stats sum(TA0043_attack_count) as TA0043_sum
+, sum(TA0042_attack_count) as TA0042_sum
+, sum(TA0001_attack_count) as TA0001_sum
 , sum(TA0002_attack_count) as TA0002_sum
 , sum(TA0003_attack_count) as TA0003_sum
 , sum(TA0004_attack_count) as TA0004_sum
@@ -161,6 +175,8 @@
 , sum(TA0011_attack_count) as TA0011_sum
 , sum(TA0010_attack_count) as TA0010_sum
 , sum(TA0040_attack_count) as TA0040_sum
+, max(TA0043_max_score) as TA0043_max_score
+, max(TA0042_max_score) as TA0042_max_score
 , max(TA0001_max_score) as TA0001_max_score
 , max(TA0002_max_score) as TA0002_max_score
 , max(TA0003_max_score) as TA0003_max_score
@@ -173,7 +189,9 @@
 , max(TA0011_max_score) as TA0011_max_score
 , max(TA0010_max_score) as TA0010_max_score
 , max(TA0040_max_score) as TA0040_max_score
-| eval TA0001=TA0001_sum."|".TA0001_max_score
+| eval TA0001=TA0043_sum."|".TA0043_max_score
+, TA0042=TA0001_sum."|".TA0042_max_score
+, TA0001=TA0001_sum."|".TA0001_max_score
 , TA0002=TA0002_sum."|".TA0002_max_score
 , TA0003=TA0003_sum."|".TA0003_max_score
 , TA0004=TA0004_sum."|".TA0004_max_score
@@ -185,8 +203,8 @@
 , TA0011=TA0011_sum."|".TA0011_max_score
 , TA0010=TA0010_sum."|".TA0010_max_score
 , TA0040=TA0040_sum."|".TA0040_max_score
-| table TA0001,TA0002,TA0003,TA0004,TA0005,TA0006,TA0007,TA0008,TA0009,TA0011,TA0010,TA0040 
-| rename TA0001 as "Initial Access", TA0002 as "Execution", TA0003 as "Persistence", TA0004 as "Privilege Escalation", TA0005 as "Defense Evasion", TA0006 as "Credential Access", TA0007 as "Discovery", TA0008 as "Lateral Movement", TA0009 as "Collection", TA0011 as "Command and Control", TA0010 as "Exfiltration", TA0040 as "Impact"</query>
+| table TA0043,TA0042,TA0001,TA0002,TA0003,TA0004,TA0005,TA0006,TA0007,TA0008,TA0009,TA0011,TA0010,TA0040
+| rename TA0043 as "Reconnaissance", TA0042 as "Resource Development", TA0001 as "Initial Access", TA0002 as "Execution", TA0003 as "Persistence", TA0004 as "Privilege Escalation", TA0005 as "Defense Evasion", TA0006 as "Credential Access", TA0007 as "Discovery", TA0008 as "Lateral Movement", TA0009 as "Collection", TA0011 as "Command and Control", TA0010 as "Exfiltration", TA0040 as "Impact"</query>
         </search>
         <option name="drilldown">none</option>
         <option name="refresh.display">progressbar</option>
@@ -208,7 +226,7 @@
        </html>
       <table id="mitrematrix">
         <search base="post_process_mitre_attack_triage">
-          <query>| fields TA0001,TA0002,TA0003,TA0004,TA0005,TA0006,TA0007,TA0008,TA0009,TA0011,TA0010,TA0040 | rename TA0001 as "Initial Access", TA0002 as "Execution", TA0003 as "Persistence", TA0004 as "Privilege Escalation", TA0005 as "Defense Evasion", TA0006 as "Credential Access", TA0007 as "Discovery", TA0008 as "Lateral Movement", TA0009 as "Collection", TA0011 as "Command and Control", TA0010 as "Exfiltration", TA0040 as "Impact"</query>
+          <query>| fields TA0043,TA0042,TA0001,TA0002,TA0003,TA0004,TA0005,TA0006,TA0007,TA0008,TA0009,TA0011,TA0010,TA0040 | rename TA0043 as "Reconnaissance", TA0042 as "Resource Development", TA0001 as "Initial Access", TA0002 as "Execution", TA0003 as "Persistence", TA0004 as "Privilege Escalation", TA0005 as "Defense Evasion", TA0006 as "Credential Access", TA0007 as "Discovery", TA0008 as "Lateral Movement", TA0009 as "Collection", TA0011 as "Command and Control", TA0010 as "Exfiltration", TA0040 as "Impact"</query>
         </search>-<option name="count">100</option>
         <option name="refresh.display">progressbar</option>
         <drilldown>
