@@ -137,6 +137,46 @@
   </row>
   <row>
     <panel>
+      <title>Reconnaissance</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Reconnaissance"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Resource Development</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Resource Development"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
       <title>Initial Access</title>
       <table>
         <search base="post_process_tt_by_rule">
