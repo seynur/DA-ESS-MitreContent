@@ -24,9 +24,6 @@ require([
             //return _(["Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion", "Credential Access", "Discovery", "Lateral Movement", "Collection", "Command and Control", "Exfiltration", "Impact", "TA0001:Initial Access", "TA0002:Execution", "TA0003:Persistence", "TA0004:Privilege Escalation", "TA0005:Defense Evasion", "TA0006:Credential Access", "TA0007:Discovery", "TA0008:Lateral Movement", "TA0009:Collection", "TA0011:Command and Control", "TA0010:Exfiltration", "TA0040:Impact","TA0001","TA0002","TA0003","TA0004","TA0005","TA0006","TA0007","TA0008","TA0009","TA0011","TA0010","TA0040"]).contains(cell.field);
             return _(["Reconnaissance", "Resource Development", "Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion", "Credential Access", "Discovery", "Lateral Movement", "Collection", "Command and Control", "Exfiltration", "Impact"]).contains(cell.field);
         },
-        render: function($th, cell) {
-		$th.text('did it work?');
-	},
         render: function($td, cell) {
             // Add a class to the cell based on the returned value
             var value_arr = cell.value.split("|");
