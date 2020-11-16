@@ -33,6 +33,9 @@ require([
             var rule_name = value_arr[3];
             var max_urgency = value_arr[4];
 	    var urgency_str = "None"
+      if(technique_id.includes('.')) {
+    $td.addClass('subtechnique-matrix');
+      }
 
 	    if (max_urgency==1){
                 urgency_str = "Info";
@@ -55,7 +58,7 @@ require([
 		$td.addClass('range-cell').addClass('range-crit');
             }
 	    else {
-		$td.addClass('range-cell').addClass('range-none');
+		$td.addClass('range-cell').addClass('range-none-matrix');
 	    }
 
             ttl = "Found " + triggered_count + " attacks.\nUrgency: " + urgency_str;
