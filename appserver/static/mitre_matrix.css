@@ -134,8 +134,15 @@ td.title-range-none {
 }
 /* Dark Theme */
 
+
+
 td.technique.dark{
   border-left: 3px solid #F1F3F5 !important;
+  color: #F1F3F5;
+}
+
+td.technique.range-none-matrix.dark{
+  background-color: #00000020 !important;
 }
 
 td.subtechnique.dark {
@@ -144,18 +151,16 @@ td.subtechnique.dark {
   text-align: left;
   padding-left: 20px !important;
   box-shadow: inset 1px 0px 0px 0px #F1F3F5;
-  background-color: #333333;
+}
+
+td.subtechnique.range-none-matrix.dark {
+  background-color: rgb(43, 48, 51) !important;
 }
 
 
-/*td.subtechnique.range-cell.range-none-matrix.dark {
-  color: #e1e6ea !important;
-  background-color: #333333;
-}*/
-
-td.dark {
+td.dark.empty {
   color: #F1F3F5;
-  background-color: #00000020;
+  background-color: #00000020 !important; ;
 }
 
 .tooltip-inner {
