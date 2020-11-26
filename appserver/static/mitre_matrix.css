@@ -1,12 +1,16 @@
 table {
     width: 100%;
     table-layout: fixed;
+    margin-left: 2px;
+}
+
+th{
+    left: -2px;
 }
 
 td {
     font-family:Splunk Platform Sans,Proxima Nova,Roboto,Droid,Helvetica Neue,Helvetica,Arial,sans-serif;
     background-color: #FFF;
-    color: #353637;
 }
 
 #mitrematrix td {
@@ -18,13 +22,26 @@ td {
 }
 
 td.text-align-center {
-    text-align: center;
+    text-align: left;
 }
 
 td.add-border {
     border: 1px solid rgba(43, 42, 42, 0.233);
 }
+td.empty{
+  border-left: none !important;
+}
+td.technique{
+  border-left: 3px solid #353637 !important;
+}
 
+td.subtechnique {
+    color: #565758 !important;
+    font-size: small;
+    text-align: left;
+    padding-left: 20px !important;
+    box-shadow: inset 1px 0px 0px 0px #353637;
+}
 /*
  * Splunk ES App colors
  * info: 53a051
@@ -36,8 +53,12 @@ td.add-border {
 
 td.range-none {
     color: #888 !important;
+    background-color: #F5F5F5 !important;
 }
 
+td.subtechnique.range-none {
+    background-color: #FFF !important;
+}
 /*
  * Compliance CSS
 */
@@ -113,13 +134,38 @@ td.title-range-none {
 }
 /* Dark Theme */
 
-td.dark {
-            color: #F1F3F5;
-            background-color: #00000020;
-           }
 
-.tooltip-inner { max-width: 400px;
-    text-align: left;
-    font-size: 14px;
-    font-weight: normal;
-    }
+
+td.technique.dark{
+  border-left: 3px solid #F1F3F5 !important;
+  color: #F1F3F5;
+}
+
+td.technique.range-none-matrix.dark{
+  background-color: #00000020 !important;
+}
+
+td.subtechnique.dark {
+  color: #e1e6ea !important;
+  font-size: small;
+  text-align: left;
+  padding-left: 20px !important;
+  box-shadow: inset 1px 0px 0px 0px #F1F3F5;
+}
+
+td.subtechnique.range-none-matrix.dark {
+  background-color: rgb(43, 48, 51) !important;
+}
+
+
+td.dark.empty {
+  color: #F1F3F5;
+  background-color: #00000020 !important; ;
+}
+
+.tooltip-inner {
+  max-width: 400px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: normal;
+}

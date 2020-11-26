@@ -1,68 +1,33 @@
-Initial Access, Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, Command And Control, Exfiltration, Impact
-Drive-by Compromise, AppleScript, .bash_profile and .bashrc, Access Token Manipulation, Access Token Manipulation, Account Manipulation, Account Discovery, AppleScript, Audio Capture, Commonly Used Port, Automated Exfiltration, Data Destruction
-Exploit Public-Facing Application, CMSTP, Accessibility Features, Accessibility Features, Binary Padding, Bash History, Application Window Discovery, Application Deployment Software, Automated Collection, Communication Through Removable Media, Data Compressed, Data Encrypted for Impact
-External Remote Services, Command-Line Interface, Account Manipulation, AppCert DLLs, BITS Jobs, Brute Force, Browser Bookmark Discovery, Distributed Component Object Model, Clipboard Data, Connection Proxy, Data Encrypted, Defacement
-Hardware Additions, Compiled HTML File, AppCert DLLs, AppInit DLLs, Bypass User Account Control, Credential Dumping, Domain Trust Discovery, Exploitation of Remote Services, Data from Information Repositories, Custom Command and Control Protocol, Data Transfer Size Limits, Disk Content Wipe
-Replication Through Removable Media, Control Panel Items, AppInit DLLs, Application Shimming, Clear Command History, Credentials in Files, File and Directory Discovery, Logon Scripts, Data from Local System, Custom Cryptographic Protocol, Exfiltration Over Alternative Protocol, Disk Structure Wipe
-Spearphishing Attachment, Dynamic Data Exchange, Application Shimming, Bypass User Account Control, CMSTP, Credentials in Registry, Network Service Scanning, Pass the Hash, Data from Network Shared Drive, Data Encoding, Exfiltration Over Command and Control Channel, Endpoint Denial of Service
-Spearphishing Link, Execution through API, Authentication Package, DLL Search Order Hijacking, Code Signing, Exploitation for Credential Access, Network Share Discovery, Pass the Ticket, Data from Removable Media, Data Obfuscation, Exfiltration Over Other Network Medium, Firmware Corruption
-Spearphishing via Service, Execution through Module Load, BITS Jobs, Dylib Hijacking, Compile After Delivery, Forced Authentication, Network Sniffing, Remote Desktop Protocol, Data Staged, Domain Fronting, Exfiltration Over Physical Medium, Inhibit System Recovery
-Supply Chain Compromise, Exploitation for Client Execution, Bootkit, Exploitation for Privilege Escalation, Compiled HTML File, Hooking, Password Policy Discovery, Remote File Copy, Email Collection, Domain Generation Algorithms, Scheduled Transfer, Network Denial of Service
-Trusted Relationship, Graphical User Interface, Browser Extensions, Extra Window Memory Injection, Component Firmware, Input Capture, Peripheral Device Discovery, Remote Services, Input Capture, Fallback Channels, , Resource Hijacking
-Valid Accounts, InstallUtil, Change Default File Association, File System Permissions Weakness, Component Object Model Hijacking, Input Prompt, Permission Groups Discovery, Replication Through Removable Media, Man in the Browser, Multi-hop Proxy, , Runtime Data Manipulation
-, Launchctl, Component Firmware, Hooking, Control Panel Items, Kerberoasting, Process Discovery, Shared Webroot, Screen Capture, Multi-Stage Channels, , Service Stop
-, Local Job Scheduling, Component Object Model Hijacking, Image File Execution Options Injection, DCShadow, Keychain, Query Registry, SSH Hijacking, Video Capture, Multiband Communication, , Stored Data Manipulation
-, LSASS Driver, Create Account, Launch Daemon, Deobfuscate/Decode Files or Information, LLMNR/NBT-NS Poisoning and Relay, Remote System Discovery, Taint Shared Content, , Multilayer Encryption, , Transmitted Data Manipulation
-, Mshta, DLL Search Order Hijacking, New Service, Disabling Security Tools, Network Sniffing, Security Software Discovery, Third-party Software, , Port Knocking, , 
-, PowerShell, Dylib Hijacking, Path Interception, DLL Search Order Hijacking, Password Filter DLL, System Information Discovery, Windows Admin Shares, , Remote Access Tools, , 
-, Regsvcs/Regasm, External Remote Services, Plist Modification, DLL Side-Loading, Private Keys, System Network Configuration Discovery, Windows Remote Management, , Remote File Copy, , 
-, Regsvr32, File System Permissions Weakness, Port Monitors, Execution Guardrails, Securityd Memory, System Network Connections Discovery, , , Standard Application Layer Protocol, , 
-, Rundll32, Hidden Files and Directories, Process Injection, Exploitation for Defense Evasion, Two-Factor Authentication Interception, System Owner/User Discovery, , , Standard Cryptographic Protocol, , 
-, Scheduled Task, Hooking, Scheduled Task, Extra Window Memory Injection, , System Service Discovery, , , Standard Non-Application Layer Protocol, , 
-, Scripting, Hypervisor, Service Registry Permissions Weakness, File Deletion, , System Time Discovery, , , Uncommonly Used Port, , 
-, Service Execution, Image File Execution Options Injection, Setuid and Setgid, File Permissions Modification, , Virtualization/Sandbox Evasion, , , Web Service, , 
-, Signed Binary Proxy Execution, Kernel Modules and Extensions, SID-History Injection, File System Logical Offsets, , , , , , , 
-, Signed Script Proxy Execution, Launch Agent, Startup Items, Gatekeeper Bypass, , , , , , , 
-, Source, Launch Daemon, Sudo, Group Policy Modification, , , , , , , 
-, Space after Filename, Launchctl, Sudo Caching, Hidden Files and Directories, , , , , , , 
-, Third-party Software, LC_LOAD_DYLIB Addition, Valid Accounts, Hidden Users, , , , , , , 
-, Trap, Local Job Scheduling, Web Shell, Hidden Window, , , , , , , 
-, Trusted Developer Utilities, Login Item, , HISTCONTROL, , , , , , , 
-, User Execution, Logon Scripts, , Image File Execution Options Injection, , , , , , , 
-, Windows Management Instrumentation, LSASS Driver, , Indicator Blocking, , , , , , , 
-, Windows Remote Management, Modify Existing Service, , Indicator Removal from Tools, , , , , , , 
-, XSL Script Processing, Netsh Helper DLL, , Indicator Removal on Host, , , , , , , 
-, , New Service, , Indirect Command Execution, , , , , , , 
-, , Office Application Startup, , Install Root Certificate, , , , , , , 
-, , Path Interception, , InstallUtil, , , , , , , 
-, , Plist Modification, , Launchctl, , , , , , , 
-, , Port Knocking, , LC_MAIN Hijacking, , , , , , , 
-, , Port Monitors, , Masquerading, , , , , , , 
-, , Rc.common, , Modify Registry, , , , , , , 
-, , Re-opened Applications, , Mshta, , , , , , , 
-, , Redundant Access, , Network Share Connection Removal, , , , , , , 
-, , Registry Run Keys / Startup Folder, , NTFS File Attributes, , , , , , , 
-, , Scheduled Task, , Obfuscated Files or Information, , , , , , , 
-, , Screensaver, , Plist Modification, , , , , , , 
-, , Security Support Provider, , Port Knocking, , , , , , , 
-, , Service Registry Permissions Weakness, , Process Doppelgänging, , , , , , , 
-, , Setuid and Setgid, , Process Hollowing, , , , , , , 
-, , Shortcut Modification, , Process Injection, , , , , , , 
-, , SIP and Trust Provider Hijacking, , Redundant Access, , , , , , , 
-, , Startup Items, , Regsvcs/Regasm, , , , , , , 
-, , System Firmware, , Regsvr32, , , , , , , 
-, , Systemd Service, , Rootkit, , , , , , , 
-, , Time Providers, , Rundll32, , , , , , , 
-, , Trap, , Scripting, , , , , , , 
-, , Valid Accounts, , Signed Binary Proxy Execution, , , , , , , 
-, , Web Shell, , Signed Script Proxy Execution, , , , , , , 
-, , Windows Management Instrumentation Event Subscription, , SIP and Trust Provider Hijacking, , , , , , , 
-, , Winlogon Helper DLL, , Software Packing, , , , , , , 
-, , , , Space after Filename, , , , , , , 
-, , , , Template Injection, , , , , , , 
-, , , , Timestomp, , , , , , , 
-, , , , Trusted Developer Utilities, , , , , , , 
-, , , , Valid Accounts, , , , , , , 
-, , , , Virtualization/Sandbox Evasion, , , , , , , 
-, , , , Web Service, , , , , , , 
-, , , , XSL Script Processing, , , , , , , 
+TA0043,TA0042,TA0001,TA0002,TA0003,TA0004,TA0005,TA0006,TA0007,TA0008,TA0009,TA0011,TA0010,TA0040
+T1595,T1583,T1189,T1059,T1098,T1548,T1548,T1110,T1087,T1210,T1560,T1071,T1020,T1531
+T1592,T1586,T1190,T1203,T1197,T1134,T1134,T1555,T1010,T1534,T1123,T1092,T1030,T1485
+T1589,T1584,T1133,T1559,T1547,T1547,T1197,T1212,T1217,T1570,T1119,T1132,T1048,T1486
+T1590,T1587,T1200,T1106,T1037,T1037,T1140,T1187,T1482,T1563,T1115,T1001,T1041,T1565
+T1591,T1585,T1566,T1053,T1176,T1543,T1006,T1056,T1083,T1021,T1213,T1568,T1011,T1491
+T1598,T1588,T1091,T1129,T1554,T1546,T1480,T1557,T1046,T1091,T1005,T1573,T1052,T1561
+T1597,,T1195,T1072,T1136,T1068,T1211,T1556,T1135,T1072,T1039,T1008,T1567,T1499
+T1596,,T1199,T1569,T1543,T1484,T1222,T1040,T1040,T1080,T1025,T1105,T1029,T1495
+T1593,,T1078,T1204,T1546,T1574,T1484,T1003,T1201,T1550,T1074,T1104,,T1490
+T1594,,,T1047,T1133,T1055,T1564,T1558,T1120,,T1114,T1095,,T1498
+,,,,T1574,T1053,T1574,T1539,T1069,,T1056,T1571,,T1496
+,,,,T1137,T1078,T1562,T1111,T1057,,T1185,T1572,,T1489
+,,,,T1542,,T1070,T1552,T1012,,T1557,T1090,,T1529
+,,,,T1053,,T1202,,T1018,,T1113,T1219,,
+,,,,T1505,,T1036,,T1518,,T1125,T1205,,
+,,,,T1205,,T1556,,T1082,,,T1102,,
+,,,,T1078,,T1112,,T1016,,,,,
+,,,,,,T1027,,T1049,,,,,
+,,,,,,T1542,,T1033,,,,,
+,,,,,,T1055,,T1007,,,,,
+,,,,,,T1207,,T1124,,,,,
+,,,,,,T1014,,T1497,,,,,
+,,,,,,T1218,,,,,,,
+,,,,,,T1216,,,,,,,
+,,,,,,T1553,,,,,,,
+,,,,,,T1221,,,,,,,
+,,,,,,T1205,,,,,,,
+,,,,,,T1127,,,,,,,
+,,,,,,T1550,,,,,,,
+,,,,,,T1078,,,,,,,
+,,,,,,T1497,,,,,,,
+,,,,,,T1220,,,,,,,

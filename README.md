@@ -37,10 +37,16 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.0.0
+- Date: X Nov 2020
+- Feature: Compatibility with ATT&CK Content version 8.0
+  - Updated lookup tables with technique and subtechnique IDs
+  - Updated lookup table generator search
+
 Version 2.4.0
 - Date: 30 Oct 2020
-- Feature: New setup view to be compatible with Splunk Cloud 
-  - Setup.xml replaced by custom javascript scripts.  
+- Feature: New setup view to be compatible with Splunk Cloud
+  - Setup.xml replaced by custom javascript.  
 - Bug fix: Alert Manager 3.0.4 compatibility issues
 
 Version 2.3.0

@@ -14,14 +14,14 @@
   </search>
   <search id="init_attack_search">
     <query>
-| inputlookup mitre_all_rule_technique_lookup | lookup mitre_tt_lookup technique_id
-| fields rule_name, technique_name
+| inputlookup mitre_all_rule_technique_lookup
+| fields rule_name, technique_id
 | join rule_name
-    [  `mitre_rules`
+    [  search `mitre_rules`
     | fields rule_name, urgency
     | lookup urgency_score_lookup urgency
     | stats max(score) as max_score, count by rule_name]
-| stats sum(count) as triggered_count list(rule_name) as rule_name_list, max(max_score) as max_score by technique_name delim=";"
+| stats sum(count) as triggered_count list(rule_name) as rule_name_list, max(max_score) as max_score by technique_id delim=";"
 | nomv rule_name_list
     </query>
     <earliest>$attack_time_field.earliest$</earliest>
@@ -34,83 +34,98 @@
   </search>
   <search id="init_mitre_attack_table">
     <query>
-          | inputlookup mitre_lookup
+          | inputlookup $tok_display_option$
+          | foreach TA00*
+    [| lookup mitre_tt_lookup technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUT technique_name as &lt;&lt;FIELD&gt;&gt;_technique_name
+    | eval &lt;&lt;FIELD&gt;&gt;_technique_name=mvindex(&lt;&lt;FIELD&gt;&gt;_technique_name,0)]
     </query>
   </search>
   <search base="init_mitre_attack_table" id="post_process_mitre_attack_triage">
     <query>
-      | join type=left
+  | join type=left
+      [| loadjob $subsearch_id$
+      | rename technique_id as TA0043, triggered_count as TA0043_attack_count, rule_name_list as TA0043_rule_name_list, max_score as TA0043_max_score ]
+      | fillnull value="NULL" TA0043,TA0043_rule_name_list,TA0043_technique_name
+      | fillnull value=0 TA0043_attack_count,TA0043_max_score
+      | eval TA0043=TA0043."|".TA0043_technique_name."|".TA0043_attack_count."|".TA0043_rule_name_list."|".TA0043_max_score
+  | join type=left
+      [| loadjob $subsearch_id$
+      | rename technique_id as TA0042, triggered_count as TA0042_attack_count, rule_name_list as TA0042_rule_name_list, max_score as TA0042_max_score ]
+      | fillnull value="NULL" TA0042,TA0042_rule_name_list,TA0042_technique_name
+      | fillnull value=0 TA0042_attack_count,TA0042_max_score
+      | eval TA0042=TA0042."|".TA0042_technique_name."|".TA0042_attack_count."|".TA0042_rule_name_list."|".TA0042_max_score
+  | join type=left
     [| loadjob $subsearch_id$
-    | rename technique_name as "Collection", triggered_count as "Collection Attack Count", rule_name_list as "Collection Rule Name List", max_score as "Collection Max Score" ]
-| fillnull value="NULL" "Collection","Collection Rule Name List"
-| fillnull value=0 "Collection Attack Count", "Collection Max Score"
-| eval "Collection"='Collection'. "|" .'Collection Attack Count'. "|" .'Collection Rule Name List'. "|" .'Collection Max Score'
+    | rename technique_id as TA0001, triggered_count as TA0001_attack_count, rule_name_list as TA0001_rule_name_list, max_score as TA0001_max_score ]
+    | fillnull value="NULL" TA0001,TA0001_rule_name_list,TA0001_technique_name
+    | fillnull value=0 TA0001_attack_count,TA0001_max_score
+    | eval TA0001=TA0001."|".TA0001_technique_name."|".TA0001_attack_count."|".TA0001_rule_name_list."|".TA0001_max_score
 | join type=left
     [| loadjob $subsearch_id$
-    | rename technique_name as "Command And Control" , triggered_count as "Command And Control Attack Count", rule_name_list as "Command And Control Rule Name List", max_score as "Command And Control Max Score" ]
-| fillnull value="NULL" "Command And Control","Command And Control Rule Name List"
-| fillnull value=0 "Command And Control Attack Count", "Command And Control Max Score"
-| eval "Command And Control"='Command And Control'. "|" .'Command And Control Attack Count'. "|" .'Command And Control Rule Name List'. "|" .'Command And Control Max Score'
+    | rename technique_id as TA0002, triggered_count as TA0002_attack_count, rule_name_list as TA0002_rule_name_list, max_score as TA0002_max_score ]
+    | fillnull value="NULL" TA0002,TA0002_rule_name_list,TA0002_technique_name
+    | fillnull value=0 TA0002_attack_count,TA0002_max_score
+    | eval TA0002=TA0002."|".TA0002_technique_name."|".TA0002_attack_count."|".TA0002_rule_name_list."|".TA0002_max_score
 | join type=left
     [| loadjob $subsearch_id$
-    | rename technique_name as "Credential Access" , triggered_count as "Credential Access Attack Count", rule_name_list as "Credential Access Rule Name List", max_score as "Credential Access Max Score" ]
-| fillnull value="NULL" "Credential Access","Credential Access Rule Name List"
-| fillnull value=0 "Credential Access Attack Count", "Credential Access Max Score"
-| eval "Credential Access"='Credential Access'. "|" .'Credential Access Attack Count'. "|" .'Credential Access Rule Name List'. "|" .'Credential Access Max Score'
+    | rename technique_id as TA0003, triggered_count as TA0003_attack_count, rule_name_list as TA0003_rule_name_list, max_score as TA0003_max_score ]
+    | fillnull value="NULL" TA0003,TA0003_rule_name_list,TA0003_technique_name
+    | fillnull value=0 TA0003_attack_count,TA0003_max_score
+    | eval TA0003=TA0003."|".TA0003_technique_name."|".TA0003_attack_count."|".TA0003_rule_name_list."|".TA0003_max_score
 | join type=left
     [| loadjob $subsearch_id$
-    | rename technique_name as "Defense Evasion" , triggered_count as "Defense Evasion Attack Count", rule_name_list as "Defense Evasion Rule Name List", max_score as "Defense Evasion Max Score" ]
-| fillnull value="NULL" "Defense Evasion","Defense Evasion Rule Name List"
-| fillnull value=0 "Defense Evasion Attack Count", "Defense Evasion Max Score"
-| eval "Defense Evasion"='Defense Evasion'. "|" .'Defense Evasion Attack Count'. "|" .'Defense Evasion Rule Name List'. "|" .'Defense Evasion Max Score'
+    | rename technique_id as TA0004, triggered_count as TA0004_attack_count, rule_name_list as TA0004_rule_name_list, max_score as TA0004_max_score ]
+    | fillnull value="NULL" TA0004,TA0004_rule_name_list,TA0004_technique_name
+    | fillnull value=0 TA0004_attack_count,TA0004_max_score
+    | eval TA0004=TA0004."|".TA0004_technique_name."|".TA0004_attack_count."|".TA0004_rule_name_list."|".TA0004_max_score
 | join type=left
     [| loadjob $subsearch_id$
-    | rename technique_name as "Discovery" , triggered_count as "Discovery Attack Count", rule_name_list as "Discovery Rule Name List", max_score as "Discovery Max Score" ]
-| fillnull value="NULL" "Discovery","Discovery Rule Name List"
-| fillnull value=0 "Discovery Attack Count", "Discovery Max Score"
-| eval "Discovery"='Discovery'. "|" .'Discovery Attack Count'. "|" .'Discovery Rule Name List'. "|" .'Discovery Max Score'
+    | rename technique_id as TA0005, triggered_count as TA0005_attack_count, rule_name_list as TA0005_rule_name_list, max_score as TA0005_max_score ]
+    | fillnull value="NULL" TA0005,TA0005_rule_name_list,TA0005_technique_name
+    | fillnull value=0 TA0005_attack_count,TA0005_max_score
+    | eval TA0005=TA0005."|".TA0005_technique_name."|".TA0005_attack_count."|".TA0005_rule_name_list."|".TA0005_max_score
 | join type=left
     [| loadjob $subsearch_id$
-    | rename technique_name as "Execution" , triggered_count as "Execution Attack Count", rule_name_list as "Execution Rule Name List", max_score as "Execution Max Score" ]
-| fillnull value="NULL" "Execution","Execution Rule Name List"
-| fillnull value=0 "Execution Attack Count", "Execution Max Score"
-| eval "Execution"='Execution'. "|" .'Execution Attack Count'. "|" .'Execution Rule Name List'. "|" .'Execution Max Score'
+    | rename technique_id as TA0006, triggered_count as TA0006_attack_count, rule_name_list as TA0006_rule_name_list, max_score as TA0006_max_score ]
+    | fillnull value="NULL" TA0006,TA0006_rule_name_list,TA0006_technique_name
+    | fillnull value=0 TA0006_attack_count,TA0006_max_score
+    | eval TA0006=TA0006."|".TA0006_technique_name."|".TA0006_attack_count."|".TA0006_rule_name_list."|".TA0006_max_score
 | join type=left
     [| loadjob $subsearch_id$
-    | rename technique_name as "Exfiltration" , triggered_count as "Exfiltration Attack Count", rule_name_list as "Exfiltration Rule Name List", max_score as "Exfiltration Max Score" ]
-| fillnull value="NULL" "Exfiltration","Exfiltration Rule Name List"
-| fillnull value=0 "Exfiltration Attack Count", "Exfiltration Max Score"
-| eval "Exfiltration"='Exfiltration'. "|" .'Exfiltration Attack Count'. "|" .'Exfiltration Rule Name List'. "|" .'Exfiltration Max Score'
+    | rename technique_id as TA0007, triggered_count as TA0007_attack_count, rule_name_list as TA0007_rule_name_list, max_score as TA0007_max_score ]
+    | fillnull value="NULL" TA0007,TA0007_rule_name_list,TA0007_technique_name
+    | fillnull value=0 TA0007_attack_count,TA0007_max_score
+    | eval TA0007=TA0007."|".TA0007_technique_name."|".TA0007_attack_count."|".TA0007_rule_name_list."|".TA0007_max_score
 | join type=left
     [| loadjob $subsearch_id$
-    | rename technique_name as "Impact" , triggered_count as "Impact Attack Count", rule_name_list as "Impact Rule Name List", max_score as "Impact Max Score" ]
-| fillnull value="NULL" "Impact","Impact Rule Name List"
-| fillnull value=0 "Impact Attack Count", "Impact Max Score"
-| eval "Impact"='Impact'. "|" .'Impact Attack Count'. "|" .'Impact Rule Name List'. "|" .'Impact Max Score'
+    | rename technique_id as TA0008, triggered_count as TA0008_attack_count, rule_name_list as TA0008_rule_name_list, max_score as TA0008_max_score ]
+    | fillnull value="NULL" TA0008,TA0008_rule_name_list,TA0008_technique_name
+    | fillnull value=0 TA0008_attack_count,TA0008_max_score
+    | eval TA0008=TA0008."|".TA0008_technique_name."|".TA0008_attack_count."|".TA0008_rule_name_list."|".TA0008_max_score
 | join type=left
     [| loadjob $subsearch_id$
-    | rename technique_name as "Initial Access" , triggered_count as "Initial Access Attack Count", rule_name_list as "Initial Access Rule Name List", max_score as "Initial Access Max Score" ]
-| fillnull value="NULL" "Initial Access","Initial Access Rule Name List"
-| fillnull value=0 "Initial Access Attack Count", "Initial Access Max Score"
-| eval "Initial Access"='Initial Access'. "|" .'Initial Access Attack Count'. "|" .'Initial Access Rule Name List'. "|" .'Initial Access Max Score'
+    | rename technique_id as TA0009, triggered_count as TA0009_attack_count, rule_name_list as TA0009_rule_name_list, max_score as TA0009_max_score ]
+    | fillnull value="NULL" TA0009,TA0009_rule_name_list,TA0009_technique_name
+    | fillnull value=0 TA0009_attack_count,TA0009_max_score
+    | eval TA0009=TA0009."|".TA0009_technique_name."|".TA0009_attack_count."|".TA0009_rule_name_list."|".TA0009_max_score
 | join type=left
     [| loadjob $subsearch_id$
-    | rename technique_name as "Lateral Movement" , triggered_count as "Lateral Movement Attack Count", rule_name_list as "Lateral Movement Rule Name List", max_score as "Lateral Movement Max Score" ]
-| fillnull value="NULL" "Lateral Movement","Lateral Movement Rule Name List"
-| fillnull value=0 "Lateral Movement Attack Count", "Lateral Movement Max Score"
-| eval "Lateral Movement"='Lateral Movement'. "|" .'Lateral Movement Attack Count'. "|" .'Lateral Movement Rule Name List'. "|" .'Lateral Movement Max Score'
+    | rename technique_id as TA0011, triggered_count as TA0011_attack_count, rule_name_list as TA0011_rule_name_list, max_score as TA0011_max_score ]
+    | fillnull value="NULL" TA0011,TA0011_rule_name_list,TA0011_technique_name
+    | fillnull value=0 TA0011_attack_count,TA0011_max_score
+    | eval TA0011=TA0011."|".TA0011_technique_name."|".TA0011_attack_count."|".TA0011_rule_name_list."|".TA0011_max_score
 | join type=left
     [| loadjob $subsearch_id$
-    | rename technique_name as "Persistence" , triggered_count as "Persistence Attack Count", rule_name_list as "Persistence Rule Name List", max_score as "Persistence Max Score" ]
-| fillnull value="NULL" "Persistence","Persistence Rule Name List"
-| fillnull value=0 "Persistence Attack Count", "Persistence Max Score"
-| eval "Persistence"='Persistence'. "|" .'Persistence Attack Count'. "|" .'Persistence Rule Name List'. "|" .'Persistence Max Score'
+    | rename technique_id as TA0010, triggered_count as TA0010_attack_count, rule_name_list as TA0010_rule_name_list, max_score as TA0010_max_score ]
+    | fillnull value="NULL" TA0010,TA0010_rule_name_list,TA0010_technique_name
+    | fillnull value=0 TA0010_attack_count,TA0010_max_score
+    | eval TA0010=TA0010."|".TA0010_technique_name."|".TA0010_attack_count."|".TA0010_rule_name_list."|".TA0010_max_score
 | join type=left
     [| loadjob $subsearch_id$
-    | rename technique_name as "Privilege Escalation" , triggered_count as "Privilege Escalation Attack Count", rule_name_list as "Privilege Escalation Rule Name List", max_score as "Privilege Escalation Max Score" ]
-| fillnull value="NULL" "Privilege Escalation","Privilege Escalation Rule Name List"
-| fillnull value=0 "Privilege Escalation Attack Count", "Privilege Escalation Max Score"
-| eval "Privilege Escalation"='Privilege Escalation'. "|" .'Privilege Escalation Attack Count'. "|" .'Privilege Escalation Rule Name List'. "|" .'Privilege Escalation Max Score'
+    | rename technique_id as TA0040, triggered_count as TA0040_attack_count, rule_name_list as TA0040_rule_name_list, max_score as TA0040_max_score ]
+    | fillnull value="NULL" TA0040,TA0040_rule_name_list,TA0040_technique_name
+    | fillnull value=0 TA0040_attack_count,TA0040_max_score
+    | eval TA0040=TA0040."|".TA0040_technique_name."|".TA0040_attack_count."|".TA0040_rule_name_list."|".TA0040_max_score
 </query>
   </search>
   <fieldset submitButton="true" autoRun="true">
@@ -134,49 +149,62 @@
       <prefix>(</prefix>
       <suffix>)</suffix>
     </input>
+    <input type="radio" token="tok_display_option" searchWhenChanged="true">
+      <label>Matrix Display Options</label>
+      <choice value="mitre_lookup">Hide/Collapse Sub-techniques</choice>
+      <choice value="mitre_lookup_subtechniques">Show/Expand Sub-techniques</choice>
+      <default>mitre_lookup</default>
+    </input>
   </fieldset>
   <row>
     <panel>
       <title>MITRE ATT&amp;CK Tactics</title>
       <table id="mitretitle">
         <search base="post_process_mitre_attack_triage">
-          <query>| stats sum("Initial Access Attack Count") as initial_access_sum,
-sum("Execution Attack Count") as execution_sum,
-sum("Persistence Attack Count") as persistence_sum,
-sum("Privilege Escalation Attack Count") as privilege_escalation_sum,
-sum("Defense Evasion Attack Count") as defense_evasion_sum,
-sum("Credential Access Attack Count") as credential_access_sum,
-sum("Discovery Attack Count") as discovery_sum,
-sum("Lateral Movement Attack Count") as lateral_movement_sum,
-sum("Collection Attack Count") as collection_sum,
-sum("Command And Control Attack Count") as command_and_control_sum,
-sum("Exfiltration Attack Count") as exfiltration_sum
-sum("Impact Attack Count") as impact_sum,
-max("Initial Access Max Score") as initial_access_max_score,
-max("Execution Max Score") as execution_max_score,
-max("Persistence Max Score") as persistence_max_score,
-max("Privilege Escalation Max Score") as privilege_escalation_max_score,
-max("Defense Evasion Max Score") as defense_evasion_max_score,
-max("Credential Access Max Score") as credential_access_max_score,
-max("Discovery Max Score") as discovery_max_score,
-max("Lateral Movement Max Score") as lateral_movement_max_score,
-max("Collection Max Score") as collection_max_score,
-max("Command And Control Max Score") as command_and_control_max_score,
-max("Exfiltration Max Score") as exfiltration_max_score,
-max("Impact Max Score") as impact_max_score
-| eval "Initial Access"=initial_access_sum."|".initial_access_max_score,
-"Execution"=execution_sum."|".execution_max_score,
-"Persistence"=persistence_sum."|".persistence_max_score,
-"Privilege Escalation"=privilege_escalation_sum."|".privilege_escalation_max_score,
-"Defense Evasion"=defense_evasion_sum."|".defense_evasion_max_score,
-"Credential Access"=credential_access_sum."|".credential_access_max_score,
-"Discovery"=discovery_sum."|".discovery_max_score,
-"Lateral Movement"=lateral_movement_sum."|".lateral_movement_max_score,
-"Collection"=collection_sum."|".collection_max_score,
-"Command And Control"=command_and_control_sum."|".command_and_control_max_score,
-"Exfiltration"=exfiltration_sum."|".exfiltration_max_score,
-"Impact"=impact_sum."|".impact_max_score
-| table "Initial Access" "Execution" "Persistence" "Privilege Escalation" "Defense Evasion" "Credential Access" "Discovery" "Lateral Movement" "Collection" "Command And Control" "Exfiltration" "Impact"</query>
+          <query>|  stats sum(TA0043_attack_count) as TA0043_sum
+, sum(TA0042_attack_count) as TA0042_sum
+, sum(TA0001_attack_count) as TA0001_sum
+, sum(TA0002_attack_count) as TA0002_sum
+, sum(TA0003_attack_count) as TA0003_sum
+, sum(TA0004_attack_count) as TA0004_sum
+, sum(TA0005_attack_count) as TA0005_sum
+, sum(TA0006_attack_count) as TA0006_sum
+, sum(TA0007_attack_count) as TA0007_sum
+, sum(TA0008_attack_count) as TA0008_sum
+, sum(TA0009_attack_count) as TA0009_sum
+, sum(TA0011_attack_count) as TA0011_sum
+, sum(TA0010_attack_count) as TA0010_sum
+, sum(TA0040_attack_count) as TA0040_sum
+, max(TA0043_max_score) as TA0043_max_score
+, max(TA0042_max_score) as TA0042_max_score
+, max(TA0001_max_score) as TA0001_max_score
+, max(TA0002_max_score) as TA0002_max_score
+, max(TA0003_max_score) as TA0003_max_score
+, max(TA0004_max_score) as TA0004_max_score
+, max(TA0005_max_score) as TA0005_max_score
+, max(TA0006_max_score) as TA0006_max_score
+, max(TA0007_max_score) as TA0007_max_score
+, max(TA0008_max_score) as TA0008_max_score
+, max(TA0009_max_score) as TA0009_max_score
+, max(TA0011_max_score) as TA0011_max_score
+, max(TA0010_max_score) as TA0010_max_score
+, max(TA0040_max_score) as TA0040_max_score
+| eval TA0043=TA0043_sum."|".TA0043_max_score
+, TA0042=TA0042_sum."|".TA0042_max_score
+, TA0001=TA0001_sum."|".TA0001_max_score
+, TA0002=TA0002_sum."|".TA0002_max_score
+, TA0003=TA0003_sum."|".TA0003_max_score
+, TA0004=TA0004_sum."|".TA0004_max_score
+, TA0005=TA0005_sum."|".TA0005_max_score
+, TA0006=TA0006_sum."|".TA0006_max_score
+, TA0007=TA0007_sum."|".TA0007_max_score
+, TA0008=TA0008_sum."|".TA0008_max_score
+, TA0009=TA0009_sum."|".TA0009_max_score
+, TA0011=TA0011_sum."|".TA0011_max_score
+, TA0010=TA0010_sum."|".TA0010_max_score
+, TA0040=TA0040_sum."|".TA0040_max_score
+| table TA0043,TA0042,TA0001,TA0002,TA0003,TA0004,TA0005,TA0006,TA0007,TA0008,TA0009,TA0011,TA0010,TA0040
+| rename TA0043 as "Reconnaissance", TA0042 as "Resource Development", TA0001 as "Initial Access", TA0002 as "Execution", TA0003 as "Persistence", TA0004 as "Privilege Escalation", TA0005 as "Defense Evasion", TA0006 as "Credential Access", TA0007 as "Discovery", TA0008 as "Lateral Movement", TA0009 as "Collection", TA0011 as "Command and Control", TA0010 as "Exfiltration", TA0040 as "Impact"</query>
         </search>
         <option name="drilldown">none</option>
         <option name="refresh.display">progressbar</option>
@@ -198,11 +226,9 @@ max("Impact Max Score") as impact_max_score
        </html>
       <table id="mitrematrix">
         <search base="post_process_mitre_attack_triage">
-          <query>
-| fields "Initial Access","Execution","Persistence","Privilege Escalation","Defense Evasion","Credential Access","Discovery","Lateral Movement","Collection","Command And Control","Exfiltration","Impact"
-</query>
-        </search>
-        <option name="count">100</option>
+          <query>| fields TA0043,TA0042,TA0001,TA0002,TA0003,TA0004,TA0005,TA0006,TA0007,TA0008,TA0009,TA0011,TA0010,TA0040 | rename TA0043 as "Reconnaissance", TA0042 as "Resource Development", TA0001 as "Initial Access", TA0002 as "Execution", TA0003 as "Persistence", TA0004 as "Privilege Escalation", TA0005 as "Defense Evasion", TA0006 as "Credential Access", TA0007 as "Discovery", TA0008 as "Lateral Movement", TA0009 as "Collection", TA0011 as "Command and Control", TA0010 as "Exfiltration", TA0040 as "Impact"</query>
+        </search>-<option name="count">100</option>
+        <option name="refresh.display">progressbar</option>
         <drilldown>
           <condition match="'mitre_use_es' == &quot;1&quot;">
             <eval token="rules_q">if(mvindex(split('click.value2',"|"),2)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&source=]]>"),"|"),2),"*")</eval>
@@ -216,7 +242,8 @@ max("Impact Max Score") as impact_max_score
               <![CDATA[/app/alert_manager/incident_posture?form.global_time.earliest=$attack_time_field.earliest$&form.global_time.latest=$attack_time_field.latest$&form.owner=*&form.alert=*&form.category=*&form.subcategory=*&form.tags=*&form.tags=[Untagged]&form.status=status!%3D"*resolved" status!%3D"suppressed"&form.s_incident_id=&form.s_title=$rules_q|n$&form.impact=*&form.urgency=*&form.priority=*&form.freeform=]]>
             </link>
           </condition>
-        </drilldown>-</table>
+        </drilldown>
+      </table>
     </panel>
   </row>
 </form>

@@ -22,17 +22,29 @@ require([
     var MitreMatrixRenderer = TableView.BaseCellRenderer.extend({
         canRender: function(cell) {
             // Enable this custom cell renderer for both the active_hist_searches and the active_realtime_searches field
-            return _(["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]).contains(cell.field);
+	    return _(["Reconnaissance", "Resource Development", "Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion", "Credential Access", "Discovery", "Lateral Movement", "Collection", "Command and Control", "Exfiltration", "Impact"]).contains(cell.field);
         },
         render: function($td, cell) {
             // Add a class to the cell based on the returned value
             var value_arr = cell.value.split("|");
-            technique_name = value_arr[0];
-            triggered_count = value_arr[1];
-            rule_name = value_arr[2];
-            max_urgency = value_arr[3];
+            var technique_id = value_arr[0];
+            var technique_name = value_arr[1];
+            var triggered_count = value_arr[2];
+            var rule_name = value_arr[3];
+            var max_urgency = value_arr[4];
 	    var urgency_str = "None"
-	    
+      if(technique_id.includes('.')) {
+		$td.addClass('subtechnique');
+	    }
+      else {
+        if(technique_name=="NULL"){
+          $td.addClass('empty');
+        }
+        else {
+          $td.addClass('technique');
+        }
+      }
+
 	    if (max_urgency==1){
                 urgency_str = "Info";
 		$td.addClass('range-cell').addClass('range-info');
@@ -54,7 +66,7 @@ require([
 		$td.addClass('range-cell').addClass('range-crit');
             }
 	    else {
-		$td.addClass('range-cell').addClass('range-none');
+		$td.addClass('range-cell').addClass('range-none-matrix');
 	    }
 
             ttl = "Found " + triggered_count + " attacks.\nUrgency: " + urgency_str;
@@ -66,24 +78,21 @@ require([
               $td.addClass('dark');
             }
 
-            // Update the cell content
-            //$td.text(value.toFixed(2)).addClass('numeric');
-
             if (technique_name=="NULL"){
                 $td.text(" ");
             }
             else {
-                $td.text(technique_name);
+                $td.text(technique_id + ": " + technique_name);
                 $td.addClass('add-border').addClass('text-align-center');
 
         }
         }
     });
-	
+
     var MitreTitleRenderer = TableView.BaseCellRenderer.extend({
         canRender: function(cell) {
             // Enable this custom cell renderer for both the active_hist_searches and the active_realtime_searches field
-            return _(["Collection","Command And Control","Credential Access","Defense Evasion","Discovery","Execution","Exfiltration","Impact","Initial Access","Lateral Movement","Persistence","Privilege Escalation"]).contains(cell.field);
+	    return _(["Reconnaissance", "Resource Development", "Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion", "Credential Access", "Discovery", "Lateral Movement", "Collection", "Command and Control", "Exfiltration", "Impact"]).contains(cell.field);
         },
         render: function($td, cell) {
             // Add a class to the cell based on the returned value
@@ -92,7 +101,7 @@ require([
             max_urgency = value_arr[1];
 
             $td.addClass('add-border').addClass('text-align-center');
-	    
+
 	    if (max_urgency==1){
 		$td.addClass('title-range-cell').addClass('title-range-info');
             }
