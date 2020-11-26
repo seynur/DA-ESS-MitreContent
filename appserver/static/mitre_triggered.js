@@ -34,7 +34,15 @@ require([
             var max_urgency = value_arr[4];
 	    var urgency_str = "None"
       if(technique_id.includes('.')) {
-    $td.addClass('subtechnique-matrix');
+		$td.addClass('subtechnique');
+	    }
+      else {
+        if(technique_name=="NULL"){
+          $td.addClass('empty');
+        }
+        else {
+          $td.addClass('technique');
+        }
       }
 
 	    if (max_urgency==1){

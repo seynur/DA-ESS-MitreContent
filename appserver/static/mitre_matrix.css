@@ -1,6 +1,11 @@
 table {
     width: 100%;
     table-layout: fixed;
+    margin-left: 2px;
+}
+
+th{
+    left: -2px;
 }
 
 td {
@@ -23,20 +28,19 @@ td.text-align-center {
 td.add-border {
     border: 1px solid rgba(43, 42, 42, 0.233);
 }
+td.empty{
+  border-left: none !important;
+}
+td.technique{
+  border-left: 3px solid #353637 !important;
+}
 
 td.subtechnique {
     color: #565758 !important;
     font-size: small;
-    font-style: italic;
     text-align: left;
-    padding-left: 30px !important;
-}
-
-td.subtechnique-matrix {
-    font-size: small;
-    font-style: italic;
-    text-align: left;
-    padding-left: 30px !important;
+    padding-left: 20px !important;
+    box-shadow: inset 1px 0px 0px 0px #353637;
 }
 /*
  * Splunk ES App colors
@@ -130,17 +134,33 @@ td.title-range-none {
 }
 /* Dark Theme */
 
-td.range-cell.range-none-matrix.dark {
-  color: #F1F3F5 !important;
-  background-color: #00000020 !important;
-}
-td.dark {
-  color: #F1F3F5 !important;
-  background-color: #00000020 !important;
+td.technique.dark{
+  border-left: 3px solid #F1F3F5 !important;
 }
 
-.tooltip-inner { max-width: 400px;
-    text-align: left;
-    font-size: 14px;
-    font-weight: normal;
-    }
+td.subtechnique.dark {
+  color: #e1e6ea !important;
+  font-size: small;
+  text-align: left;
+  padding-left: 20px !important;
+  box-shadow: inset 1px 0px 0px 0px #F1F3F5;
+  background-color: #333333;
+}
+
+
+/*td.subtechnique.range-cell.range-none-matrix.dark {
+  color: #e1e6ea !important;
+  background-color: #333333;
+}*/
+
+td.dark {
+  color: #F1F3F5;
+  background-color: #00000020;
+}
+
+.tooltip-inner {
+  max-width: 400px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: normal;
+}

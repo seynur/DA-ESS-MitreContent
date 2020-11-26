@@ -39,7 +39,14 @@ require([
 	    if(technique_id.includes('.')) {
 		$td.addClass('subtechnique');
 	    }
-
+      else {
+        if(technique_name=="NULL"){
+          $td.addClass('empty');
+        }
+        else {
+          $td.addClass('technique');
+        }
+      }
             $td.tooltip();
             $td.prop('title', ttl);
 
