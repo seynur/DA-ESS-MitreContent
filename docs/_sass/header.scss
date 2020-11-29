@@ -1,21 +1,6 @@
 #header {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  display: block;
-  height: 30px;
-  padding: 10px;
-  background-color: #f1f3f5;
-}
-
-#header_title {
-  float: right;
-  text-align: right;
-  vertical-align: middle;
-  padding: 10px;
-  font-weight: bolder;
-  font-size: 1.25em;
+  height: 50px;
   background-color: #f1f3f5;
 }
 
@@ -26,7 +11,7 @@
 }
 
 #header .logo img {
-  width:200px;
-  height:28px;
+  /*width:200px;*/
+  height:35px;
   background-color: #f1f3f5;
 }

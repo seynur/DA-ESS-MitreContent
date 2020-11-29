@@ -1,34 +1,16 @@
-#navigation nav ul {
-  list-style-type: none;
-  position: fixed;
-  top: 45px;
-  left: 0;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #353637;
-  box-sizing: content-box;
-
-}
-
-#navigation nav ul li {
-  float: left;
-}
-
-#navigation nav ul li a {
-  display: block;
+#navigation {
+  list-style: none;
   color: #f1f3f5;
-  text-align: center;
-  padding: 14px 16px;
+  background-color: #353637;
+  height: 50px; /* same as header */
+  z-index: 110;
+}
+
+#navigation a {
+  color: #f1f3f5;
   text-decoration: none;
 }
 
-#navigation nav ul li a:hover {
-  /*background-color: #111;*/
+#navigation a:hover {
   color: #24d4f7;
-}
-
-#navigation nav ul li a:active {
-  background-color: #111;
 }

@@ -1,13 +1,13 @@
 <div id="sidebar">
   <ul>
-    <li>
+    <li class="nav-item">
     {% for item in site.data.navigation.items %}
     {% if item.name == page.title %}
-    <h1 href="{{ item.link }}">
+    <div class="h5 sidebar-heading"><a href="{{ item.link }}">
         {{item.name}}
-    </h1>
+    </div>
       {% for entry in item.subitems %}
-      <a href="{{ entry.anchor }}">
+      <a class="nav-link" href="{{ entry.anchor }}">
           {{entry.name}}
       </a>
       {% endfor %}
