@@ -4,6 +4,13 @@ title: Release Notes
 ---
 
 ### Release Notes:
+#### Version 3.0.0
+- Date: 29 Nov 2020
+- Feature: Compatibility with ATT&CK version 8.1
+  - Updated lookup tables with technique and sub-technique IDs
+  - Updated lookup table generator search
+  - Updated matrix views to reflect sub-techniques
+
 #### Version 2.4.0
 - Date: 30 Oct 2020
 - Feature: New setup view to be compatible with Splunk Cloud

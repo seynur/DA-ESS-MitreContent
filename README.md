@@ -38,10 +38,11 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 #### Release Notes:
 Version 3.0.0
-- Date: X Nov 2020
-- Feature: Compatibility with ATT&CK Content version 8.0
-  - Updated lookup tables with technique and subtechnique IDs
+- Date: 29 Nov 2020
+- Feature: Compatibility with ATT&CK version 8.1
+  - Updated lookup tables with technique and sub-technique IDs
   - Updated lookup table generator search
+  - Updated matrix views to reflect sub-techniques
 
 Version 2.4.0
 - Date: 30 Oct 2020
