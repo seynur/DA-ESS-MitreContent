@@ -37,6 +37,12 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.0.1
+- Date: 08 Jan 2021
+- Bug fix: mitre_user_rule_technique_lookup.csv overwrites existing lookup during upgrades
+- Bug fix: Missing mitre_api_rule_technique_lookup causes issues on fresh/new installations
+- Bug fix: Missing sub-techniques in ATTACK version 8.1
+
 Version 3.0.0
 - Date: 29 Nov 2020
 - Feature: Compatibility with ATT&CK version 8.1
