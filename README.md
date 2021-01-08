@@ -37,9 +37,14 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 2.4.1
+- Date: 08 Jan 2021
+- Bug fix: mitre_user_rule_technique_lookup.csv overwrites existing lookup during upgrades
+- Bug fix: Missing mitre_api_rule_technique_lookup causes issues on fresh/new installations
+
 Version 2.4.0
 - Date: 30 Oct 2020
-- Feature: New setup view to be compatible with Splunk Cloud 
+- Feature: New setup view to be compatible with Splunk Cloud
   - Setup.xml replaced by custom javascript scripts.  
 - Bug fix: Alert Manager 3.0.4 compatibility issues
 
