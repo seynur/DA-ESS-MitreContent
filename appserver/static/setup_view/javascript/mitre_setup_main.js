@@ -70,11 +70,21 @@ define(
             trigger_setup: async function trigger_setup(savedsearches_setup_options) {
                 var api_key_input_element = jquery("input[name=api_key]");
                 var api_key = api_key_input_element.val();
-                var verified_api_key = this.verify_api_key(api_key);
-                if (verified_api_key !== 'dummyapikey') {
+                var verified_api_key = this.verify_alphanumeric_key(api_key);
+                if (verified_api_key !== 'dummykeyvalue') {
                   this.perform_password_setup(
                     splunk_js_sdk,
                     verified_api_key
+                  )
+                }
+
+                var secret_key_input_element = jquery("input[name=secret_key]");
+                var secret_key = secret_key_input_element.val();
+                var verified_secret_key = this.verify_alphanumeric_key(secret_key);
+                if (verified_secret_key !== 'dummykeyvalue') {
+                  this.perform_password_setup(
+                    splunk_js_sdk,
+                    verified_secret_key
                   )
                 }
 
@@ -147,7 +157,7 @@ define(
 
             },
 
-            perform_password_setup: async function perform_password_setup(splunk_js_sdk, api_key) {
+            perform_password_setup: async function perform_password_setup(splunk_js_sdk, input_key) {
 
                 try {
                     const splunk_js_sdk_service = Setup.create_splunk_js_sdk_service(
@@ -156,7 +166,7 @@ define(
                     );
                     await Setup.create_password_storage(
                         splunk_js_sdk_service,
-                        api_key
+                        input_key
                     )
                     this.is_error_occured = false;
                     console.log("Password: Success!");
@@ -168,19 +178,19 @@ define(
             // ----------------------------------
             // Input Cleaning and Checking
             // ----------------------------------
-            verify_api_key: function verify_api_key(api_key) {
-                var sanitized_apikey = api_key.trim();
+            verify_alphanumeric_key: function verify_alphanumeric_key(input_key) {
+                var sanitized_key = input_key.trim();
                 var is_alphanumeric_regex = RegExp('^[A-Za-z0-9]{32}$');
-                var is_apikey_alphanumeric = is_alphanumeric_regex.test(sanitized_apikey);
-                if (is_apikey_alphanumeric || sanitized_apikey==='dummyapikey'){
-                  return sanitized_apikey;
+                var is_key_alphanumeric = is_alphanumeric_regex.test(sanitized_key);
+                if (is_key_alphanumeric || sanitized_key==='dummykeyvalue'){
+                  return sanitized_key;
                 }
                 else {
-                  var api_key_error = 'Error: Please check your API Key!';
+                  var key_error = 'Error: Please check your API/Secret Key!';
                   var is_error = true;
                   this.is_error_occured = is_error;
-                  this.display_error_output(api_key_error);
-                  return 'dummyapikey';
+                  this.display_error_output(key_error);
+                  return 'dummykeyvalue';
                 }
             },
 

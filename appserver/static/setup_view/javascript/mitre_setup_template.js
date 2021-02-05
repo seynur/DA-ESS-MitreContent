@@ -20,7 +20,15 @@ function get_template() {
       "        <div class='field api_key'>" +
       "            <div class='user_input'>" +
       "                <div class='text'>" +
-      "                    <label>API Key: <input type='password' name='api_key' value='dummyapikey'></input></label>" +
+      "                    <label>API Key: <input type='password' name='api_key' value='dummykeyvalue'></input></label>" +
+      "                </div>" +
+      "            </div>" +
+      "        </div>" +
+      "<br/>" +
+      "        <div class='field secret_key'>" +
+      "            <div class='user_input'>" +
+      "                <div class='text'>" +
+      "                    <label>Secret Key: <input type='password' name='secret_key' value='dummykeyvalue'></input></label>" +
       "                </div>" +
       "            </div>" +
       "        </div>" +
@@ -37,6 +45,8 @@ function get_template() {
       "<br/>" +
       "<p><i>Only applicable if enabled. These are saved searches and can also be modified via Settings after setup.</i></p>" +
       "        <div class='field api_key'>" +
+      "            </br>" +
+      "        <div class='field secret_key'>" +
       "            </br>" +
       "            <div class='user_input'>" +
       "                <div class='text'>" +

@@ -4,6 +4,10 @@ import time
 import xml.etree.ElementTree as ET
 import json
 import requests
+import hmac
+import hashlib
+import base64
+import random, string
 
 splunkhome = os.environ['SPLUNK_HOME']
 sys.path.append(os.path.join(splunkhome, 'etc', 'apps', 'DA-ESS-MitreContent', 'lib'))
@@ -12,16 +16,14 @@ from splunklib.searchcommands import dispatch, GeneratingCommand, Configuration,
 from splunklib.six.moves import range
 
 APPCONTEXT='DA-ESS-MitreContent'
-APIENDPOINT='https://api.seynur.com/v1/attack-detection'
+APIENDPOINT='https://api.seynur.com/v1/attack-detection/get-rules'
 APILOOKUPFILE='mitre_api_rule_technique_lookup.csv'
 
 @Configuration()
 class GetAttackDetectionRulesCommand(GeneratingCommand):
 
     def getApiKey(self):
-        print("a")
         sp = self.service.storage_passwords
-        print("b")
         result_stream = sp.get(name="attackdetection_apikey",app=APPCONTEXT)['body'].read().decode("utf-8")
         xmlroot = ET.fromstring(result_stream)
         apikey = ''
@@ -29,11 +31,27 @@ class GetAttackDetectionRulesCommand(GeneratingCommand):
             apikey=elem.text
             return apikey
 
-    def getRulesFromApi(self,api_key):
+    def getSecretKey(self):
+        sp = self.service.storage_passwords
+        result_stream = sp.get(name="attackdetection_secretkey",app=APPCONTEXT)['body'].read().decode("utf-8")
+        xmlroot = ET.fromstring(result_stream)
+        apikey = ''
+        for elem in xmlroot.findall(".//*[@name='clear_password']"):
+            secretkey=elem.text
+            return secretkey
+
+    def getRulesFromApi(self, apikey, secretkey):
         url=APIENDPOINT
+        # nonce with 8 random alphanumeric characters
+        nonce = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k = 8))
+        # Authrization header with HMAC authentication
+        authorization_header="HMAC-SHA512 " + nonce + "|" + base64.b64encode(hmac.new(bytes(secretkey,'utf-8'), bytes(nonce+apikey, 'utf-8'), hashlib.sha512).digest()).decode()
+
         headers = {'content-type': "application/x-www-form-urlencoded",
         'cache-control': "no-cache",
-        'apikey' : '{}'.format(api_key)}
+        'apikey' : '{}'.format(apikey),
+        'Authorization': '{}'.format(authorization_header)}
+
         response = requests.request("POST", url, headers=headers)
         try:
             rules = json.loads(response.text)
@@ -98,12 +116,11 @@ class GetAttackDetectionRulesCommand(GeneratingCommand):
 
     def generate(self):
         try:
-          api_key = self.getApiKey()
-          if not is_alphanumeric(api_key, 32):
-              text = 'GetAttackDetectionRules Error: Unable to send request.  The API key must be a 32 character string comprised of alphanumeric characters.'
-              self.logger.error(text)
-          else:
-              api_rules = self.getRulesFromApi(api_key)
+          apikey = self.getApiKey()
+          secretkey = self.getSecretKey()
+
+          if is_alphanumeric(apikey, 32) and is_alphanumeric(secretkey, 32):
+              api_rules = self.getRulesFromApi(apikey, secretkey)
 
               splunk_rule_names = []
               for search in self.service.saved_searches:
@@ -123,6 +140,8 @@ class GetAttackDetectionRulesCommand(GeneratingCommand):
 
               self.logger.info("Attack Detection API: Successfully completed.")
               text = 'Attack Detection API: Successfully completed.'
+          else:
+              raise Exception('GetAttackDetectionRules Error: Unable to send request.  The API key must be a 32 character string comprised of alphanumeric characters.')
         except: # catch *all* exceptions
           t, value, tb = sys.exc_info()
           self.logger.error( "Attack Detection API: EXCEPTION %s: %s" % (t,value) )

@@ -1,6 +1,6 @@
 import * as SplunkHelpers from './splunk_helpers.js'
 
-async function create_password_storage(splunk_js_sdk_service, api_key){
+async function create_password_storage(splunk_js_sdk_service, input_key){
   var storagePasswords = splunk_js_sdk_service.storagePasswords();
   var user_name_to_delete = ":attackdetection_apikey:";
   var user_name = "attackdetection_apikey";
@@ -16,7 +16,7 @@ async function create_password_storage(splunk_js_sdk_service, api_key){
   await storagePasswords.create({
     name: user_name,
     realm: "",
-    password: api_key},
+    password: input_key},
     function(err, storagePassword) {
         if (err) {
           console.log("Password storage error!");
