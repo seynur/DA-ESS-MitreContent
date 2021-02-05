@@ -16,7 +16,8 @@ from splunklib.searchcommands import dispatch, GeneratingCommand, Configuration,
 from splunklib.six.moves import range
 
 APPCONTEXT='DA-ESS-MitreContent'
-APIENDPOINT='https://api.seynur.com/v1/attack-detection/get-rules'
+APIENDPOINT1='https://api.seynur.com/v1/attack-detection'
+APIENDPOINT2='https://api.seynur.com/v2/attack-detection/get-rules'
 APILOOKUPFILE='mitre_api_rule_technique_lookup.csv'
 
 @Configuration()
@@ -31,17 +32,22 @@ class GetAttackDetectionRulesCommand(GeneratingCommand):
             key_value=elem.text
             return key_value
 
-    def getRulesFromApi(self, apikey, secretkey):
-        url=APIENDPOINT
-        # nonce with 8 random alphanumeric characters
-        nonce = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k = 8))
-        # Authrization header with HMAC authentication
-        authorization_header="HMAC-SHA512 " + nonce + "|" + base64.b64encode(hmac.new(bytes(secretkey,'utf-8'), bytes(nonce+apikey, 'utf-8'), hashlib.sha512).digest()).decode()
+    def getRulesFromApi(self, apikey, secretkey, url):
+        headers = {}
+        if secretkey:
+            # nonce with 8 random alphanumeric characters
+            nonce = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k = 8))
+            # Authrization header with HMAC authentication
+            authorization_header="HMAC-SHA512 " + nonce + "|" + base64.b64encode(hmac.new(bytes(secretkey,'utf-8'), bytes(nonce+apikey, 'utf-8'), hashlib.sha512).digest()).decode()
 
-        headers = {'content-type': "application/x-www-form-urlencoded",
-        'cache-control': "no-cache",
-        'apikey' : '{}'.format(apikey),
-        'Authorization': '{}'.format(authorization_header)}
+            headers = {'content-type': "application/x-www-form-urlencoded",
+            'cache-control': "no-cache",
+            'apikey' : '{}'.format(apikey),
+            'Authorization': '{}'.format(authorization_header)}
+        else:
+            headers = {'content-type': "application/x-www-form-urlencoded",
+            'cache-control': "no-cache",
+            'apikey' : '{}'.format(apikey)}
 
         response = requests.request("POST", url, headers=headers)
         try:
@@ -110,8 +116,11 @@ class GetAttackDetectionRulesCommand(GeneratingCommand):
           apikey = self.getPasswordKeyFromConfig("attackdetection_apikey")
           secretkey = self.getPasswordKeyFromConfig("attackdetection_secretkey")
 
-          if is_alphanumeric(apikey, 32) and is_alphanumeric(secretkey, 32):
-              api_rules = self.getRulesFromApi(apikey, secretkey)
+          if is_alphanumeric(apikey, 32):
+              if secretkey and is_alphanumeric(secretkey, 32):
+                  api_rules = self.getRulesFromApi(apikey, secretkey, APIENDPOINT2)
+              else:
+                  api_rules = self.getRulesFromApi(apikey, None, APIENDPOINT1)
 
               splunk_rule_names = []
               for search in self.service.saved_searches:
