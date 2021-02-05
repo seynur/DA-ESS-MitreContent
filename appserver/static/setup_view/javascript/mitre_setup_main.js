@@ -74,6 +74,7 @@ define(
                 if (verified_api_key !== 'dummykeyvalue') {
                   this.perform_password_setup(
                     splunk_js_sdk,
+                    "attackdetection_apikey",
                     verified_api_key
                   )
                 }
@@ -84,6 +85,7 @@ define(
                 if (verified_secret_key !== 'dummykeyvalue') {
                   this.perform_password_setup(
                     splunk_js_sdk,
+                    "attackdetection_secretkey",
                     verified_secret_key
                   )
                 }
@@ -157,7 +159,7 @@ define(
 
             },
 
-            perform_password_setup: async function perform_password_setup(splunk_js_sdk, input_key) {
+            perform_password_setup: async function perform_password_setup(splunk_js_sdk, key_name, key_value) {
 
                 try {
                     const splunk_js_sdk_service = Setup.create_splunk_js_sdk_service(
@@ -166,7 +168,8 @@ define(
                     );
                     await Setup.create_password_storage(
                         splunk_js_sdk_service,
-                        input_key
+                        key_name,
+                        key_value
                     )
                     this.is_error_occured = false;
                     console.log("Password: Success!");

@@ -22,23 +22,14 @@ APILOOKUPFILE='mitre_api_rule_technique_lookup.csv'
 @Configuration()
 class GetAttackDetectionRulesCommand(GeneratingCommand):
 
-    def getApiKey(self):
+    def getPasswordKeyFromConfig(self, key_name):
         sp = self.service.storage_passwords
-        result_stream = sp.get(name="attackdetection_apikey",app=APPCONTEXT)['body'].read().decode("utf-8")
+        result_stream = sp.get(name=key_name,app=APPCONTEXT)['body'].read().decode("utf-8")
         xmlroot = ET.fromstring(result_stream)
-        apikey = ''
+        key_value = ''
         for elem in xmlroot.findall(".//*[@name='clear_password']"):
-            apikey=elem.text
-            return apikey
-
-    def getSecretKey(self):
-        sp = self.service.storage_passwords
-        result_stream = sp.get(name="attackdetection_secretkey",app=APPCONTEXT)['body'].read().decode("utf-8")
-        xmlroot = ET.fromstring(result_stream)
-        apikey = ''
-        for elem in xmlroot.findall(".//*[@name='clear_password']"):
-            secretkey=elem.text
-            return secretkey
+            key_value=elem.text
+            return key_value
 
     def getRulesFromApi(self, apikey, secretkey):
         url=APIENDPOINT
@@ -116,8 +107,8 @@ class GetAttackDetectionRulesCommand(GeneratingCommand):
 
     def generate(self):
         try:
-          apikey = self.getApiKey()
-          secretkey = self.getSecretKey()
+          apikey = self.getPasswordKeyFromConfig("attackdetection_apikey")
+          secretkey = self.getPasswordKeyFromConfig("attackdetection_secretkey")
 
           if is_alphanumeric(apikey, 32) and is_alphanumeric(secretkey, 32):
               api_rules = self.getRulesFromApi(apikey, secretkey)
