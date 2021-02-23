@@ -184,8 +184,10 @@ define(
             verify_alphanumeric_key: function verify_alphanumeric_key(input_key) {
                 var sanitized_key = input_key.trim();
                 var is_alphanumeric_regex = RegExp('^[A-Za-z0-9]{32}$');
+                var is_empty_regex = RegExp('');
                 var is_key_alphanumeric = is_alphanumeric_regex.test(sanitized_key);
-                if (is_key_alphanumeric || sanitized_key==='dummykeyvalue'){
+                var is_key_empty= is_empty_regex.test(sanitized_key);
+                if (is_key_alphanumeric || is_key_empty || sanitized_key==='dummykeyvalue'){
                   return sanitized_key;
                 }
                 else {

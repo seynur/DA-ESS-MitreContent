@@ -25,12 +25,17 @@ class GetAttackDetectionRulesCommand(GeneratingCommand):
 
     def getPasswordKeyFromConfig(self, key_name):
         sp = self.service.storage_passwords
-        result_stream = sp.get(name=key_name,app=APPCONTEXT)['body'].read().decode("utf-8")
-        xmlroot = ET.fromstring(result_stream)
-        key_value = ''
-        for elem in xmlroot.findall(".//*[@name='clear_password']"):
-            key_value=elem.text
+        try:
+            result_stream = sp.get(name=key_name,app=APPCONTEXT)['body'].read().decode("utf-8")
+            xmlroot = ET.fromstring(result_stream)
+            key_value = ''
+            for elem in xmlroot.findall(".//*[@name='clear_password']"):
+                key_value=elem.text
             return key_value
+        except:
+            pass
+        key_value = None
+        return key_value
 
     def getRulesFromApi(self, apikey, secretkey, url):
         headers = {}
