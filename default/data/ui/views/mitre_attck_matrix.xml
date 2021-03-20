@@ -231,13 +231,13 @@
         <option name="refresh.display">progressbar</option>
         <drilldown>
           <condition match="'mitre_use_es' == &quot;1&quot;">
-            <eval token="rules_q">if(mvindex(split('click.value2',"|"),2)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&source=]]>"),"|"),2),"*")</eval>
+            <eval token="rules_q">if(mvindex(split('click.value2',"|"),3)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&source=]]>"),"|"),3),"*")</eval>
             <link target="_blank">
               <![CDATA[/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$attack_time_field.earliest$&amp;latest=$attack_time_field.latest$&amp;urgency=critical&amp;urgency=high&amp;urgency=medium&amp;urgency=low&amp;urgency=informational&source=$rules_q|n$]]>
             </link>
           </condition>
           <condition match="'mitre_use_es' == &quot;0&quot;">
-            <eval token="rules_q">if(mvindex(split('click.value2',"|"),2)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&form.s_title=]]>"),"|"),2),"*")</eval>
+            <eval token="rules_q">if(mvindex(split('click.value2',"|"),3)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&form.s_title=]]>"),"|"),3),"*")</eval>
             <link target="_blank">
               <![CDATA[/app/alert_manager/incident_posture?form.global_time.earliest=$attack_time_field.earliest$&form.global_time.latest=$attack_time_field.latest$&form.owner=*&form.alert=*&form.category=*&form.subcategory=*&form.tags=*&form.tags=[Untagged]&form.status=status!%3D"*resolved" status!%3D"suppressed"&form.s_incident_id=&form.s_title=$rules_q|n$&form.impact=*&form.urgency=*&form.priority=*&form.freeform=]]>
             </link>
