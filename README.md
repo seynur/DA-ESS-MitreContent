@@ -37,6 +37,10 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.0.2
+- Date: 20 Mar 2021
+- Bug fix: Drill-down functionality on MITRE ATT&CK Matrix is passing wrong argument
+
 Version 3.0.1
 - Date: 08 Jan 2021
 - Bug fix: mitre_user_rule_technique_lookup.csv overwrites existing lookup during upgrades
