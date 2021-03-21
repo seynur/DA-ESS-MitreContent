@@ -26,11 +26,11 @@ This guide will provide description for the views that comes with this applicati
 
 
 ### MITRE ATT&CK Compliance View
-Each cell containing a technique is colored based on the percentage of enabled correlation searches.
+Each cell containing a technique/sub-technique is colored based on the percentage of enabled correlation searches.
 
 If there isn't any related correlation searches, the cell is left uncolored.
 
-If there are available correlation searches either within Enterprise Security (and ESCU) or as regular saved searches with matching MITRE ATT&CK techniques, then cells are colored based on percentage of enabled/active ones.
+If there are available correlation searches either within Enterprise Security (and ESCU) or as regular/custom saved searches with matching MITRE ATT&CK techniques/sub-techniques, then cells are colored based on percentage of enabled/active ones.
 
 Currently the ranges are set as follows:
 * none: 0–30% (uncolored)
@@ -38,7 +38,7 @@ Currently the ranges are set as follows:
 * medium: 50–70% enabled 
 * high: 70%+ enabled
 
-You can mouse over to the cells that contain techniques in order to view the number of available and enabled correlation rules that are specific to that technique.
+You can mouse over to the cells that contain techniques/sub-techniques in order to view the number of available and enabled correlation rules that are specific to that technique/sub-technique.
 ![setup4]
 
 
@@ -159,7 +159,7 @@ __Newly Added User Defined Mapping__: This panel displays the newly selected rul
 &nbsp;
 
 
-b. Next, select the rule name form __Rule Name__ dropdown menu item and associate with technique IDs from __MITRE ATT&CK Technique__ multi-select then hit __Submit__.  Both panels will be updated accordingly.
+b. Next, select the rule name form __Rule Name__ dropdown menu item and associate with technique IDs from __MITRE ATT&CK Technique__ multi-select then hit __Submit__.  Both panels will be updated accordingly. Once you're done with mappings and updates, you may want to run __Lookup File Generation__ manually in order to generate the overall lookup files or wait until the scheduled searches run.
 
 
 ![map_rule_to_technique2]

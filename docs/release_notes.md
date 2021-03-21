@@ -2,8 +2,23 @@
 layout: default
 title: Release Notes
 ---
-
 ### Release Notes:
+#### Version 3.1.0
+- Date: xx Mar 2021
+- Feature: New v2 endpoint integration
+  - HMAC-SHA512 API authentication
+- Documentation Update
+
+#### Version 3.0.2
+- Date: 20 Mar 2021
+- Bug fix: Drill-down functionality on MITRE ATT&CK Matrix is passing wrong argument
+
+#### Version 3.0.1
+- Date: 08 Jan 2021
+- Bug fix: mitre_user_rule_technique_lookup.csv overwrites existing lookup during upgrades
+- Bug fix: Missing mitre_api_rule_technique_lookup causes issues on fresh/new installations
+- Bug fix: Missing sub-techniques in ATTACK version 8.1
+
 #### Version 3.0.0
 - Date: 29 Nov 2020
 - Feature: Compatibility with ATT&CK version 8.1

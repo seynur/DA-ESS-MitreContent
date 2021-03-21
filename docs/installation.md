@@ -7,9 +7,9 @@ title: Installation
 1. Download the latest AppInspect Passed version from: [https://splunkbase.splunk.com/app/4617/](https://splunkbase.splunk.com/app/4617/)
 
    Please visit the Github repo for the latest changes and development efforts: [https://github.com/seynur/DA-ESS-MitreContent/](https://github.com/seynur/DA-ESS-MitreContent/)
-2. Install the application on Splunk Enterprise.  This application (DA-ESS-MitreContent) should be installed on the _Search Head_ or _Search Head Cluster_ where Enterprise Security Application resides.
+2. Install the application on Splunk Enterprise.  This application (DA-ESS-MitreContent) should be installed on the _Search Head_ or _Search Head Cluster_ where Enterprise Security Application or Alert Manager resides.
   For details on add-on installation please refer to [Splunk Documentation](https://docs.splunk.com/Documentation/AddOns/released/Overview/Installingadd-ons)
-
+3. Please be sure that Enterprise Security or Alert Manager applications are properly installed, configured, and ready to use.
 
 ### Initial Setup
 Upon installation of the application you will be redirected to the Setup page.
@@ -40,7 +40,7 @@ Upon installation of the application you will be redirected to the Setup page.
 
    &nbsp;
 
-5. Once the search is completed, you can go back to "MITRE ATT&CK Compliance with Splunk ES" dashboard to view the level of existing rules (enabled and available) in comparison to MITRE ATT&CK techniques. You can click on a specific technique in order to view the associated correlation rules within ES App.
+5. Once the search is completed, you can go back to "MITRE ATT&CK Compliance" dashboard to view the level of existing rules (enabled and available) in comparison to MITRE ATT&CK techniques. You can click on a specific technique/sub-technique in order to view the associated correlation rules within ES App.
 
    ![setup4]
 
