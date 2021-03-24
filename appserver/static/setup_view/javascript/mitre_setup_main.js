@@ -81,6 +81,9 @@ define(
 
                 var secret_key_input_element = jquery("input[name=secret_key]");
                 var secret_key = secret_key_input_element.val();
+                if (secret_key === '') {
+                  //pass
+                } else {
                 var verified_secret_key = this.verify_alphanumeric_key(secret_key);
                 if (verified_secret_key !== 'dummykeyvalue') {
                   this.perform_password_setup(
@@ -88,6 +91,7 @@ define(
                     "attackdetection_secretkey",
                     verified_secret_key
                   )
+                }
                 }
 
                 var savedsearches_setup_options = this.get_savedsearches_setup_options();
@@ -184,10 +188,10 @@ define(
             verify_alphanumeric_key: function verify_alphanumeric_key(input_key) {
                 var sanitized_key = input_key.trim();
                 var is_alphanumeric_regex = RegExp('^[A-Za-z0-9]{32}$');
-                var is_empty_regex = RegExp('');
                 var is_key_alphanumeric = is_alphanumeric_regex.test(sanitized_key);
-                var is_key_empty= is_empty_regex.test(sanitized_key);
-                if (is_key_alphanumeric || is_key_empty || sanitized_key==='dummykeyvalue'){
+                if (is_key_alphanumeric || sanitized_key==='dummykeyvalue'){
+                  var key_error = " ";
+                  this.display_error_output(key_error);
                   return sanitized_key;
                 }
                 else {
