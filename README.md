@@ -37,6 +37,10 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.0.3
+- Date: 25 Mar 2021
+- Bug fix: ES Content Update mitre_attack annotation provides Technique IDs instead of names with newer versions.  This fix is compatible with both name and/or ID representation of annotations to build compliance dashboard.
+
 Version 3.0.2
 - Date: 20 Mar 2021
 - Bug fix: Drill-down functionality on MITRE ATT&CK Matrix is passing wrong argument
