@@ -70,42 +70,63 @@ define(
             trigger_setup: async function trigger_setup(savedsearches_setup_options) {
                 var api_key_input_element = jquery("input[name=api_key]");
                 var api_key = api_key_input_element.val();
-                var verified_api_key = this.verify_alphanumeric_key(api_key);
-                if (verified_api_key !== 'dummykeyvalue') {
-                  this.perform_password_setup(
-                    splunk_js_sdk,
-                    "attackdetection_apikey",
-                    verified_api_key
-                  )
-                }
+                let verify_api_key = this.verify_alphanumeric_key(api_key);
+                const verified_api_key = verify_api_key[0], is_valid_api_key = verify_api_key[1];
+                console.log("is_valid_api_key");
+                console.log(is_valid_api_key);
+
+
 
                 var secret_key_input_element = jquery("input[name=secret_key]");
                 var secret_key = secret_key_input_element.val();
-                if (secret_key === '') {
-                  //pass
-                } else {
-                var verified_secret_key = this.verify_alphanumeric_key(secret_key);
-                if (verified_secret_key !== 'dummykeyvalue') {
-                  this.perform_password_setup(
-                    splunk_js_sdk,
-                    "attackdetection_secretkey",
-                    verified_secret_key
-                  )
-                }
-                }
 
-                var savedsearches_setup_options = this.get_savedsearches_setup_options();
-                this.perform_setup(
-                  savedsearches_setup_options,
-                  SAVED_SEARCHES
-                )
-                var macros_setup_options = this.get_macros_setup_options();
-                this.perform_setup(
-                  macros_setup_options,
-                  MACROS
-                )
-                await Setup.complete_setup(this.splunk_js_sdk_service,app_name);
-            },
+                let verify_secret_key = this.verify_alphanumeric_key(secret_key);
+                const verified_secret_key = verify_secret_key[0], is_valid_secret_key = verify_secret_key[1];
+                console.log("is_valid_secret_key");
+                console.log(is_valid_secret_key);
+
+                if (is_valid_api_key === true && is_valid_secret_key === true) {
+
+
+                  if (verified_api_key !== 'dummykeyvalue') {
+                    this.perform_password_setup(
+                      splunk_js_sdk,
+                      "attackdetection_apikey",
+                      verified_api_key
+                     )
+                  }
+                  if (verified_secret_key !== 'dummykeyvalue') {
+                    this.perform_password_setup(
+                      splunk_js_sdk,
+                      "attackdetection_secretkey",
+                      verified_secret_key
+                    )
+                  }
+                  var savedsearches_setup_options = this.get_savedsearches_setup_options();
+                  this.perform_setup(
+                    savedsearches_setup_options,
+                    SAVED_SEARCHES
+                  )
+                  var macros_setup_options = this.get_macros_setup_options();
+                  this.perform_setup(
+                    macros_setup_options,
+                    MACROS
+                  )
+                  await Setup.complete_setup(this.splunk_js_sdk_service,app_name);
+
+                  console.log("clear_error_output");
+                  this.clear_error_output();
+
+                  var success_response = 'Success: Configuration is saved!';
+                  this.display_success_output(success_response);
+
+                } else {
+                    this.clear_success_output();
+                    var key_error = 'Error: Please check your API/Secret Key!';
+                    console.log("display_error_output");
+                    this.display_error_output(key_error);
+                  }
+                },
 
             get_savedsearches_setup_options: function get_savedsearches_setup_options(){
               var setup_options = [];
@@ -154,10 +175,9 @@ define(
 
                     //Setup.redirect_to_splunk_app_homepage(splunk_js_sdk_service,app_name);
 
-                    var success_response = 'Success: Configuration is saved!';
-                    console.log("Success");
-                    this.display_success_output(success_response, this.is_error_occured);
+                    console.log(" Configuration Success");
                 } catch (error) {
+                    console.log(error);
                     console.log("An error occured!");
                 }
 
@@ -175,7 +195,7 @@ define(
                         key_name,
                         key_value
                     )
-                    this.is_error_occured = false;
+                    return true;
                     console.log("Password: Success!");
 
                 } catch (error) {
@@ -188,17 +208,14 @@ define(
             verify_alphanumeric_key: function verify_alphanumeric_key(input_key) {
                 var sanitized_key = input_key.trim();
                 var is_alphanumeric_regex = RegExp('^[A-Za-z0-9]{32}$');
+                var is_empty_regex = RegExp('^\s*$');
                 var is_key_alphanumeric = is_alphanumeric_regex.test(sanitized_key);
-                if (is_key_alphanumeric || sanitized_key==='dummykeyvalue'){
-                  var key_error = " ";
-                  this.display_error_output(key_error);
-                  return sanitized_key;
+                var is_key_empty = is_empty_regex.test(sanitized_key);
+                if (is_key_alphanumeric || is_key_empty || sanitized_key==='dummykeyvalue'){
+                  var is_valid_key = true;
+                  return [sanitized_key, is_valid_key];
                 }
                 else {
-                  var key_error = 'Error: Please check your API/Secret Key!';
-                  var is_error = true;
-                  this.is_error_occured = is_error;
-                  this.display_error_output(key_error);
                   return 'dummykeyvalue';
                 }
             },
@@ -206,51 +223,43 @@ define(
             // ----------------------------------
             // Display Functions
             // ----------------------------------
-            display_success_output: function display_success_output(success_message, is_error_occured) {
+            clear_success_output: function clear_success_output() {
+                var clear_success_output_element = jquery(".setup.container .success.output");
+                clear_success_output_element.fadeOut({
+                    complete: function() {
+                        clear_success_output_element.html("");
+                    },
+                });
+            },
+            clear_error_output: function clear_error_output() {
+                var clear_error_output_element = jquery(".setup.container .error.output");
+                clear_error_output_element.fadeOut({
+                    complete: function() {
+                        clear_error_output_element.html("");
+                    },
+                });
+            },
+            display_success_output: function display_success_output(success_message) {
                 var did_success_messages_occur = success_message.length > 0;
                 var success_output_element = jquery(".setup.container .success.output");
-                console.log(is_error_occured)
-                if (did_success_messages_occur && !is_error_occured) {
-                    var new_success_output_string = "";
-                    new_success_output_string += "<ul>" + success_message + "</ul>" ;
-                    success_output_element.html(new_success_output_string);
-                    $("div[class='spinnerBG']").fadeOut();
-                    $("div[class='spinnerShow']").fadeOut();
-                    success_output_element.stop();
-                    success_output_element.fadeIn();
-                } else {
-                    success_output_element.stop();
-                    $("div[class='spinnerBG']").fadeOut();
-                    $("div[class='spinnerShow']").fadeOut();
-                    success_output_element.fadeOut({
-                        complete: function() {
-                            success_output_element.html("");
-                        },
-                    });
-                }
+                var new_success_output_string = "";
+                new_success_output_string += "<ul>" + success_message + "</ul>" ;
+                success_output_element.html(new_success_output_string);
+                $("div[class='spinnerBG']").fadeOut();
+                $("div[class='spinnerShow']").fadeOut();
+                success_output_element.stop();
+                success_output_element.fadeIn();
             },
             display_error_output: function display_error_output(error_message) {
                 var did_error_messages_occur = error_message.length > 0;
                 var error_output_element = jquery(".setup.container .error.output");
-                if (did_error_messages_occur) {
-                    var new_error_output_string = "";
-                    new_error_output_string += "<ul>" + error_message + "</ul>" ;
-                    error_output_element.html(new_error_output_string);
-                    $(".setup.container .success.output").fadeOut();
-                    $("div[class='spinnerBG']").fadeOut();
-                    $("div[class='spinnerShow']").fadeOut();
-                    error_output_element.stop();
-                    error_output_element.fadeIn();
-                } else {
-                    error_output_element.stop();
-                    $("div[class='spinnerBG']").fadeOut();
-                    $("div[class='spinnerShow']").fadeOut();
-                    error_output_element.fadeOut({
-                        complete: function() {
-                            error_output_element.html("");
-                        },
-                    });
-                }
+                var new_error_output_string = "";
+                new_error_output_string += "<ul>" + error_message + "</ul>" ;
+                error_output_element.html(new_error_output_string);
+                $("div[class='spinnerBG']").fadeOut();
+                $("div[class='spinnerShow']").fadeOut();
+                error_output_element.stop();
+                error_output_element.fadeIn();
             },
 
         });
