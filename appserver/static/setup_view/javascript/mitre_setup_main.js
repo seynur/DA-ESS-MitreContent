@@ -4,6 +4,7 @@ import * as Splunk from './splunk_helpers.js'
 import * as Setup from './setup_configuration.js'
 import get_template from './mitre_setup_template.js'
 
+const DUMMYKEY = 'dummykeyvalue'
 const SAVED_SEARCHES = 'savedsearches'
 const MACROS = 'macros'
 const app_name = "DA-ESS-MitreContent"
@@ -87,21 +88,22 @@ define(
 
                 if (is_valid_api_key === true && is_valid_secret_key === true) {
 
-
-                  if (verified_api_key !== 'dummykeyvalue') {
+                  if (verified_api_key !== DUMMYKEY) {
                     this.perform_password_setup(
                       splunk_js_sdk,
                       "attackdetection_apikey",
                       verified_api_key
                      )
+                     // If we have a valid API Key, check for non-empty Secret
+                     if (verified_secret_key !== DUMMYKEY) {
+                       this.perform_password_setup(
+                         splunk_js_sdk,
+                         "attackdetection_secretkey",
+                         verified_secret_key
+                       )
+                     }
                   }
-                  if (verified_secret_key !== 'dummykeyvalue') {
-                    this.perform_password_setup(
-                      splunk_js_sdk,
-                      "attackdetection_secretkey",
-                      verified_secret_key
-                    )
-                  }
+
                   var savedsearches_setup_options = this.get_savedsearches_setup_options();
                   this.perform_setup(
                     savedsearches_setup_options,
@@ -211,13 +213,17 @@ define(
                 var is_empty_regex = RegExp('^\s*$');
                 var is_key_alphanumeric = is_alphanumeric_regex.test(sanitized_key);
                 var is_key_empty = is_empty_regex.test(sanitized_key);
-                if (is_key_alphanumeric || is_key_empty || sanitized_key==='dummykeyvalue'){
-                  var is_valid_key = true;
-                  return [sanitized_key, is_valid_key];
+                var is_valid_key = false;
+
+                if (is_key_alphanumeric || is_key_empty){
+                  is_valid_key = true;
+                  if (is_key_empty) {
+                    sanitized_key = DUMMYKEY
+                  }
                 }
-                else {
-                  return 'dummykeyvalue';
-                }
+
+                return [sanitized_key, is_valid_key];
+
             },
 
             // ----------------------------------
