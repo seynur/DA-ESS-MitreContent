@@ -4,10 +4,10 @@ title: Release Notes
 ---
 ### Release Notes:
 #### Version 3.1.0
-- Date: 31 Mar 2021
-- Feature: New v2 endpoint integration
-  - HMAC-SHA512 API authentication
-- Documentation Update
+- Date: 29 Mar 2021
+- Feature: Updated default rule lookup with Enterprise Security 6.4.1 and ES Content Update 3.17.0
+- Feature: API v2 endpoint integration with HMAC-SHA512 authentication
+- Documentation updates and corrections
 
 #### Version 3.0.3
 - Date: 25 Mar 2021

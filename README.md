@@ -26,7 +26,7 @@ For one of the views:
 __Note__: Although the app will work without ES Content Update, it is highly recommended since it comes with many correlation rules that have mitre_attack annotations already.
 
 #### Setup Instructions
-After installation of the application you will be on Setup page.  Please enter the API Key if you have one or simply hit Save to continue.  Default view will be the Compliance Dashboard.  If the matrix is not populated, click on the table to run manually, which will direct you to the Lookup Generation dashboard (searches run automatically on that dashboard).
+After installation of the application you will be on Setup page.  Please enter the API Key and Secret Key if you have a pair or simply hit Save to continue.  Default view will be the Compliance Dashboard.  If the matrix is not populated, click on the table to run manually, which will direct you to the Lookup Generation dashboard (searches run automatically on that dashboard).
 
 __Note__: If using Alert Manager app, you will need to uncheck ```Use Enterprise Security App``` checkbox within __Setup__ view.
 
@@ -37,6 +37,20 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.1.0
+- Date: 29 Mar 2021
+- Feature: Updated default rule lookup with Enterprise Security 6.4.1 and ES Content Update 3.17.0
+- Feature: API v2 endpoint integration with HMAC-SHA512 authentication
+- Documentation updates and corrections
+
+Version 3.0.3
+- Date: 25 Mar 2021
+- Bug fix: ES Content Update mitre_attack annotation provides Technique IDs instead of names with newer versions. This fix is compatible with both name and/or ID representation of annotations to build compliance dashboard.
+
+Version 3.0.2
+- Date: 20 Mar 2021
+- Bug fix: Drill-down functionality on MITRE ATT&CK Matrix is passing wrong argument
+
 Version 3.0.1
 - Date: 08 Jan 2021
 - Bug fix: mitre_user_rule_technique_lookup.csv overwrites existing lookup during upgrades
