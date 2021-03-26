@@ -39,6 +39,7 @@ Currently the ranges are set as follows:
 * high: 70%+ enabled
 
 You can mouse over to the cells that contain techniques/sub-techniques in order to view the number of available and enabled correlation rules that are specific to that technique/sub-technique.
+
 ![setup4]
 
 
