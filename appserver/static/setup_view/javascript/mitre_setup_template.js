@@ -7,7 +7,7 @@ function get_template() {
       "<br><br/>" +
       "This setup page provides configuration options for API integration and Lookup Generating searches." +
       "<br/>" +
-      "You can find more information on <a href='https://api.seynur.com' target='_blank'> https://api.seynur.com </a>" +
+      "You can find more information on <a href='https://www.seynur.com/api' target='_blank'> https://www.seynur.com/api </a>" +
       "<br/>" +
       "For a quick start simply hit Save button to continue" +
       "<br/>" +
@@ -20,7 +20,15 @@ function get_template() {
       "        <div class='field api_key'>" +
       "            <div class='user_input'>" +
       "                <div class='text'>" +
-      "                    <label>API Key: <input type='password' name='api_key' value='dummyapikey'></input></label>" +
+      "                    <label>API Key: <input type='password' name='api_key' value=''></input></label>" +
+      "                </div>" +
+      "            </div>" +
+      "        </div>" +
+      "<br/>" +
+      "        <div class='field secret_key'>" +
+      "            <div class='user_input'>" +
+      "                <div class='text'>" +
+      "                    <label>Secret Key: <input type='password' name='secret_key' value=''></input></label>" +
       "                </div>" +
       "            </div>" +
       "        </div>" +
@@ -37,6 +45,8 @@ function get_template() {
       "<br/>" +
       "<p><i>Only applicable if enabled. These are saved searches and can also be modified via Settings after setup.</i></p>" +
       "        <div class='field api_key'>" +
+      "            </br>" +
+      "        <div class='field secret_key'>" +
       "            </br>" +
       "            <div class='user_input'>" +
       "                <div class='text'>" +

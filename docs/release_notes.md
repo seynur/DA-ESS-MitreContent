@@ -2,8 +2,27 @@
 layout: default
 title: Release Notes
 ---
-
 ### Release Notes:
+#### Version 3.1.0
+- Date: 29 Mar 2021
+- Feature: Updated default rule lookup with Enterprise Security 6.4.1 and ES Content Update 3.17.0
+- Feature: API v2 endpoint integration with HMAC-SHA512 authentication
+- Documentation updates and corrections
+
+#### Version 3.0.3
+- Date: 25 Mar 2021
+- Bug fix: ES Content Update mitre_attack annotation provides Technique IDs instead of names with newer versions.  This fix is compatible with both name and/or ID representation of annotations to build compliance dashboard.
+
+#### Version 3.0.2
+- Date: 20 Mar 2021
+- Bug fix: Drill-down functionality on MITRE ATT&CK Matrix is passing wrong argument
+
+#### Version 3.0.1
+- Date: 08 Jan 2021
+- Bug fix: mitre_user_rule_technique_lookup.csv overwrites existing lookup during upgrades
+- Bug fix: Missing mitre_api_rule_technique_lookup causes issues on fresh/new installations
+- Bug fix: Missing sub-techniques in ATTACK version 8.1
+
 #### Version 3.0.0
 - Date: 29 Nov 2020
 - Feature: Compatibility with ATT&CK version 8.1
