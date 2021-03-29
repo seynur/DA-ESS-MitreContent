@@ -7,7 +7,7 @@ function get_template() {
       "<br><br/>" +
       "This setup page provides configuration options for API integration and Lookup Generating searches." +
       "<br/>" +
-      "You can find more information on <a href='https://api.seynur.com' target='_blank'> https://www.seynur.com/api </a>" +
+      "You can find more information on <a href='https://www.seynur.com/api' target='_blank'> https://www.seynur.com/api </a>" +
       "<br/>" +
       "For a quick start simply hit Save button to continue" +
       "<br/>" +
