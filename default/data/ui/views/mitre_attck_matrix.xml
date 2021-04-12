@@ -17,7 +17,7 @@
 | inputlookup mitre_all_rule_technique_lookup
 | fields rule_name, technique_id
 | join rule_name
-    [  search `mitre_rules`
+    [ `mitre_rules`
     | fields rule_name, urgency
     | lookup urgency_score_lookup urgency
     | stats max(score) as max_score, count by rule_name]
