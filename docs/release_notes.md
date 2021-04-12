@@ -3,6 +3,11 @@ layout: default
 title: Release Notes
 ---
 ### Release Notes:
+#### Version 3.1.1
+- Date: 13 Apr 2021
+- Feature: Splunk Enterprise Security provides mitre_attack annotation in correlation searches with version 6.4.0. The correlation searches will populate both the Compliance and Triggered Techniques dashboards with this feature.
+- Bug fix: Search that populates the MITRE ATT&CK Tactics panel is fixed for deployments with Enterprise Security.
+
 #### Version 3.1.0
 - Date: 29 Mar 2021
 - Feature: Updated default rule lookup with Enterprise Security 6.4.1 and ES Content Update 3.17.0
