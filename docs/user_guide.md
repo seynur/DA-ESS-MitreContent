@@ -11,6 +11,7 @@ This guide will provide description for the views that comes with this applicati
 * [MITRE ATT&CK Triggered Tactics & Techniques View](#mitre-attck-triggered-tactics--techniques-view)
 * [How To Match a Correlation Search with Framework](#how-to-match-a-correlation-search-with-framework)
   - [Match with Analytic Story](#match-with-analytic-story)
+  - [Match with Custom Correlation Search](#match-with-custom-correlation-search)
   - [Match with Lookup](#match-with-lookup)
 * [How to integrate with Alert Manager](#how-to-integrate-with-alert-manager)
 
@@ -95,9 +96,10 @@ In order to view a saved/correlation search integrated with the MITRE ATT&amp;CK
 1. alert action (ES or Alert Manager) - triggered view TODO:
 2. associate rule with technique TODO:
 
-There are 2 ways to accomplish this task.
+There are 3 ways to accomplish this task.
 1. [Match with Analytic Story](#match-with-analytic-story): Enable a new or existing *Analytic Story* to be tagged with the relevant *Correlation Search*
-2. [Match with Lookup](#match-with-lookup): Edit the ``mitre_user_rule_technique_lookup.csv`` file.
+2. [Match with Custom Correlation Search](#match-with-custom-correlation-search): Enable a new or existing *Custom Correlation Search* with Content Management
+3. [Match with Lookup](#match-with-lookup): Edit the ``mitre_user_rule_technique_lookup.csv`` file.
 
 #### Match with Analytic Story
 The view in the application utilized *Analytic Stories* that are tagged with the *Correlation Searches*.  Hence, in order to associate a *Correlation Search* with MITRE ATT&CK Techniques, you will need to create a new *Analytic Story* and add your *Correlation Search* with the appropriate tags.
@@ -121,7 +123,43 @@ For example, if we want the *Correlation Search* "**Brute Force Access Behavior 
 
 4. Click **Save** to save the *Analytic Story* with annotation and mapping with the defined correlation search.  You can add many correlation searches under one analytic story with defined mappings.
 
-Once saved, the correlation search will populate both the Compliance and Triggered Techniques dashboards.
+
+Once you’re done with the **Analytic Story**, you may want to run Lookup File Generation manually in order to generate the overall lookup files or wait until the scheduled searches run. After lookup file generation, the correlation search will populate both the Compliance and Triggered Techniques dashboards.
+
+&nbsp;
+
+&nbsp;
+
+
+#### Match with Custom Correlation Search
+Correlation searches can be already integrated with the MITRE ATT&amp;CK Matrix. But now, you can directly map your custom correlation searches using security framework annotations with the 6.4.0 version of Splunk Enterprise Security.
+
+**Note:** Please go to Splunk Documentation on [How to create a Correlation Search](https://docs.splunk.com/Documentation/ES/latest/Admin/Createcorrelationsearches)
+
+1. Go to "**Configure --> Content --> Content Management**" from Enterprise Security Application menu.  Click on "**Create New Content**" and select "**Correlation Search**"
+
+   ![contentmanagement1]
+   ![contentmanagement2]
+
+ &nbsp;
+
+2. Enter a **Name** and fill other details as necessary for this correlation search.  Add your custom search.
+
+   ![contentmanagement3]
+
+ &nbsp;
+
+3. Enter MITRE ATT&CK techniques/sub-techniques in the **Annotations** section.
+
+   ![contentmanagement4]
+
+ &nbsp;
+
+4. Add **Notable** and select your **Security Domain** in the **Adaptive Response Action** section and hit the **Save**.
+
+   ![contentmanagement5]
+
+Once you’re done with the **Correlation Search**, you may want to run Lookup File Generation manually in order to generate the overall lookup files or wait until the scheduled searches run. After lookup file generation, the correlation search will populate both the Compliance and Triggered Techniques dashboards.
 
 &nbsp;
 
@@ -133,7 +171,7 @@ Each correlation rule is associated with 1 or more technique IDs.  For a given c
 1. Utilize **Map Rule to Technique** views
 
    _OR_
-2. Edit ``mitre_user_rule_technique_lookup.csv`` directly.  
+2. Edit ``mitre_user_rule_technique_lookup.csv`` directly.
 
 __NOTE:__ The scheduled searches combine this lookup along with analytic stories and checks against existing saved/correlation searches in order to create ``mitre_all_rule_technique_lookup.csv``, which is used within the app.
 
@@ -176,7 +214,7 @@ __Important NOTE__: If a rule name is already defined, this view does NOT add an
 
 
 
-__(2)__ Edit ``mitre_user_rule_technique_lookup.csv`` directly.  
+__(2)__ Edit ``mitre_user_rule_technique_lookup.csv`` directly.
 You can edit the csv directly or utilize Lookup Editor app from web interface.
 
 
@@ -223,3 +261,8 @@ __IMPORTANT NOTE__: In order to have drill-down working with Alert Manager seaml
 [map_rule_to_technique2]: assets/img/map_rule_to_technique2.png
 [map_rule_to_technique3]: assets/img/map_rule_to_technique3.png
 [alert_manager_action]: assets/img/alert_manager_action.png
+[contentmanagement1]: assets/img/contentmanagement1.png
+[contentmanagement2]: assets/img/contentmanagement2.png
+[contentmanagement3]: assets/img/contentmanagement3.png
+[contentmanagement4]: assets/img/contentmanagement4.png
+[contentmanagement5]: assets/img/contentmanagement5.png
