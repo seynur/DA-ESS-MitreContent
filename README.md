@@ -37,6 +37,11 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.1.1
+- Date: 14 Apr 2021
+- Feature: Splunk Enterprise Security 6.4.x provides mitre_attack annotation in correlation searches that map to techniques. These mappings are integrated into both the Compliance and Triggered Techniques dashboards.
+- Bug fix: MITRE ATT&CK Matrix search macro issue is fixed for deployments with Enterprise Security.
+
 Version 3.1.0
 - Date: 29 Mar 2021
 - Feature: Updated default rule lookup with Enterprise Security 6.4.1 and ES Content Update 3.17.0

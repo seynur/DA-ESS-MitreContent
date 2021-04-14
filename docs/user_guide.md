@@ -104,9 +104,15 @@ There are 3 ways to accomplish this task.
 #### Match with Analytic Story
 The view in the application utilized *Analytic Stories* that are tagged with the *Correlation Searches*.  Hence, in order to associate a *Correlation Search* with MITRE ATT&CK Techniques, you will need to create a new *Analytic Story* and add your *Correlation Search* with the appropriate tags.
 
+&nbsp;
+
 **Note:** Please go to Splunk Documentation on [How to create a Correlation Search](https://docs.splunk.com/Documentation/ES/latest/Admin/Createcorrelationsearches)
 
+&nbsp;
+
 For example, if we want the *Correlation Search* "**Brute Force Access Behavior Detected**" to be associated with "**Brute Force**" Technique under "**Credential Access**" tactic, we need to perform the following steps:
+
+&nbsp;
 
 1. Go to "**Configure --> Content --> Content Management**" from Enterprise Security Application menu.  Click on "**Create New Content**" and select "**Analytic Story**"
 
@@ -132,32 +138,32 @@ Once you’re done with the **Analytic Story**, you may want to run Lookup File 
 
 
 #### Match with Custom Correlation Search
-Correlation searches can be already integrated with the MITRE ATT&amp;CK Matrix. But now, you can directly map your custom correlation searches using security framework annotations with the 6.4.0 version of Splunk Enterprise Security.
+Splunk Enterprise Security 6.4.x provides MITRE ATT&amp;CK annotation in correlation searches that map to techniques/sub-techniques. These mappings are integrated into both the Compliance and Triggered Techniques dashboards. .
+
+&nbsp;
 
 **Note:** Please go to Splunk Documentation on [How to create a Correlation Search](https://docs.splunk.com/Documentation/ES/latest/Admin/Createcorrelationsearches)
+
+&nbsp;
+
+For example, if we want the a *Correlation Search* to be associated with one or more techniques, we need to perform the following steps:
+
+&nbsp;
 
 1. Go to "**Configure --> Content --> Content Management**" from Enterprise Security Application menu.  Click on "**Create New Content**" and select "**Correlation Search**"
 
    ![contentmanagement1]
    ![contentmanagement2]
 
- &nbsp;
-
 2. Enter a **Name** and fill other details as necessary for this correlation search.  Add your custom search.
 
    ![contentmanagement3]
-
- &nbsp;
 
 3. Enter MITRE ATT&CK techniques/sub-techniques in the **Annotations** section.
 
    ![contentmanagement4]
 
- &nbsp;
-
-4. Add **Notable** and select your **Security Domain** in the **Adaptive Response Action** section and hit the **Save**.
-
-   ![contentmanagement5]
+&nbsp;
 
 Once you’re done with the **Correlation Search**, you may want to run Lookup File Generation manually in order to generate the overall lookup files or wait until the scheduled searches run. After lookup file generation, the correlation search will populate both the Compliance and Triggered Techniques dashboards.
 
