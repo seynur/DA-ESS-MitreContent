@@ -34,10 +34,12 @@ items:
 - name: Release Notes
   link: release_notes.html
   subitems:
+    - name: Version 3.1.1
+      anchor: release_notes.html#version-311
     - name: Version 3.1.0
       anchor: release_notes.html#version-310
     - name: Version 3.0.3
-      anchor: release_notes.html#version-303      
+      anchor: release_notes.html#version-303
     - name: Version 3.0.2
       anchor: release_notes.html#version-302
     - name: Version 3.0.1
