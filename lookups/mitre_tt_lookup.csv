@@ -72,6 +72,12 @@ TA0042,Resource Development,T1588.003,Code Signing Certificates
 TA0042,Resource Development,T1588.004,Digital Certificates
 TA0042,Resource Development,T1588.005,Exploits
 TA0042,Resource Development,T1588.006,Vulnerabilities
+TA0042,Resource Development,T1608,Stage Capabilities
+TA0042,Resource Development,T1608.001,Upload Malware
+TA0042,Resource Development,T1608.002,Upload Tool
+TA0042,Resource Development,T1608.003,Install Digital Certificate
+TA0042,Resource Development,T1608.004,Drive-by Target
+TA0042,Resource Development,T1608.005,Link Target
 TA0001,Initial Access,T1189,Drive-by Compromise
 TA0001,Initial Access,T1190,Exploit Public-Facing Application
 TA0001,Initial Access,T1133,External Remote Services
@@ -100,6 +106,8 @@ TA0002,Execution,T1059.005,Visual Basic
 TA0002,Execution,T1059.006,Python
 TA0002,Execution,T1059.007,JavaScript/JScript
 TA0002,Execution,T1059.008,Network Device CLI
+TA0002,Execution,T1609,Container Administration Command
+TA0002,Execution,T1610,Deploy Container
 TA0002,Execution,T1203,Exploitation for Client Execution
 TA0002,Execution,T1559,Inter-Process Communication
 TA0002,Execution,T1559.001,Component Object Model
@@ -112,6 +120,7 @@ TA0002,Execution,T1053.001,At (Linux)
 TA0002,Execution,T1053.004,Launchd
 TA0002,Execution,T1053.003,Cron
 TA0002,Execution,T1053.006,Systemd Timers
+TA0002,Execution,T1053.007,Container Orchestration Job
 TA0002,Execution,T1129,Shared Modules
 TA0002,Execution,T1072,Software Deployment Tools
 TA0002,Execution,T1569,System Services
@@ -120,6 +129,7 @@ TA0002,Execution,T1569.002,Service Execution
 TA0002,Execution,T1204,User Execution
 TA0002,Execution,T1204.001,Malicious Link
 TA0002,Execution,T1204.002,Malicious File
+TA0002,Execution,T1204.003,Malicious Image
 TA0002,Execution,T1047,Windows Management Instrumentation
 TA0003,Persistence,T1098,Account Manipulation
 TA0003,Persistence,T1098.001,Additional Cloud Credentials
@@ -140,6 +150,8 @@ TA0003,Persistence,T1547.009,Shortcut Modification
 TA0003,Persistence,T1547.010,Port Monitors
 TA0003,Persistence,T1547.011,Plist Modification
 TA0003,Persistence,T1547.012,Print Processors
+TA0003,Persistence,T1547.013,XDG Autostart Entries
+TA0003,Persistence,T1547.014,Active Setup
 TA0003,Persistence,T1037,Boot or Logon Initialization Scripts
 TA0003,Persistence,T1037.001,Logon Script (Windows)
 TA0003,Persistence,T1037.002,Logon Script (Mac)
@@ -187,6 +199,11 @@ TA0003,Persistence,T1574.006,LD_PRELOAD
 TA0003,Persistence,T1574.004,Dylib Hijacking
 TA0003,Persistence,T1574.012,COR_PROFILER
 TA0003,Persistence,T1525,Implant Container Image
+TA0003,Persistence,T1556,Modify Authentication Process
+TA0003,Persistence,T1556.001,Domain Controller Authentication
+TA0003,Persistence,T1556.002,Password Filter DLL
+TA0003,Persistence,T1556.003,Pluggable Authentication Modules
+TA0003,Persistence,T1556.004,Network Device Authentication
 TA0003,Persistence,T1137,Office Application Startup
 TA0003,Persistence,T1137.006,Add-ins
 TA0003,Persistence,T1137.001,Office Template Macros
@@ -207,6 +224,7 @@ TA0003,Persistence,T1053.001,At (Linux)
 TA0003,Persistence,T1053.004,Launchd
 TA0003,Persistence,T1053.003,Cron
 TA0003,Persistence,T1053.006,Systemd Timers
+TA0003,Persistence,T1053.007,Container Orchestration Job
 TA0003,Persistence,T1505,Server Software Component
 TA0003,Persistence,T1505.001,SQL Stored Procedures
 TA0003,Persistence,T1505.002,Transport Agent
@@ -242,6 +260,8 @@ TA0004,Privilege Escalation,T1547.009,Shortcut Modification
 TA0004,Privilege Escalation,T1547.010,Port Monitors
 TA0004,Privilege Escalation,T1547.011,Plist Modification
 TA0004,Privilege Escalation,T1547.012,Print Processors
+TA0004,Privilege Escalation,T1547.013,XDG Autostart Entries
+TA0004,Privilege Escalation,T1547.014,Active Setup
 TA0004,Privilege Escalation,T1037,Boot or Logon Initialization Scripts
 TA0004,Privilege Escalation,T1037.001,Logon Script (Windows)
 TA0004,Privilege Escalation,T1037.002,Logon Script (Mac)
@@ -253,6 +273,10 @@ TA0004,Privilege Escalation,T1543.001,Launch Agent
 TA0004,Privilege Escalation,T1543.002,Systemd Service
 TA0004,Privilege Escalation,T1543.003,Windows Service
 TA0004,Privilege Escalation,T1543.004,Launch Daemon
+TA0004,Privilege Escalation,T1484,Domain Policy Modification
+TA0004,Privilege Escalation,T1484.001,Group Policy Modification
+TA0004,Privilege Escalation,T1484.002,Domain Trust Modification
+TA0004,Privilege Escalation,T1611,Escape to Host
 TA0004,Privilege Escalation,T1546,Event Triggered Execution
 TA0004,Privilege Escalation,T1546.001,Change Default File Association
 TA0004,Privilege Escalation,T1546.002,Screensaver
@@ -270,7 +294,6 @@ TA0004,Privilege Escalation,T1546.013,PowerShell Profile
 TA0004,Privilege Escalation,T1546.014,Emond
 TA0004,Privilege Escalation,T1546.015,Component Object Model Hijacking
 TA0004,Privilege Escalation,T1068,Exploitation for Privilege Escalation
-TA0004,Privilege Escalation,T1484,Group Policy Modification
 TA0004,Privilege Escalation,T1574,Hijack Execution Flow
 TA0004,Privilege Escalation,T1574.010,Services File Permissions Weakness
 TA0004,Privilege Escalation,T1574.005,Executable Installer File Permissions Weakness
@@ -292,7 +315,7 @@ TA0004,Privilege Escalation,T1055.005,Thread Local Storage
 TA0004,Privilege Escalation,T1055.008,Ptrace System Calls
 TA0004,Privilege Escalation,T1055.009,Proc Memory
 TA0004,Privilege Escalation,T1055.011,Extra Window Memory Injection
-TA0004,Privilege Escalation,T1055.013,Process Doppelgänging
+TA0004,Privilege Escalation,T1055.013,Process Doppelg√§nging
 TA0004,Privilege Escalation,T1055.012,Process Hollowing
 TA0004,Privilege Escalation,T1055.014,VDSO Hijacking
 TA0004,Privilege Escalation,T1053,Scheduled Task/Job
@@ -302,6 +325,7 @@ TA0004,Privilege Escalation,T1053.001,At (Linux)
 TA0004,Privilege Escalation,T1053.004,Launchd
 TA0004,Privilege Escalation,T1053.003,Cron
 TA0004,Privilege Escalation,T1053.006,Systemd Timers
+TA0004,Privilege Escalation,T1053.007,Container Orchestration Job
 TA0004,Privilege Escalation,T1078,Valid Accounts
 TA0004,Privilege Escalation,T1078.001,Default Accounts
 TA0004,Privilege Escalation,T1078.002,Domain Accounts
@@ -319,15 +343,19 @@ TA0005,Defense Evasion,T1134.003,Make and Impersonate Token
 TA0005,Defense Evasion,T1134.004,Parent PID Spoofing
 TA0005,Defense Evasion,T1134.005,SID-History Injection
 TA0005,Defense Evasion,T1197,BITS Jobs
+TA0005,Defense Evasion,T1612,Build Image on Host
 TA0005,Defense Evasion,T1140,Deobfuscate/Decode Files or Information
+TA0005,Defense Evasion,T1610,Deploy Container
 TA0005,Defense Evasion,T1006,Direct Volume Access
+TA0005,Defense Evasion,T1484,Domain Policy Modification
+TA0005,Defense Evasion,T1484.001,Group Policy Modification
+TA0005,Defense Evasion,T1484.002,Domain Trust Modification
 TA0005,Defense Evasion,T1480,Execution Guardrails
 TA0005,Defense Evasion,T1480.001,Environmental Keying
 TA0005,Defense Evasion,T1211,Exploitation for Defense Evasion
 TA0005,Defense Evasion,T1222,File and Directory Permissions Modification
 TA0005,Defense Evasion,T1222.001,Windows File and Directory Permissions Modification
 TA0005,Defense Evasion,T1222.002,Linux and Mac File and Directory Permissions Modification
-TA0005,Defense Evasion,T1484,Group Policy Modification
 TA0005,Defense Evasion,T1564,Hide Artifacts
 TA0005,Defense Evasion,T1564.001,Hidden Files and Directories
 TA0005,Defense Evasion,T1564.002,Hidden Users
@@ -351,7 +379,7 @@ TA0005,Defense Evasion,T1574.012,COR_PROFILER
 TA0005,Defense Evasion,T1562,Impair Defenses
 TA0005,Defense Evasion,T1562.001,Disable or Modify Tools
 TA0005,Defense Evasion,T1562.002,Disable Windows Event Logging
-TA0005,Defense Evasion,T1562.003,Impair Defenses: Impair Command History Logging
+TA0005,Defense Evasion,T1562.003,Impair Defenses:¬†Impair Command History Logging
 TA0005,Defense Evasion,T1562.004,Disable or Modify System Firewall
 TA0005,Defense Evasion,T1562.006,Indicator Blocking
 TA0005,Defense Evasion,T1562.007,Disable or Modify Cloud Firewall
@@ -408,7 +436,7 @@ TA0005,Defense Evasion,T1055.005,Thread Local Storage
 TA0005,Defense Evasion,T1055.008,Ptrace System Calls
 TA0005,Defense Evasion,T1055.009,Proc Memory
 TA0005,Defense Evasion,T1055.011,Extra Window Memory Injection
-TA0005,Defense Evasion,T1055.013,Process Doppelgänging
+TA0005,Defense Evasion,T1055.013,Process Doppelg√§nging
 TA0005,Defense Evasion,T1055.012,Process Hollowing
 TA0005,Defense Evasion,T1055.014,VDSO Hijacking
 TA0005,Defense Evasion,T1207,Rogue Domain Controller
@@ -432,6 +460,8 @@ TA0005,Defense Evasion,T1553.001,Gatekeeper Bypass
 TA0005,Defense Evasion,T1553.002,Code Signing
 TA0005,Defense Evasion,T1553.003,SIP and Trust Provider Hijacking
 TA0005,Defense Evasion,T1553.004,Install Root Certificate
+TA0005,Defense Evasion,T1553.005,Mark-of-the-Web Bypass
+TA0005,Defense Evasion,T1553.006,Code Signing Policy Modification
 TA0005,Defense Evasion,T1221,Template Injection
 TA0005,Defense Evasion,T1205,Traffic Signaling
 TA0005,Defense Evasion,T1205.001,Port Knocking
@@ -465,8 +495,13 @@ TA0006,Credential Access,T1555,Credentials from Password Stores
 TA0006,Credential Access,T1555.001,Keychain
 TA0006,Credential Access,T1555.002,Securityd Memory
 TA0006,Credential Access,T1555.003,Credentials from Web Browsers
+TA0006,Credential Access,T1555.004,Windows Credential Manager
+TA0006,Credential Access,T1555.005,Password Managers
 TA0006,Credential Access,T1212,Exploitation for Credential Access
 TA0006,Credential Access,T1187,Forced Authentication
+TA0006,Credential Access,T1606,Forge Web Credentials
+TA0006,Credential Access,T1606.001,Web Cookies
+TA0006,Credential Access,T1606.002,SAML Tokens
 TA0006,Credential Access,T1056,Input Capture
 TA0006,Credential Access,T1056.001,Keylogging
 TA0006,Credential Access,T1056.002,GUI Input Capture
@@ -505,6 +540,7 @@ TA0006,Credential Access,T1552.003,Bash History
 TA0006,Credential Access,T1552.004,Private Keys
 TA0006,Credential Access,T1552.005,Cloud Instance Metadata API
 TA0006,Credential Access,T1552.006,Group Policy Preferences
+TA0006,Credential Access,T1552.007,Container API
 TA0007,Discovery,T1087,Account Discovery
 TA0007,Discovery,T1087.001,Local Account
 TA0007,Discovery,T1087.002,Domain Account
@@ -515,6 +551,7 @@ TA0007,Discovery,T1217,Browser Bookmark Discovery
 TA0007,Discovery,T1580,Cloud Infrastructure Discovery
 TA0007,Discovery,T1538,Cloud Service Dashboard
 TA0007,Discovery,T1526,Cloud Service Discovery
+TA0007,Discovery,T1613,Container and Resource Discovery
 TA0007,Discovery,T1482,Domain Trust Discovery
 TA0007,Discovery,T1083,File and Directory Discovery
 TA0007,Discovery,T1046,Network Service Scanning
@@ -532,7 +569,9 @@ TA0007,Discovery,T1018,Remote System Discovery
 TA0007,Discovery,T1518,Software Discovery
 TA0007,Discovery,T1518.001,Security Software Discovery
 TA0007,Discovery,T1082,System Information Discovery
+TA0007,Discovery,T1614,System Location Discovery
 TA0007,Discovery,T1016,System Network Configuration Discovery
+TA0007,Discovery,T1016.001,Internet Connection Discovery
 TA0007,Discovery,T1049,System Network Connections Discovery
 TA0007,Discovery,T1033,System Owner/User Discovery
 TA0007,Discovery,T1007,System Service Discovery

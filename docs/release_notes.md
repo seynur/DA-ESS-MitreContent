@@ -3,6 +3,11 @@ layout: default
 title: Release Notes
 ---
 ### Release Notes:
+#### Version 3.2.0
+- Date: 4 May 2021
+- Feature: Compatibility with ATT&CK version 9.0
+  - Updated lookup tables with technique and sub-technique IDs
+
 #### Version 3.1.1
 - Date: 14 Apr 2021
 - Feature: Splunk Enterprise Security 6.4.x provides mitre_attack annotation in correlation searches that map to techniques. These mappings are integrated into both the Compliance and Triggered Techniques dashboards.
