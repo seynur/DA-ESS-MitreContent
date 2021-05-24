@@ -1,4 +1,4 @@
-<form>
+<form version="1.1">
   <label>MITRE ATT&amp;CK Rule Finder</label>
   <description>Please enter the technique name in order to find the related correlation rules defined within Enterprise Security.</description>
   <search id="mitre_use_es">
@@ -18,6 +18,12 @@
       <prefix>"</prefix>
       <suffix>"</suffix>
     </input>
+    <input type="radio" token="display_rule_status" searchWhenChanged="true">
+      <label>Rule Display Options</label>
+      <choice value="all_rules">Show All Existing Rules</choice>
+      <choice value="only_enabled_rules">Show Only Enabled Rules</choice>
+      <default>all_rules</default>
+    </input>
   </fieldset>
   <row>
     <panel>
@@ -28,6 +34,8 @@
 | search technique_id=$mitre_technique_id$
 | eval app_name=mvdedup(app_name), rule_disabled=mvdedup(rule_disabled)
 | eval Status = if(rule_disabled=0,"Enabled","Disabled")
+| eval show_cond = if(("$display_rule_status$"=="all_rules") OR ("$display_rule_status$"!="all_rules" AND Status = "Enabled"), 1 , 0)
+| where show_cond = 1
 | rename rule_name as "Rule Name", app_name as "Application", tactic_id as "Tactic ID", tactic_name as "Tactic", technique_id as "Technique ID", technique_name as "Technique"
 | fields "Rule Name", "Application", Status, "Tactic ID", "Tactic", "Technique ID", "Technique"</query>
           <earliest>-24h@h</earliest>
