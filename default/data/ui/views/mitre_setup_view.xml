@@ -8,7 +8,8 @@ http://docs.splunk.com/Documentation/Splunk/latest/Viz/PanelreferenceforSimplifi
 <dashboard isDashboard="false"
            hideEdit="true"
            script="setup_view/mitre_setup_page.js"
-           stylesheet="setup_view/styles/mitre_setup_page.css">
+           stylesheet="setup_view/styles/mitre_setup_page.css"
+           version="1.1">
     <label>Setup</label>
     <row>
         <panel id="setup_panel">

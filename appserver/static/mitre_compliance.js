@@ -1,19 +1,23 @@
 /* TODO: jink to replace theme_utils with that from core */
 require.config({
   paths: {
-    theme_utils: '../app/DA-ESS-MitreContent/theme_utils'
+    theme_utils: '../app/DA-ESS-MitreContent/theme_utils',
+    jquery_local: '../app/DA-ESS-MitreContent/lib/js/jquery-3.6.0.min'
   }
 });
 
 
 require([
     'underscore',
-    'jquery',
+    'jquery_local',
     'splunkjs/mvc',
     'splunkjs/mvc/tableview',
     'theme_utils',
     'splunkjs/mvc/simplexml/ready!'
-], function(_, $, mvc, TableView, themeUtils) {
+], function(_, jquery, mvc, TableView, themeUtils) {
+  
+    jQuery.noConflict(); // remove jquery conflicts for splunk js sdk
+    var $ = jQuery; // take dollar sign as a local variable
 
      // Row Coloring Example with custom, client-side range interpretation
 
@@ -35,18 +39,17 @@ require([
             var urgency_str = "None"
 
             var ttl = "Total: " + total_count + "\nEnabled: " + enabled_count + "\nPercentage: " + percentage;
-
-	    if(technique_id.includes('.')) {
-		$td.addClass('subtechnique');
-	    }
-      else {
-        if(technique_name=="NULL"){
-          $td.addClass('empty');
-        }
-        else {
-          $td.addClass('technique');
-        }
-      }
+	          if(technique_id.includes('.')) {
+            	$td.addClass('subtechnique');
+            }
+            else {
+              if(technique_name=="NULL"){
+                $td.addClass('empty');
+                }
+              else {
+                $td.addClass('technique');
+                }
+            }
             $td.tooltip();
             $td.prop('title', ttl);
 
@@ -55,7 +58,7 @@ require([
                 if(percentage > 70){
                     $td.addClass('range-cell').addClass('range-compliance_high');
                 }
-	        if(percentage > 50){
+	              if(percentage > 50){
                     $td.addClass('range-cell').addClass('range-compliance_mid');
                 }
                 if(percentage > 30){

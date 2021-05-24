@@ -1,4 +1,7 @@
-<form script="mitre_triggered.js" stylesheet="mitre_matrix.css" theme="dark">
+<form script="mitre_triggered.js"
+      stylesheet="mitre_matrix.css"
+      theme="dark"
+      version="1.1">
   <label>MITRE ATT&amp;CK Matrix</label>
   <description>This dashboard provides an overview of triggered tactics and techniques based on enabled correlation rules with related MITRE ATT&amp;CK annotations.</description>
   <search id="mitre_use_es">
