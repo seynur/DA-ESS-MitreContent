@@ -38,6 +38,11 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 #### Release Notes:
 
+Version 3.3.0
+- Date: 26 May 2021
+- Feature: Updated jQuery to version 3.6.0
+- Feature: Added new Rule Display Option to the MITRE ATT&CK Compliance dashboard to show all existing rules or only enabled rules
+
 Version 3.2.0
 - Date: 4 May 2021
 - Feature: Compatibility with ATT&CK version 9.0
