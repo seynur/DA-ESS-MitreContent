@@ -1,6 +1,6 @@
 "use strict";
 
-var app_name = "./DA-ESS-MitreContent";
+var app_name = "DA-ESS-MitreContent";
 
 // This is an undocumented Splunk solution for how to include javascript logic
 // from other files.
@@ -17,23 +17,23 @@ var app_name = "./DA-ESS-MitreContent";
 // 4) After the app name, the path is provided as though it were from the
 //    $SPLUK_HOME/etc/apps/appserver/static/* directory
 require.config({
-    paths: {
-        // $SPLUNK_HOME/etc/apps/SPLUNK_APP_NAME/appserver/static/javascript/views/setup_page_example
-        SetupPage: "../app/" + app_name + "/setup_view/javascript/mitre_setup_main",
-    },
-    scriptType: "module",
+  paths: {
+    SetupPage: "../app/" + app_name + "/setup_view/javascript/mitre_setup_main",
+    jquery_local: "../app/"  + app_name +  "/lib/js/jquery-3.6.0.min"
+  },
+  scriptType: "module"
 });
 
 require([
-    // Splunk Web Framework Provided files
-    "backbone", // From the SplunkJS stack
-    "jquery", // From the SplunkJS stack
+    "backbone", // From the Splunk JS stack
+    "jquery_local", // From the local JS stack
     // Custom files
     "SetupPage",
 ],function(Backbone, jquery, SetupPage) {
+
     var mitre_setup_page = new SetupPage({
         // Sets the element that will be used for rendering
-        el: jquery("#main_container"),
+        el: $("#main_container"),
     });
 
     mitre_setup_page.render();

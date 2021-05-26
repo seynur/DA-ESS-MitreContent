@@ -1,19 +1,23 @@
 /* TODO: jink to replace theme_utils with that from core */
 require.config({
   paths: {
-    theme_utils: '../app/DA-ESS-MitreContent/theme_utils'
+    theme_utils: '../app/DA-ESS-MitreContent/theme_utils',
+    jquery_local: '../app/DA-ESS-MitreContent/lib/js/jquery-3.6.0.min'
   }
 });
 
 
 require([
     'underscore',
-    'jquery',
+    'jquery_local',
     'splunkjs/mvc',
     'splunkjs/mvc/tableview',
     'theme_utils',
     'splunkjs/mvc/simplexml/ready!'
 ], function(_, $, mvc, TableView, themeUtils) {
+
+    jQuery.noConflict(); // remove jquery conflicts for splunk js sdk
+    var $ = jQuery; // take dollar sign as a local variable
 
      // Row Coloring Example with custom, client-side range interpretation
 

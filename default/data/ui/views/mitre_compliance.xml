@@ -1,4 +1,6 @@
-<form script="mitre_compliance.js" stylesheet="mitre_matrix.css">
+<form script="mitre_compliance.js"
+      stylesheet="mitre_matrix.css"
+      version="1.1">
   <label>MITRE ATT&amp;CK Compliance</label>
   <description>This dashboard provides an overview of available correlation searches that match MITRE ATT&amp;CK techniques.  Darker colors indicate higher ratio of enabled rules and you can view the actual numbers when hovering over the cells and click to drilldown further for editing the rules.</description>
   <fieldset submitButton="false" autoRun="true">
@@ -13,6 +15,12 @@
       <choice value="mitre_lookup">Hide/Collapse Sub-techniques</choice>
       <choice value="mitre_lookup_subtechniques">Show/Expand Sub-techniques</choice>
       <default>mitre_lookup</default>
+    </input>
+    <input type="radio" token="tok_display_rule_status" searchWhenChanged="true">
+      <label>Rule Display Options</label>
+      <choice value="all_rules">Show All Existing Rules</choice>
+      <choice value="only_enabled_rules">Show Only Enabled Rules</choice>
+      <default>all_rules</default>
     </input>
   </fieldset>
   <row>
@@ -50,7 +58,16 @@
         <title>MITRE ATT&amp;CK Compliance</title>
         <search>
           <query>| inputlookup $tok_display_option$
-| foreach TA00* [ | lookup mitre_tt_lookup technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW technique_name as &lt;&lt;FIELD&gt;&gt;_technique_name | eval &lt;&lt;FIELD&gt;&gt;_technique_name=mvindex(&lt;&lt;FIELD&gt;&gt;_technique_name,0) | lookup $tok_display_scope$ technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW enabled_percentage as &lt;&lt;FIELD&gt;&gt;_perc, count as &lt;&lt;FIELD&gt;&gt;_count, enabled_count as &lt;&lt;FIELD&gt;&gt;_enabled | fillnull value="NULL" &lt;&lt;FIELD&gt;&gt;,&lt;&lt;FIELD&gt;&gt;_technique_name,&lt;&lt;FIELD&gt;&gt;_perc,&lt;&lt;FIELD&gt;&gt;_count,&lt;&lt;FIELD&gt;&gt;_enabled | eval &lt;&lt;FIELD&gt;&gt;=&lt;&lt;FIELD&gt;&gt;."|".&lt;&lt;FIELD&gt;&gt;_technique_name."|".&lt;&lt;FIELD&gt;&gt;_perc."|".&lt;&lt;FIELD&gt;&gt;_enabled."|".&lt;&lt;FIELD&gt;&gt;_count] | fields TA0043,TA0042,TA0001,TA0002,TA0003,TA0004,TA0005,TA0006,TA0007,TA0008,TA0009,TA0011,TA0010,TA0040 | rename TA0043 as "Reconnaissance", TA0042 as "Resource Development", TA0001 as "Initial Access", TA0002 as "Execution", TA0003 as "Persistence", TA0004 as "Privilege Escalation", TA0005 as "Defense Evasion", TA0006 as "Credential Access", TA0007 as "Discovery", TA0008 as "Lateral Movement", TA0009 as "Collection", TA0011 as "Command and Control", TA0010 as "Exfiltration", TA0040 as "Impact"</query>
+| foreach TA00*
+    [| lookup mitre_tt_lookup technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW technique_name as &lt;&lt;FIELD&gt;&gt;_technique_name
+    | eval &lt;&lt;FIELD&gt;&gt;_technique_name=mvindex(&lt;&lt;FIELD&gt;&gt;_technique_name,0)
+    | lookup $tok_display_scope$ technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW enabled_percentage as &lt;&lt;FIELD&gt;&gt;_perc, count as &lt;&lt;FIELD&gt;&gt;_count, enabled_count as &lt;&lt;FIELD&gt;&gt;_enabled
+    | fillnull value="NULL" &lt;&lt;FIELD&gt;&gt;,&lt;&lt;FIELD&gt;&gt;_technique_name,&lt;&lt;FIELD&gt;&gt;_perc,&lt;&lt;FIELD&gt;&gt;_count,&lt;&lt;FIELD&gt;&gt;_enabled
+    | eval &lt;&lt;FIELD&gt;&gt;_count=if("$tok_display_rule_status$"=="only_enabled_rules", &lt;&lt;FIELD&gt;&gt;_enabled,&lt;&lt;FIELD&gt;&gt;_count), &lt;&lt;FIELD&gt;&gt;_perc=if("$tok_display_rule_status$"=="only_enabled_rules" AND &lt;&lt;FIELD&gt;&gt;_perc!="NULL" AND &lt;&lt;FIELD&gt;&gt;_perc!=0,100, &lt;&lt;FIELD&gt;&gt;_perc)
+    | eval &lt;&lt;FIELD&gt;&gt;_perc=if("$tok_display_rule_status$"=="only_enabled_rules" AND &lt;&lt;FIELD&gt;&gt;_perc="0" ,"NULL", &lt;&lt;FIELD&gt;&gt;_perc)
+    | eval &lt;&lt;FIELD&gt;&gt;=&lt;&lt;FIELD&gt;&gt;."|".&lt;&lt;FIELD&gt;&gt;_technique_name."|".&lt;&lt;FIELD&gt;&gt;_perc."|".&lt;&lt;FIELD&gt;&gt;_enabled."|".&lt;&lt;FIELD&gt;&gt;_count]
+| fields TA0043,TA0042,TA0001,TA0002,TA0003,TA0004,TA0005,TA0006,TA0007,TA0008,TA0009,TA0011,TA0010,TA0040
+| rename TA0043 as "Reconnaissance", TA0042 as "Resource Development", TA0001 as "Initial Access", TA0002 as "Execution", TA0003 as "Persistence", TA0004 as "Privilege Escalation", TA0005 as "Defense Evasion", TA0006 as "Credential Access", TA0007 as "Discovery", TA0008 as "Lateral Movement", TA0009 as "Collection", TA0011 as "Command and Control", TA0010 as "Exfiltration", TA0040 as "Impact"</query>
           <earliest>-24h</earliest>
           <latest></latest>
         </search>
@@ -61,7 +78,7 @@
         <option name="refresh.display">progressbar</option>
         <drilldown>
           <eval token="technique_q">mvindex(split('click.value2',"|"),0)</eval>
-          <link target="_blank">/app/DA-ESS-MitreContent/mitre_rule_finder?form.mitre_technique_id=$technique_q$</link>
+          <link target="_blank">/app/DA-ESS-MitreContent/mitre_rule_finder?form.mitre_technique_id=$technique_q$&amp;form.display_rule_status=$tok_display_rule_status$</link>
         </drilldown>
       </table>
     </panel>

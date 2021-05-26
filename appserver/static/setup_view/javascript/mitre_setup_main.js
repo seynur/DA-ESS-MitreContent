@@ -14,10 +14,12 @@ const application_name_space = {
     sharing: "app",
 };
 
-//var splunk_js_sdk_service = [];
 define(
-    ["backbone", "jquery", "splunkjs/splunk"],
+    ["backbone", "jquery_local", "splunkjs/splunk"],
     function(Backbone, jquery, splunk_js_sdk) {
+        jQuery.noConflict(); // remove jquery conflicts for splunk js sdk
+        var $ = jQuery; // take dollar sign as a local variable
+
         var MitreSetupView = Backbone.View.extend({
             // -----------------------------------------------------------------
             // Backbone Functions, These are specific to the Backbone library
@@ -69,16 +71,12 @@ define(
             // Main Setup Logic
             // ----------------------------------
             trigger_setup: async function trigger_setup(savedsearches_setup_options) {
-                var api_key_input_element = jquery("input[name=api_key]");
+                var api_key_input_element = $("input[name=api_key]");
                 var api_key = api_key_input_element.val();
                 let verify_api_key = this.verify_alphanumeric_key(api_key);
                 const verified_api_key = verify_api_key[0], is_valid_api_key = verify_api_key[1];
-                console.log("is_valid_api_key");
-                console.log(is_valid_api_key);
 
-
-
-                var secret_key_input_element = jquery("input[name=secret_key]");
+                var secret_key_input_element = $("input[name=secret_key]");
                 var secret_key = secret_key_input_element.val();
 
                 let verify_secret_key = this.verify_alphanumeric_key(secret_key);
@@ -87,7 +85,7 @@ define(
                 console.log(is_valid_secret_key);
 
                 if (is_valid_api_key === true && is_valid_secret_key === true) {
-
+                  //jQuery.noConflict( true );
                   if (verified_api_key !== DUMMYKEY) {
                     this.perform_password_setup(
                       splunk_js_sdk,
@@ -116,7 +114,6 @@ define(
                   )
                   await Setup.complete_setup(this.splunk_js_sdk_service,app_name);
 
-                  console.log("clear_error_output");
                   this.clear_error_output();
 
                   var success_response = 'Success: Configuration is saved!';
@@ -125,7 +122,6 @@ define(
                 } else {
                     this.clear_success_output();
                     var key_error = 'Error: Please check your API/Secret Key!';
-                    console.log("display_error_output");
                     this.display_error_output(key_error);
                   }
                 },
@@ -166,7 +162,6 @@ define(
             perform_setup: async function perform_setup(setup_options,configuration_file_name) {
                 $("div[class='spinnerBG']").fadeIn();
                 $("div[class='spinnerShow']").fadeIn();
-
                 try {
 
                     await Splunk.update_configuration_file(
@@ -177,7 +172,6 @@ define(
 
                     //Setup.redirect_to_splunk_app_homepage(splunk_js_sdk_service,app_name);
 
-                    console.log(" Configuration Success");
                 } catch (error) {
                     console.log(error);
                     console.log("An error occured!");
@@ -198,7 +192,6 @@ define(
                         key_value
                     )
                     return true;
-                    console.log("Password: Success!");
 
                 } catch (error) {
                     console.log("An error occured(Password)!");
@@ -230,7 +223,7 @@ define(
             // Display Functions
             // ----------------------------------
             clear_success_output: function clear_success_output() {
-                var clear_success_output_element = jquery(".setup.container .success.output");
+                var clear_success_output_element = $(".setup.container .success.output");
                 clear_success_output_element.fadeOut({
                     complete: function() {
                         clear_success_output_element.html("");
@@ -238,7 +231,7 @@ define(
                 });
             },
             clear_error_output: function clear_error_output() {
-                var clear_error_output_element = jquery(".setup.container .error.output");
+                var clear_error_output_element = $(".setup.container .error.output");
                 clear_error_output_element.fadeOut({
                     complete: function() {
                         clear_error_output_element.html("");
@@ -247,7 +240,7 @@ define(
             },
             display_success_output: function display_success_output(success_message) {
                 var did_success_messages_occur = success_message.length > 0;
-                var success_output_element = jquery(".setup.container .success.output");
+                var success_output_element = $(".setup.container .success.output");
                 var new_success_output_string = "";
                 new_success_output_string += "<ul>" + success_message + "</ul>" ;
                 success_output_element.html(new_success_output_string);
@@ -258,7 +251,7 @@ define(
             },
             display_error_output: function display_error_output(error_message) {
                 var did_error_messages_occur = error_message.length > 0;
-                var error_output_element = jquery(".setup.container .error.output");
+                var error_output_element = $(".setup.container .error.output");
                 var new_error_output_string = "";
                 new_error_output_string += "<ul>" + error_message + "</ul>" ;
                 error_output_element.html(new_error_output_string);
