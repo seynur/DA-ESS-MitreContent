@@ -3,6 +3,16 @@ layout: default
 title: Release Notes
 ---
 ### Release Notes:
+#### Version 3.4.0
+- Date: 29 Jul 2021
+- Feature: 65 new rule is shipped with MITRE ATTACK App now. All rules are disabled by default.
+ - Added mitre_app_rule_technique_lookup
+ - Removed mitre_api_rule_technique_lookup
+ - Changed savedsearches.conf
+- API integration is removed.
+ - Removed custom search command (| getattackdetectionrules)
+ - Changed setup view
+
 #### Version 3.3.0
 - Date: 26 May 2021
 - Feature: Updated jQuery to version 3.6.0

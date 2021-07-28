@@ -34,6 +34,8 @@ items:
 - name: Release Notes
   link: release_notes.html
   subitems:
+    - name: Version 3.4.0
+      anchor: release_notes.html#version-340
     - name: Version 3.3.0
       anchor: release_notes.html#version-330
     - name: Version 3.2.0
