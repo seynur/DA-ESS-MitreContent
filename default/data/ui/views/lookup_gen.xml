@@ -75,7 +75,7 @@
       </table>
     </panel>
     <panel rejects="$search_in_progress$" depends="$search_completed$">
-      <title>MITRE ATT&amp;CK Compliance Lookup: User-Defined/API Rules</title>
+      <title>MITRE ATT&amp;CK Compliance Lookup: User-Defined/MITRE ATTACK App Rules</title>
       <table>
         <search>
           <query>| savedsearch "MITRE ATT&amp;CK User Rules Compliance Lookup Gen"</query>

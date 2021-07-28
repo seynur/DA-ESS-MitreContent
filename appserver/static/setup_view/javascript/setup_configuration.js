@@ -1,31 +1,5 @@
 import * as SplunkHelpers from './splunk_helpers.js'
 
-async function create_password_storage(splunk_js_sdk_service, key_name, key_value){
-  var storagePasswords = splunk_js_sdk_service.storagePasswords();
-  await storagePasswords.fetch();
-  var storages_found = storagePasswords.list();
-  for (var index = 0; index < storages_found.length; index++) {
-      var storage_found = storages_found[index].name;
-      if (storage_found === ":" + key_name +":" ) {
-          console.log('trying to delete');
-          await storagePasswords.del(key_name);
-      }
-  }
-  await storagePasswords.create({
-    name: key_name,
-    realm: "",
-    password: key_value},
-    function(err, storagePassword) {
-        if (err) {
-          console.log("Password storage error!");
-        }
-        else {
-        // Storage password was created successfully
-        console.log("Password storage created!");
-        }
-    });
-}
-
 async function complete_setup(splunk_js_sdk_service,app_name) {
   var configuration_file_name = "app";
   var app_setup_options = [
@@ -68,5 +42,4 @@ export {
   complete_setup,
   reload_splunk_app,
   create_splunk_js_sdk_service,
-  create_password_storage,
 }

@@ -1,0 +1,66 @@
+"rule_name","technique_id"
+"AttackDetection - Execution with AT - Rule",T1053
+"AttackDetection - Running executables with same hash and different names - Rule",T1036
+"AttackDetection - Active Directory Dumping via NTDSUtil - Rule",T1003
+"AttackDetection - Squiblydoo - Rule",T1218
+"AttackDetection - Services launching Cmd - Rule",T1543
+"AttackDetection - Credential Dumping via Windows Task Manager - Rule",T1003
+"AttackDetection - UAC Bypass - Rule",T1548
+"AttackDetection - Command Launched from WinLogon - Rule",T1546
+"AttackDetection - Host Discovery Commands - Rule","T1087 T1069 T1016 T1082 T1033 T1057 T1007"
+"AttackDetection - Create Remote Process via WMIC - Rule",T1047
+"AttackDetection - Generic Regsvr32: Main Pattern - Rule",T1218
+"AttackDetection - Generic Regsvr32: Spawning Child Processes - Rule",T1218
+"AttackDetection - Powershell Execution - Rule",T1059
+"AttackDetection - Suspicious Arguments - Rule","T1003 T1021 T1105"
+"AttackDetection - Lsass Process Dump via Procdump: Process Create - Rule",T1003
+"AttackDetection - User Activity from Clearing Event Logs (Security) - Rule",T1070
+"AttackDetection - Simultaneous Logins on a Host - Rule",T1078
+"AttackDetection - Execution with schtasks - Rule",T1053
+"AttackDetection - Quick execution of a series of suspicious commands - Rule","T1087 T1003  T1069 T1057 T1021 T1543 T1112 T1574 T1018 T1569 T1053 T1029 T1033 T1007 T1082 T1049 T1016 T1010 T1518 T1046 T1562 T1098 T1059 T1012"
+"AttackDetection - Reg.exe called from Command Shell - Rule","T1012 T1112 T1547 T1574"
+"AttackDetection - Remote PowerShell Sessions - Rule","T1059 T1021"
+"AttackDetection - User Logged in to Multiple Hosts - Rule",T1078
+"AttackDetection - Suspicious Run Locations - Rule",T1036
+"AttackDetection - Processes Spawning cmd.exe - Rule",T1059
+"AttackDetection - RDP Connection Detection - Rule",T1021
+"AttackDetection - RunDLL32.exe monitoring - Rule",T1218
+"AttackDetection - Successful Local Account Login - Rule",T1550
+"AttackDetection - Scheduled Task FileAccess - Rule",T1053
+"AttackDetection - Compiled HTML Access - Rule",T1218
+"AttackDetection - Network Share Connection Removal - Rule",T1070
+"AttackDetection - Local Network Sniffing - Rule",T1040
+"AttackDetection - DLL Injection with Mavinject - Rule",T1055
+"AttackDetection - MSBuild and msxsl - Rule"," T1127"
+"AttackDetection - Component Object Model Hijacking - Rule",T1546
+"AttackDetection - CMSTP - Rule",T1218
+"AttackDetection -  Registry Edit from Screensaver - Rule",T1546
+"AttackDetection - Credentials in Files & Registry - Rule",T1552
+"AttackDetection - AppInit DLLs - Rule",T1546
+"AttackDetection - Clear Powershell Console Command History - Rule",T1070
+"AttackDetection - Indicator Blocking - Driver Unloaded - Rule",T1562
+"AttackDetection - Processes Started From Irregular Parent - Rule",T1068
+"AttackDetection - Local Permission Group Discovery - Rule",T1069
+"AttackDetection - Unusual Child Process for Spoolsv.Exe or Connhost.Exe - Rule",T1068
+"AttackDetection - Unusual Child Process spawned using DDE exploit - Rule",T1559
+"AttackDetection - Webshell-Indicative Process Tree - Rule",T1505
+"AttackDetection - Detecting Tampering of Windows Defender Command Prompt - Rule",T1562
+"AttackDetection - Identifying Port Scanning Activity - Rule",T1046
+"AttackDetection - Disable UAC - Rule",T1548
+"AttackDetection - Detecting Shadow Copy Deletion via Vssadmin.exe - Rule",T1490
+"AttackDetection - Get System Elevation (Meterpreter and Cobalt Strike) - Rule",T1548
+"AttackDetection - Get System Elevation (Empire and PoshC2) - Rule",T1548
+"AttackDetection - Debuggers for Accessibility Applications - Rule",T1546
+"AttackDetection - NTFS Alternate Data Stream Execution (powershell) - Rule",T1564
+"AttackDetection - NTFS Alternate Data Stream Execution (wmic) - Rule",T1564
+"AttackDetection - NTFS Alternate Data Stream Execution (rundll32) - Rule",T1564
+"AttackDetection - NTFS Alternate Data Stream Execution (wscript/cscript) - Rule",T1564
+"AttackDetection - NTFS Alternate Data Stream Execution (control) - Rule",T1564
+"AttackDetection - NTFS Alternate Data Stream Execution (appvlp) - Rule",T1564
+"AttackDetection - NTFS Alternate Data Stream Execution (cmd) - Rule",T1564
+"AttackDetection - NTFS Alternate Data Stream Execution (ftp) - Rule",T1564
+"AttackDetection - NTFS Alternate Data Stream Execution (bash) - Rule",T1564
+"AttackDetection - NTFS Alternate Data Stream Execution (mavinject) - Rule",T1564
+"AttackDetection - NTFS Alternate Data Stream Execution (bitsadmin) - Rule",T1564
+"AttackDetection - Rare LolBAS Command Lines - Rule","T1012, T1112, T1547, T1574"
+"AttackDetection - Unusually Long Command Line Strings - Rule",T1059
