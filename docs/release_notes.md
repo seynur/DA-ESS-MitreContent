@@ -3,6 +3,15 @@ layout: default
 title: Release Notes
 ---
 ### Release Notes:
+#### Version 3.4.0
+- Date: 29 Jul 2021
+- Feature: API integration is replaced with out-of-the-box rules.
+ - Removed custom search command ```getattackdetectionrules```
+ - Changed setup view
+ - Added 65 new rules (optimized to use Data Models) from MITRE Cyber Analytics Repository (car.mitre.org)
+ - Added ```mitre_app_rule_technique_lookup```
+ - Removed ```mitre_api_rule_technique_lookup```
+
 #### Version 3.3.0
 - Date: 26 May 2021
 - Feature: Updated jQuery to version 3.6.0

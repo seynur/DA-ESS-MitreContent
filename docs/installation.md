@@ -13,7 +13,7 @@ title: Installation
 
 ### Initial Setup
 Upon installation of the application you will be redirected to the Setup page.
-1. This setup page provides configuration options for API integration as well as usage with Enterprise Security.  If you do not have an API key or prefer not to have the integration you can simply hit Save button and continue.  If you do not have Enterprise Security, you can use Alert Manager application for triggered results and drill down functionality.  You can always go back to this Setup page and overwrite the settings.  Note that Setup also provides information on scheduled Lookup Generating searches and their schedules.  These can also be edited from Settings.
+1. This setup page provides configuration options for Lookup Generating searches as well as usage with Enterprise Security. After the configurations are set, you can simply hit the Save button and continue.  If you do not have Enterprise Security, you can use Alert Manager application for triggered results and drill down functionality.  You can always go back to this Setup page and overwrite the settings.  Note that Setup also provides information on scheduled Lookup Generating searches and their schedules.  These can also be edited from Settings.
     &nbsp;
 
    ![setup0]
