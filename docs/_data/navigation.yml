@@ -1,76 +1,84 @@
 items:
 - name: Overview
+  uid: docs_index
+  file: index.md
   link: index.html
   subitems:
     - name: Required Splunk Apps
-      anchor: index.html#required-splunk-apps
+      anchor: required-splunk-apps
     - name: Recommended Splunk Apps
-      anchor: index.html#recommended-splunk-apps
+      anchor: recommended-splunk-apps
     - name: Saved Searches
-      anchor: index.html#saved-searches
+      anchor: saved-searches
 - name: Installation
+  uid: docs_installation
+  file: installation.md
   link: installation.html
   subitems:
     - name: Initial Setup
-      anchor: installation.html#initial-setup
+      anchor: initial-setup
 - name: User Guide
-  link: user_guide.html
+  uid: docs_userguide
+  file: userguide.md
+  link: userguide.html
   subitems:
     - name: MITRE ATT&CK Compliance View
-      anchor: user_guide.html#mitre-attck-compliance-view
+      anchor: mitre-attck-compliance-view
     - name: MITRE ATT&CK Matrix View
-      anchor: user_guide.html#mitre-attck-matrix-view
+      anchor: mitre-attck-matrix-view
     - name: MITRE ATT&CK Triggered Tactics & Techniques View
-      anchor: user_guide.html#mitre-attck-triggered-tactics--techniques-view
+      anchor: mitre-attck-triggered-tactics--techniques-view
     - name: How To Match a Correlation Search with Framework
-      anchor: user_guide.html#how-to-match-a-correlation-search-with-framework
+      anchor: how-to-match-a-correlation-search-with-framework
       subsubitems:
           - name: Match with Analytic Story
-            anchor: user_guide.html#match-with-analytic-story
+            anchor: match-with-analytic-story
           - name: Match with Lookup
-            anchor: user_guide.html#match-with-lookup
-    - name: How to integrate with Alert Manager
-      anchor: user_guide.html#how-to-integrate-with-alert-manager
+            anchor: match-with-lookup
+    - name: How To Integrate With Alert Manager
+      anchor: how-to-integrate-with-alert-manager
 - name: Release Notes
-  link: release_notes.html
+  uid: docs_releasenotes
+  file: releasenotes.md
+  link: releasenotes.html
   subitems:
     - name: Version 3.5.0
-      anchor: release_notes.html#version-350
+      anchor: version-350
     - name: Version 3.4.0
-      anchor: release_notes.html#version-340
+      anchor: version-340
     - name: Version 3.3.0
-      anchor: release_notes.html#version-330
+      anchor: version-330
     - name: Version 3.2.0
-      anchor: release_notes.html#version-320
+      anchor: version-320
     - name: Version 3.1.1
-      anchor: release_notes.html#version-311
+      anchor: version-311
     - name: Version 3.1.0
-      anchor: release_notes.html#version-310
+      anchor: version-310
     - name: Version 3.0.3
-      anchor: release_notes.html#version-303
+      anchor: version-303
     - name: Version 3.0.2
-      anchor: release_notes.html#version-302
+      anchor: version-302
     - name: Version 3.0.1
-      anchor: release_notes.html#version-301
+      anchor: version-301
     - name: Version 3.0.0
-      anchor: release_notes.html#version-300
+      anchor: version-300
     - name: Version 2.3.0
-      anchor: release_notes.html#version-230
+      anchor: version-230
     - name: Version 2.2.0
-      anchor: release_notes.html#version-220
+      anchor: version-220
     - name: Version 2.1.0
-      anchor: release_notes.html#version-210
+      anchor: version-210
     - name: Version 2.0.1
-      anchor: release_notes.html#version-201
+      anchor: version-201
     - name: Version 2.0.0
-      anchor: release_notes.html#version-200
+      anchor: version-200
     - name: Version 1.3.0
-      anchor: release_notes.html#version-130
+      anchor: version-130
     - name: Version 1.2.1
-      anchor: release_notes.html#version-121
+      anchor: version-121
     - name: Version 1.2.0
-      anchor: release_notes.html#version-120
+      anchor: version-120
     - name: Version 1.1.0
-      anchor: release_notes.html#version-110
+      anchor: version-110
     - name: Version 1.0.0
-      anchor: release_notes.html#version-100
+      anchor: version-100

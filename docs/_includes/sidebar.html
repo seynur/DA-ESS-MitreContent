@@ -1,19 +1,28 @@
-<div id="sidebar">
-  <ul>
-    <li class="nav-item">
-    {% for item in site.data.navigation.items %}
-    {% if item.name == page.title %}
-    <div class="h5 sidebar-heading"><a href="{{ item.link }}">
-        {{item.name}}
-    </div>
-      {% for entry in item.subitems %}
-      <a class="nav-link" href="{{ entry.anchor }}">
-          {{entry.name}}
-      </a>
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+  <div class="sidebar-sticky pt-3">
+    <span class="h5 text-muted p-1"> </span>
+    <ul class="nav flex-column">
+      {% for item in site.data.navigation.items %}
+      <div class="sidebar-heading px-3 mt-4 mb-1 text-muted align-items-center d-flex justfiy-content-between">
+        <a class=" link-toggle rounded" data-bs-toggle="collapse" href="#{{ item.uid }}" role="button" aria-expanded="false" aria-controls="{{ item.uid }}">
+          <span>{{ item.name }}</span>
+        </a>
+      </div>
+      <div class="collapse {% if item.file == page.name %}show active{% endif %}" id="{{ item.uid }}">
+        <div>
+        {% for entry in item.subitems %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ item.link }}#{{ entry.anchor }}">
+            <span class="ps-3">{{ entry.name }}</span>
+          </a>
+        </li>
+        {% endfor %}
+        </div>
+      </div>
+
       {% endfor %}
-    {% endif %}
-    {% endfor %}
-    </li>
-  </ul>
-  <script src='assets/assets.js' type='text/javascript'></script>
-</div>
+
+    </ul>
+
+  </div>
+</nav>
