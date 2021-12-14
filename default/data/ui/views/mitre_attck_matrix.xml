@@ -234,9 +234,9 @@
         <option name="refresh.display">progressbar</option>
         <drilldown>
           <condition match="'mitre_use_es' == &quot;1&quot;">
-            <eval token="rules_q">if(mvindex(split('click.value2',"|"),3)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&source=]]>"),"|"),3),"*")</eval>
+            <eval token="rules_q">if(mvindex(split('click.value2',"|"),3)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&search=]]>"),"|"),3),"*")</eval>
             <link target="_blank">
-              <![CDATA[/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$attack_time_field.earliest$&amp;latest=$attack_time_field.latest$&amp;urgency=critical&amp;urgency=high&amp;urgency=medium&amp;urgency=low&amp;urgency=informational&source=$rules_q|n$]]>
+              <![CDATA[/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$attack_time_field.earliest$&amp;latest=$attack_time_field.latest$&amp;urgency=critical&amp;urgency=high&amp;urgency=medium&amp;urgency=low&amp;urgency=informational&search=$rules_q|n$]]>
             </link>
           </condition>
           <condition match="'mitre_use_es' == &quot;0&quot;">
