@@ -2,6 +2,7 @@ tactic_id,tactic_name,technique_id,technique_name
 TA0043,Reconnaissance,T1595,Active Scanning
 TA0043,Reconnaissance,T1595.001,Active Scanning: Scanning IP Blocks
 TA0043,Reconnaissance,T1595.002,Active Scanning: Vulnerability Scanning
+TA0043,Reconnaissance,T1595.003,Active Scanning: Wordlist Scanning
 TA0043,Reconnaissance,T1592,Gather Victim Host Information
 TA0043,Reconnaissance,T1592.004,Gather Victim Host Information: Client Configurations
 TA0043,Reconnaissance,T1592.003,Gather Victim Host Information: Firmware
@@ -112,10 +113,10 @@ TA0002,Execution,T1203,Exploitation for Client Execution
 TA0002,Execution,T1559,Inter-Process Communication
 TA0002,Execution,T1559.001,Inter-Process Communication: Component Object Model
 TA0002,Execution,T1559.002,Inter-Process Communication: Dynamic Data Exchange
+TA0002,Execution,T1559.003,Inter-Process Communication: XPC Services
 TA0002,Execution,T1106,Native API
 TA0002,Execution,T1053,Scheduled Task/Job
-TA0002,Execution,T1053.001,Scheduled Task/Job: At (Linux)
-TA0002,Execution,T1053.002,Scheduled Task/Job: At (Windows)
+TA0002,Execution,T1053.002,Scheduled Task/Job: At
 TA0002,Execution,T1053.007,Scheduled Task/Job: Container Orchestration Job
 TA0002,Execution,T1053.003,Scheduled Task/Job: Cron
 TA0002,Execution,T1053.005,Scheduled Task/Job: Scheduled Task
@@ -131,9 +132,10 @@ TA0002,Execution,T1204.003,User Execution: Malicious Image
 TA0002,Execution,T1204.001,User Execution: Malicious Link
 TA0002,Execution,T1047,Windows Management Instrumentation
 TA0003,Persistence,T1098,Account Manipulation
-TA0003,Persistence,T1098.003,Account Manipulation: Add Office 365 Global Administrator Role
 TA0003,Persistence,T1098.001,Account Manipulation: Additional Cloud Credentials
-TA0003,Persistence,T1098.002,Account Manipulation: Exchange Email Delegate Permissions
+TA0003,Persistence,T1098.003,Account Manipulation: Additional Cloud Roles
+TA0003,Persistence,T1098.002,Account Manipulation: Additional Email Delegate Permissions
+TA0003,Persistence,T1098.005,Account Manipulation: Device Registration
 TA0003,Persistence,T1098.004,Account Manipulation: SSH Authorized Keys
 TA0003,Persistence,T1197,BITS Jobs
 TA0003,Persistence,T1547,Boot or Logon Autostart Execution
@@ -142,7 +144,6 @@ TA0003,Persistence,T1547.002,Boot or Logon Autostart Execution: Authentication P
 TA0003,Persistence,T1547.006,Boot or Logon Autostart Execution: Kernel Modules and Extensions
 TA0003,Persistence,T1547.008,Boot or Logon Autostart Execution: LSASS Driver
 TA0003,Persistence,T1547.015,Boot or Logon Autostart Execution: Login Items
-TA0003,Persistence,T1547.011,Boot or Logon Autostart Execution: Plist Modification
 TA0003,Persistence,T1547.010,Boot or Logon Autostart Execution: Port Monitors
 TA0003,Persistence,T1547.012,Boot or Logon Autostart Execution: Print Processors
 TA0003,Persistence,T1547.007,Boot or Logon Autostart Execution: Re-opened Applications
@@ -153,7 +154,7 @@ TA0003,Persistence,T1547.003,Boot or Logon Autostart Execution: Time Providers
 TA0003,Persistence,T1547.004,Boot or Logon Autostart Execution: Winlogon Helper DLL
 TA0003,Persistence,T1547.013,Boot or Logon Autostart Execution: XDG Autostart Entries
 TA0003,Persistence,T1037,Boot or Logon Initialization Scripts
-TA0003,Persistence,T1037.002,Boot or Logon Initialization Scripts: Logon Script (Mac)
+TA0003,Persistence,T1037.002,Boot or Logon Initialization Scripts: Login Hook
 TA0003,Persistence,T1037.001,Boot or Logon Initialization Scripts: Logon Script (Windows)
 TA0003,Persistence,T1037.003,Boot or Logon Initialization Scripts: Network Logon Script
 TA0003,Persistence,T1037.004,Boot or Logon Initialization Scripts: RC Scripts
@@ -193,6 +194,7 @@ TA0003,Persistence,T1574.002,Hijack Execution Flow: DLL Side-Loading
 TA0003,Persistence,T1574.004,Hijack Execution Flow: Dylib Hijacking
 TA0003,Persistence,T1574.006,Hijack Execution Flow: Dynamic Linker Hijacking
 TA0003,Persistence,T1574.005,Hijack Execution Flow: Executable Installer File Permissions Weakness
+TA0003,Persistence,T1574.013,Hijack Execution Flow: KernelCallbackTable
 TA0003,Persistence,T1574.007,Hijack Execution Flow: Path Interception by PATH Environment Variable
 TA0003,Persistence,T1574.008,Hijack Execution Flow: Path Interception by Search Order Hijacking
 TA0003,Persistence,T1574.009,Hijack Execution Flow: Path Interception by Unquoted Path
@@ -204,6 +206,7 @@ TA0003,Persistence,T1556.001,Modify Authentication Process: Domain Controller Au
 TA0003,Persistence,T1556.004,Modify Authentication Process: Network Device Authentication
 TA0003,Persistence,T1556.002,Modify Authentication Process: Password Filter DLL
 TA0003,Persistence,T1556.003,Modify Authentication Process: Pluggable Authentication Modules
+TA0003,Persistence,T1556.005,Modify Authentication Process: Reversible Encryption
 TA0003,Persistence,T1137,Office Application Startup
 TA0003,Persistence,T1137.006,Office Application Startup: Add-ins
 TA0003,Persistence,T1137.001,Office Application Startup: Office Template Macros
@@ -218,8 +221,7 @@ TA0003,Persistence,T1542.004,Pre-OS Boot: ROMMONkit
 TA0003,Persistence,T1542.001,Pre-OS Boot: System Firmware
 TA0003,Persistence,T1542.005,Pre-OS Boot: TFTP Boot
 TA0003,Persistence,T1053,Scheduled Task/Job
-TA0003,Persistence,T1053.001,Scheduled Task/Job: At (Linux)
-TA0003,Persistence,T1053.002,Scheduled Task/Job: At (Windows)
+TA0003,Persistence,T1053.002,Scheduled Task/Job: At
 TA0003,Persistence,T1053.007,Scheduled Task/Job: Container Orchestration Job
 TA0003,Persistence,T1053.003,Scheduled Task/Job: Cron
 TA0003,Persistence,T1053.005,Scheduled Task/Job: Scheduled Task
@@ -227,6 +229,7 @@ TA0003,Persistence,T1053.006,Scheduled Task/Job: Systemd Timers
 TA0003,Persistence,T1505,Server Software Component
 TA0003,Persistence,T1505.004,Server Software Component: IIS Components
 TA0003,Persistence,T1505.001,Server Software Component: SQL Stored Procedures
+TA0003,Persistence,T1505.005,Server Software Component: Terminal Services DLL
 TA0003,Persistence,T1505.002,Server Software Component: Transport Agent
 TA0003,Persistence,T1505.003,Server Software Component: Web Shell
 TA0003,Persistence,T1205,Traffic Signaling
@@ -253,7 +256,6 @@ TA0004,Privilege Escalation,T1547.002,Boot or Logon Autostart Execution: Authent
 TA0004,Privilege Escalation,T1547.006,Boot or Logon Autostart Execution: Kernel Modules and Extensions
 TA0004,Privilege Escalation,T1547.008,Boot or Logon Autostart Execution: LSASS Driver
 TA0004,Privilege Escalation,T1547.015,Boot or Logon Autostart Execution: Login Items
-TA0004,Privilege Escalation,T1547.011,Boot or Logon Autostart Execution: Plist Modification
 TA0004,Privilege Escalation,T1547.010,Boot or Logon Autostart Execution: Port Monitors
 TA0004,Privilege Escalation,T1547.012,Boot or Logon Autostart Execution: Print Processors
 TA0004,Privilege Escalation,T1547.007,Boot or Logon Autostart Execution: Re-opened Applications
@@ -264,7 +266,7 @@ TA0004,Privilege Escalation,T1547.003,Boot or Logon Autostart Execution: Time Pr
 TA0004,Privilege Escalation,T1547.004,Boot or Logon Autostart Execution: Winlogon Helper DLL
 TA0004,Privilege Escalation,T1547.013,Boot or Logon Autostart Execution: XDG Autostart Entries
 TA0004,Privilege Escalation,T1037,Boot or Logon Initialization Scripts
-TA0004,Privilege Escalation,T1037.002,Boot or Logon Initialization Scripts: Logon Script (Mac)
+TA0004,Privilege Escalation,T1037.002,Boot or Logon Initialization Scripts: Login Hook
 TA0004,Privilege Escalation,T1037.001,Boot or Logon Initialization Scripts: Logon Script (Windows)
 TA0004,Privilege Escalation,T1037.003,Boot or Logon Initialization Scripts: Network Logon Script
 TA0004,Privilege Escalation,T1037.004,Boot or Logon Initialization Scripts: RC Scripts
@@ -302,6 +304,7 @@ TA0004,Privilege Escalation,T1574.002,Hijack Execution Flow: DLL Side-Loading
 TA0004,Privilege Escalation,T1574.004,Hijack Execution Flow: Dylib Hijacking
 TA0004,Privilege Escalation,T1574.006,Hijack Execution Flow: Dynamic Linker Hijacking
 TA0004,Privilege Escalation,T1574.005,Hijack Execution Flow: Executable Installer File Permissions Weakness
+TA0004,Privilege Escalation,T1574.013,Hijack Execution Flow: KernelCallbackTable
 TA0004,Privilege Escalation,T1574.007,Hijack Execution Flow: Path Interception by PATH Environment Variable
 TA0004,Privilege Escalation,T1574.008,Hijack Execution Flow: Path Interception by Search Order Hijacking
 TA0004,Privilege Escalation,T1574.009,Hijack Execution Flow: Path Interception by Unquoted Path
@@ -311,6 +314,7 @@ TA0004,Privilege Escalation,T1055,Process Injection
 TA0004,Privilege Escalation,T1055.004,Process Injection: Asynchronous Procedure Call
 TA0004,Privilege Escalation,T1055.001,Process Injection: Dynamic-link Library Injection
 TA0004,Privilege Escalation,T1055.011,Process Injection: Extra Window Memory Injection
+TA0004,Privilege Escalation,T1055.015,Process Injection: ListPlanting
 TA0004,Privilege Escalation,T1055.002,Process Injection: Portable Executable Injection
 TA0004,Privilege Escalation,T1055.009,Process Injection: Proc Memory
 TA0004,Privilege Escalation,T1055.013,Process Injection: Process Doppelgänging
@@ -320,8 +324,7 @@ TA0004,Privilege Escalation,T1055.003,Process Injection: Thread Execution Hijack
 TA0004,Privilege Escalation,T1055.005,Process Injection: Thread Local Storage
 TA0004,Privilege Escalation,T1055.014,Process Injection: VDSO Hijacking
 TA0004,Privilege Escalation,T1053,Scheduled Task/Job
-TA0004,Privilege Escalation,T1053.001,Scheduled Task/Job: At (Linux)
-TA0004,Privilege Escalation,T1053.002,Scheduled Task/Job: At (Windows)
+TA0004,Privilege Escalation,T1053.002,Scheduled Task/Job: At
 TA0004,Privilege Escalation,T1053.007,Scheduled Task/Job: Container Orchestration Job
 TA0004,Privilege Escalation,T1053.003,Scheduled Task/Job: Cron
 TA0004,Privilege Escalation,T1053.005,Scheduled Task/Job: Scheduled Task
@@ -344,6 +347,7 @@ TA0005,Defense Evasion,T1134.005,Access Token Manipulation: SID-History Injectio
 TA0005,Defense Evasion,T1134.001,Access Token Manipulation: Token Impersonation/Theft
 TA0005,Defense Evasion,T1197,BITS Jobs
 TA0005,Defense Evasion,T1612,Build Image on Host
+TA0005,Defense Evasion,T1622,Debugger Evasion
 TA0005,Defense Evasion,T1140,Deobfuscate/Decode Files or Information
 TA0005,Defense Evasion,T1610,Deploy Container
 TA0005,Defense Evasion,T1006,Direct Volume Access
@@ -363,6 +367,7 @@ TA0005,Defense Evasion,T1564.001,Hide Artifacts: Hidden Files and Directories
 TA0005,Defense Evasion,T1564.002,Hide Artifacts: Hidden Users
 TA0005,Defense Evasion,T1564.003,Hide Artifacts: Hidden Window
 TA0005,Defense Evasion,T1564.004,Hide Artifacts: NTFS File Attributes
+TA0005,Defense Evasion,T1564.010,Hide Artifacts: Process Argument Spoofing
 TA0005,Defense Evasion,T1564.009,Hide Artifacts: Resource Forking
 TA0005,Defense Evasion,T1564.006,Hide Artifacts: Run Virtual Instance
 TA0005,Defense Evasion,T1564.007,Hide Artifacts: VBA Stomping
@@ -373,6 +378,7 @@ TA0005,Defense Evasion,T1574.002,Hijack Execution Flow: DLL Side-Loading
 TA0005,Defense Evasion,T1574.004,Hijack Execution Flow: Dylib Hijacking
 TA0005,Defense Evasion,T1574.006,Hijack Execution Flow: Dynamic Linker Hijacking
 TA0005,Defense Evasion,T1574.005,Hijack Execution Flow: Executable Installer File Permissions Weakness
+TA0005,Defense Evasion,T1574.013,Hijack Execution Flow: KernelCallbackTable
 TA0005,Defense Evasion,T1574.007,Hijack Execution Flow: Path Interception by PATH Environment Variable
 TA0005,Defense Evasion,T1574.008,Hijack Execution Flow: Path Interception by Search Order Hijacking
 TA0005,Defense Evasion,T1574.009,Hijack Execution Flow: Path Interception by Unquoted Path
@@ -409,6 +415,7 @@ TA0005,Defense Evasion,T1556.001,Modify Authentication Process: Domain Controlle
 TA0005,Defense Evasion,T1556.004,Modify Authentication Process: Network Device Authentication
 TA0005,Defense Evasion,T1556.002,Modify Authentication Process: Password Filter DLL
 TA0005,Defense Evasion,T1556.003,Modify Authentication Process: Pluggable Authentication Modules
+TA0005,Defense Evasion,T1556.005,Modify Authentication Process: Reversible Encryption
 TA0005,Defense Evasion,T1578,Modify Cloud Compute Infrastructure
 TA0005,Defense Evasion,T1578.002,Modify Cloud Compute Infrastructure: Create Cloud Instance
 TA0005,Defense Evasion,T1578.001,Modify Cloud Compute Infrastructure: Create Snapshot
@@ -427,6 +434,7 @@ TA0005,Defense Evasion,T1027.006,Obfuscated Files or Information: HTML Smuggling
 TA0005,Defense Evasion,T1027.005,Obfuscated Files or Information: Indicator Removal from Tools
 TA0005,Defense Evasion,T1027.002,Obfuscated Files or Information: Software Packing
 TA0005,Defense Evasion,T1027.003,Obfuscated Files or Information: Steganography
+TA0005,Defense Evasion,T1647,Plist File Modification
 TA0005,Defense Evasion,T1542,Pre-OS Boot
 TA0005,Defense Evasion,T1542.003,Pre-OS Boot: Bootkit
 TA0005,Defense Evasion,T1542.002,Pre-OS Boot: Component Firmware
@@ -437,6 +445,7 @@ TA0005,Defense Evasion,T1055,Process Injection
 TA0005,Defense Evasion,T1055.004,Process Injection: Asynchronous Procedure Call
 TA0005,Defense Evasion,T1055.001,Process Injection: Dynamic-link Library Injection
 TA0005,Defense Evasion,T1055.011,Process Injection: Extra Window Memory Injection
+TA0005,Defense Evasion,T1055.015,Process Injection: ListPlanting
 TA0005,Defense Evasion,T1055.002,Process Injection: Portable Executable Injection
 TA0005,Defense Evasion,T1055.009,Process Injection: Proc Memory
 TA0005,Defense Evasion,T1055.013,Process Injection: Process Doppelgänging
@@ -448,22 +457,6 @@ TA0005,Defense Evasion,T1055.014,Process Injection: VDSO Hijacking
 TA0005,Defense Evasion,T1620,Reflective Code Loading
 TA0005,Defense Evasion,T1207,Rogue Domain Controller
 TA0005,Defense Evasion,T1014,Rootkit
-TA0005,Defense Evasion,T1218,Signed Binary Proxy Execution
-TA0005,Defense Evasion,T1218.003,Signed Binary Proxy Execution: CMSTP
-TA0005,Defense Evasion,T1218.001,Signed Binary Proxy Execution: Compiled HTML File
-TA0005,Defense Evasion,T1218.002,Signed Binary Proxy Execution: Control Panel
-TA0005,Defense Evasion,T1218.004,Signed Binary Proxy Execution: InstallUtil
-TA0005,Defense Evasion,T1218.014,Signed Binary Proxy Execution: MMC
-TA0005,Defense Evasion,T1218.013,Signed Binary Proxy Execution: Mavinject
-TA0005,Defense Evasion,T1218.005,Signed Binary Proxy Execution: Mshta
-TA0005,Defense Evasion,T1218.007,Signed Binary Proxy Execution: Msiexec
-TA0005,Defense Evasion,T1218.008,Signed Binary Proxy Execution: Odbcconf
-TA0005,Defense Evasion,T1218.009,Signed Binary Proxy Execution: Regsvcs/Regasm
-TA0005,Defense Evasion,T1218.010,Signed Binary Proxy Execution: Regsvr32
-TA0005,Defense Evasion,T1218.011,Signed Binary Proxy Execution: Rundll32
-TA0005,Defense Evasion,T1218.012,Signed Binary Proxy Execution: Verclsid
-TA0005,Defense Evasion,T1216,Signed Script Proxy Execution
-TA0005,Defense Evasion,T1216.001,Signed Script Proxy Execution: PubPrn
 TA0005,Defense Evasion,T1553,Subvert Trust Controls
 TA0005,Defense Evasion,T1553.002,Subvert Trust Controls: Code Signing
 TA0005,Defense Evasion,T1553.006,Subvert Trust Controls: Code Signing Policy Modification
@@ -471,6 +464,22 @@ TA0005,Defense Evasion,T1553.001,Subvert Trust Controls: Gatekeeper Bypass
 TA0005,Defense Evasion,T1553.004,Subvert Trust Controls: Install Root Certificate
 TA0005,Defense Evasion,T1553.005,Subvert Trust Controls: Mark-of-the-Web Bypass
 TA0005,Defense Evasion,T1553.003,Subvert Trust Controls: SIP and Trust Provider Hijacking
+TA0005,Defense Evasion,T1218,System Binary Proxy Execution
+TA0005,Defense Evasion,T1218.003,System Binary Proxy Execution: CMSTP
+TA0005,Defense Evasion,T1218.001,System Binary Proxy Execution: Compiled HTML File
+TA0005,Defense Evasion,T1218.002,System Binary Proxy Execution: Control Panel
+TA0005,Defense Evasion,T1218.004,System Binary Proxy Execution: InstallUtil
+TA0005,Defense Evasion,T1218.014,System Binary Proxy Execution: MMC
+TA0005,Defense Evasion,T1218.013,System Binary Proxy Execution: Mavinject
+TA0005,Defense Evasion,T1218.005,System Binary Proxy Execution: Mshta
+TA0005,Defense Evasion,T1218.007,System Binary Proxy Execution: Msiexec
+TA0005,Defense Evasion,T1218.008,System Binary Proxy Execution: Odbcconf
+TA0005,Defense Evasion,T1218.009,System Binary Proxy Execution: Regsvcs/Regasm
+TA0005,Defense Evasion,T1218.010,System Binary Proxy Execution: Regsvr32
+TA0005,Defense Evasion,T1218.011,System Binary Proxy Execution: Rundll32
+TA0005,Defense Evasion,T1218.012,System Binary Proxy Execution: Verclsid
+TA0005,Defense Evasion,T1216,System Script Proxy Execution
+TA0005,Defense Evasion,T1216.001,System Script Proxy Execution: PubPrn
 TA0005,Defense Evasion,T1221,Template Injection
 TA0005,Defense Evasion,T1205,Traffic Signaling
 TA0005,Defense Evasion,T1205.001,Traffic Signaling: Port Knocking
@@ -497,6 +506,7 @@ TA0005,Defense Evasion,T1600.001,Weaken Encryption: Reduce Key Space
 TA0005,Defense Evasion,T1220,XSL Script Processing
 TA0006,Credential Access,T1557,Adversary-in-the-Middle
 TA0006,Credential Access,T1557.002,Adversary-in-the-Middle: ARP Cache Poisoning
+TA0006,Credential Access,T1557.003,Adversary-in-the-Middle: DHCP Spoofing
 TA0006,Credential Access,T1557.001,Adversary-in-the-Middle: LLMNR/NBT-NS Poisoning and SMB Relay
 TA0006,Credential Access,T1110,Brute Force
 TA0006,Credential Access,T1110.004,Brute Force: Credential Stuffing
@@ -524,6 +534,9 @@ TA0006,Credential Access,T1556.001,Modify Authentication Process: Domain Control
 TA0006,Credential Access,T1556.004,Modify Authentication Process: Network Device Authentication
 TA0006,Credential Access,T1556.002,Modify Authentication Process: Password Filter DLL
 TA0006,Credential Access,T1556.003,Modify Authentication Process: Pluggable Authentication Modules
+TA0006,Credential Access,T1556.005,Modify Authentication Process: Reversible Encryption
+TA0006,Credential Access,T1111,Multi-Factor Authentication Interception
+TA0006,Credential Access,T1621,Multi-Factor Authentication Request Generation
 TA0006,Credential Access,T1040,Network Sniffing
 TA0006,Credential Access,T1003,OS Credential Dumping
 TA0006,Credential Access,T1003.008,OS Credential Dumping: /etc/passwd and /etc/shadow
@@ -541,7 +554,6 @@ TA0006,Credential Access,T1558.004,Steal or Forge Kerberos Tickets: AS-REP Roast
 TA0006,Credential Access,T1558.001,Steal or Forge Kerberos Tickets: Golden Ticket
 TA0006,Credential Access,T1558.003,Steal or Forge Kerberos Tickets: Kerberoasting
 TA0006,Credential Access,T1558.002,Steal or Forge Kerberos Tickets: Silver Ticket
-TA0006,Credential Access,T1111,Two-Factor Authentication Interception
 TA0006,Credential Access,T1552,Unsecured Credentials
 TA0006,Credential Access,T1552.003,Unsecured Credentials: Bash History
 TA0006,Credential Access,T1552.005,Unsecured Credentials: Cloud Instance Metadata API
@@ -562,10 +574,11 @@ TA0007,Discovery,T1538,Cloud Service Dashboard
 TA0007,Discovery,T1526,Cloud Service Discovery
 TA0007,Discovery,T1619,Cloud Storage Object Discovery
 TA0007,Discovery,T1613,Container and Resource Discovery
+TA0007,Discovery,T1622,Debugger Evasion
 TA0007,Discovery,T1482,Domain Trust Discovery
 TA0007,Discovery,T1083,File and Directory Discovery
 TA0007,Discovery,T1615,Group Policy Discovery
-TA0007,Discovery,T1046,Network Service Scanning
+TA0007,Discovery,T1046,Network Service Discovery
 TA0007,Discovery,T1135,Network Share Discovery
 TA0007,Discovery,T1040,Network Sniffing
 TA0007,Discovery,T1201,Password Policy Discovery
@@ -615,6 +628,7 @@ TA0008,Lateral Movement,T1550.003,Use Alternate Authentication Material: Pass th
 TA0008,Lateral Movement,T1550.004,Use Alternate Authentication Material: Web Session Cookie
 TA0009,Collection,T1557,Adversary-in-the-Middle
 TA0009,Collection,T1557.002,Adversary-in-the-Middle: ARP Cache Poisoning
+TA0009,Collection,T1557.003,Adversary-in-the-Middle: DHCP Spoofing
 TA0009,Collection,T1557.001,Adversary-in-the-Middle: LLMNR/NBT-NS Poisoning and SMB Relay
 TA0009,Collection,T1560,Archive Collected Data
 TA0009,Collection,T1560.003,Archive Collected Data: Archive via Custom Method
@@ -649,51 +663,51 @@ TA0009,Collection,T1056.001,Input Capture: Keylogging
 TA0009,Collection,T1056.003,Input Capture: Web Portal Capture
 TA0009,Collection,T1113,Screen Capture
 TA0009,Collection,T1125,Video Capture
-TA0011,Command And Control,T1071,Application Layer Protocol
-TA0011,Command And Control,T1071.004,Application Layer Protocol: DNS
-TA0011,Command And Control,T1071.002,Application Layer Protocol: File Transfer Protocols
-TA0011,Command And Control,T1071.003,Application Layer Protocol: Mail Protocols
-TA0011,Command And Control,T1071.001,Application Layer Protocol: Web Protocols
-TA0011,Command And Control,T1092,Communication Through Removable Media
-TA0011,Command And Control,T1132,Data Encoding
-TA0011,Command And Control,T1132.002,Data Encoding: Non-Standard Encoding
-TA0011,Command And Control,T1132.001,Data Encoding: Standard Encoding
-TA0011,Command And Control,T1001,Data Obfuscation
-TA0011,Command And Control,T1001.001,Data Obfuscation: Junk Data
-TA0011,Command And Control,T1001.003,Data Obfuscation: Protocol Impersonation
-TA0011,Command And Control,T1001.002,Data Obfuscation: Steganography
-TA0011,Command And Control,T1568,Dynamic Resolution
-TA0011,Command And Control,T1568.003,Dynamic Resolution: DNS Calculation
-TA0011,Command And Control,T1568.002,Dynamic Resolution: Domain Generation Algorithms
-TA0011,Command And Control,T1568.001,Dynamic Resolution: Fast Flux DNS
-TA0011,Command And Control,T1573,Encrypted Channel
-TA0011,Command And Control,T1573.002,Encrypted Channel: Asymmetric Cryptography
-TA0011,Command And Control,T1573.001,Encrypted Channel: Symmetric Cryptography
-TA0011,Command And Control,T1008,Fallback Channels
-TA0011,Command And Control,T1105,Ingress Tool Transfer
-TA0011,Command And Control,T1104,Multi-Stage Channels
-TA0011,Command And Control,T1095,Non-Application Layer Protocol
-TA0011,Command And Control,T1571,Non-Standard Port
-TA0011,Command And Control,T1572,Protocol Tunneling
-TA0011,Command And Control,T1090,Proxy
-TA0011,Command And Control,T1090.004,Proxy: Domain Fronting
-TA0011,Command And Control,T1090.002,Proxy: External Proxy
-TA0011,Command And Control,T1090.001,Proxy: Internal Proxy
-TA0011,Command And Control,T1090.003,Proxy: Multi-hop Proxy
-TA0011,Command And Control,T1219,Remote Access Software
-TA0011,Command And Control,T1205,Traffic Signaling
-TA0011,Command And Control,T1205.001,Traffic Signaling: Port Knocking
-TA0011,Command And Control,T1102,Web Service
-TA0011,Command And Control,T1102.002,Web Service: Bidirectional Communication
-TA0011,Command And Control,T1102.001,Web Service: Dead Drop Resolver
-TA0011,Command And Control,T1102.003,Web Service: One-Way Communication
+TA0011,Command and Control,T1071,Application Layer Protocol
+TA0011,Command and Control,T1071.004,Application Layer Protocol: DNS
+TA0011,Command and Control,T1071.002,Application Layer Protocol: File Transfer Protocols
+TA0011,Command and Control,T1071.003,Application Layer Protocol: Mail Protocols
+TA0011,Command and Control,T1071.001,Application Layer Protocol: Web Protocols
+TA0011,Command and Control,T1092,Communication Through Removable Media
+TA0011,Command and Control,T1132,Data Encoding
+TA0011,Command and Control,T1132.002,Data Encoding: Non-Standard Encoding
+TA0011,Command and Control,T1132.001,Data Encoding: Standard Encoding
+TA0011,Command and Control,T1001,Data Obfuscation
+TA0011,Command and Control,T1001.001,Data Obfuscation: Junk Data
+TA0011,Command and Control,T1001.003,Data Obfuscation: Protocol Impersonation
+TA0011,Command and Control,T1001.002,Data Obfuscation: Steganography
+TA0011,Command and Control,T1568,Dynamic Resolution
+TA0011,Command and Control,T1568.003,Dynamic Resolution: DNS Calculation
+TA0011,Command and Control,T1568.002,Dynamic Resolution: Domain Generation Algorithms
+TA0011,Command and Control,T1568.001,Dynamic Resolution: Fast Flux DNS
+TA0011,Command and Control,T1573,Encrypted Channel
+TA0011,Command and Control,T1573.002,Encrypted Channel: Asymmetric Cryptography
+TA0011,Command and Control,T1573.001,Encrypted Channel: Symmetric Cryptography
+TA0011,Command and Control,T1008,Fallback Channels
+TA0011,Command and Control,T1105,Ingress Tool Transfer
+TA0011,Command and Control,T1104,Multi-Stage Channels
+TA0011,Command and Control,T1095,Non-Application Layer Protocol
+TA0011,Command and Control,T1571,Non-Standard Port
+TA0011,Command and Control,T1572,Protocol Tunneling
+TA0011,Command and Control,T1090,Proxy
+TA0011,Command and Control,T1090.004,Proxy: Domain Fronting
+TA0011,Command and Control,T1090.002,Proxy: External Proxy
+TA0011,Command and Control,T1090.001,Proxy: Internal Proxy
+TA0011,Command and Control,T1090.003,Proxy: Multi-hop Proxy
+TA0011,Command and Control,T1219,Remote Access Software
+TA0011,Command and Control,T1205,Traffic Signaling
+TA0011,Command and Control,T1205.001,Traffic Signaling: Port Knocking
+TA0011,Command and Control,T1102,Web Service
+TA0011,Command and Control,T1102.002,Web Service: Bidirectional Communication
+TA0011,Command and Control,T1102.001,Web Service: Dead Drop Resolver
+TA0011,Command and Control,T1102.003,Web Service: One-Way Communication
 TA0010,Exfiltration,T1020,Automated Exfiltration
 TA0010,Exfiltration,T1020.001,Automated Exfiltration: Traffic Duplication
 TA0010,Exfiltration,T1030,Data Transfer Size Limits
 TA0010,Exfiltration,T1048,Exfiltration Over Alternative Protocol
 TA0010,Exfiltration,T1048.002,Exfiltration Over Alternative Protocol: Exfiltration Over Asymmetric Encrypted Non-C2 Protocol
 TA0010,Exfiltration,T1048.001,Exfiltration Over Alternative Protocol: Exfiltration Over Symmetric Encrypted Non-C2 Protocol
-TA0010,Exfiltration,T1048.003,Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted/Obfuscated Non-C2 Protocol
+TA0010,Exfiltration,T1048.003,Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted Non-C2 Protocol
 TA0010,Exfiltration,T1041,Exfiltration Over C2 Channel
 TA0010,Exfiltration,T1011,Exfiltration Over Other Network Medium
 TA0010,Exfiltration,T1011.001,Exfiltration Over Other Network Medium: Exfiltration Over Bluetooth
