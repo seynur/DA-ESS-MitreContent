@@ -42,6 +42,8 @@ items:
   file: releasenotes.md
   link: releasenotes.html
   subitems:
+    - name: Version 3.6.0
+      anchor: version-360
     - name: Version 3.5.0
       anchor: version-350
     - name: Version 3.4.0
