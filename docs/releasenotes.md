@@ -3,6 +3,10 @@ layout: default
 title: Release Notes
 ---
 ### Release Notes:
+#### Version 3.7.0
+- Date: 2 Nov 2022
+- Feature: Compatibility with ATT&CK version 12.0
+
 #### Version 3.6.0
 - Date: 15 Jun 2022
 - Feature: Compatibility with ATT&CK version 11.2
