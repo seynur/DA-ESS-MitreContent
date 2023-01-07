@@ -99,7 +99,8 @@ In order to view a saved/correlation search integrated with the MITRE ATT&amp;CK
 There are 3 ways to accomplish this task.
 1. [Match with Analytic Story](#match-with-analytic-story): Enable a new or existing *Analytic Story* to be tagged with the relevant *Correlation Search*
 2. [Match with Custom Correlation Search](#match-with-custom-correlation-search): Enable a new or existing *Custom Correlation Search* with Content Management
-3. [Match with Lookup](#match-with-lookup): Edit the ``mitre_user_rule_technique_lookup.csv`` file.
+3. [Match with Lookup](#match-with-lookup): Edit the `mitre_user_rule_technique_lookup.csv` file.
+4. [Match with Dynamic Technique](#match-with-dynamic-technique): Add `annotations.mitre_attack.mitre_technique_id` multi-value field with technique IDs.
 
 #### Match with Analytic Story
 The view in the application utilized *Analytic Stories* that are tagged with the *Correlation Searches*.  Hence, in order to associate a *Correlation Search* with MITRE ATT&CK Techniques, you will need to create a new *Analytic Story* and add your *Correlation Search* with the appropriate tags.
@@ -232,6 +233,20 @@ The lookup file expects 2 fields:
 
 &nbsp;
 
+#### Match with Dynamic Technique
+It's possible to dynamically match your triggered events (notable or alert) by simply adding `annotations.mitre_attack.mitre_technique_id` multi-value field to search results.
+
+   ```spl
+   | tstats ...
+   | eval annotations.mitre_attack.mitre_technique_id="T1189"
+   ```
+For users utilizing Alert Manager, you will need to update `all_alerts` macro definition that comes with the app in order to include `annotations.mitre_attack.mitre_technique_id` field in the results by adding it to `| fields ...` definition.
+
+For example, you can update Alert Manager `macros.conf` as following to support dynamic technique lookups:
+
+
+![alertmanager_macro]
+
 
 ---
 
@@ -272,3 +287,4 @@ __IMPORTANT NOTE__: In order to have drill-down working with Alert Manager seaml
 [contentmanagement3]: assets/img/contentmanagement3.png
 [contentmanagement4]: assets/img/contentmanagement4.png
 [contentmanagement5]: assets/img/contentmanagement5.png
+[alertmanager_macro]: assets/img/alertmanager_macro.png
