@@ -3,19 +3,12 @@
   <label>MITRE ATT&amp;CK Triggered Tactics &amp; Techniques</label>
   <search id="basesearch_mitre_by_assets">
     <query>
-      | inputlookup mitre_all_rule_technique_lookup
-| fields rule_name
-| join rule_name
-    [ `mitre_rules`
-    | search $urgency_field$
-    | eval notable_src = coalesce(src,"unknown")
-    | eval notable_dest = coalesce(dest,"unknown")
-    | eval notable_user = coalesce(user,"unknown")
-    | fields rule_name, urgency,notable_src, notable_dest, notable_user
-    | lookup urgency_score_lookup urgency
-    | stats max(score) as max_score, count by rule_name,notable_src, notable_dest, notable_user]
-| `lookup_technique_tactic_from_rule_name`
-</query>
+    `mitre_rules`
+      | eval notable_src = coalesce(src,"unknown")
+      | eval notable_dest = coalesce(dest,"unknown")
+      | eval notable_user = coalesce(user,"unknown")
+      | fields rule_name, urgency, score, technique_id, technique_name, tactic_id, tactic_name, notable_src, notable_dest, notable_user
+    </query>
     <earliest>$attack_time_field.earliest$</earliest>
     <latest>$attack_time_field.latest$</latest>
   </search>

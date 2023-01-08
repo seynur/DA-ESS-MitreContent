@@ -17,15 +17,10 @@
   </search>
   <search id="init_attack_search">
     <query>
-| inputlookup mitre_all_rule_technique_lookup
-| fields rule_name, technique_id
-| join rule_name
-    [ `mitre_rules`
-    | fields rule_name, urgency
-    | lookup urgency_score_lookup urgency
-    | stats max(score) as max_score, count by rule_name]
-| stats sum(count) as triggered_count list(rule_name) as rule_name_list, max(max_score) as max_score by technique_id delim=";"
-| nomv rule_name_list
+    `mitre_rules`
+    | fields rule_name, urgency, score, technique_id, technique_name, tactic_id, tactic_name
+    | stats count as triggered_count list(rule_name) as rule_name_list, max(score) as max_score by technique_id
+    | eval rule_name_list=mvjoin(mvdedup(rule_name_list),";")
     </query>
     <earliest>$attack_time_field.earliest$</earliest>
     <latest>$attack_time_field.latest$</latest>

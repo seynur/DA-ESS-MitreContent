@@ -37,6 +37,10 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.8.0
+- Date: 6 Jan 2023
+- Feature: Updated search macros and views to include MITRE ATT&CK annotations dynamically.
+
 Version 3.7.0
 - Date: 2 Nov 2022
 - Feature: Compatibility with ATT&CK version 12.0
