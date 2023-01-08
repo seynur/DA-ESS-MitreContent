@@ -1,14 +1,11 @@
-<form theme="dark"
-      version="1.1">
+<form theme="dark" version="1.1">
   <label>MITRE ATT&amp;CK Triggered Tactics &amp; Techniques</label>
   <search id="basesearch_mitre_by_assets">
-    <query>
-    `mitre_rules`
-      | eval notable_src = coalesce(src,"unknown")
-      | eval notable_dest = coalesce(dest,"unknown")
-      | eval notable_user = coalesce(user,"unknown")
-      | fields rule_name, urgency, score, technique_id, technique_name, tactic_id, tactic_name, notable_src, notable_dest, notable_user
-    </query>
+    <query> `mitre_rules`
+    | eval notable_asset=if(risk_object_type="system", risk_object, mvappend(src,dest)) 
+    | eval notable_user=if(risk_object_type="user", risk_object, user)
+    | fields rule_name, urgency, score, technique_id, technique_name, tactic_id, tactic_name, notable_asset, notable_user
+</query>
     <earliest>$attack_time_field.earliest$</earliest>
     <latest>$attack_time_field.latest$</latest>
   </search>
@@ -44,9 +41,7 @@
       <title>Triggered Tactics by Notable Assets</title>
       <viz type="sankey_diagram_app.sankey_diagram">
         <search base="basesearch_mitre_by_assets">
-          <query>| fields notable_src, notable_dest, notable_user, tactic_name
-| eval notable_asset=mvappend(notable_src, notable_dest)
-| mvexpand notable_asset
+          <query>| fields notable_asset, tactic_name
 | stats count by notable_asset tactic_name</query>
         </search>
         <option name="drilldown">none</option>
@@ -71,10 +66,9 @@
       <title>Triggered Tactics by Notable Assets</title>
       <table>
         <search base="basesearch_mitre_by_assets">
-          <query>| fields notable_src, notable_dest, notable_user, tactic_name
-| eval notable_asset=mvappend(notable_src, notable_dest)
-| mvexpand notable_asset
-| stats count by notable_asset tactic_name | sort -count</query>
+          <query>| fields notable_asset, tactic_name
+| stats count by notable_asset tactic_name 
+| sort -count</query>
         </search>
         <option name="drilldown">cell</option>
         <option name="refresh.display">progressbar</option>
@@ -89,7 +83,7 @@
       <title>Triggered Tactics by Notable User</title>
       <viz type="sankey_diagram_app.sankey_diagram">
         <search base="basesearch_mitre_by_assets">
-          <query>| fields notable_src, notable_dest, notable_user, tactic_name
+          <query>| fields notable_user, tactic_name
 | stats count by notable_user tactic_name</query>
         </search>
         <option name="drilldown">none</option>
@@ -114,7 +108,7 @@
       <title>Triggered Tactics by Notable User</title>
       <table>
         <search base="basesearch_mitre_by_assets">
-          <query>| fields notable_src, notable_dest, notable_user, tactic_name
+          <query>| fields notable_user, tactic_name
 | stats count by notable_user tactic_name
 | sort -count</query>
         </search>
