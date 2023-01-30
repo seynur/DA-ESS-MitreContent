@@ -3,6 +3,11 @@ layout: default
 title: Release Notes
 ---
 ### Release Notes:
+
+#### Version 3.8.1
+- Date: 30 Jan 2023
+- Bug fix: Extra characters are removed from several saved searches.
+
 #### Version 3.8.0
 - Date: 9 Jan 2023
 - Feature: Updated search macros and views to include MITRE ATT&CK annotations dynamically.
