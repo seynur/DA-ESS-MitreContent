@@ -37,6 +37,11 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.9.0
+- Date: XX Apr 2023
+- Feature: Compatibility with ATT&CK version XX
+- Bug-fix: Updated default rules lookup with the latest version of ES and ESCU
+
 Version 3.8.1
 - Date: 30 Jan 2023
 - Bug fix: Extra characters are removed from several saved searches.
