@@ -1,7 +1,4 @@
-<form script="mitre_triggered.js"
-      stylesheet="mitre_matrix.css"
-      theme="dark"
-      version="1.1">
+<form script="mitre_triggered.js" stylesheet="mitre_matrix.css" theme="dark" version="1.1">
   <label>MITRE ATT&amp;CK Matrix</label>
   <description>This dashboard provides an overview of triggered tactics and techniques based on enabled correlation rules with related MITRE ATT&amp;CK annotations.</description>
   <search id="mitre_use_es">
@@ -21,6 +18,12 @@
     | fields rule_name, urgency, score, technique_id, technique_name, tactic_id, tactic_name
     | stats count as triggered_count list(rule_name) as rule_name_list, max(score) as max_score by technique_id
     | eval rule_name_list=mvjoin(mvdedup(rule_name_list),";")
+    | search [ | inputlookup mitre_group_technique_lookup 
+        | search $tok_group$
+        | eval technique_id_list=split(technique_id," ") 
+        | mvexpand technique_id_list 
+        | fields technique_id_list 
+        | rename technique_id_list AS technique_id ]
     </query>
     <earliest>$attack_time_field.earliest$</earliest>
     <latest>$attack_time_field.latest$</latest>
@@ -152,6 +155,23 @@
       <choice value="mitre_lookup">Hide/Collapse Sub-techniques</choice>
       <choice value="mitre_lookup_subtechniques">Show/Expand Sub-techniques</choice>
       <default>mitre_lookup</default>
+    </input>
+    <input type="multiselect" token="tok_group">
+      <label>Filter by Group</label>
+      <choice value="*">ALL</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+      <fieldForLabel>group_name</fieldForLabel>
+      <fieldForValue>group_name</fieldForValue>
+      <search>
+        <query>| inputlookup mitre_group_technique_lookup</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <prefix>(</prefix>
+      <suffix>)</suffix>
+      <valuePrefix>group_name=</valuePrefix>
+      <delimiter>  OR </delimiter>
     </input>
   </fieldset>
   <row>
