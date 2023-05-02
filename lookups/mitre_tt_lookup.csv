@@ -42,10 +42,12 @@ TA0043,Reconnaissance,T1593.003,Code Repositories
 TA0043,Reconnaissance,T1593.002,Search Engines
 TA0043,Reconnaissance,T1593.001,Social Media
 TA0043,Reconnaissance,T1594,Search Victim-Owned Websites
+TA0042,Resource Development,T1650,Acquire Access
 TA0042,Resource Development,T1583,Acquire Infrastructure
 TA0042,Resource Development,T1583.005,Botnet
 TA0042,Resource Development,T1583.002,DNS Server
 TA0042,Resource Development,T1583.001,Domains
+TA0042,Resource Development,T1583.008,Malvertising
 TA0042,Resource Development,T1583.004,Server
 TA0042,Resource Development,T1583.007,Serverless
 TA0042,Resource Development,T1583.003,Virtual Private Server
@@ -104,8 +106,10 @@ TA0001,Initial Access,T1078.004,Cloud Accounts
 TA0001,Initial Access,T1078.001,Default Accounts
 TA0001,Initial Access,T1078.002,Domain Accounts
 TA0001,Initial Access,T1078.003,Local Accounts
+TA0002,Execution,T1651,Cloud Administration Command
 TA0002,Execution,T1059,Command and Scripting Interpreter
 TA0002,Execution,T1059.002,AppleScript
+TA0002,Execution,T1059.009,Cloud API
 TA0002,Execution,T1059.007,JavaScript
 TA0002,Execution,T1059.008,Network Device CLI
 TA0002,Execution,T1059.001,PowerShell
@@ -214,6 +218,7 @@ TA0003,Persistence,T1556.001,Domain Controller Authentication
 TA0003,Persistence,T1556.007,Hybrid Identity
 TA0003,Persistence,T1556.006,Multi-Factor Authentication
 TA0003,Persistence,T1556.004,Network Device Authentication
+TA0003,Persistence,T1556.008,Network Provider DLL
 TA0003,Persistence,T1556.002,Password Filter DLL
 TA0003,Persistence,T1556.003,Pluggable Authentication Modules
 TA0003,Persistence,T1556.005,Reversible Encryption
@@ -406,6 +411,7 @@ TA0005,Defense Evasion,T1562.010,Downgrade Attack
 TA0005,Defense Evasion,T1562.003,Impair Command History Logging
 TA0005,Defense Evasion,T1562.006,Indicator Blocking
 TA0005,Defense Evasion,T1562.009,Safe Mode Boot
+TA0005,Defense Evasion,T1562.011,Spoof Security Alerting
 TA0005,Defense Evasion,T1070,Indicator Removal
 TA0005,Defense Evasion,T1070.003,Clear Command History
 TA0005,Defense Evasion,T1070.002,Clear Linux or Mac System Logs
@@ -420,6 +426,7 @@ TA0005,Defense Evasion,T1202,Indirect Command Execution
 TA0005,Defense Evasion,T1036,Masquerading
 TA0005,Defense Evasion,T1036.007,Double File Extension
 TA0005,Defense Evasion,T1036.001,Invalid Code Signature
+TA0005,Defense Evasion,T1036.008,Masquerade File Type
 TA0005,Defense Evasion,T1036.004,Masquerade Task or Service
 TA0005,Defense Evasion,T1036.005,Match Legitimate Name or Location
 TA0005,Defense Evasion,T1036.003,Rename System Utilities
@@ -430,6 +437,7 @@ TA0005,Defense Evasion,T1556.001,Domain Controller Authentication
 TA0005,Defense Evasion,T1556.007,Hybrid Identity
 TA0005,Defense Evasion,T1556.006,Multi-Factor Authentication
 TA0005,Defense Evasion,T1556.004,Network Device Authentication
+TA0005,Defense Evasion,T1556.008,Network Provider DLL
 TA0005,Defense Evasion,T1556.002,Password Filter DLL
 TA0005,Defense Evasion,T1556.003,Pluggable Authentication Modules
 TA0005,Defense Evasion,T1556.005,Reversible Encryption
@@ -446,9 +454,11 @@ TA0005,Defense Evasion,T1599,Network Boundary Bridging
 TA0005,Defense Evasion,T1599.001,Network Address Translation Traversal
 TA0005,Defense Evasion,T1027,Obfuscated Files or Information
 TA0005,Defense Evasion,T1027.001,Binary Padding
+TA0005,Defense Evasion,T1027.010,Command Obfuscation
 TA0005,Defense Evasion,T1027.004,Compile After Delivery
 TA0005,Defense Evasion,T1027.007,Dynamic API Resolution
 TA0005,Defense Evasion,T1027.009,Embedded Payloads
+TA0005,Defense Evasion,T1027.011,Fileless Storage
 TA0005,Defense Evasion,T1027.006,HTML Smuggling
 TA0005,Defense Evasion,T1027.005,Indicator Removal from Tools
 TA0005,Defense Evasion,T1027.002,Software Packing
@@ -555,6 +565,7 @@ TA0006,Credential Access,T1556.001,Domain Controller Authentication
 TA0006,Credential Access,T1556.007,Hybrid Identity
 TA0006,Credential Access,T1556.006,Multi-Factor Authentication
 TA0006,Credential Access,T1556.004,Network Device Authentication
+TA0006,Credential Access,T1556.008,Network Provider DLL
 TA0006,Credential Access,T1556.002,Password Filter DLL
 TA0006,Credential Access,T1556.003,Pluggable Authentication Modules
 TA0006,Credential Access,T1556.005,Reversible Encryption
@@ -580,6 +591,7 @@ TA0006,Credential Access,T1558.002,Silver Ticket
 TA0006,Credential Access,T1539,Steal Web Session Cookie
 TA0006,Credential Access,T1552,Unsecured Credentials
 TA0006,Credential Access,T1552.003,Bash History
+TA0006,Credential Access,T1552.008,Chat Messages
 TA0006,Credential Access,T1552.005,Cloud Instance Metadata API
 TA0006,Credential Access,T1552.007,Container API
 TA0006,Credential Access,T1552.001,Credentials In Files
@@ -592,13 +604,14 @@ TA0007,Discovery,T1087.002,Domain Account
 TA0007,Discovery,T1087.003,Email Account
 TA0007,Discovery,T1087.001,Local Account
 TA0007,Discovery,T1010,Application Window Discovery
-TA0007,Discovery,T1217,Browser Bookmark Discovery
+TA0007,Discovery,T1217,Browser Information Discovery
 TA0007,Discovery,T1580,Cloud Infrastructure Discovery
 TA0007,Discovery,T1538,Cloud Service Dashboard
 TA0007,Discovery,T1526,Cloud Service Discovery
 TA0007,Discovery,T1619,Cloud Storage Object Discovery
 TA0007,Discovery,T1613,Container and Resource Discovery
 TA0007,Discovery,T1622,Debugger Evasion
+TA0007,Discovery,T1652,Device Driver Discovery
 TA0007,Discovery,T1482,Domain Trust Discovery
 TA0007,Discovery,T1083,File and Directory Discovery
 TA0007,Discovery,T1615,Group Policy Discovery
@@ -636,6 +649,7 @@ TA0008,Lateral Movement,T1563,Remote Service Session Hijacking
 TA0008,Lateral Movement,T1563.002,RDP Hijacking
 TA0008,Lateral Movement,T1563.001,SSH Hijacking
 TA0008,Lateral Movement,T1021,Remote Services
+TA0008,Lateral Movement,T1021.007,Cloud Services
 TA0008,Lateral Movement,T1021.003,Distributed Component Object Model
 TA0008,Lateral Movement,T1021.001,Remote Desktop Protocol
 TA0008,Lateral Movement,T1021.002,SMB/Windows Admin Shares
@@ -741,6 +755,7 @@ TA0010,Exfiltration,T1052.001,Exfiltration over USB
 TA0010,Exfiltration,T1567,Exfiltration Over Web Service
 TA0010,Exfiltration,T1567.002,Exfiltration to Cloud Storage
 TA0010,Exfiltration,T1567.001,Exfiltration to Code Repository
+TA0010,Exfiltration,T1567.003,Exfiltration to Text Storage Sites
 TA0010,Exfiltration,T1029,Scheduled Transfer
 TA0010,Exfiltration,T1537,Transfer Data to Cloud Account
 TA0040,Impact,T1531,Account Access Removal
