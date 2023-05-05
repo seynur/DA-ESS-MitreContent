@@ -18,11 +18,11 @@
     | fields rule_name, urgency, score, technique_id, technique_name, tactic_id, tactic_name
     | stats count as triggered_count list(rule_name) as rule_name_list, max(score) as max_score by technique_id
     | eval rule_name_list=mvjoin(mvdedup(rule_name_list),";")
-    | search [ | inputlookup mitre_group_technique_lookup 
+    | search [ | inputlookup mitre_group_technique_lookup
         | search $tok_group$
-        | eval technique_id_list=split(technique_id," ") 
-        | mvexpand technique_id_list 
-        | fields technique_id_list 
+        | eval technique_id_list=split(technique_id," ")
+        | mvexpand technique_id_list
+        | fields technique_id_list
         | rename technique_id_list AS technique_id ]
     </query>
     <earliest>$attack_time_field.earliest$</earliest>
@@ -170,8 +170,9 @@
       </search>
       <prefix>(</prefix>
       <suffix>)</suffix>
-      <valuePrefix>group_name=</valuePrefix>
+      <valuePrefix>group_name="</valuePrefix>
       <delimiter>  OR </delimiter>
+			<valueSuffix>"</valueSuffix>
     </input>
   </fieldset>
   <row>
