@@ -38,8 +38,9 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 #### Release Notes:
 Version 3.9.0
-- Date: XX Apr 2023
-- Feature: Compatibility with ATT&CK version XX
+- Date: 12 May 2023
+- Feature: Compatibility with ATT&CK version 13.0
+- Feature: Ability to filter ATT&CK Matrix view by Group information
 - Bug-fix: Updated default rules lookup with the latest version of ES and ESCU
 
 Version 3.8.1
