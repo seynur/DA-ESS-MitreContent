@@ -42,6 +42,8 @@ items:
   file: releasenotes.md
   link: releasenotes.html
   subitems:
+    - name: Version 3.9.0
+      anchor: version-390
     - name: Version 3.8.1
       anchor: version-381
     - name: Version 3.8.0
