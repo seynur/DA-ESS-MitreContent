@@ -29,6 +29,10 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.11.0
+- Date: 03 May 2024
+- Feature: Compatibility with ATT&CK version 15.0
+
 Version 3.10.0
 - Date: 27 Nov 2023
 - Feature: Compatibility with ATT&CK version 14.0
