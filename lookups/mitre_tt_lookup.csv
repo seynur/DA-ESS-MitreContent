@@ -117,6 +117,7 @@ TA0002,Execution,T1059.002,AppleScript
 TA0002,Execution,T1059.010,AutoHotKey & AutoIT
 TA0002,Execution,T1059.009,Cloud API
 TA0002,Execution,T1059.007,JavaScript
+TA0002,Execution,T1059.011,Lua
 TA0002,Execution,T1059.008,Network Device CLI
 TA0002,Execution,T1059.001,PowerShell
 TA0002,Execution,T1059.006,Python
@@ -153,6 +154,7 @@ TA0003,Persistence,T1098.001,Additional Cloud Credentials
 TA0003,Persistence,T1098.003,Additional Cloud Roles
 TA0003,Persistence,T1098.006,Additional Container Cluster Roles
 TA0003,Persistence,T1098.002,Additional Email Delegate Permissions
+TA0003,Persistence,T1098.007,Additional Local or Domain Groups
 TA0003,Persistence,T1098.005,Device Registration
 TA0003,Persistence,T1098.004,SSH Authorized Keys
 TA0003,Persistence,T1197,BITS Jobs
@@ -204,6 +206,7 @@ TA0003,Persistence,T1546.007,Netsh Helper DLL
 TA0003,Persistence,T1546.013,PowerShell Profile
 TA0003,Persistence,T1546.002,Screensaver
 TA0003,Persistence,T1546.005,Trap
+TA0003,Persistence,T1546.017,Udev Rules
 TA0003,Persistence,T1546.004,Unix Shell Configuration Modification
 TA0003,Persistence,T1546.003,Windows Management Instrumentation Event Subscription
 TA0003,Persistence,T1133,External Remote Services
@@ -284,6 +287,7 @@ TA0004,Privilege Escalation,T1098.001,Additional Cloud Credentials
 TA0004,Privilege Escalation,T1098.003,Additional Cloud Roles
 TA0004,Privilege Escalation,T1098.006,Additional Container Cluster Roles
 TA0004,Privilege Escalation,T1098.002,Additional Email Delegate Permissions
+TA0004,Privilege Escalation,T1098.007,Additional Local or Domain Groups
 TA0004,Privilege Escalation,T1098.005,Device Registration
 TA0004,Privilege Escalation,T1098.004,SSH Authorized Keys
 TA0004,Privilege Escalation,T1547,Boot or Logon Autostart Execution
@@ -332,6 +336,7 @@ TA0004,Privilege Escalation,T1546.007,Netsh Helper DLL
 TA0004,Privilege Escalation,T1546.013,PowerShell Profile
 TA0004,Privilege Escalation,T1546.002,Screensaver
 TA0004,Privilege Escalation,T1546.005,Trap
+TA0004,Privilege Escalation,T1546.017,Udev Rules
 TA0004,Privilege Escalation,T1546.004,Unix Shell Configuration Modification
 TA0004,Privilege Escalation,T1546.003,Windows Management Instrumentation Event Subscription
 TA0004,Privilege Escalation,T1068,Exploitation for Privilege Escalation
@@ -397,6 +402,7 @@ TA0005,Defense Evasion,T1484.001,Group Policy Modification
 TA0005,Defense Evasion,T1484.002,Trust Modification
 TA0005,Defense Evasion,T1480,Execution Guardrails
 TA0005,Defense Evasion,T1480.001,Environmental Keying
+TA0005,Defense Evasion,T1480.002,Mutual Exclusion
 TA0005,Defense Evasion,T1211,Exploitation for Defense Evasion
 TA0005,Defense Evasion,T1222,File and Directory Permissions Modification
 TA0005,Defense Evasion,T1222.002,Linux and Mac File and Directory Permissions Modification
@@ -450,12 +456,14 @@ TA0005,Defense Evasion,T1070.009,Clear Persistence
 TA0005,Defense Evasion,T1070.001,Clear Windows Event Logs
 TA0005,Defense Evasion,T1070.004,File Deletion
 TA0005,Defense Evasion,T1070.005,Network Share Connection Removal
+TA0005,Defense Evasion,T1070.010,Relocate Malware
 TA0005,Defense Evasion,T1070.006,Timestomp
 TA0005,Defense Evasion,T1202,Indirect Command Execution
 TA0005,Defense Evasion,T1036,Masquerading
 TA0005,Defense Evasion,T1036.009,Break Process Trees
 TA0005,Defense Evasion,T1036.007,Double File Extension
 TA0005,Defense Evasion,T1036.001,Invalid Code Signature
+TA0005,Defense Evasion,T1036.010,Masquerade Account Name
 TA0005,Defense Evasion,T1036.008,Masquerade File Type
 TA0005,Defense Evasion,T1036.004,Masquerade Task or Service
 TA0005,Defense Evasion,T1036.005,Match Legitimate Name or Location
@@ -478,6 +486,7 @@ TA0005,Defense Evasion,T1578.001,Create Snapshot
 TA0005,Defense Evasion,T1578.003,Delete Cloud Instance
 TA0005,Defense Evasion,T1578.005,Modify Cloud Compute Configurations
 TA0005,Defense Evasion,T1578.004,Revert Cloud Instance
+TA0005,Defense Evasion,T1666,Modify Cloud Resource Hierarchy
 TA0005,Defense Evasion,T1112,Modify Registry
 TA0005,Defense Evasion,T1601,Modify System Image
 TA0005,Defense Evasion,T1601.002,Downgrade System Image
@@ -495,6 +504,7 @@ TA0005,Defense Evasion,T1027.011,Fileless Storage
 TA0005,Defense Evasion,T1027.006,HTML Smuggling
 TA0005,Defense Evasion,T1027.005,Indicator Removal from Tools
 TA0005,Defense Evasion,T1027.012,LNK Icon Smuggling
+TA0005,Defense Evasion,T1027.014,Polymorphic Code
 TA0005,Defense Evasion,T1027.002,Software Packing
 TA0005,Defense Evasion,T1027.003,Steganography
 TA0005,Defense Evasion,T1027.008,Stripped Payloads
@@ -551,6 +561,7 @@ TA0005,Defense Evasion,T1205,Traffic Signaling
 TA0005,Defense Evasion,T1205.001,Port Knocking
 TA0005,Defense Evasion,T1205.002,Socket Filters
 TA0005,Defense Evasion,T1127,Trusted Developer Utilities Proxy Execution
+TA0005,Defense Evasion,T1127.002,ClickOnce
 TA0005,Defense Evasion,T1127.001,MSBuild
 TA0005,Defense Evasion,T1535,Unused/Unsupported Cloud Regions
 TA0005,Defense Evasion,T1550,Use Alternate Authentication Material
@@ -574,6 +585,7 @@ TA0005,Defense Evasion,T1220,XSL Script Processing
 TA0006,Credential Access,T1557,Adversary-in-the-Middle
 TA0006,Credential Access,T1557.002,ARP Cache Poisoning
 TA0006,Credential Access,T1557.003,DHCP Spoofing
+TA0006,Credential Access,T1557.004,Evil Twin
 TA0006,Credential Access,T1557.001,LLMNR/NBT-NS Poisoning and SMB Relay
 TA0006,Credential Access,T1110,Brute Force
 TA0006,Credential Access,T1110.004,Credential Stuffing
@@ -623,6 +635,7 @@ TA0006,Credential Access,T1528,Steal Application Access Token
 TA0006,Credential Access,T1649,Steal or Forge Authentication Certificates
 TA0006,Credential Access,T1558,Steal or Forge Kerberos Tickets
 TA0006,Credential Access,T1558.004,AS-REP Roasting
+TA0006,Credential Access,T1558.005,Ccache Files
 TA0006,Credential Access,T1558.001,Golden Ticket
 TA0006,Credential Access,T1558.003,Kerberoasting
 TA0006,Credential Access,T1558.002,Silver Ticket
@@ -708,6 +721,7 @@ TA0008,Lateral Movement,T1550.004,Web Session Cookie
 TA0009,Collection,T1557,Adversary-in-the-Middle
 TA0009,Collection,T1557.002,ARP Cache Poisoning
 TA0009,Collection,T1557.003,DHCP Spoofing
+TA0009,Collection,T1557.004,Evil Twin
 TA0009,Collection,T1557.001,LLMNR/NBT-NS Poisoning and SMB Relay
 TA0009,Collection,T1560,Archive Collected Data
 TA0009,Collection,T1560.003,Archive via Custom Method
@@ -724,6 +738,8 @@ TA0009,Collection,T1602.001,SNMP (MIB Dump)
 TA0009,Collection,T1213,Data from Information Repositories
 TA0009,Collection,T1213.003,Code Repositories
 TA0009,Collection,T1213.001,Confluence
+TA0009,Collection,T1213.004,Customer Relationship Management Software
+TA0009,Collection,T1213.005,Messaging Applications
 TA0009,Collection,T1213.002,Sharepoint
 TA0009,Collection,T1005,Data from Local System
 TA0009,Collection,T1039,Data from Network Shared Drive
@@ -746,6 +762,7 @@ TA0011,Command and Control,T1071,Application Layer Protocol
 TA0011,Command and Control,T1071.004,DNS
 TA0011,Command and Control,T1071.002,File Transfer Protocols
 TA0011,Command and Control,T1071.003,Mail Protocols
+TA0011,Command and Control,T1071.005,Publish/Subscribe Protocols
 TA0011,Command and Control,T1071.001,Web Protocols
 TA0011,Command and Control,T1092,Communication Through Removable Media
 TA0011,Command and Control,T1659,Content Injection
@@ -754,7 +771,7 @@ TA0011,Command and Control,T1132.002,Non-Standard Encoding
 TA0011,Command and Control,T1132.001,Standard Encoding
 TA0011,Command and Control,T1001,Data Obfuscation
 TA0011,Command and Control,T1001.001,Junk Data
-TA0011,Command and Control,T1001.003,Protocol Impersonation
+TA0011,Command and Control,T1001.003,Protocol or Service Impersonation
 TA0011,Command and Control,T1001.002,Steganography
 TA0011,Command and Control,T1568,Dynamic Resolution
 TA0011,Command and Control,T1568.003,DNS Calculation
@@ -804,6 +821,7 @@ TA0010,Exfiltration,T1029,Scheduled Transfer
 TA0010,Exfiltration,T1537,Transfer Data to Cloud Account
 TA0040,Impact,T1531,Account Access Removal
 TA0040,Impact,T1485,Data Destruction
+TA0040,Impact,T1485.001,Lifecycle-Triggered Deletion
 TA0040,Impact,T1486,Data Encrypted for Impact
 TA0040,Impact,T1565,Data Manipulation
 TA0040,Impact,T1565.003,Runtime Data Manipulation
@@ -827,5 +845,9 @@ TA0040,Impact,T1498,Network Denial of Service
 TA0040,Impact,T1498.001,Direct Network Flood
 TA0040,Impact,T1498.002,Reflection Amplification
 TA0040,Impact,T1496,Resource Hijacking
+TA0040,Impact,T1496.002,Bandwidth Hijacking
+TA0040,Impact,T1496.004,Cloud Service Hijacking
+TA0040,Impact,T1496.001,Compute Hijacking
+TA0040,Impact,T1496.003,SMS Pumping
 TA0040,Impact,T1489,Service Stop
 TA0040,Impact,T1529,System Shutdown/Reboot
