@@ -1,0 +1,399 @@
+<form theme="dark" version="1.1">
+  <label>MITRE ATT&amp;CK Triggered Tactics &amp; Techniques</label>
+  <search id="basesearch_mitre_by_assets">
+    <query> `mitre_rules`
+    | eval notable_asset=if(risk_object_type="system", risk_object, mvappend(src,dest)) 
+    | eval notable_user=if(risk_object_type="user", risk_object, user)
+    | fields rule_name, urgency, score, technique_id, technique_name, tactic_id, tactic_name, notable_asset, notable_user
+</query>
+    <earliest>$attack_time_field.earliest$</earliest>
+    <latest>$attack_time_field.latest$</latest>
+  </search>
+  <search id="post_process_tt_by_rule" base="basesearch_mitre_by_assets">
+    <query>
+| fields tactic_name, technique_name, rule_name
+</query>
+  </search>
+  <fieldset autoRun="true" submitButton="true">
+    <input type="time" searchWhenChanged="false" token="attack_time_field">
+      <label>Event Time Range</label>
+      <default>
+        <earliest>-15m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="multiselect" searchWhenChanged="false" token="urgency_field">
+      <label>Urgency</label>
+      <choice value="critical">Critical</choice>
+      <choice value="high">High</choice>
+      <choice value="medium">Medium</choice>
+      <choice value="informational">Info</choice>
+      <choice value="low">Low</choice>
+      <default>critical,high,medium,informational,low</default>
+      <delimiter> OR </delimiter>
+      <valuePrefix>urgency=</valuePrefix>
+      <prefix>(</prefix>
+      <suffix>)</suffix>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Triggered Tactics by Notable Assets</title>
+      <viz type="sankey_diagram_app.sankey_diagram">
+        <search base="basesearch_mitre_by_assets">
+          <query>| fields notable_asset, tactic_name
+| stats count by notable_asset tactic_name</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="sankey_diagram_app.sankey_diagram.colorMode">categorical</option>
+        <option name="sankey_diagram_app.sankey_diagram.maxColor">#3fc77a</option>
+        <option name="sankey_diagram_app.sankey_diagram.minColor">#d93f3c</option>
+        <option name="sankey_diagram_app.sankey_diagram.numOfBins">6</option>
+        <option name="sankey_diagram_app.sankey_diagram.showBackwards">false</option>
+        <option name="sankey_diagram_app.sankey_diagram.showLabels">true</option>
+        <option name="sankey_diagram_app.sankey_diagram.showLegend">true</option>
+        <option name="sankey_diagram_app.sankey_diagram.showSelf">false</option>
+        <option name="sankey_diagram_app.sankey_diagram.showTooltip">true</option>
+        <option name="sankey_diagram_app.sankey_diagram.styleBackwards">false</option>
+        <option name="sankey_diagram_app.sankey_diagram.useColors">true</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </viz>
+    </panel>
+    <panel>
+      <title>Triggered Tactics by Notable Assets</title>
+      <table>
+        <search base="basesearch_mitre_by_assets">
+          <query>| fields notable_asset, tactic_name
+| stats count by notable_asset tactic_name 
+| sort -count</query>
+        </search>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <link target="_blank">/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$attack_time_field.earliest$&amp;amp;latest=$attack_time_field.latest$&amp;amp;urgency=critical&amp;amp;urgency=high&amp;amp;urgency=medium&amp;amp;urgency=low&amp;amp;urgency=informational&amp;search=$click.value$</link>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Triggered Tactics by Notable User</title>
+      <viz type="sankey_diagram_app.sankey_diagram">
+        <search base="basesearch_mitre_by_assets">
+          <query>| fields notable_user, tactic_name
+| stats count by notable_user tactic_name</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="sankey_diagram_app.sankey_diagram.colorMode">categorical</option>
+        <option name="sankey_diagram_app.sankey_diagram.maxColor">#3fc77a</option>
+        <option name="sankey_diagram_app.sankey_diagram.minColor">#d93f3c</option>
+        <option name="sankey_diagram_app.sankey_diagram.numOfBins">6</option>
+        <option name="sankey_diagram_app.sankey_diagram.showBackwards">false</option>
+        <option name="sankey_diagram_app.sankey_diagram.showLabels">true</option>
+        <option name="sankey_diagram_app.sankey_diagram.showLegend">true</option>
+        <option name="sankey_diagram_app.sankey_diagram.showSelf">false</option>
+        <option name="sankey_diagram_app.sankey_diagram.showTooltip">true</option>
+        <option name="sankey_diagram_app.sankey_diagram.styleBackwards">false</option>
+        <option name="sankey_diagram_app.sankey_diagram.useColors">true</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </viz>
+    </panel>
+    <panel>
+      <title>Triggered Tactics by Notable User</title>
+      <table>
+        <search base="basesearch_mitre_by_assets">
+          <query>| fields notable_user, tactic_name
+| stats count by notable_user tactic_name
+| sort -count</query>
+        </search>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <link target="_blank">/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$attack_time_field.earliest$&amp;amp;latest=$attack_time_field.latest$&amp;amp;urgency=critical&amp;amp;urgency=high&amp;amp;urgency=medium&amp;amp;urgency=low&amp;amp;urgency=informational&amp;search=$click.value$</link>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Reconnaissance</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Reconnaissance"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Resource Development</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Resource Development"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Initial Access</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Initial Access"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Execution</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Execution"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Persistence</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Persistence"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Privilege Escalation</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Privilege Escalation"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Defense Evasion</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Defense Evasion"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Credential Access</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Credential Access"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Discovery</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Discovery"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Lateral Movement</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Lateral Movement"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Collection</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Collection"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Command And Control</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Command And Control"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Exfiltration</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Exfiltration"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Impact</title>
+      <table>
+        <search base="post_process_tt_by_rule">
+          <query>| search tactic_name="Impact"
+| stats count by technique_name rule_name
+| sort -count
+| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+</form>
