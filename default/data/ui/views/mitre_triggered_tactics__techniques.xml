@@ -1,399 +1,1077 @@
-<form theme="dark" version="1.1">
-  <label>MITRE ATT&amp;CK Triggered Tactics &amp; Techniques</label>
-  <search id="basesearch_mitre_by_assets">
-    <query> `mitre_rules`
-    | eval notable_asset=if(risk_object_type="system", risk_object, mvappend(src,dest)) 
-    | eval notable_user=if(risk_object_type="user", risk_object, user)
-    | fields rule_name, urgency, score, technique_id, technique_name, tactic_id, tactic_name, notable_asset, notable_user
-</query>
-    <earliest>$attack_time_field.earliest$</earliest>
-    <latest>$attack_time_field.latest$</latest>
-  </search>
-  <search id="post_process_tt_by_rule" base="basesearch_mitre_by_assets">
-    <query>
-| fields tactic_name, technique_name, rule_name
-</query>
-  </search>
-  <fieldset autoRun="true" submitButton="true">
-    <input type="time" searchWhenChanged="false" token="attack_time_field">
-      <label>Event Time Range</label>
-      <default>
-        <earliest>-15m</earliest>
-        <latest>now</latest>
-      </default>
-    </input>
-    <input type="multiselect" searchWhenChanged="false" token="urgency_field">
-      <label>Urgency</label>
-      <choice value="critical">Critical</choice>
-      <choice value="high">High</choice>
-      <choice value="medium">Medium</choice>
-      <choice value="informational">Info</choice>
-      <choice value="low">Low</choice>
-      <default>critical,high,medium,informational,low</default>
-      <delimiter> OR </delimiter>
-      <valuePrefix>urgency=</valuePrefix>
-      <prefix>(</prefix>
-      <suffix>)</suffix>
-    </input>
-  </fieldset>
-  <row>
-    <panel>
-      <title>Triggered Tactics by Notable Assets</title>
-      <viz type="sankey_diagram_app.sankey_diagram">
-        <search base="basesearch_mitre_by_assets">
-          <query>| fields notable_asset, tactic_name
-| stats count by notable_asset tactic_name</query>
-        </search>
-        <option name="drilldown">none</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="sankey_diagram_app.sankey_diagram.colorMode">categorical</option>
-        <option name="sankey_diagram_app.sankey_diagram.maxColor">#3fc77a</option>
-        <option name="sankey_diagram_app.sankey_diagram.minColor">#d93f3c</option>
-        <option name="sankey_diagram_app.sankey_diagram.numOfBins">6</option>
-        <option name="sankey_diagram_app.sankey_diagram.showBackwards">false</option>
-        <option name="sankey_diagram_app.sankey_diagram.showLabels">true</option>
-        <option name="sankey_diagram_app.sankey_diagram.showLegend">true</option>
-        <option name="sankey_diagram_app.sankey_diagram.showSelf">false</option>
-        <option name="sankey_diagram_app.sankey_diagram.showTooltip">true</option>
-        <option name="sankey_diagram_app.sankey_diagram.styleBackwards">false</option>
-        <option name="sankey_diagram_app.sankey_diagram.useColors">true</option>
-        <option name="trellis.enabled">0</option>
-        <option name="trellis.scales.shared">1</option>
-        <option name="trellis.size">medium</option>
-      </viz>
-    </panel>
-    <panel>
-      <title>Triggered Tactics by Notable Assets</title>
-      <table>
-        <search base="basesearch_mitre_by_assets">
-          <query>| fields notable_asset, tactic_name
-| stats count by notable_asset tactic_name 
-| sort -count</query>
-        </search>
-        <option name="drilldown">cell</option>
-        <option name="refresh.display">progressbar</option>
-        <drilldown>
-          <link target="_blank">/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$attack_time_field.earliest$&amp;amp;latest=$attack_time_field.latest$&amp;amp;urgency=critical&amp;amp;urgency=high&amp;amp;urgency=medium&amp;amp;urgency=low&amp;amp;urgency=informational&amp;search=$click.value$</link>
-        </drilldown>
-      </table>
-    </panel>
-  </row>
-  <row>
-    <panel>
-      <title>Triggered Tactics by Notable User</title>
-      <viz type="sankey_diagram_app.sankey_diagram">
-        <search base="basesearch_mitre_by_assets">
-          <query>| fields notable_user, tactic_name
-| stats count by notable_user tactic_name</query>
-        </search>
-        <option name="drilldown">none</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="sankey_diagram_app.sankey_diagram.colorMode">categorical</option>
-        <option name="sankey_diagram_app.sankey_diagram.maxColor">#3fc77a</option>
-        <option name="sankey_diagram_app.sankey_diagram.minColor">#d93f3c</option>
-        <option name="sankey_diagram_app.sankey_diagram.numOfBins">6</option>
-        <option name="sankey_diagram_app.sankey_diagram.showBackwards">false</option>
-        <option name="sankey_diagram_app.sankey_diagram.showLabels">true</option>
-        <option name="sankey_diagram_app.sankey_diagram.showLegend">true</option>
-        <option name="sankey_diagram_app.sankey_diagram.showSelf">false</option>
-        <option name="sankey_diagram_app.sankey_diagram.showTooltip">true</option>
-        <option name="sankey_diagram_app.sankey_diagram.styleBackwards">false</option>
-        <option name="sankey_diagram_app.sankey_diagram.useColors">true</option>
-        <option name="trellis.enabled">0</option>
-        <option name="trellis.scales.shared">1</option>
-        <option name="trellis.size">medium</option>
-      </viz>
-    </panel>
-    <panel>
-      <title>Triggered Tactics by Notable User</title>
-      <table>
-        <search base="basesearch_mitre_by_assets">
-          <query>| fields notable_user, tactic_name
-| stats count by notable_user tactic_name
-| sort -count</query>
-        </search>
-        <option name="drilldown">cell</option>
-        <option name="refresh.display">progressbar</option>
-        <drilldown>
-          <link target="_blank">/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$attack_time_field.earliest$&amp;amp;latest=$attack_time_field.latest$&amp;amp;urgency=critical&amp;amp;urgency=high&amp;amp;urgency=medium&amp;amp;urgency=low&amp;amp;urgency=informational&amp;search=$click.value$</link>
-        </drilldown>
-      </table>
-    </panel>
-  </row>
-  <row>
-    <panel>
-      <title>Reconnaissance</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Reconnaissance"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-    <panel>
-      <title>Resource Development</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Resource Development"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-  </row>
-  <row>
-    <panel>
-      <title>Initial Access</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Initial Access"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-    <panel>
-      <title>Execution</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Execution"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-    <panel>
-      <title>Persistence</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Persistence"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-  </row>
-  <row>
-    <panel>
-      <title>Privilege Escalation</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Privilege Escalation"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-    <panel>
-      <title>Defense Evasion</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Defense Evasion"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-    <panel>
-      <title>Credential Access</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Credential Access"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-  </row>
-  <row>
-    <panel>
-      <title>Discovery</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Discovery"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-    <panel>
-      <title>Lateral Movement</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Lateral Movement"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-    <panel>
-      <title>Collection</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Collection"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-  </row>
-  <row>
-    <panel>
-      <title>Command And Control</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Command And Control"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-    <panel>
-      <title>Exfiltration</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Exfiltration"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-    <panel>
-      <title>Impact</title>
-      <table>
-        <search base="post_process_tt_by_rule">
-          <query>| search tactic_name="Impact"
-| stats count by technique_name rule_name
-| sort -count
-| rename count as "Triggered Rule Count", technique_name as "Technique", rule_name as "Rule"</query>
-        </search>
-        <option name="count">20</option>
-        <option name="dataOverlayMode">none</option>
-        <option name="drilldown">none</option>
-        <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
-        <option name="rowNumbers">false</option>
-        <option name="totalsRow">false</option>
-        <option name="wrap">true</option>
-      </table>
-    </panel>
-  </row>
-</form>
+
+<dashboard version="2" theme="dark">
+    <label>MITRE ATT&amp;CK Triggered Tactics &amp; Techniques</label>
+    <description></description>
+    <definition><![CDATA[
+{
+	"visualizations": {
+		"viz_7Y9BVVe6": {
+			"type": "splunk.sankey",
+			"options": {
+				"colorMode": "categorical"
+			},
+			"dataSources": {
+				"primary": "ds_gNfqCY1p"
+			},
+			"title": "Triggered Tactics by Notable Assets",
+			"showProgressBar": true
+		},
+		"viz_4TATOLaq": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "cell",
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_EoI3Xjlc"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "SplunkEnterpriseSecuritySuite",
+						"dashboard": "incident_review",
+						"tokens": [
+							{
+								"token": "earliest",
+								"value": "$attack_time_field.earliest$"
+							},
+							{
+								"token": "amp;latest",
+								"value": "$attack_time_field.latest$"
+							},
+							{
+								"token": "amp;urgency",
+								"value": "critical"
+							},
+							{
+								"token": "amp;urgency",
+								"value": "high"
+							},
+							{
+								"token": "amp;urgency",
+								"value": "medium"
+							},
+							{
+								"token": "amp;urgency",
+								"value": "low"
+							},
+							{
+								"token": "amp;urgency",
+								"value": "informational"
+							},
+							{
+								"token": "search",
+								"value": "$click.value$"
+							}
+						],
+						"newTab": true
+					}
+				}
+			],
+			"title": "Triggered Tactics by Notable Assets",
+			"showProgressBar": true
+		},
+		"viz_rLIBhAw4": {
+			"type": "splunk.sankey",
+			"options": {
+				"colorMode": "categorical"
+			},
+			"dataSources": {
+				"primary": "ds_GAv0anmm"
+			},
+			"title": "Triggered Tactics by Notable User",
+			"showProgressBar": true
+		},
+		"viz_gdA3LTuD": {
+			"type": "splunk.table",
+			"options": {
+				"drilldown": "cell",
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_ax480rnM"
+			},
+			"eventHandlers": [
+				{
+					"type": "drilldown.linkToDashboard",
+					"options": {
+						"app": "SplunkEnterpriseSecuritySuite",
+						"dashboard": "incident_review",
+						"tokens": [
+							{
+								"token": "earliest",
+								"value": "$attack_time_field.earliest$"
+							},
+							{
+								"token": "amp;latest",
+								"value": "$attack_time_field.latest$"
+							},
+							{
+								"token": "amp;urgency",
+								"value": "critical"
+							},
+							{
+								"token": "amp;urgency",
+								"value": "high"
+							},
+							{
+								"token": "amp;urgency",
+								"value": "medium"
+							},
+							{
+								"token": "amp;urgency",
+								"value": "low"
+							},
+							{
+								"token": "amp;urgency",
+								"value": "informational"
+							},
+							{
+								"token": "search",
+								"value": "$click.value$"
+							}
+						],
+						"newTab": true
+					}
+				}
+			],
+			"title": "Triggered Tactics by Notable User",
+			"showProgressBar": true
+		},
+		"viz_R2TE2PRh": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_roxy6ciT"
+			},
+			"title": "Reconnaissance",
+			"showProgressBar": true
+		},
+		"viz_Vylk8irj": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_AmUVzhux"
+			},
+			"title": "Resource Development",
+			"showProgressBar": true
+		},
+		"viz_rljAZY8T": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_5Fpd4shA"
+			},
+			"title": "Initial Access",
+			"showProgressBar": true
+		},
+		"viz_CRn0D5Aw": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_Qh25n3DY"
+			},
+			"title": "Execution",
+			"showProgressBar": true
+		},
+		"viz_CB0AXyYr": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_UmRwZJMk"
+			},
+			"title": "Persistence",
+			"showProgressBar": true
+		},
+		"viz_fvFiFRi6": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_qonehVee"
+			},
+			"title": "Privilege Escalation",
+			"showProgressBar": true
+		},
+		"viz_LICWvpvS": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_mRYCT2t6"
+			},
+			"title": "Defense Evasion",
+			"showProgressBar": true
+		},
+		"viz_taVES1Wk": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_20ne7P8w"
+			},
+			"title": "Credential Access",
+			"showProgressBar": true
+		},
+		"viz_U8R2MteW": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_1J5Lt8GW"
+			},
+			"title": "Discovery",
+			"showProgressBar": true
+		},
+		"viz_q8KN9C6i": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_48ys9e3W"
+			},
+			"title": "Lateral Movement",
+			"showProgressBar": true
+		},
+		"viz_mjfyEuqs": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_de8rPFhr"
+			},
+			"title": "Collection",
+			"showProgressBar": true
+		},
+		"viz_oNHicxzI": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_zKJ5wPim"
+			},
+			"title": "Command And Control",
+			"showProgressBar": true
+		},
+		"viz_w2BoOr8r": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_rV0Z4UJv"
+			},
+			"title": "Exfiltration",
+			"showProgressBar": true
+		},
+		"viz_YaHM8AuO": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_FtcHhuHl"
+			},
+			"title": "Impact",
+			"showProgressBar": true
+		}
+	},
+	"dataSources": {
+		"ds_basesearch_mitre_by_assets": {
+			"type": "ds.search",
+			"options": {
+				"query": "`mitre_rules`\n    | eval notable_asset=if(risk_object_type=\"system\", risk_object, mvappend(src,dest)) \n    | eval notable_user=if(risk_object_type=\"user\", risk_object, user)\n    | fields rule_name, urgency, score, technique_id, technique_name, tactic_id, tactic_name, notable_asset, notable_user",
+				"queryParameters": {
+					"earliest": "$attack_time_field.earliest$",
+					"latest": "$attack_time_field.latest$"
+				}
+			},
+			"name": "ds_basesearch_mitre_by_assets"
+		},
+		"ds_post_process_tt_by_rule": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_basesearch_mitre_by_assets",
+				"query": "| fields tactic_name, technique_name, rule_name"
+			},
+			"name": "ds_post_process_tt_by_rule"
+		},
+		"ds_gNfqCY1p": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_basesearch_mitre_by_assets",
+				"query": "| fields notable_asset, tactic_name\n| stats count by notable_asset tactic_name"
+			},
+			"name": "Triggered Tactics by Notable Assets - Sankey diagram search"
+		},
+		"ds_EoI3Xjlc": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_basesearch_mitre_by_assets",
+				"query": "| fields notable_asset, tactic_name\n| stats count by notable_asset tactic_name \n| sort -count"
+			},
+			"name": "Triggered Tactics by Notable Assets - Table search"
+		},
+		"ds_GAv0anmm": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_basesearch_mitre_by_assets",
+				"query": "| fields notable_user, tactic_name\n| stats count by notable_user tactic_name"
+			},
+			"name": "Triggered Tactics by Notable User - Sankey diagram search"
+		},
+		"ds_ax480rnM": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_basesearch_mitre_by_assets",
+				"query": "| fields notable_user, tactic_name\n| stats count by notable_user tactic_name\n| sort -count"
+			},
+			"name": "Triggered Tactics by Notable User - Table search"
+		},
+		"ds_roxy6ciT": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Reconnaissance\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Reconnaissance - Table search"
+		},
+		"ds_AmUVzhux": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Resource Development\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Resource Development - Table search"
+		},
+		"ds_5Fpd4shA": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Initial Access\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Initial Access - Table search"
+		},
+		"ds_Qh25n3DY": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Execution\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Execution - Table search"
+		},
+		"ds_UmRwZJMk": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Persistence\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Persistence - Table search"
+		},
+		"ds_qonehVee": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Privilege Escalation\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Privilege Escalation - Table search"
+		},
+		"ds_mRYCT2t6": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Defense Evasion\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Defense Evasion - Table search"
+		},
+		"ds_20ne7P8w": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Credential Access\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Credential Access - Table search"
+		},
+		"ds_1J5Lt8GW": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Discovery\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Discovery - Table search"
+		},
+		"ds_48ys9e3W": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Lateral Movement\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Lateral Movement - Table search"
+		},
+		"ds_de8rPFhr": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Collection\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Collection - Table search"
+		},
+		"ds_zKJ5wPim": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Command And Control\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Command And Control - Table search"
+		},
+		"ds_rV0Z4UJv": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Exfiltration\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Exfiltration - Table search"
+		},
+		"ds_FtcHhuHl": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Impact\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Impact - Table search"
+		}
+	},
+	"defaults": {
+		"dataSources": {
+			"ds.search": {
+				"options": {
+					"queryParameters": {}
+				}
+			}
+		}
+	},
+	"inputs": {
+		"input_Mt7qqxna": {
+			"type": "input.timerange",
+			"options": {
+				"token": "attack_time_field",
+				"defaultValue": "-15m,now"
+			},
+			"title": "Event Time Range"
+		},
+		"input_Vi2xQIVS": {
+			"type": "input.multiselect",
+			"options": {
+				"defaultValue": "critical,high,medium,informational,low",
+				"items": [
+					{
+						"value": "critical",
+						"label": "Critical"
+					},
+					{
+						"value": "high",
+						"label": "High"
+					},
+					{
+						"value": "medium",
+						"label": "Medium"
+					},
+					{
+						"value": "informational",
+						"label": "Info"
+					},
+					{
+						"value": "low",
+						"label": "Low"
+					}
+				],
+				"token": "urgency_field"
+			},
+			"title": "Urgency"
+		}
+	},
+	"layout": {
+		"options": {
+			"submitButton": true
+		},
+		"globalInputs": [
+			"input_Mt7qqxna",
+			"input_Vi2xQIVS"
+		],
+		"tabs": {
+			"items": [
+				{
+					"layoutId": "layout_1",
+					"label": "New tab"
+				}
+			]
+		},
+		"layoutDefinitions": {
+			"layout_1": {
+				"type": "absolute",
+				"structure": [
+					{
+						"item": "viz_7Y9BVVe6",
+						"type": "block",
+						"position": {
+							"x": 0,
+							"y": 0,
+							"w": 720,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_4TATOLaq",
+						"type": "block",
+						"position": {
+							"x": 720,
+							"y": 0,
+							"w": 720,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_rLIBhAw4",
+						"type": "block",
+						"position": {
+							"x": 0,
+							"y": 250,
+							"w": 720,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_gdA3LTuD",
+						"type": "block",
+						"position": {
+							"x": 720,
+							"y": 250,
+							"w": 720,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_R2TE2PRh",
+						"type": "block",
+						"position": {
+							"x": 0,
+							"y": 500,
+							"w": 720,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_Vylk8irj",
+						"type": "block",
+						"position": {
+							"x": 720,
+							"y": 500,
+							"w": 720,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_rljAZY8T",
+						"type": "block",
+						"position": {
+							"x": 0,
+							"y": 750,
+							"w": 480,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_CRn0D5Aw",
+						"type": "block",
+						"position": {
+							"x": 480,
+							"y": 750,
+							"w": 480,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_CB0AXyYr",
+						"type": "block",
+						"position": {
+							"x": 960,
+							"y": 750,
+							"w": 480,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_fvFiFRi6",
+						"type": "block",
+						"position": {
+							"x": 0,
+							"y": 1000,
+							"w": 480,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_LICWvpvS",
+						"type": "block",
+						"position": {
+							"x": 480,
+							"y": 1000,
+							"w": 480,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_taVES1Wk",
+						"type": "block",
+						"position": {
+							"x": 960,
+							"y": 1000,
+							"w": 480,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_U8R2MteW",
+						"type": "block",
+						"position": {
+							"x": 0,
+							"y": 1250,
+							"w": 480,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_q8KN9C6i",
+						"type": "block",
+						"position": {
+							"x": 480,
+							"y": 1250,
+							"w": 480,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_mjfyEuqs",
+						"type": "block",
+						"position": {
+							"x": 960,
+							"y": 1250,
+							"w": 480,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_oNHicxzI",
+						"type": "block",
+						"position": {
+							"x": 0,
+							"y": 1500,
+							"w": 480,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_w2BoOr8r",
+						"type": "block",
+						"position": {
+							"x": 480,
+							"y": 1500,
+							"w": 480,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_YaHM8AuO",
+						"type": "block",
+						"position": {
+							"x": 960,
+							"y": 1500,
+							"w": 480,
+							"h": 250
+						}
+					}
+				],
+				"options": {
+					"width": 1440,
+					"height": 1750,
+					"display": "auto"
+				}
+			}
+		}
+	},
+	"description": "",
+	"title": "MITRE ATT&CK Triggered Tactics & Techniques"
+}
+    ]]></definition>
+    <meta type="hiddenElements"><![CDATA[
+{
+	"hideEdit": false,
+	"hideOpenInSearch": false,
+	"hideExport": false
+}
+    ]]></meta>
+    <meta type="conversionReport"><![CDATA[
+{
+	"conversionErrors": [],
+	"conversionWarnings": [
+		{
+			"type": "unsupportedInputConfigGeneric",
+			"configName": "delimiter",
+			"configValue": " OR ",
+			"line": 32,
+			"inputType": "multiselect",
+			"convertedId": "input_Vi2xQIVS"
+		},
+		{
+			"type": "unsupportedInputConfigGeneric",
+			"configName": "valuePrefix",
+			"configValue": "urgency=",
+			"line": 33,
+			"inputType": "multiselect",
+			"convertedId": "input_Vi2xQIVS"
+		},
+		{
+			"type": "unsupportedInputConfigGeneric",
+			"configName": "prefix",
+			"configValue": "(",
+			"line": 34,
+			"inputType": "multiselect",
+			"convertedId": "input_Vi2xQIVS"
+		},
+		{
+			"type": "unsupportedInputConfigGeneric",
+			"configName": "suffix",
+			"configValue": ")",
+			"line": 35,
+			"inputType": "multiselect",
+			"convertedId": "input_Vi2xQIVS"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "sankey_diagram_app.sankey_diagram.showBackwards",
+			"optionValue": "false",
+			"line": 52,
+			"convertedId": "viz_7Y9BVVe6",
+			"vizType": "splunk.sankey"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "sankey_diagram_app.sankey_diagram.showLabels",
+			"optionValue": "true",
+			"line": 53,
+			"convertedId": "viz_7Y9BVVe6",
+			"vizType": "splunk.sankey"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "sankey_diagram_app.sankey_diagram.showLegend",
+			"optionValue": "true",
+			"line": 54,
+			"convertedId": "viz_7Y9BVVe6",
+			"vizType": "splunk.sankey"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "sankey_diagram_app.sankey_diagram.showSelf",
+			"optionValue": "false",
+			"line": 55,
+			"convertedId": "viz_7Y9BVVe6",
+			"vizType": "splunk.sankey"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "sankey_diagram_app.sankey_diagram.showTooltip",
+			"optionValue": "true",
+			"line": 56,
+			"convertedId": "viz_7Y9BVVe6",
+			"vizType": "splunk.sankey"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "sankey_diagram_app.sankey_diagram.styleBackwards",
+			"optionValue": "false",
+			"line": 57,
+			"convertedId": "viz_7Y9BVVe6",
+			"vizType": "splunk.sankey"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "sankey_diagram_app.sankey_diagram.showBackwards",
+			"optionValue": "false",
+			"line": 94,
+			"convertedId": "viz_rLIBhAw4",
+			"vizType": "splunk.sankey"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "sankey_diagram_app.sankey_diagram.showLabels",
+			"optionValue": "true",
+			"line": 95,
+			"convertedId": "viz_rLIBhAw4",
+			"vizType": "splunk.sankey"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "sankey_diagram_app.sankey_diagram.showLegend",
+			"optionValue": "true",
+			"line": 96,
+			"convertedId": "viz_rLIBhAw4",
+			"vizType": "splunk.sankey"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "sankey_diagram_app.sankey_diagram.showSelf",
+			"optionValue": "false",
+			"line": 97,
+			"convertedId": "viz_rLIBhAw4",
+			"vizType": "splunk.sankey"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "sankey_diagram_app.sankey_diagram.showTooltip",
+			"optionValue": "true",
+			"line": 98,
+			"convertedId": "viz_rLIBhAw4",
+			"vizType": "splunk.sankey"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "sankey_diagram_app.sankey_diagram.styleBackwards",
+			"optionValue": "false",
+			"line": 99,
+			"convertedId": "viz_rLIBhAw4",
+			"vizType": "splunk.sankey"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 139,
+			"convertedId": "viz_R2TE2PRh",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 158,
+			"convertedId": "viz_Vylk8irj",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 179,
+			"convertedId": "viz_rljAZY8T",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 198,
+			"convertedId": "viz_CRn0D5Aw",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 217,
+			"convertedId": "viz_CB0AXyYr",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 238,
+			"convertedId": "viz_fvFiFRi6",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 257,
+			"convertedId": "viz_LICWvpvS",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 276,
+			"convertedId": "viz_taVES1Wk",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 297,
+			"convertedId": "viz_U8R2MteW",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 316,
+			"convertedId": "viz_q8KN9C6i",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 335,
+			"convertedId": "viz_mjfyEuqs",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 356,
+			"convertedId": "viz_oNHicxzI",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 375,
+			"convertedId": "viz_w2BoOr8r",
+			"vizType": "splunk.table"
+		},
+		{
+			"type": "unsupportedOptionGeneric",
+			"optionName": "wrap",
+			"optionValue": "true",
+			"line": 394,
+			"convertedId": "viz_YaHM8AuO",
+			"vizType": "splunk.table"
+		}
+	],
+	"counts": {
+		"visualizations": {
+			"count": 18,
+			"convertedCount": 18,
+			"configCount": 160,
+			"convertedConfigCount": 134
+		},
+		"inputs": {
+			"count": 2,
+			"convertedCount": 2,
+			"configCount": 17,
+			"convertedConfigCount": 13
+		},
+		"searches": {
+			"count": 20,
+			"convertedCount": 20,
+			"configCount": 41,
+			"convertedConfigCount": 41
+		},
+		"dataSources": 20,
+		"panels": {
+			"count": 18,
+			"convertedCount": 18,
+			"configCount": 0,
+			"convertedConfigCount": 0
+		},
+		"rows": {
+			"count": 7,
+			"convertedCount": 7,
+			"configCount": 0,
+			"convertedConfigCount": 0
+		},
+		"dashboardLevelConfigs": {
+			"count": 1,
+			"convertedCount": 1,
+			"configCount": 2,
+			"convertedConfigCount": 2
+		}
+	},
+	"conversionTime": 1746283577879,
+	"originDashboardTitle": "MITRE ATT&CK Triggered Tactics & Techniques",
+	"originDashboardId": "mitre_triggered_tactics__techniques",
+	"originDashboardApp": "DA-ESS-MitreContent"
+}
+    ]]></meta>
+</dashboard>
