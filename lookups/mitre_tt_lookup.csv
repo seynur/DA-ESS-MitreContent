@@ -111,11 +111,13 @@ TA0001,Initial Access,T1078.004,Cloud Accounts
 TA0001,Initial Access,T1078.001,Default Accounts
 TA0001,Initial Access,T1078.002,Domain Accounts
 TA0001,Initial Access,T1078.003,Local Accounts
+TA0001,Initial Access,T1669,Wi-Fi Networks
 TA0002,Execution,T1651,Cloud Administration Command
 TA0002,Execution,T1059,Command and Scripting Interpreter
 TA0002,Execution,T1059.002,AppleScript
 TA0002,Execution,T1059.010,AutoHotKey & AutoIT
 TA0002,Execution,T1059.009,Cloud API
+TA0002,Execution,T1059.012,Hypervisor CLI
 TA0002,Execution,T1059.007,JavaScript
 TA0002,Execution,T1059.011,Lua
 TA0002,Execution,T1059.008,Network Device CLI
@@ -126,7 +128,9 @@ TA0002,Execution,T1059.005,Visual Basic
 TA0002,Execution,T1059.003,Windows Command Shell
 TA0002,Execution,T1609,Container Administration Command
 TA0002,Execution,T1610,Deploy Container
+TA0002,Execution,T1675,ESXi Administration Command
 TA0002,Execution,T1203,Exploitation for Client Execution
+TA0002,Execution,T1674,Input Injection
 TA0002,Execution,T1559,Inter-Process Communication
 TA0002,Execution,T1559.001,Component Object Model
 TA0002,Execution,T1559.002,Dynamic Data Exchange
@@ -144,7 +148,9 @@ TA0002,Execution,T1072,Software Deployment Tools
 TA0002,Execution,T1569,System Services
 TA0002,Execution,T1569.001,Launchctl
 TA0002,Execution,T1569.002,Service Execution
+TA0002,Execution,T1569.003,Systemctl
 TA0002,Execution,T1204,User Execution
+TA0002,Execution,T1204.004,Malicious Copy and Paste
 TA0002,Execution,T1204.002,Malicious File
 TA0002,Execution,T1204.003,Malicious Image
 TA0002,Execution,T1204.001,Malicious Link
@@ -179,7 +185,7 @@ TA0003,Persistence,T1037.001,Logon Script (Windows)
 TA0003,Persistence,T1037.003,Network Logon Script
 TA0003,Persistence,T1037.004,RC Scripts
 TA0003,Persistence,T1037.005,Startup Items
-TA0003,Persistence,T1176,Browser Extensions
+TA0003,Persistence,T1671,Cloud Application Integration
 TA0003,Persistence,T1554,Compromise Host Software Binary
 TA0003,Persistence,T1136,Create Account
 TA0003,Persistence,T1136.003,Cloud Account
@@ -209,12 +215,12 @@ TA0003,Persistence,T1546.005,Trap
 TA0003,Persistence,T1546.017,Udev Rules
 TA0003,Persistence,T1546.004,Unix Shell Configuration Modification
 TA0003,Persistence,T1546.003,Windows Management Instrumentation Event Subscription
+TA0003,Persistence,T1668,Exclusive Control
 TA0003,Persistence,T1133,External Remote Services
 TA0003,Persistence,T1574,Hijack Execution Flow
 TA0003,Persistence,T1574.014,AppDomainManager
 TA0003,Persistence,T1574.012,COR_PROFILER
-TA0003,Persistence,T1574.001,DLL Search Order Hijacking
-TA0003,Persistence,T1574.002,DLL Side-Loading
+TA0003,Persistence,T1574.001,DLL
 TA0003,Persistence,T1574.004,Dylib Hijacking
 TA0003,Persistence,T1574.006,Dynamic Linker Hijacking
 TA0003,Persistence,T1574.005,Executable Installer File Permissions Weakness
@@ -235,6 +241,7 @@ TA0003,Persistence,T1556.008,Network Provider DLL
 TA0003,Persistence,T1556.002,Password Filter DLL
 TA0003,Persistence,T1556.003,Pluggable Authentication Modules
 TA0003,Persistence,T1556.005,Reversible Encryption
+TA0003,Persistence,T1112,Modify Registry
 TA0003,Persistence,T1137,Office Application Startup
 TA0003,Persistence,T1137.006,Add-ins
 TA0003,Persistence,T1137.001,Office Template Macros
@@ -260,7 +267,11 @@ TA0003,Persistence,T1505.004,IIS Components
 TA0003,Persistence,T1505.001,SQL Stored Procedures
 TA0003,Persistence,T1505.005,Terminal Services DLL
 TA0003,Persistence,T1505.002,Transport Agent
+TA0003,Persistence,T1505.006,vSphere Installation Bundles
 TA0003,Persistence,T1505.003,Web Shell
+TA0003,Persistence,T1176,Software Extensions
+TA0003,Persistence,T1176.001,Browser Extensions
+TA0003,Persistence,T1176.002,IDE Extensions
 TA0003,Persistence,T1205,Traffic Signaling
 TA0003,Persistence,T1205.001,Port Knocking
 TA0003,Persistence,T1205.002,Socket Filters
@@ -343,8 +354,7 @@ TA0004,Privilege Escalation,T1068,Exploitation for Privilege Escalation
 TA0004,Privilege Escalation,T1574,Hijack Execution Flow
 TA0004,Privilege Escalation,T1574.014,AppDomainManager
 TA0004,Privilege Escalation,T1574.012,COR_PROFILER
-TA0004,Privilege Escalation,T1574.001,DLL Search Order Hijacking
-TA0004,Privilege Escalation,T1574.002,DLL Side-Loading
+TA0004,Privilege Escalation,T1574.001,DLL
 TA0004,Privilege Escalation,T1574.004,Dylib Hijacking
 TA0004,Privilege Escalation,T1574.006,Dynamic Linker Hijacking
 TA0004,Privilege Escalation,T1574.005,Executable Installer File Permissions Weakness
@@ -400,6 +410,7 @@ TA0005,Defense Evasion,T1006,Direct Volume Access
 TA0005,Defense Evasion,T1484,Domain or Tenant Policy Modification
 TA0005,Defense Evasion,T1484.001,Group Policy Modification
 TA0005,Defense Evasion,T1484.002,Trust Modification
+TA0005,Defense Evasion,T1672,Email Spoofing
 TA0005,Defense Evasion,T1480,Execution Guardrails
 TA0005,Defense Evasion,T1480.001,Environmental Keying
 TA0005,Defense Evasion,T1480.002,Mutual Exclusion
@@ -408,7 +419,9 @@ TA0005,Defense Evasion,T1222,File and Directory Permissions Modification
 TA0005,Defense Evasion,T1222.002,Linux and Mac File and Directory Permissions Modification
 TA0005,Defense Evasion,T1222.001,Windows File and Directory Permissions Modification
 TA0005,Defense Evasion,T1564,Hide Artifacts
+TA0005,Defense Evasion,T1564.013,Bind Mounts
 TA0005,Defense Evasion,T1564.008,Email Hiding Rules
+TA0005,Defense Evasion,T1564.014,Extended Attributes
 TA0005,Defense Evasion,T1564.012,File/Path Exclusions
 TA0005,Defense Evasion,T1564.005,Hidden File System
 TA0005,Defense Evasion,T1564.001,Hidden Files and Directories
@@ -423,8 +436,7 @@ TA0005,Defense Evasion,T1564.007,VBA Stomping
 TA0005,Defense Evasion,T1574,Hijack Execution Flow
 TA0005,Defense Evasion,T1574.014,AppDomainManager
 TA0005,Defense Evasion,T1574.012,COR_PROFILER
-TA0005,Defense Evasion,T1574.001,DLL Search Order Hijacking
-TA0005,Defense Evasion,T1574.002,DLL Side-Loading
+TA0005,Defense Evasion,T1574.001,DLL
 TA0005,Defense Evasion,T1574.004,Dylib Hijacking
 TA0005,Defense Evasion,T1574.006,Dynamic Linker Hijacking
 TA0005,Defense Evasion,T1574.005,Executable Installer File Permissions Weakness
@@ -466,8 +478,9 @@ TA0005,Defense Evasion,T1036.001,Invalid Code Signature
 TA0005,Defense Evasion,T1036.010,Masquerade Account Name
 TA0005,Defense Evasion,T1036.008,Masquerade File Type
 TA0005,Defense Evasion,T1036.004,Masquerade Task or Service
-TA0005,Defense Evasion,T1036.005,Match Legitimate Name or Location
-TA0005,Defense Evasion,T1036.003,Rename System Utilities
+TA0005,Defense Evasion,T1036.005,Match Legitimate Resource Name or Location
+TA0005,Defense Evasion,T1036.011,Overwrite Process Arguments
+TA0005,Defense Evasion,T1036.003,Rename Legitimate Utilities
 TA0005,Defense Evasion,T1036.002,Right-to-Left Override
 TA0005,Defense Evasion,T1036.006,Space after Filename
 TA0005,Defense Evasion,T1556,Modify Authentication Process
@@ -497,17 +510,20 @@ TA0005,Defense Evasion,T1027,Obfuscated Files or Information
 TA0005,Defense Evasion,T1027.001,Binary Padding
 TA0005,Defense Evasion,T1027.010,Command Obfuscation
 TA0005,Defense Evasion,T1027.004,Compile After Delivery
+TA0005,Defense Evasion,T1027.015,Compression
 TA0005,Defense Evasion,T1027.007,Dynamic API Resolution
 TA0005,Defense Evasion,T1027.009,Embedded Payloads
 TA0005,Defense Evasion,T1027.013,Encrypted/Encoded File
 TA0005,Defense Evasion,T1027.011,Fileless Storage
 TA0005,Defense Evasion,T1027.006,HTML Smuggling
 TA0005,Defense Evasion,T1027.005,Indicator Removal from Tools
+TA0005,Defense Evasion,T1027.016,Junk Code Insertion
 TA0005,Defense Evasion,T1027.012,LNK Icon Smuggling
 TA0005,Defense Evasion,T1027.014,Polymorphic Code
 TA0005,Defense Evasion,T1027.002,Software Packing
 TA0005,Defense Evasion,T1027.003,Steganography
 TA0005,Defense Evasion,T1027.008,Stripped Payloads
+TA0005,Defense Evasion,T1027.017,SVG Smuggling
 TA0005,Defense Evasion,T1647,Plist File Modification
 TA0005,Defense Evasion,T1542,Pre-OS Boot
 TA0005,Defense Evasion,T1542.003,Bootkit
@@ -562,6 +578,7 @@ TA0005,Defense Evasion,T1205.001,Port Knocking
 TA0005,Defense Evasion,T1205.002,Socket Filters
 TA0005,Defense Evasion,T1127,Trusted Developer Utilities Proxy Execution
 TA0005,Defense Evasion,T1127.002,ClickOnce
+TA0005,Defense Evasion,T1127.003,JamPlus
 TA0005,Defense Evasion,T1127.001,MSBuild
 TA0005,Defense Evasion,T1535,Unused/Unsupported Cloud Regions
 TA0005,Defense Evasion,T1550,Use Alternate Authentication Material
@@ -691,6 +708,7 @@ TA0007,Discovery,T1049,System Network Connections Discovery
 TA0007,Discovery,T1033,System Owner/User Discovery
 TA0007,Discovery,T1007,System Service Discovery
 TA0007,Discovery,T1124,System Time Discovery
+TA0007,Discovery,T1673,Virtual Machine Discovery
 TA0007,Discovery,T1497,Virtualization/Sandbox Evasion
 TA0007,Discovery,T1497.001,System Checks
 TA0007,Discovery,T1497.003,Time Based Evasion
@@ -792,7 +810,10 @@ TA0011,Command and Control,T1090.004,Domain Fronting
 TA0011,Command and Control,T1090.002,External Proxy
 TA0011,Command and Control,T1090.001,Internal Proxy
 TA0011,Command and Control,T1090.003,Multi-hop Proxy
-TA0011,Command and Control,T1219,Remote Access Software
+TA0011,Command and Control,T1219,Remote Access Tools
+TA0011,Command and Control,T1219.001,IDE Tunneling
+TA0011,Command and Control,T1219.003,Remote Access Hardware
+TA0011,Command and Control,T1219.002,Remote Desktop Software
 TA0011,Command and Control,T1205,Traffic Signaling
 TA0011,Command and Control,T1205.001,Port Knocking
 TA0011,Command and Control,T1205.002,Socket Filters
@@ -833,6 +854,7 @@ TA0040,Impact,T1491.001,Internal Defacement
 TA0040,Impact,T1561,Disk Wipe
 TA0040,Impact,T1561.001,Disk Content Wipe
 TA0040,Impact,T1561.002,Disk Structure Wipe
+TA0040,Impact,T1667,Email Bombing
 TA0040,Impact,T1499,Endpoint Denial of Service
 TA0040,Impact,T1499.003,Application Exhaustion Flood
 TA0040,Impact,T1499.004,Application or System Exploitation
