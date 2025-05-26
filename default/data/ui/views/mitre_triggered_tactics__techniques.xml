@@ -566,7 +566,7 @@
 	},
 	"layout": {
 		"options": {
-			"submitButton": true
+			"submitButton": false
 		},
 		"globalInputs": [
 			"input_Mt7qqxna",
@@ -768,7 +768,7 @@
 				"options": {
 					"width": 1440,
 					"height": 1750,
-					"display": "auto"
+					"display": "fit-to-width"
 				}
 			}
 		}
