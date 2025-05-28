@@ -8,7 +8,6 @@ This application provides compliance and triage dashboards for MITRE ATT&CK Fram
 
 #### Required Splunk Apps:
 - [Splunk Enterprise Security](https://splunkbase.splunk.com/app/263/) 5.2 or above
-- [Sankey Diagram - Custom Visualization](https://splunkbase.splunk.com/app/3112/)
 
 #### Recommended Splunk Apps:
 - [Splunk ES Content Update](https://splunkbase.splunk.com/app/3449/)
@@ -29,6 +28,11 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.13.0
+- Date: 26 May 2025
+- Feature: Compatibility with ATT&CK version 17.1
+- Feature: Updated MITRE dashboard by replacing deprecated Sankey diagram
+
 Version 3.12.0
 - Date: 09 Jan 2025
 - Feature: Compatibility with ATT&CK version 16.1
