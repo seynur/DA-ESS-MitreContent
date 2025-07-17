@@ -1,0 +1,65 @@
+actor_id,actor_name,technique_id,technique_name
+G0018,admin@338,T1087,Account Discovery
+G0018,admin@338,T1087.001,Local Account
+G0018,admin@338,T1059,Command and Scripting Interpreter
+G0018,admin@338,T1059.003,Windows Command Shell
+G0018,admin@338,T1203,Exploitation for Client Execution
+G0018,admin@338,T1083,File and Directory Discovery
+G0018,admin@338,T1036,Masquerading
+G0018,admin@338,T1036.005,Match Legitimate Resource Name or Location
+G0018,admin@338,T1069,Permission Groups Discovery
+G0018,admin@338,T1069.001,Local Groups
+G0018,admin@338,T1566,Phishing
+G0018,admin@338,T1566.001,Spearphishing Attachment
+G0018,admin@338,T1082,System Information Discovery
+G0018,admin@338,T1016,System Network Configuration Discovery
+G0018,admin@338,T1049,System Network Connections Discovery
+G0018,admin@338,T1007,System Service Discovery
+G0018,admin@338,T1204,User Execution
+G0018,admin@338,T1204.002,Malicious File
+G1030,Agrius,T1583,Acquire Infrastructure
+G1030,Agrius,T1560,Archive Collected Data
+G1030,Agrius,T1560.001,Archive Collected Data: Archive via Utility
+G1030,Agrius,T1119,Automated Collection
+G1030,Agrius,T1110,Brute Force
+G1030,Agrius,T1110.003,Password Spraying
+G1030,Agrius,T1059,Command and Scripting Interpreter
+G1030,Agrius,T1059.003,Windows Command Shell
+G1030,Agrius,T1543,Create or Modify System Process
+G1030,Agrius,T1543.003,Windows Service
+G1030,Agrius,T1005,Data from Local System
+G1030,Agrius,T1074,Data Staged
+G1030,Agrius,T1074.001,Local Data Staging
+G1030,Agrius,T1140,Deobfuscate/Decode Files or Information
+G1030,Agrius,T1041,Exfiltration Over C2 Channel
+G1030,Agrius,T1190,Exploit Public-Facing Application
+G1030,Agrius,T1562,Impair Defenses
+G1030,Agrius,T1562.001,Disable or Modify Tools
+G0130,Ajax Security Team,T1555,Credentials from Password Stores
+G0130,Ajax Security Team,T1555.003,Credentials from Web Browsers
+G0130,Ajax Security Team,T1105,Ingress Tool Transfer
+G0130,Ajax Security Team,T1056,Input Capture
+G0130,Ajax Security Team,T1056.001,Keylogging
+G0130,Ajax Security Team,T1566,Phishing
+G0130,Ajax Security Team,T1566.001,Spearphishing Attachment
+G0130,Ajax Security Team,T1566.003,Spearphishing via Service
+G0130,Ajax Security Team,T1204,User Execution
+G0130,Ajax Security Team,T1204.002,Malicious File
+,,T1595,Active Scanning
+,,T1595.001,Scanning IP Blocks
+,,T1595.002,Vulnerability Scanning
+,,T1595.003,Wordlist Scanning
+,,T1592,Gather Victim Host Information
+,,T1592.004,Determine OS
+,,T1592.003,Hardware
+,,T1592.001,Internet Resources
+,,T1592.002,Client Configurations
+,,T1589.002,Email Addresses
+,,T1589.003,Social Media Accounts
+,,T1590,Gather Victim Network Information
+,,T1590.002,Domain Properties
+,,T1590.001,IP Addresses
+,,T1590.005,Network Topology
+,,T1590.006,Network Trust Dependencies
+,,T1590.004,Network Security Appliances
+,,T1591,Gather Victim Org Information
