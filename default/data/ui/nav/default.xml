@@ -2,7 +2,6 @@
   <view name="mitre_compliance" default="true" />
   <view name="mitre_threat_actor_compliance" default="true" />
   <view name="mitre_attck_matrix" />
-  <view name="mitre_attck_threat_actor_matrix" />
   <view name="mitre_triggered_tactics__techniques" />
   <collection label="Configuration">
     <view name="lookup_gen" />

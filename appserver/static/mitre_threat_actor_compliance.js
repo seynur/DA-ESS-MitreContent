@@ -26,7 +26,7 @@ require([
     var CustomRangeRenderer = TableView.BaseCellRenderer.extend({
         canRender: function(cell) {
             //return _(["Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion", "Credential Access", "Discovery", "Lateral Movement", "Collection", "Command and Control", "Exfiltration", "Impact", "TA0001:Initial Access", "TA0002:Execution", "TA0003:Persistence", "TA0004:Privilege Escalation", "TA0005:Defense Evasion", "TA0006:Credential Access", "TA0007:Discovery", "TA0008:Lateral Movement", "TA0009:Collection", "TA0011:Command and Control", "TA0010:Exfiltration", "TA0040:Impact","TA0001","TA0002","TA0003","TA0004","TA0005","TA0006","TA0007","TA0008","TA0009","TA0011","TA0010","TA0040"]).contains(cell.field);
-            return _(["SIEM All Rules Techniques", "admin@338", "Agrius", "Ajax Security Team"]).contains(cell.field);
+            return _(["G0018", "G1030", "G0130"]).contains(cell.field);
         },
         render: function($td, cell) {
             // Add a class to the cell based on the returned value

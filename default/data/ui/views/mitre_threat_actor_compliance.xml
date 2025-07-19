@@ -1,9 +1,7 @@
-<form script="mitre_threat_actor_compliance.js"
-      stylesheet="mitre_matrix.css"
-      version="1.1">
+<form script="mitre_threat_actor_compliance.js" stylesheet="mitre_matrix.css" version="1.1">
   <label>MITRE ATT&amp;CK Threat Actor Compliance</label>
   <description>This dashboard provides an overview of available correlation searches that match MITRE ATT&amp;CK techniques. Darker colors indicate higher ratio of enabled rules and you can view the actual numbers when hovering over the cells and click to drilldown further for editing the rules.</description>
-  <fieldset submitButton="false" autoRun="true">
+  <fieldset submitButton="true" autoRun="true">
     <input type="radio" token="tok_display_scope" searchWhenChanged="true">
       <label>Matrix Display Scope</label>
       <choice value="mitre_all_rule_compliance_lookup">ALL Rules</choice>
@@ -12,8 +10,7 @@
     </input>
     <input type="radio" token="tok_display_option" searchWhenChanged="true">
       <label>Matrix Display Options</label>
-      <choice value="mitre_threat_actor_lookup">Hide/Collapse Sub-techniques</choice>
-      <choice value="mitre_threat_actor_lookup_subtechniques">Show/Expand Sub-techniques</choice>
+      <choice value="mitre_threat_actor_lookup">Show/Expand All Techniques</choice>
       <default>mitre_threat_actor_lookup</default>
     </input>
     <input type="radio" token="tok_display_rule_status" searchWhenChanged="true">
@@ -21,6 +18,21 @@
       <choice value="all_rules">Show All Existing Rules</choice>
       <choice value="only_enabled_rules">Show Only Enabled Rules</choice>
       <default>all_rules</default>
+    </input>
+    <input type="multiselect" token="tok_actor">
+      <label>Filter by Threat Actor</label>
+      <delimiter> </delimiter>
+      <fieldForLabel>column</fieldForLabel>
+      <fieldForValue>column</fieldForValue>
+      <search>
+        <query>| inputlookup mitre_threat_actor_lookup.csv 
+| fields *
+| head 1 
+| transpose 
+| table column</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
     </input>
   </fieldset>
   <row>
@@ -58,16 +70,16 @@
         <title>MITRE ATT&amp;CK Threat Actor Compliance</title>
         <search>
           <query>| inputlookup $tok_display_option$
-| foreach all_techniques G*
-    [| lookup mitre_threat_actor_technique_lookup technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW technique_name as &lt;&lt;FIELD&gt;&gt;_technique_name
+| foreach G*
+    [| lookup mitre_tt_lookup technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW technique_name as &lt;&lt;FIELD&gt;&gt;_technique_name
     | eval &lt;&lt;FIELD&gt;&gt;_technique_name=mvindex(&lt;&lt;FIELD&gt;&gt;_technique_name,0)
     | lookup $tok_display_scope$ technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW enabled_percentage as &lt;&lt;FIELD&gt;&gt;_perc, count as &lt;&lt;FIELD&gt;&gt;_count, enabled_count as &lt;&lt;FIELD&gt;&gt;_enabled
     | fillnull value="NULL" &lt;&lt;FIELD&gt;&gt;,&lt;&lt;FIELD&gt;&gt;_technique_name,&lt;&lt;FIELD&gt;&gt;_perc,&lt;&lt;FIELD&gt;&gt;_count,&lt;&lt;FIELD&gt;&gt;_enabled
     | eval &lt;&lt;FIELD&gt;&gt;_count=if("$tok_display_rule_status$"=="only_enabled_rules", &lt;&lt;FIELD&gt;&gt;_enabled,&lt;&lt;FIELD&gt;&gt;_count), &lt;&lt;FIELD&gt;&gt;_perc=if("$tok_display_rule_status$"=="only_enabled_rules" AND &lt;&lt;FIELD&gt;&gt;_perc!="NULL" AND &lt;&lt;FIELD&gt;&gt;_perc!=0,100, &lt;&lt;FIELD&gt;&gt;_perc)
     | eval &lt;&lt;FIELD&gt;&gt;_perc=if("$tok_display_rule_status$"=="only_enabled_rules" AND &lt;&lt;FIELD&gt;&gt;_perc="0" ,"NULL", &lt;&lt;FIELD&gt;&gt;_perc)
     | eval &lt;&lt;FIELD&gt;&gt;=&lt;&lt;FIELD&gt;&gt;."|".&lt;&lt;FIELD&gt;&gt;_technique_name."|".&lt;&lt;FIELD&gt;&gt;_perc."|".&lt;&lt;FIELD&gt;&gt;_enabled."|".&lt;&lt;FIELD&gt;&gt;_count]
-| fields all_techniques, G0018, G1030, G0130
-| rename all_techniques as "SIEM All Rules Techniques", G0018 as "admin@338", G1030 as "Agrius", G0130 as "Ajax Security Team"</query>
+| fields $tok_actor$
+          </query>
           <earliest>-24h</earliest>
           <latest></latest>
         </search>
@@ -78,7 +90,7 @@
         <option name="refresh.display">progressbar</option>
         <drilldown>
           <eval token="technique_q">mvindex(split('click.value2',"|"),0)</eval>
-          <link target="_blank">/app/DA-ESS-MitreContent/mitre_threat_actor_rule_finder?form.mitre_technique_id=$technique_q$&amp;form.display_rule_status=$tok_display_rule_status$</link>
+          <link target="_blank">/app/DA-ESS-MitreContent/mitre_rule_finder?form.mitre_technique_id=$technique_q$&amp;form.display_rule_status=$tok_display_rule_status$</link>
         </drilldown>
       </table>
     </panel>
