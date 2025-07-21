@@ -8,11 +8,6 @@
       <choice value="mitre_user_rule_compliance_lookup">User-Defined and MITRE ATTACK App Rules</choice>
       <default>mitre_all_rule_compliance_lookup</default>
     </input>
-    <input type="radio" token="tok_display_option" searchWhenChanged="true">
-      <label>Matrix Display Options</label>
-      <choice value="mitre_threat_actor_lookup">Show/Expand All Techniques</choice>
-      <default>mitre_threat_actor_lookup</default>
-    </input>
     <input type="radio" token="tok_display_rule_status" searchWhenChanged="true">
       <label>Rule Display Options</label>
       <choice value="all_rules">Show All Existing Rules</choice>
@@ -69,7 +64,7 @@
       <table id="mitrematrix">
         <title>MITRE ATT&amp;CK Threat Actor Compliance</title>
         <search>
-          <query>| inputlookup $tok_display_option$
+          <query>| inputlookup mitre_threat_actor_lookup
 | foreach G*
     [| lookup mitre_tt_lookup technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW technique_name as &lt;&lt;FIELD&gt;&gt;_technique_name
     | eval &lt;&lt;FIELD&gt;&gt;_technique_name=mvindex(&lt;&lt;FIELD&gt;&gt;_technique_name,0)
