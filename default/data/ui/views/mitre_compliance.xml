@@ -29,7 +29,7 @@
         <title>MITRE ATT&amp;CK Compliance Lookup Gen Status</title>
         <search>
           <query>| rest /services/saved/searches/
-| search title="MITRE ATT&amp;CK Compliance Lookup Gen"
+| search title="MITRE ATT&amp;CK Compliance Lookup Gen" splunk_server = local
 | fields title, next_scheduled_time, updated
 | rename title as "Lookup Generator Name", next_scheduled_time as "Next Scheduled Run", updated as "Last Scheduled Run"
 | join "Lookup Generator Name" type=left
