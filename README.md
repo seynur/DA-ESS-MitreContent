@@ -28,6 +28,11 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.13.1
+- Date: 5 Sep 2025
+- Feature: Compatibility with ATT&CK version 17.1
+- Feature: Updated "MITRE ATT&CK Compliance Lookup Gen Status” Generator
+
 Version 3.13.0
 - Date: 26 May 2025
 - Feature: Compatibility with ATT&CK version 17.1
