@@ -8,13 +8,13 @@
       <label>Matrix Display Scope</label>
       <choice value="mitre_all_rule_compliance_lookup">ALL Rules</choice>
       <choice value="mitre_user_rule_compliance_lookup">User-Defined and MITRE ATTACK App Rules</choice>
-      <default>mitre_all_rule_compliance_lookup</default>
+      <default>mitre_user_rule_compliance_lookup</default>
     </input>
     <input type="radio" token="tok_display_option" searchWhenChanged="true">
       <label>Matrix Display Options</label>
       <choice value="mitre_lookup">Hide/Collapse Sub-techniques</choice>
       <choice value="mitre_lookup_subtechniques">Show/Expand Sub-techniques</choice>
-      <default>mitre_lookup</default>
+      <default>mitre_lookup_subtechniques</default>
     </input>
     <input type="radio" token="tok_display_rule_status" searchWhenChanged="true">
       <label>Rule Display Options</label>

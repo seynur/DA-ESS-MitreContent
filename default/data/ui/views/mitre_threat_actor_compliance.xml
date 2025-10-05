@@ -6,7 +6,7 @@
       <label>Matrix Display Scope</label>
       <choice value="mitre_all_rule_compliance_lookup">ALL Rules</choice>
       <choice value="mitre_user_rule_compliance_lookup">User-Defined and MITRE ATTACK App Rules</choice>
-      <default>mitre_all_rule_compliance_lookup</default>
+      <default>mitre_user_rule_compliance_lookup</default>
     </input>
     <input type="radio" token="tok_display_rule_status" searchWhenChanged="true">
       <label>Rule Display Options</label>
@@ -17,17 +17,17 @@
     <input type="multiselect" token="tok_actor">
       <label>Filter by Threat Actor</label>
       <delimiter> </delimiter>
-      <fieldForLabel>column</fieldForLabel>
-      <fieldForValue>column</fieldForValue>
+      <fieldForLabel>threat_actor</fieldForLabel>
+      <fieldForValue>threat_actor</fieldForValue>
       <search>
-        <query>| inputlookup mitre_threat_actor_lookup.csv 
-| fields *
-| head 1 
-| transpose 
-| table column</query>
+        <query>| inputlookup mitre_threat_actor_lookup.csv
+| transpose column_name="threat_actor"
+| table threat_actor</query>
         <earliest>-24h@h</earliest>
         <latest>now</latest>
       </search>
+      <choice value="- *_technique_name *_perc *_enabled *_count">ALL</choice>
+      <initialValue>- *_technique_name *_perc *_enabled *_count</initialValue>
     </input>
   </fieldset>
   <row>
@@ -36,7 +36,7 @@
         <title>MITRE ATT&amp;CK Compliance Lookup Gen Status</title>
         <search>
           <query>| rest /services/saved/searches/
-| search title="MITRE ATT&amp;CK Compliance Lookup Gen" splunk_server = local
+| search title="MITRE ATT&amp;CK Compliance Lookup Gen"
 | fields title, next_scheduled_time, updated
 | rename title as "Lookup Generator Name", next_scheduled_time as "Next Scheduled Run", updated as "Last Scheduled Run"
 | join "Lookup Generator Name" type=left
@@ -65,7 +65,7 @@
         <title>MITRE ATT&amp;CK Threat Actor Compliance</title>
         <search>
           <query>| inputlookup mitre_threat_actor_lookup
-| foreach G*
+| foreach *
     [| lookup mitre_tt_lookup technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW technique_name as &lt;&lt;FIELD&gt;&gt;_technique_name
     | eval &lt;&lt;FIELD&gt;&gt;_technique_name=mvindex(&lt;&lt;FIELD&gt;&gt;_technique_name,0)
     | lookup $tok_display_scope$ technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW enabled_percentage as &lt;&lt;FIELD&gt;&gt;_perc, count as &lt;&lt;FIELD&gt;&gt;_count, enabled_count as &lt;&lt;FIELD&gt;&gt;_enabled
@@ -73,8 +73,7 @@
     | eval &lt;&lt;FIELD&gt;&gt;_count=if("$tok_display_rule_status$"=="only_enabled_rules", &lt;&lt;FIELD&gt;&gt;_enabled,&lt;&lt;FIELD&gt;&gt;_count), &lt;&lt;FIELD&gt;&gt;_perc=if("$tok_display_rule_status$"=="only_enabled_rules" AND &lt;&lt;FIELD&gt;&gt;_perc!="NULL" AND &lt;&lt;FIELD&gt;&gt;_perc!=0,100, &lt;&lt;FIELD&gt;&gt;_perc)
     | eval &lt;&lt;FIELD&gt;&gt;_perc=if("$tok_display_rule_status$"=="only_enabled_rules" AND &lt;&lt;FIELD&gt;&gt;_perc="0" ,"NULL", &lt;&lt;FIELD&gt;&gt;_perc)
     | eval &lt;&lt;FIELD&gt;&gt;=&lt;&lt;FIELD&gt;&gt;."|".&lt;&lt;FIELD&gt;&gt;_technique_name."|".&lt;&lt;FIELD&gt;&gt;_perc."|".&lt;&lt;FIELD&gt;&gt;_enabled."|".&lt;&lt;FIELD&gt;&gt;_count]
-| fields $tok_actor$
-          </query>
+| fields $tok_actor$</query>
           <earliest>-24h</earliest>
           <latest></latest>
         </search>

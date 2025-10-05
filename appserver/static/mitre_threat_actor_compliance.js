@@ -1,4 +1,3 @@
-/* TODO: jink to replace theme_utils with that from core */
 require.config({
   paths: {
     theme_utils: '../app/DA-ESS-MitreContent/theme_utils',
@@ -6,95 +5,102 @@ require.config({
   }
 });
 
-
 require([
-    'underscore',
-    'jquery_local',
-    'splunkjs/mvc',
-    'splunkjs/mvc/tableview',
-    'theme_utils',
-    'splunkjs/mvc/simplexml/ready!'
-], function(_, jquery, mvc, TableView, themeUtils) {
-  
-    jQuery.noConflict(); // remove jquery conflicts for splunk js sdk
-    var $ = jQuery; // take dollar sign as a local variable
+  'underscore',
+  'jquery_local',
+  'splunkjs/mvc',
+  'splunkjs/mvc/tableview',
+  'splunkjs/mvc/searchmanager',
+  'theme_utils',
+  'splunkjs/mvc/simplexml/ready!'
+], function(_, jquery, mvc, TableView, SearchManager, themeUtils) {
 
-     // Row Coloring Example with custom, client-side range interpretation
+  jQuery.noConflict();
+  var $ = jQuery;
 
-    var isDarkTheme = themeUtils.getCurrentTheme && themeUtils.getCurrentTheme() === 'dark';
+  var isDarkTheme = themeUtils.getCurrentTheme && themeUtils.getCurrentTheme() === 'dark';
 
-    var CustomRangeRenderer = TableView.BaseCellRenderer.extend({
-        canRender: function(cell) {
-            //return _(["Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion", "Credential Access", "Discovery", "Lateral Movement", "Collection", "Command and Control", "Exfiltration", "Impact", "TA0001:Initial Access", "TA0002:Execution", "TA0003:Persistence", "TA0004:Privilege Escalation", "TA0005:Defense Evasion", "TA0006:Credential Access", "TA0007:Discovery", "TA0008:Lateral Movement", "TA0009:Collection", "TA0011:Command and Control", "TA0010:Exfiltration", "TA0040:Impact","TA0001","TA0002","TA0003","TA0004","TA0005","TA0006","TA0007","TA0008","TA0009","TA0011","TA0010","TA0040"]).contains(cell.field);
-            return _(["G0018", "G1030", "G0130"]).contains(cell.field);
-        },
-        render: function($td, cell) {
-            // Add a class to the cell based on the returned value
-            var value_arr = cell.value.split("|");
-            var technique_id = value_arr[0];
-            var technique_name = value_arr[1];
-            var percentage = value_arr[2];
-            var enabled_count = value_arr[3];
-            var total_count = value_arr[4];
-            var urgency_str = "None"
+  var dynamicFields = [];
+  var fieldsLoaded = false;
 
-            var ttl = "Total: " + total_count + "\nEnabled: " + enabled_count + "\nPercentage: " + percentage;
-	          if(technique_id.includes('.')) {
-            	$td.addClass('subtechnique');
-            }
-            else {
-              if(technique_name=="NULL"){
-                $td.addClass('empty');
-                }
-              else {
-                $td.addClass('technique');
-                }
-            }
-            $td.tooltip();
-            $td.prop('title', ttl);
+  var fieldsSearch = new SearchManager({
+    id: 'mitre-lookup-fields',
+    search: [
+      '| inputlookup mitre_threat_actor_lookup.csv',
+      '| fieldsummary',        
+      '| table field'        
+    ].join(' ')
+  });
 
-            if (percentage != "NULL") {
-                percentage =  parseFloat(percentage);
-                if(percentage > 70){
-                    $td.addClass('range-cell').addClass('range-compliance_high');
-                }
-	              if(percentage > 50){
-                    $td.addClass('range-cell').addClass('range-compliance_mid');
-                }
-                if(percentage > 30){
-                    $td.addClass('range-cell').addClass('range-compliance_low');
-                }
-                if(percentage >= 0){
-                    $td.addClass('range-cell').addClass('range-compliance_zero');
-                }
+  var tableViewRef = null;
 
-            }
-            else if(percentage == "NULL"){
-                $td.addClass('range-cell').addClass('range-none');
-            }
+  fieldsSearch.on('search:done', function () {
+    var results = fieldsSearch.data('results');
+    results.on('data', function () {
+      if (!results.hasData()) return;
+      dynamicFields = results.data().rows.map(function (row) { return row[0]; });
+      
+      dynamicFields = dynamicFields.filter(function (f) { return f && !['_time','_raw'].includes(f); });
+      fieldsLoaded = true;
+      if (tableViewRef) tableViewRef.render();
+    });
+  });
 
+  var CustomRangeRenderer = TableView.BaseCellRenderer.extend({
+    canRender: function (cell) {
 
-            if (isDarkTheme) {
-              $td.addClass('dark');
-            }
+      if (!fieldsLoaded) return false;
+ 
+      return _(dynamicFields).contains(cell.field);
+    },
+    render: function ($td, cell) {
+      var value_arr = String(cell.value || '').split('|');
+      var technique_id   = value_arr[0];
+      var technique_name = value_arr[1];
+      var percentage     = value_arr[2];
+      var enabled_count  = value_arr[3];
+      var total_count    = value_arr[4];
 
-            // Update the cell content
-            //$td.text(value.toFixed(2)).addClass('numeric');
+      var ttl = 'Total: ' + total_count + '\nEnabled: ' + enabled_count + '\nPercentage: ' + percentage;
 
-            if (technique_name=="NULL"){
-                $td.text(" ");
-            }
-            else {
-                $td.text(technique_id + ": " + technique_name);
-                $td.addClass('add-border').addClass('text-align-center');
+      if (technique_id && technique_id.indexOf('.') !== -1) {
+        $td.addClass('subtechnique');
+      } else {
+        if (technique_name === 'NULL') $td.addClass('empty');
+        else $td.addClass('technique');
+      }
 
-            }
+      $td.tooltip();
+      $td.prop('title', ttl);
+
+      if (percentage !== 'NULL' && percentage !== undefined) {
+        var p = parseFloat(percentage);
+        if (!isNaN(p)) {
+          if (p > 70)  $td.addClass('range-cell').addClass('range-compliance_high');
+          if (p > 50)  $td.addClass('range-cell').addClass('range-compliance_mid');
+          if (p > 30)  $td.addClass('range-cell').addClass('range-compliance_low');
+          if (p >= 0)  $td.addClass('range-cell').addClass('range-compliance_zero');
         }
-    });
+      } else {
+        $td.addClass('range-cell').addClass('range-none');
+      }
 
-    mvc.Components.get('mitrematrix').getVisualization(function(tableView) {
-        // Add custom cell renderer, the table will re-render automatically.
-        tableView.addCellRenderer(new CustomRangeRenderer());
-    });
+      if (isDarkTheme) $td.addClass('dark');
+
+      if (technique_name === 'NULL') {
+        $td.text(' ');
+      } else {
+        $td.text(technique_id + ': ' + technique_name)
+           .addClass('add-border')
+           .addClass('text-align-center');
+      }
+    }
+  });
+
+  mvc.Components.get('mitrematrix').getVisualization(function (tableView) {
+    tableViewRef = tableView;
+    tableView.addCellRenderer(new CustomRangeRenderer());
+    if (fieldsLoaded) tableView.render();
+  });
 
 });
