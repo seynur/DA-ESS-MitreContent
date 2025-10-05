@@ -1,5 +1,5 @@
 <form version="1.1">
-  <label>MITRE ATT&amp;CK Threat Actor Table</label>
+  <label>Threat Actor (Table)</label>
   <description></description>
   <fieldset submitButton="true" autoRun="true">
     <input type="radio" token="tok_display_scope" searchWhenChanged="true">

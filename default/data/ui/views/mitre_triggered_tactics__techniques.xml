@@ -1,6 +1,6 @@
 
 <dashboard version="2" theme="dark">
-    <label>MITRE ATT&amp;CK Triggered Tactics &amp; Techniques</label>
+    <label>Tactics &amp; Techniques</label>
     <description></description>
     <definition><![CDATA[
 {

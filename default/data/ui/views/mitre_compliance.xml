@@ -1,7 +1,7 @@
 <form script="mitre_compliance.js"
       stylesheet="mitre_matrix.css"
       version="1.1">
-  <label>MITRE ATT&amp;CK Compliance</label>
+  <label>ATT&amp;CK Matrix</label>
   <description>This dashboard provides an overview of available correlation searches that match MITRE ATT&amp;CK techniques.  Darker colors indicate higher ratio of enabled rules and you can view the actual numbers when hovering over the cells and click to drilldown further for editing the rules.</description>
   <fieldset submitButton="false" autoRun="true">
     <input type="radio" token="tok_display_scope" searchWhenChanged="true">
