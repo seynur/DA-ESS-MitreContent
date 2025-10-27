@@ -20,7 +20,7 @@
       <fieldForLabel>threat_actor</fieldForLabel>
       <fieldForValue>threat_actor</fieldForValue>
       <search>
-        <query>| inputlookup mitre_threat_actor_lookup.csv
+        <query>| inputlookup mitre_threat_actor_lookup
 | transpose column_name="threat_actor"
 | table threat_actor</query>
         <earliest>-24h@h</earliest>

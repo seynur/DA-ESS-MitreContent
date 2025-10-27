@@ -26,7 +26,7 @@ require([
   var fieldsSearch = new SearchManager({
     id: 'mitre-lookup-fields',
     search: [
-      '| inputlookup mitre_threat_actor_lookup.csv',
+      '| inputlookup mitre_threat_actor_lookup',
       '| fieldsummary',        
       '| table field'        
     ].join(' ')

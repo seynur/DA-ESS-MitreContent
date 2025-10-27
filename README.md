@@ -28,6 +28,11 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.14.0
+- Date: 27 Oct 2025
+- Feauture: Redesigned the dashboard layout for improved usability and modern visuals.
+- Feauture: Introduced a new threat actor–based lookup and corresponding dashboard to correlate adversaries with MITRE ATT&CK techniques for improved detection and coverage analysis.
+
 Version 3.13.0
 - Date: 26 May 2025
 - Feature: Compatibility with ATT&CK version 17.1
