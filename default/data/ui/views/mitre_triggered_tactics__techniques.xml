@@ -1,6 +1,6 @@
 
 <dashboard version="2" theme="dark">
-    <label>MITRE ATT&amp;CK Triggered Tactics &amp; Techniques</label>
+    <label>Tactics &amp; Techniques</label>
     <description></description>
     <definition><![CDATA[
 {
@@ -774,7 +774,7 @@
 		}
 	},
 	"description": "",
-	"title": "MITRE ATT&CK Triggered Tactics & Techniques"
+	"title": "Tactics & Techniques"
 }
     ]]></definition>
     <meta type="hiddenElements"><![CDATA[

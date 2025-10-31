@@ -1,0 +1,63 @@
+<form version="1.1">
+  <label>Threat Actor (Table)</label>
+  <description></description>
+  <fieldset submitButton="true" autoRun="true">
+    <input type="radio" token="tok_display_scope" searchWhenChanged="true">
+      <label>Matrix Display Scope</label>
+      <choice value="mitre_all_rule_technique_lookup">ALL Rules</choice>
+      <choice value="mitre_user_rule_technique_lookup">User-Defined and MITRE ATTACK App Rules</choice>
+      <default>mitre_user_rule_technique_lookup</default>
+      <initialValue>mitre_user_rule_technique_lookup</initialValue>
+    </input>
+    <input type="radio" token="tok_display_rule_status" searchWhenChanged="true">
+      <label>Rule Display Options</label>
+      <choice value="all_rules">Show All Existing Rules</choice>
+      <choice value="only_enabled_rules">Show Only Enabled Rules</choice>
+      <default>all_rules</default>
+    </input>
+    <input type="multiselect" token="tok_technique_id">
+      <label>Filter by Technique ID</label>
+      <choice value="*">ALL</choice>
+      <fieldForLabel>technique_id</fieldForLabel>
+      <fieldForValue>technique_id</fieldForValue>
+      <search>
+        <query>| inputlookup mitre_all_rule_technique_lookup 
+| search technique_id IN (T*)
+| dedup technique_id
+| table technique_id</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <initialValue>*</initialValue>
+      <delimiter> </delimiter>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table id="mitrematrix">
+        <title>MITRE ATT&amp;CK Threat Actor Table</title>
+        <search>
+          <query>| inputlookup $tok_display_scope$
+| `lookup_technique_tactic_from_rule_name`
+| search technique_id IN ($tok_technique_id$)
+| eval app_name=mvdedup(app_name), rule_disabled=mvdedup(rule_disabled)
+| eval Status = if(rule_disabled=0, "only_enabled_rules", "all_rules")
+| where Status = "$tok_display_rule_status$"
+| stats values(rule_name) as rule_name Count by technique_id technique_name
+| rename rule_name as "Rule Name", app_name as "Application", tactic_id as "Tactic ID", tactic_name as "Tactic", technique_id as "Technique ID", technique_name as "Technique"</query>
+          <earliest>-24h</earliest>
+          <latest></latest>
+        </search>
+        <!--<fields>["TA0001","TA0002","TA0003","TA0004","TA0005","TA0006","TA0007","TA0008","TA0009","TA0011","TA0010","TA0040"]</fields>-->
+        <!--<fields>["Initial Access","Execution","Persistence","Privilege Escalation","Defense Evasion","Credential Access","Discovery","Lateral Movement","Collection","Command And Control","Exfiltration","Impact"]</fields>-->
+        <option name="count">100</option>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <eval token="technique_q">mvindex(split('click.value2',"|"),0)</eval>
+          <link target="_blank">/app/DA-ESS-MitreContent/mitre_rule_finder?form.mitre_technique_id=$technique_q$&amp;form.display_rule_status=$tok_display_rule_status$</link>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+</form>

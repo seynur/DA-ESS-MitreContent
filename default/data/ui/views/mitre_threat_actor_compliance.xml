@@ -1,26 +1,33 @@
-<form script="mitre_compliance.js"
-      stylesheet="mitre_matrix.css"
-      version="1.1">
-  <label>ATT&amp;CK Matrix</label>
-  <description>This dashboard provides an overview of available correlation searches that match MITRE ATT&amp;CK techniques.  Darker colors indicate higher ratio of enabled rules and you can view the actual numbers when hovering over the cells and click to drilldown further for editing the rules.</description>
-  <fieldset submitButton="false" autoRun="true">
+<form script="mitre_threat_actor_compliance.js" stylesheet="mitre_matrix.css" version="1.1">
+  <label>Threat Actor</label>
+  <description>This dashboard provides an overview of available correlation searches that match MITRE ATT&amp;CK techniques. Darker colors indicate higher ratio of enabled rules and you can view the actual numbers when hovering over the cells and click to drilldown further for editing the rules.</description>
+  <fieldset submitButton="true" autoRun="true">
     <input type="radio" token="tok_display_scope" searchWhenChanged="true">
       <label>Matrix Display Scope</label>
       <choice value="mitre_all_rule_compliance_lookup">ALL Rules</choice>
       <choice value="mitre_user_rule_compliance_lookup">User-Defined and MITRE ATTACK App Rules</choice>
       <default>mitre_all_rule_compliance_lookup</default>
     </input>
-    <input type="radio" token="tok_display_option" searchWhenChanged="true">
-      <label>Matrix Display Options</label>
-      <choice value="mitre_lookup">Hide/Collapse Sub-techniques</choice>
-      <choice value="mitre_lookup_subtechniques">Show/Expand Sub-techniques</choice>
-      <default>mitre_lookup</default>
-    </input>
     <input type="radio" token="tok_display_rule_status" searchWhenChanged="true">
       <label>Rule Display Options</label>
       <choice value="all_rules">Show All Existing Rules</choice>
       <choice value="only_enabled_rules">Show Only Enabled Rules</choice>
       <default>all_rules</default>
+    </input>
+    <input type="multiselect" token="tok_actor">
+      <label>Filter by Threat Actor</label>
+      <delimiter> </delimiter>
+      <fieldForLabel>threat_actor</fieldForLabel>
+      <fieldForValue>threat_actor</fieldForValue>
+      <search>
+        <query>| inputlookup mitre_threat_actor_lookup
+| transpose column_name="threat_actor"
+| table threat_actor</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="- *_technique_name *_perc *_enabled *_count">ALL</choice>
+      <initialValue>- *_technique_name *_perc *_enabled *_count</initialValue>
     </input>
   </fieldset>
   <row>
@@ -29,7 +36,7 @@
         <title>MITRE ATT&amp;CK Compliance Lookup Gen Status</title>
         <search>
           <query>| rest /services/saved/searches/
-| search title="MITRE ATT&amp;CK Compliance Lookup Gen" splunk_server = local
+| search title="MITRE ATT&amp;CK Compliance Lookup Gen"
 | fields title, next_scheduled_time, updated
 | rename title as "Lookup Generator Name", next_scheduled_time as "Next Scheduled Run", updated as "Last Scheduled Run"
 | join "Lookup Generator Name" type=left
@@ -55,10 +62,10 @@
   <row>
     <panel>
       <table id="mitrematrix">
-        <title>MITRE ATT&amp;CK Compliance</title>
+        <title>MITRE ATT&amp;CK Threat Actor Compliance</title>
         <search>
-          <query>| inputlookup $tok_display_option$
-| foreach TA00*
+          <query>| inputlookup mitre_threat_actor_lookup
+| foreach *
     [| lookup mitre_tt_lookup technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW technique_name as &lt;&lt;FIELD&gt;&gt;_technique_name
     | eval &lt;&lt;FIELD&gt;&gt;_technique_name=mvindex(&lt;&lt;FIELD&gt;&gt;_technique_name,0)
     | lookup $tok_display_scope$ technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW enabled_percentage as &lt;&lt;FIELD&gt;&gt;_perc, count as &lt;&lt;FIELD&gt;&gt;_count, enabled_count as &lt;&lt;FIELD&gt;&gt;_enabled
@@ -66,8 +73,7 @@
     | eval &lt;&lt;FIELD&gt;&gt;_count=if("$tok_display_rule_status$"=="only_enabled_rules", &lt;&lt;FIELD&gt;&gt;_enabled,&lt;&lt;FIELD&gt;&gt;_count), &lt;&lt;FIELD&gt;&gt;_perc=if("$tok_display_rule_status$"=="only_enabled_rules" AND &lt;&lt;FIELD&gt;&gt;_perc!="NULL" AND &lt;&lt;FIELD&gt;&gt;_perc!=0,100, &lt;&lt;FIELD&gt;&gt;_perc)
     | eval &lt;&lt;FIELD&gt;&gt;_perc=if("$tok_display_rule_status$"=="only_enabled_rules" AND &lt;&lt;FIELD&gt;&gt;_perc="0" ,"NULL", &lt;&lt;FIELD&gt;&gt;_perc)
     | eval &lt;&lt;FIELD&gt;&gt;=&lt;&lt;FIELD&gt;&gt;."|".&lt;&lt;FIELD&gt;&gt;_technique_name."|".&lt;&lt;FIELD&gt;&gt;_perc."|".&lt;&lt;FIELD&gt;&gt;_enabled."|".&lt;&lt;FIELD&gt;&gt;_count]
-| fields TA0043,TA0042,TA0001,TA0002,TA0003,TA0004,TA0005,TA0006,TA0007,TA0008,TA0009,TA0011,TA0010,TA0040
-| rename TA0043 as "Reconnaissance", TA0042 as "Resource Development", TA0001 as "Initial Access", TA0002 as "Execution", TA0003 as "Persistence", TA0004 as "Privilege Escalation", TA0005 as "Defense Evasion", TA0006 as "Credential Access", TA0007 as "Discovery", TA0008 as "Lateral Movement", TA0009 as "Collection", TA0011 as "Command and Control", TA0010 as "Exfiltration", TA0040 as "Impact"</query>
+| fields $tok_actor$</query>
           <earliest>-24h</earliest>
           <latest></latest>
         </search>
