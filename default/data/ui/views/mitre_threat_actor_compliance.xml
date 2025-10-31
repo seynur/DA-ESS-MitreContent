@@ -6,7 +6,7 @@
       <label>Matrix Display Scope</label>
       <choice value="mitre_all_rule_compliance_lookup">ALL Rules</choice>
       <choice value="mitre_user_rule_compliance_lookup">User-Defined and MITRE ATTACK App Rules</choice>
-      <default>mitre_user_rule_compliance_lookup</default>
+      <default>mitre_all_rule_compliance_lookup</default>
     </input>
     <input type="radio" token="tok_display_rule_status" searchWhenChanged="true">
       <label>Rule Display Options</label>
