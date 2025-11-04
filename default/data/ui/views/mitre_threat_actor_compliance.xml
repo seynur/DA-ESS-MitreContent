@@ -35,12 +35,12 @@
       <table id="mitre_status_table">
         <title>MITRE ATT&amp;CK Compliance Lookup Gen Status</title>
         <search>
-          <query>| rest /services/saved/searches/
+          <query>| rest splunk_server=local /services/saved/searches/
 | search title="MITRE ATT&amp;CK Compliance Lookup Gen"
 | fields title, next_scheduled_time, updated
 | rename title as "Lookup Generator Name", next_scheduled_time as "Next Scheduled Run", updated as "Last Scheduled Run"
 | join "Lookup Generator Name" type=left
-    [| rest /services/data/lookup-table-files
+    [| rest splunk_server=local /services/data/lookup-table-files
     | search title = "mitre_all_rule_compliance_lookup.csv"
     | fields title, updated
     | rename title as "Lookup Table Name", updated as "Time of Latest Lookup Table Update"
