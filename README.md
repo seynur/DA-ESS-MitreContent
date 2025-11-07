@@ -28,6 +28,11 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.14.1
+- Date: 07 Nov 2025
+- Bug fix: Fixed HTML encoding of `&` characters in matrix view that caused drill-down searches to fail in Enterprise Security incident review
+- Bug fix: Added `splunk_server=local` parameter to searches using `rest` command to prevent Splunk Cloud warnings
+
 Version 3.14.0
 - Date: 31 Oct 2025
 - Feature: Redesigned the dashboard layout for improved usability and modern visuals.
@@ -54,7 +59,7 @@ Version 3.9.0
 - Date: 12 May 2023
 - Feature: Compatibility with ATT&CK version 13.0
 - Feature: Ability to filter ATT&CK Matrix view by Group information
-- Bug-fix: Updated default rules lookup with the latest version of ES and ESCU
+- Bug fix: Updated default rules lookup with the latest version of ES and ESCU
 
 Version 3.8.1
 - Date: 30 Jan 2023
