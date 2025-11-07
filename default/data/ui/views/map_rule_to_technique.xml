@@ -7,7 +7,7 @@
       <fieldForLabel>rule_name</fieldForLabel>
       <fieldForValue>rule_name</fieldForValue>
       <search>
-        <query>| rest services/configs/conf-savedsearches
+        <query>| rest splunk_server=local /services/configs/conf-savedsearches
 | eval rule_name=title
 | eval rule_disabled=disabled
 | table rule_name</query>
