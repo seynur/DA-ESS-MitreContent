@@ -3,7 +3,7 @@ function get_template() {
       "<div class='spinnerBG'></div>" +
       "<div class='spinnerShow'></div>" +
       "<div class='title'>" +
-      "   <h1>MITRE ATT&amp;CK App for Splunk - Initial Setup</h1>" +
+      "   <h1>MITRE App for Splunk - Initial Setup</h1>" +
       "<br><br/>" +
       "This setup page provides configuration options for Lookup Generating searches." +
       "<br/>" +
@@ -20,6 +20,8 @@ function get_template() {
       "        <label id='all_rules'><input type='checkbox' class='checkbox-lookup' id='all_rules'>MITRE ATT&amp;CK All Rules and Techniques Lookup Gen</label>" +
       "        <label id='compliance'><input type='checkbox' class='checkbox-lookup' id='compliance'>MITRE ATT&amp;CK Compliance Lookup Gen</label>" +
       "        <label id='user_rules'><input type='checkbox' class='checkbox-lookup' id='user_rules'>MITRE ATT&amp;CK User Rules Compliance Lookup Gen</label>" +
+      "        <label id='atlas_all_rules'><input type='checkbox' class='checkbox-lookup' id='user_rules'>MITRE ATLAS All Rules and Techniques Lookup Gen</label>" +
+      "        <label id='atlas_user_rules'><input type='checkbox' class='checkbox-lookup' id='user_rules'>MITRE ATLAS User Rules Compliance Lookup Gen</label>" +
       "<br/>" +
       "<b>Configure Cron Schedule</b>" +
       "<br/>" +
@@ -39,6 +41,16 @@ function get_template() {
       "            <div class='user_input'>" +
       "                <div class='text'>" +
       "                    <label>MITRE ATT&amp;CK User Rules Compliance Lookup Gen<input type='text' name='user_rules' value='7 0 * * *'></input></label>" +
+      "                </div>" +
+      "            </div>" +
+      "            <div class='user_input'>" +
+      "                <div class='text'>" +
+      "                    <label>MITRE ATLAS All Rules and Techniques Lookup Gen<input type='text' name='atlas_all_rules' value='1 0 * * *'></input></label>" +
+      "                </div>" +
+      "            </div>" +
+      "            <div class='user_input'>" +
+      "                <div class='text'>" +
+      "                    <label>MITRE ATLAS User Rules Compliance Lookup Gen<input type='text' name='user_rules' value='7 0 * * *'></input></label>" +
       "                </div>" +
       "            </div>" +
       "<br/>" +
