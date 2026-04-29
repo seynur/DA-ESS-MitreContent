@@ -26,7 +26,11 @@ require([
     var MitreMatrixRenderer = TableView.BaseCellRenderer.extend({
         canRender: function(cell) {
             // Enable this custom cell renderer for both the active_hist_searches and the active_realtime_searches field
-	    return _(["Reconnaissance", "Resource Development", "Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion", "Credential Access", "Discovery", "Lateral Movement", "Collection", "Command and Control", "Exfiltration", "Impact"]).contains(cell.field);
+	    return _(["Reconnaissance", "Resource Development", "Initial Access",
+            "Execution", "Persistence", "Privilege Escalation",
+            "Stealth", "Defense Impairment", "Credential Access",
+            "Discovery", "Lateral Movement", "Collection",
+            "Command and Control", "Exfiltration", "Impact"]).contains(cell.field);
         },
         render: function($td, cell) {
             // Add a class to the cell based on the returned value
@@ -96,7 +100,11 @@ require([
     var MitreTitleRenderer = TableView.BaseCellRenderer.extend({
         canRender: function(cell) {
             // Enable this custom cell renderer for both the active_hist_searches and the active_realtime_searches field
-	    return _(["Reconnaissance", "Resource Development", "Initial Access", "Execution", "Persistence", "Privilege Escalation", "Defense Evasion", "Credential Access", "Discovery", "Lateral Movement", "Collection", "Command and Control", "Exfiltration", "Impact"]).contains(cell.field);
+	    return _(["Reconnaissance", "Resource Development", "Initial Access",
+            "Execution", "Persistence", "Privilege Escalation",
+            "Stealth", "Defense Impairment", "Credential Access",
+            "Discovery", "Lateral Movement", "Collection",
+            "Command and Control", "Exfiltration", "Impact"]).contains(cell.field);
         },
         render: function($td, cell) {
             // Add a class to the cell based on the returned value

@@ -219,7 +219,21 @@ async function get_current_conf_to_view(
   return stanzaProperties
 }
 
+async function run_search(splunk_js_sdk_service, search_query) {
+  return new Promise((resolve, reject) => {
+    splunk_js_sdk_service.jobs().create(
+      search_query,
+      {},
+      function(err, job) {
+        if (err) reject(err);
+        else resolve(job);
+      }
+    );
+  });
+}
+
 export {
   update_configuration_file,
-  get_current_conf_to_view
+  get_current_conf_to_view,
+  run_search
 }

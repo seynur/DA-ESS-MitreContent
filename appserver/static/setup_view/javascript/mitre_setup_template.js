@@ -54,10 +54,10 @@ function get_template() {
       "                </div>" +
       "            </div>" +
       "<br/>" +
-      "<b>Configure Enterprise Security Integration</b>" +
+      "<b>Enterprise Security Annotation Integration</b>" +
       "<br/>" +
-      "<p><i>Using Enterprise Security Application is strongly recommended. However, if you'd like to use Alert Manager instead, please uncheck the following checkbox. </i></p>" +
-      "        <label id='mitre_use_es'><input type='checkbox' class='checkbox-es' id='mitre_use_es'>Use Enterprise Security App</label>" +
+      "<p><i>If you are using Splunk Enterprise Security, check this option to add MITRE ATLAS to the ES annotation framework automatically.</i></p>" +
+      "        <label id='atlas_annotation_setup'><input type='checkbox' class='checkbox-atlas-setup' id='atlas_annotation_setup'>Add MITRE ATLAS to ES Annotation Framework</label>" +
       "        <br/>" +
       "        <div>" +
       "            <button name='setup_button' class='setup_button'>" +

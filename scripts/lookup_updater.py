@@ -8,18 +8,18 @@ import pandas as pd
 CONFIG: Dict[str, Dict[str, List]] = {
     "attack": {
         "output_prefix": "mitre",
-        "drop_indices": [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27],
+        "drop_indices": [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29],
         "tactic_ids": [
             "TA0043", "TA0042", "TA0001", "TA0002", "TA0003", "TA0004",
-            "TA0005", "TA0006", "TA0007", "TA0008", "TA0009", "TA0011",
+            "TA0005", "TA0112", "TA0006", "TA0007", "TA0008", "TA0009", "TA0011",
             "TA0010", "TA0040",
         ],
         "tactic_names": [
             "Reconnaissance", "Resource Development", "Initial Access",
             "Execution", "Persistence", "Privilege Escalation",
-            "Defense Evasion", "Credential Access", "Discovery",
-            "Lateral Movement", "Collection", "Command and Control",
-            "Exfiltration", "Impact",
+            "Stealth", "Defense Impairment", "Credential Access",
+            "Discovery", "Lateral Movement", "Collection",
+            "Command and Control", "Exfiltration", "Impact",
         ],
     },
     "atlas": {
