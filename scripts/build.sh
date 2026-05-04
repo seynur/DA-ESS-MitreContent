@@ -138,14 +138,14 @@ echo "Output file : $OUTPUT_PATH"
 if [[ "$DRY_RUN" -eq 1 ]]; then
     echo
     echo "Dry run mode: listing files that would be included in the archive"
-    tar -czf /dev/null \
+    gtar -czf /dev/null \
         "${EXCLUDES[@]}" \
         -C "$SOURCE_PARENT" "$SOURCE_BASENAME" \
         -v
     exit 0
 fi
 
-tar -czf "$OUTPUT_PATH" \
+gtar -czf "$OUTPUT_PATH" \
     "${EXCLUDES[@]}" \
     -C "$SOURCE_PARENT" "$SOURCE_BASENAME"
 
