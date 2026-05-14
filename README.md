@@ -28,6 +28,12 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 
 #### Release Notes:
+Version 3.15.0
+- Date:
+- Feature: Added MITRE ATLAS support — ATLAS annotation (`mitre_atlas`) is now registered as a security framework in Splunk Enterprise Security via the setup page, enabling ATLAS-based correlation rule mapping.
+- Feature: Introduced ATLAS compliance and matrix dashboards alongside existing MITRE ATT&CK dashboards.
+- Feature: Added ATLAS Rule Finder dashboard to search correlation rules by ATLAS technique.
+
 Version 3.14.1
 - Date: 07 Nov 2025
 - Bug fix: Fixed HTML encoding of `&` characters in matrix view that caused drill-down searches to fail in Enterprise Security incident review

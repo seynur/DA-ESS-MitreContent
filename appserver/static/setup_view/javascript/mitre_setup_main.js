@@ -80,7 +80,17 @@ define(
                 var atlas_macros_options = this.get_atlas_macros_setup_options();
                 this.perform_setup(atlas_macros_options, MACROS);
                 if ($("input[class=checkbox-atlas-setup]").is(':checked')) {
-                  Splunk.run_search(this.splunk_js_sdk_service, '| setupatlasannotation');
+                  try {
+                    const rows = await Splunk.run_search_and_get_results(this.splunk_js_sdk_service, '| setupatlasannotation');
+                    const first = rows && rows[0];
+                    if (first && first.status === 'error') {
+                      this.display_error_output('<li>ATLAS annotation error: ' + first.message + '</li>');
+                      return;
+                    }
+                  } catch (err) {
+                    this.display_error_output('<li>ATLAS annotation failed: ' + err + '</li>');
+                    return;
+                  }
                 }
                 await Setup.complete_setup(this.splunk_js_sdk_service,app_name);
 

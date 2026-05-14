@@ -232,8 +232,29 @@ async function run_search(splunk_js_sdk_service, search_query) {
   });
 }
 
+async function run_search_and_get_results(splunk_js_sdk_service, search_query) {
+  const job = await run_search(splunk_js_sdk_service, search_query);
+
+  await new Promise((resolve, reject) => {
+    const poll = setInterval(() => {
+      job.fetch((err, j) => {
+        if (err) { clearInterval(poll); reject(err); return; }
+        if (j.properties().isDone) { clearInterval(poll); resolve(j); }
+      });
+    }, 500);
+  });
+
+  return new Promise((resolve, reject) => {
+    job.results({output_mode: 'json'}, (err, results) => {
+      if (err) reject(err);
+      else resolve((results && results.results) || []);
+    });
+  });
+}
+
 export {
   update_configuration_file,
   get_current_conf_to_view,
-  run_search
+  run_search,
+  run_search_and_get_results
 }
