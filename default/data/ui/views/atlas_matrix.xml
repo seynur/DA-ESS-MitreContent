@@ -12,10 +12,22 @@
       </condition>
     </done>
   </search>
+  <search id="check_atlas_setup">
+    <query>| rest /services/data/lookup-table-files splunk_server=local | search title="atlas_user_rule_compliance_lookup.csv" | stats count | eval setup_done=if(count&gt;0,"yes","no")</query>
+    <done>
+      <condition match="$result.setup_done$==&quot;no&quot;">
+        <set token="tok_atlas_setup_needed">yes</set>
+      </condition>
+      <condition>
+        <unset token="tok_atlas_setup_needed"></unset>
+      </condition>
+    </done>
+  </search>
   <search id="init_atlas_search">
     <query>
     `atlas_rules`
     | fields rule_name, urgency, score, technique_id, technique_name, tactic_id, tactic_name
+    | search $urgency_field$
     | stats count as triggered_count list(rule_name) as rule_name_list, max(score) as max_score by technique_id
     | eval rule_name_list=mvjoin(mvdedup(rule_name_list),";")
     </query>
@@ -172,6 +184,18 @@
       <default>atlas_lookup</default>
     </input>
   </fieldset>
+  <row depends="$tok_atlas_setup_needed$">
+    <panel>
+      <html>
+        <div style="background-color:#d9534f;color:#fff;padding:12px 16px;border-radius:4px;font-size:14px;">
+          <b>&#9888; ATLAS setup is not complete.</b>
+          Required lookups are missing. Please visit the
+          <a href="/app/DA-ESS-MitreContent/mitre_setup_view" style="color:#fff;text-decoration:underline;">Setup page</a>
+          to enable ATLAS annotation support.
+        </div>
+      </html>
+    </panel>
+  </row>
   <row>
     <panel>
       <title>MITRE ATLAS Tactics</title>

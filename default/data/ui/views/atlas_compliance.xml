@@ -1,6 +1,17 @@
 <form script="atlas_compliance.js" stylesheet="mitre_matrix.css" version="1.1">
   <label>ATLAS Matrix</label>
   <description>This dashboard provides an overview of available correlation searches that match MITRE ATLAS techniques.  Darker colors indicate higher ratio of enabled rules and you can view the actual numbers when hovering over the cells and click to drilldown further for editing the rules.</description>
+  <search id="check_atlas_setup">
+    <query>| rest /services/data/lookup-table-files splunk_server=local | search title="atlas_user_rule_compliance_lookup.csv" | stats count | eval setup_done=if(count&gt;0,"yes","no")</query>
+    <done>
+      <condition match="$result.setup_done$==&quot;no&quot;">
+        <set token="tok_atlas_setup_needed">yes</set>
+      </condition>
+      <condition>
+        <unset token="tok_atlas_setup_needed"></unset>
+      </condition>
+    </done>
+  </search>
   <fieldset submitButton="false" autoRun="true">
     <input type="radio" token="tok_display_scope" searchWhenChanged="true">
       <label>Matrix Display Scope</label>
@@ -20,6 +31,18 @@
       <default>all_rules</default>
     </input>
   </fieldset>
+  <row depends="$tok_atlas_setup_needed$">
+    <panel>
+      <html>
+        <div style="background-color:#d9534f;color:#fff;padding:12px 16px;border-radius:4px;font-size:14px;">
+          <b>&#9888; ATLAS setup is not complete.</b>
+          Required lookups are missing. Please visit the
+          <a href="/app/DA-ESS-MitreContent/mitre_setup_view" style="color:#fff;text-decoration:underline;">Setup page</a>
+          to enable ATLAS annotation support.
+        </div>
+      </html>
+    </panel>
+  </row>
   <row>
     <panel>
       <table id="atlas_status_table">
@@ -61,8 +84,8 @@
     | eval &lt;&lt;FIELD&gt;&gt;_technique_name=mvindex(&lt;&lt;FIELD&gt;&gt;_technique_name,0)
     | lookup atlas_user_rule_compliance_lookup technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUTNEW enabled_percentage as &lt;&lt;FIELD&gt;&gt;_perc, count as &lt;&lt;FIELD&gt;&gt;_count, enabled_count as &lt;&lt;FIELD&gt;&gt;_enabled
     | fillnull value="NULL" &lt;&lt;FIELD&gt;&gt;,&lt;&lt;FIELD&gt;&gt;_technique_name,&lt;&lt;FIELD&gt;&gt;_perc,&lt;&lt;FIELD&gt;&gt;_count,&lt;&lt;FIELD&gt;&gt;_enabled
-    | eval &lt;&lt;FIELD&gt;&gt;_count=if("all_rules"=="only_enabled_rules", &lt;&lt;FIELD&gt;&gt;_enabled,&lt;&lt;FIELD&gt;&gt;_count), &lt;&lt;FIELD&gt;&gt;_perc=if("all_rules"=="only_enabled_rules" AND &lt;&lt;FIELD&gt;&gt;_perc!="NULL" AND &lt;&lt;FIELD&gt;&gt;_perc!=0,100, &lt;&lt;FIELD&gt;&gt;_perc)
-    | eval &lt;&lt;FIELD&gt;&gt;_perc=if("all_rules"=="only_enabled_rules" AND &lt;&lt;FIELD&gt;&gt;_perc="0" ,"NULL", &lt;&lt;FIELD&gt;&gt;_perc)
+    | eval &lt;&lt;FIELD&gt;&gt;_count=if("$tok_display_rule_status$"=="only_enabled_rules", &lt;&lt;FIELD&gt;&gt;_enabled,&lt;&lt;FIELD&gt;&gt;_count), &lt;&lt;FIELD&gt;&gt;_perc=if("$tok_display_rule_status$"=="only_enabled_rules" AND &lt;&lt;FIELD&gt;&gt;_perc!="NULL" AND &lt;&lt;FIELD&gt;&gt;_perc!=0,100, &lt;&lt;FIELD&gt;&gt;_perc)
+    | eval &lt;&lt;FIELD&gt;&gt;_perc=if("$tok_display_rule_status$"=="only_enabled_rules" AND &lt;&lt;FIELD&gt;&gt;_perc="0" ,"NULL", &lt;&lt;FIELD&gt;&gt;_perc)
     | eval &lt;&lt;FIELD&gt;&gt;=&lt;&lt;FIELD&gt;&gt;."|".&lt;&lt;FIELD&gt;&gt;_technique_name."|".&lt;&lt;FIELD&gt;&gt;_perc."|".&lt;&lt;FIELD&gt;&gt;_enabled."|".&lt;&lt;FIELD&gt;&gt;_count]
 
 | fields TA0002, TA0003,TA0004, TA0000, TA0005, TA0006, TA0012, TA0007, TA0013, TA0008, TA0015, TA0009, TA0001, TA0014, TA0010, TA0011
@@ -75,7 +98,7 @@
         <option name="refresh.display">progressbar</option>
         <drilldown>
           <eval token="technique_q">mvindex(split('click.value2',"|"),0)</eval>
-          <link target="_blank">/app/DA-ESS-MitreContent/atlas_rule_finder?form.atlas_technique_id=$technique_q$&amp;form.display_rule_status=$atlas_tok_display_rule_status$</link>
+          <link target="_blank">/app/DA-ESS-MitreContent/atlas_rule_finder?form.atlas_technique_id=$technique_q$&amp;form.display_rule_status=$tok_display_rule_status$</link>
         </drilldown>
       </table>
     </panel>

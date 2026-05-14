@@ -69,13 +69,18 @@ def patch_csv():
         logging.basicConfig()
         logging.warning("SPLUNK_HOME is not set; defaulting to %s", splunk_home)
 
+    log_path = os.path.join(
+        splunk_home, "etc", "apps", "DA-ESS-MitreContent", "logs", "setup_atlas_command.log"
+    )
+    log_hint = " Check logs: %s" % log_path
+
     logger = get_logger(splunk_home)
     logger.info("patch_csv started")
 
     try:
         csv_filename = get_security_framework_filename(splunk_home, logger)
         if csv_filename is None:
-            msg = "security_framework_lookup filename could not be resolved from transforms.conf"
+            msg = "security_framework_lookup filename could not be resolved from transforms.conf." + log_hint
             return "error", msg
 
         csv_path = os.path.join(
@@ -83,7 +88,7 @@ def patch_csv():
         )
 
         if not os.path.exists(csv_path):
-            msg = "CSV not found: %s" % csv_path
+            msg = "CSV not found: %s.%s" % (csv_path, log_hint)
             logger.error(msg)
             return "error", msg
 
@@ -119,7 +124,7 @@ def patch_csv():
 
     except Exception as e:
         logger.exception("Unexpected error in patch_csv: %s", e)
-        return "error", "Unexpected error: %s" % e
+        return "error", "Unexpected error: %s.%s" % (e, log_hint)
 
 
 def main():

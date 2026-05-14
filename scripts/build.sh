@@ -30,9 +30,9 @@ EXCLUSIONS:
   - local.meta files
 
 EXAMPLES:
-  ./$(basename "$0") 1.0.0
-  ./$(basename "$0") 2.1.3 /opt/project
-  ./$(basename "$0") --dry-run 3.0.0 ../my-project
+  ./$(basename "$0") 100
+  ./$(basename "$0") 213 /opt/project
+  ./$(basename "$0") --dry-run 300 ../my-project
 
 OUTPUT:
   ${APP_NAME}_<version>.tgz
