@@ -1,10 +1,12 @@
-## MITRE ATT&CK App for Splunk&reg;
+## MITRE Framework App for Splunk &reg;
+
+**Previous Name:** MITRE ATT&CK App For Splunk
 
 #### Documentation
 Detailed documentation can be found at: https://seynur.github.io/mitre-attack-app-for-splunk-docs
 
 #### Overview
-This application provides compliance and triage dashboards for MITRE ATT&CK Framework with drill-down capabilities. It is recommended to utilize Splunk Enterprise Security(https://splunkbase.splunk.com/app/263/) and Splunk ES Content Update (https://splunkbase.splunk.com/app/3449/).
+This application provides compliance and triage dashboards for MITRE ATT&CK and MITRE ATLAS Frameworks with drill-down capabilities. It is recommended to utilize Splunk Enterprise Security(https://splunkbase.splunk.com/app/263/) and Splunk ES Content Update (https://splunkbase.splunk.com/app/3449/).
 
 #### Required Splunk Apps:
 - [Splunk Enterprise Security](https://splunkbase.splunk.com/app/263/) 5.2 or above
