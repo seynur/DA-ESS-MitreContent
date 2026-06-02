@@ -241,7 +241,22 @@
 			"dataSources": {
 				"primary": "ds_mRYCT2t6"
 			},
-			"title": "Defense Evasion",
+			"title": "Stealth",
+			"showProgressBar": true
+		},
+		"viz_DefImpair": {
+			"type": "splunk.table",
+			"options": {
+				"count": 20,
+				"dataOverlayMode": "none",
+				"drilldown": "none",
+				"showRowNumbers": false,
+				"showInternalFields": false
+			},
+			"dataSources": {
+				"primary": "ds_DefImpair"
+			},
+			"title": "Defense Impairment",
 			"showProgressBar": true
 		},
 		"viz_taVES1Wk": {
@@ -454,9 +469,17 @@
 			"type": "ds.chain",
 			"options": {
 				"extend": "ds_post_process_tt_by_rule",
-				"query": "| search tactic_name=\"Defense Evasion\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+				"query": "| search tactic_name=\"Stealth\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
 			},
-			"name": "Defense Evasion - Table search"
+			"name": "Stealth - Table search"
+		},
+		"ds_DefImpair": {
+			"type": "ds.chain",
+			"options": {
+				"extend": "ds_post_process_tt_by_rule",
+				"query": "| search tactic_name=\"Defense Impairment\"\n| stats count by technique_name rule_name\n| sort -count\n| rename count as \"Triggered Rule Count\", technique_name as \"Technique\", rule_name as \"Rule\""
+			},
+			"name": "Defense Impairment - Table search"
 		},
 		"ds_20ne7P8w": {
 			"type": "ds.chain",
@@ -680,7 +703,7 @@
 						"position": {
 							"x": 0,
 							"y": 1000,
-							"w": 480,
+							"w": 360,
 							"h": 250
 						}
 					},
@@ -688,9 +711,19 @@
 						"item": "viz_LICWvpvS",
 						"type": "block",
 						"position": {
-							"x": 480,
+							"x": 360,
 							"y": 1000,
-							"w": 480,
+							"w": 360,
+							"h": 250
+						}
+					},
+					{
+						"item": "viz_DefImpair",
+						"type": "block",
+						"position": {
+							"x": 720,
+							"y": 1000,
+							"w": 360,
 							"h": 250
 						}
 					},
@@ -698,9 +731,9 @@
 						"item": "viz_taVES1Wk",
 						"type": "block",
 						"position": {
-							"x": 960,
+							"x": 1080,
 							"y": 1000,
-							"w": 480,
+							"w": 360,
 							"h": 250
 						}
 					},

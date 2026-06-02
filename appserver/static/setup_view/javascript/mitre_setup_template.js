@@ -3,7 +3,7 @@ function get_template() {
       "<div class='spinnerBG'></div>" +
       "<div class='spinnerShow'></div>" +
       "<div class='title'>" +
-      "   <h1>MITRE ATT&amp;CK App for Splunk - Initial Setup</h1>" +
+      "   <h1>MITRE App for Splunk - Initial Setup</h1>" +
       "<br><br/>" +
       "This setup page provides configuration options for Lookup Generating searches." +
       "<br/>" +
@@ -20,6 +20,8 @@ function get_template() {
       "        <label id='all_rules'><input type='checkbox' class='checkbox-lookup' id='all_rules'>MITRE ATT&amp;CK All Rules and Techniques Lookup Gen</label>" +
       "        <label id='compliance'><input type='checkbox' class='checkbox-lookup' id='compliance'>MITRE ATT&amp;CK Compliance Lookup Gen</label>" +
       "        <label id='user_rules'><input type='checkbox' class='checkbox-lookup' id='user_rules'>MITRE ATT&amp;CK User Rules Compliance Lookup Gen</label>" +
+      "        <label id='atlas_all_rules'><input type='checkbox' class='checkbox-lookup' id='user_rules'>MITRE ATLAS All Rules and Techniques Lookup Gen</label>" +
+      "        <label id='atlas_user_rules'><input type='checkbox' class='checkbox-lookup' id='user_rules'>MITRE ATLAS User Rules Compliance Lookup Gen</label>" +
       "<br/>" +
       "<b>Configure Cron Schedule</b>" +
       "<br/>" +
@@ -41,11 +43,21 @@ function get_template() {
       "                    <label>MITRE ATT&amp;CK User Rules Compliance Lookup Gen<input type='text' name='user_rules' value='7 0 * * *'></input></label>" +
       "                </div>" +
       "            </div>" +
+      "            <div class='user_input'>" +
+      "                <div class='text'>" +
+      "                    <label>MITRE ATLAS All Rules and Techniques Lookup Gen<input type='text' name='atlas_all_rules' value='1 0 * * *'></input></label>" +
+      "                </div>" +
+      "            </div>" +
+      "            <div class='user_input'>" +
+      "                <div class='text'>" +
+      "                    <label>MITRE ATLAS User Rules Compliance Lookup Gen<input type='text' name='user_rules' value='7 0 * * *'></input></label>" +
+      "                </div>" +
+      "            </div>" +
       "<br/>" +
-      "<b>Configure Enterprise Security Integration</b>" +
+      "<b>Enterprise Security Annotation Integration</b>" +
       "<br/>" +
-      "<p><i>Using Enterprise Security Application is strongly recommended. However, if you'd like to use Alert Manager instead, please uncheck the following checkbox. </i></p>" +
-      "        <label id='mitre_use_es'><input type='checkbox' class='checkbox-es' id='mitre_use_es'>Use Enterprise Security App</label>" +
+      "<p><i>If you are using Splunk Enterprise Security, check this option to add MITRE ATLAS to the ES annotation framework automatically.</i></p>" +
+      "        <label id='atlas_annotation_setup'><input type='checkbox' class='checkbox-atlas-setup' id='atlas_annotation_setup'>Add MITRE ATLAS to ES Annotation Framework</label>" +
       "        <br/>" +
       "        <div>" +
       "            <button name='setup_button' class='setup_button'>" +

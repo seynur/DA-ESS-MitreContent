@@ -1,0 +1,296 @@
+<form script="atlas_triggered.js" stylesheet="mitre_matrix.css" theme="dark" version="1.1">
+  <label>ATLAS Matrix</label>
+  <description>This dashboard provides an overview of triggered tactics and techniques based on enabled correlation rules with related MITRE ATLAS annotations.</description>
+  <search id="mitre_use_es">
+    <query>| makeresults | eval mitre_use_es=`mitre_use_es` | eval results=if(mitre_use_es=="1",1,null()) | table results</query>
+    <done>
+      <condition match=" $job.resultCount$ &gt; 0">
+        <set token="mitre_use_es">1</set>
+      </condition>
+      <condition match=" $job.resultCount$ == 0">
+        <set token="mitre_use_es">0</set>
+      </condition>
+    </done>
+  </search>
+  <search id="check_atlas_setup">
+    <query>| rest /services/data/lookup-table-files splunk_server=local | search title="atlas_user_rule_compliance_lookup.csv" | stats count | eval setup_done=if(count&gt;0,"yes","no")</query>
+    <done>
+      <condition match="$result.setup_done$==&quot;no&quot;">
+        <set token="tok_atlas_setup_needed">yes</set>
+      </condition>
+      <condition>
+        <unset token="tok_atlas_setup_needed"></unset>
+      </condition>
+    </done>
+  </search>
+  <search id="init_atlas_search">
+    <query>
+    `atlas_rules`
+    | fields rule_name, urgency, score, technique_id, technique_name, tactic_id, tactic_name
+    | search $urgency_field$
+    | stats count as triggered_count list(rule_name) as rule_name_list, max(score) as max_score by technique_id
+    | eval rule_name_list=mvjoin(mvdedup(rule_name_list),";")
+    </query>
+    <earliest>$atlas_time_field.earliest$</earliest>
+    <latest>$atlas_time_field.latest$</latest>
+    <done>
+      <condition>
+        <set token="subsearch_id">$job.sid$</set>
+      </condition>
+    </done>
+  </search>
+  <search id="init_mitre_atlas_table">
+    <query>
+          | inputlookup $tok_display_option$
+          | rename AML.TA0002 as TA0002, AML.TA0003 as TA0003, AML.TA0004 as TA0004, AML.TA0000 as TA0000, AML.TA0005 as TA0005, AML.TA0006 as TA0006, AML.TA0012 as TA0012, AML.TA0007 as TA0007, AML.TA0013 as TA0013, AML.TA0008 as TA0008, AML.TA0015 as TA0015, AML.TA0009 as TA0009, AML.TA0004 as TA0004, AML.TA0014 as TA0014, AML.TA0010 as TA0010, AML.TA0011 as TA0011
+          | foreach TA00*
+    [| lookup atlas_tt_lookup technique_id as &lt;&lt;FIELD&gt;&gt; OUTPUT technique_name as &lt;&lt;FIELD&gt;&gt;_technique_name
+    | eval &lt;&lt;FIELD&gt;&gt;_technique_name=mvindex(&lt;&lt;FIELD&gt;&gt;_technique_name,0)]
+    </query>
+  </search>
+  <search base="init_mitre_atlas_table" id="post_process_mitre_atlas_triage">
+    <query>
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0002, triggered_count as TA0002_attack_count, rule_name_list as TA0002_rule_name_list, max_score as TA0002_max_score ]
+    | fillnull value="NULL" TA0002,TA0002_rule_name_list,TA0002_technique_name
+    | fillnull value=0 TA0002_attack_count,TA0002_max_score
+    | eval TA0002=TA0002."|".TA0002_technique_name."|".TA0002_attack_count."|".TA0002_rule_name_list."|".TA0002_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0003, triggered_count as TA0003_attack_count, rule_name_list as TA0003_rule_name_list, max_score as TA0003_max_score ]
+    | fillnull value="NULL" TA0003,TA0003_rule_name_list,TA0003_technique_name
+    | fillnull value=0 TA0003_attack_count,TA0003_max_score
+    | eval TA0003=TA0003."|".TA0003_technique_name."|".TA0003_attack_count."|".TA0003_rule_name_list."|".TA0003_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0004, triggered_count as TA0004_attack_count, rule_name_list as TA0004_rule_name_list, max_score as TA0004_max_score ]
+    | fillnull value="NULL" TA0004,TA0004_rule_name_list,TA0004_technique_name
+    | fillnull value=0 TA0004_attack_count,TA0004_max_score
+    | eval TA0004=TA0004."|".TA0004_technique_name."|".TA0004_attack_count."|".TA0004_rule_name_list."|".TA0004_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0000, triggered_count as TA0000_attack_count, rule_name_list as TA0000_rule_name_list, max_score as TA0000_max_score ]
+    | fillnull value="NULL" TA0000,TA0000_rule_name_list,TA0000_technique_name
+    | fillnull value=0 TA0000_attack_count,TA0000_max_score
+    | eval TA0000=TA0000."|".TA0000_technique_name."|".TA0000_attack_count."|".TA0000_rule_name_list."|".TA0000_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0005, triggered_count as TA0005_attack_count, rule_name_list as TA0005_rule_name_list, max_score as TA0005_max_score ]
+    | fillnull value="NULL" TA0005,TA0005_rule_name_list,TA0005_technique_name
+    | fillnull value=0 TA0005_attack_count,TA0005_max_score
+    | eval TA0005=TA0005."|".TA0005_technique_name."|".TA0005_attack_count."|".TA0005_rule_name_list."|".TA0005_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0006, triggered_count as TA0006_attack_count, rule_name_list as TA0006_rule_name_list, max_score as TA0006_max_score ]
+    | fillnull value="NULL" TA0006,TA0006_rule_name_list,TA0006_technique_name
+    | fillnull value=0 TA0006_attack_count,TA0006_max_score
+    | eval TA0006=TA0006."|".TA0006_technique_name."|".TA0006_attack_count."|".TA0006_rule_name_list."|".TA0006_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0012, triggered_count as TA0012_attack_count, rule_name_list as TA0012_rule_name_list, max_score as TA0012_max_score ]
+    | fillnull value="NULL" TA0012,TA0012_rule_name_list,TA0012_technique_name
+    | fillnull value=0 TA0012_attack_count,TA0012_max_score
+    | eval TA0012=TA0012."|".TA0012_technique_name."|".TA0012_attack_count."|".TA0012_rule_name_list."|".TA0012_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0007, triggered_count as TA0007_attack_count, rule_name_list as TA0007_rule_name_list, max_score as TA0007_max_score ]
+    | fillnull value="NULL" TA0007,TA0007_rule_name_list,TA0007_technique_name
+    | fillnull value=0 TA0007_attack_count,TA0007_max_score
+    | eval TA0007=TA0007."|".TA0007_technique_name."|".TA0007_attack_count."|".TA0007_rule_name_list."|".TA0007_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0013, triggered_count as TA0013_attack_count, rule_name_list as TA0013_rule_name_list, max_score as TA0013_max_score ]
+    | fillnull value="NULL" TA0013,TA0013_rule_name_list,TA0013_technique_name
+    | fillnull value=0 TA0013_attack_count,TA0013_max_score
+    | eval TA0013=TA0013."|".TA0013_technique_name."|".TA0013_attack_count."|".TA0013_rule_name_list."|".TA0013_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0008, triggered_count as TA0008_attack_count, rule_name_list as TA0008_rule_name_list, max_score as TA0008_max_score ]
+    | fillnull value="NULL" TA0008,TA0008_rule_name_list,TA0008_technique_name
+    | fillnull value=0 TA0008_attack_count,TA0008_max_score
+    | eval TA0008=TA0008."|".TA0008_technique_name."|".TA0008_attack_count."|".TA0008_rule_name_list."|".TA0008_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0015, triggered_count as TA0015_attack_count, rule_name_list as TA0015_rule_name_list, max_score as TA0015_max_score ]
+    | fillnull value="NULL" TA0015,TA0015_rule_name_list,TA0015_technique_name
+    | fillnull value=0 TA0015_attack_count,TA0015_max_score
+    | eval TA0015=TA0015."|".TA0015_technique_name."|".TA0015_attack_count."|".TA0015_rule_name_list."|".TA0015_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0009, triggered_count as TA0009_attack_count, rule_name_list as TA0009_rule_name_list, max_score as TA0009_max_score ]
+    | fillnull value="NULL" TA0009,TA0009_rule_name_list,TA0009_technique_name
+    | fillnull value=0 TA0009_attack_count,TA0009_max_score
+    | eval TA0009=TA0009."|".TA0009_technique_name."|".TA0009_attack_count."|".TA0009_rule_name_list."|".TA0009_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0014, triggered_count as TA0014_attack_count, rule_name_list as TA0014_rule_name_list, max_score as TA0014_max_score ]
+    | fillnull value="NULL" TA0014,TA0014_rule_name_list,TA0014_technique_name
+    | fillnull value=0 TA0014_attack_count,TA0014_max_score
+    | eval TA0014=TA0014."|".TA0014_technique_name."|".TA0014_attack_count."|".TA0014_rule_name_list."|".TA0014_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0010, triggered_count as TA0010_attack_count, rule_name_list as TA0010_rule_name_list, max_score as TA0010_max_score ]
+    | fillnull value="NULL" TA0010,TA0010_rule_name_list,TA0010_technique_name
+    | fillnull value=0 TA0010_attack_count,TA0010_max_score
+    | eval TA0010=TA0010."|".TA0010_technique_name."|".TA0010_attack_count."|".TA0010_rule_name_list."|".TA0010_max_score
+
+| join type=left
+    [| loadjob $subsearch_id$
+    | rename technique_id as TA0011, triggered_count as TA0011_attack_count, rule_name_list as TA0011_rule_name_list, max_score as TA0011_max_score ]
+    | fillnull value="NULL" TA0011,TA0011_rule_name_list,TA0011_technique_name
+    | fillnull value=0 TA0011_attack_count,TA0011_max_score
+    | eval TA0011=TA0011."|".TA0011_technique_name."|".TA0011_attack_count."|".TA0011_rule_name_list."|".TA0011_max_score
+</query>
+  </search>
+  <fieldset submitButton="true" autoRun="true">
+    <input type="time" token="atlas_time_field" searchWhenChanged="false">
+      <label>Event Time Range</label>
+      <default>
+        <earliest>-15m</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="multiselect" token="urgency_field" searchWhenChanged="false">
+      <label>Urgency</label>
+      <choice value="critical">Critical</choice>
+      <choice value="high">High</choice>
+      <choice value="medium">Medium</choice>
+      <choice value="informational">Info</choice>
+      <choice value="low">Low</choice>
+      <default>critical,high,medium,informational,low</default>
+      <delimiter> OR </delimiter>
+      <valuePrefix>urgency=</valuePrefix>
+      <prefix>(</prefix>
+      <suffix>)</suffix>
+    </input>
+    <input type="radio" token="tok_display_option" searchWhenChanged="true">
+      <label>Matrix Display Options</label>
+      <choice value="atlas_lookup">Hide/Collapse Sub-techniques</choice>
+      <choice value="atlas_lookup_subtechniques">Show/Expand Sub-techniques</choice>
+      <default>atlas_lookup</default>
+    </input>
+  </fieldset>
+  <row depends="$tok_atlas_setup_needed$">
+    <panel>
+      <html>
+        <div style="background-color:#d9534f;color:#fff;padding:12px 16px;border-radius:4px;font-size:14px;">
+          <b>&#9888; ATLAS setup is not complete.</b>
+          Required lookups are missing. Please visit the
+          <a href="/app/DA-ESS-MitreContent/mitre_setup_view" style="color:#fff;text-decoration:underline;">Setup page</a>
+          to enable ATLAS annotation support.
+        </div>
+      </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>MITRE ATLAS Tactics</title>
+      <table id="atlastitle">
+        <search base="post_process_mitre_atlas_triage">
+          <query>| stats 
+    sum(TA0002_attack_count) as TA0002_sum
+  , sum(TA0003_attack_count) as TA0003_sum
+  , sum(TA0004_attack_count) as TA0004_sum
+  , sum(TA0000_attack_count) as TA0000_sum
+  , sum(TA0005_attack_count) as TA0005_sum
+  , sum(TA0006_attack_count) as TA0006_sum
+  , sum(TA0012_attack_count) as TA0012_sum
+  , sum(TA0007_attack_count) as TA0007_sum
+  , sum(TA0013_attack_count) as TA0013_sum
+  , sum(TA0008_attack_count) as TA0008_sum
+  , sum(TA0015_attack_count) as TA0015_sum
+  , sum(TA0009_attack_count) as TA0009_sum
+  , sum(TA0014_attack_count) as TA0014_sum
+  , sum(TA0010_attack_count) as TA0010_sum
+  , sum(TA0011_attack_count) as TA0011_sum
+
+  , max(TA0002_max_score) as TA0002_max_score
+  , max(TA0003_max_score) as TA0003_max_score
+  , max(TA0004_max_score) as TA0004_max_score
+  , max(TA0000_max_score) as TA0000_max_score
+  , max(TA0005_max_score) as TA0005_max_score
+  , max(TA0006_max_score) as TA0006_max_score
+  , max(TA0012_max_score) as TA0012_max_score
+  , max(TA0007_max_score) as TA0007_max_score
+  , max(TA0013_max_score) as TA0013_max_score
+  , max(TA0008_max_score) as TA0008_max_score
+  , max(TA0015_max_score) as TA0015_max_score
+  , max(TA0009_max_score) as TA0009_max_score
+  , max(TA0014_max_score) as TA0014_max_score
+  , max(TA0010_max_score) as TA0010_max_score
+  , max(TA0011_max_score) as TA0011_max_score
+
+| eval 
+    TA0002=TA0002_sum."|".TA0002_max_score
+  , TA0003=TA0003_sum."|".TA0003_max_score
+  , TA0004=TA0004_sum."|".TA0004_max_score
+  , TA0000=TA0000_sum."|".TA0000_max_score
+  , TA0005=TA0005_sum."|".TA0005_max_score
+  , TA0006=TA0006_sum."|".TA0006_max_score
+  , TA0012=TA0012_sum."|".TA0012_max_score
+  , TA0007=TA0007_sum."|".TA0007_max_score
+  , TA0013=TA0013_sum."|".TA0013_max_score
+  , TA0008=TA0008_sum."|".TA0008_max_score
+  , TA0015=TA0015_sum."|".TA0015_max_score
+  , TA0009=TA0009_sum."|".TA0009_max_score
+  , TA0014=TA0014_sum."|".TA0014_max_score
+  , TA0010=TA0010_sum."|".TA0010_max_score
+  , TA0011=TA0011_sum."|".TA0011_max_score
+| table  TA0002,  TA0003, TA0004, TA0000, TA0005,  TA0006,  TA0012, TA0007, TA0013,  TA0008, TA0015, TA0009, TA0004, TA0014, TA0010, TA0011
+| rename TA0002 as "Reconnaissance", TA0003 as "Resource Development", TA0004 as "Initial Access", TA0000 as "AI Model Access", TA0005 as "Execution", TA0006 as "Persistence", TA0012 as "Privilege Escalation", TA0007 as "Defense Evasion", TA0013 as "Credential Access", TA0008 as "Discovery", TA0015 as "Lateral Movement", TA0009 as "Collection", TA0001 as "AI Attack Staging", TA0014 as "Command and Control", TA0010 as "Exfiltration", TA0011 as "Impact"</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>MITRE ATLAS Framework</title>
+      <html>
+         <style>
+            #highlight2 .string {
+            color: #00FF00 !important;
+           }
+           #highlight2 .td {
+            background-color: #FFFFFF !important;
+           }
+         </style>
+       </html>
+      <table id="atlasmatrix">
+        <search base="post_process_mitre_atlas_triage">
+          <query>| fields  TA0002,  TA0003, TA0004, TA0000, TA0005,  TA0006,  TA0012, TA0007, TA0013,  TA0008, TA0015, TA0009, TA0004, TA0014, TA0010, TA0011  | rename TA0002 as "Reconnaissance", TA0003 as "Resource Development", TA0004 as "Initial Access", TA0000 as "AI Model Access", TA0005 as "Execution", TA0006 as "Persistence", TA0012 as "Privilege Escalation", TA0007 as "Defense Evasion", TA0013 as "Credential Access", TA0008 as "Discovery", TA0015 as "Lateral Movement", TA0009 as "Collection", TA0001 as "AI Attack Staging", TA0014 as "Command and Control", TA0010 as "Exfiltration", TA0011 as "Impact"</query>
+        </search>-<option name="count">100</option>
+        <option name="refresh.display">progressbar</option>
+        <drilldown>
+          <condition match="'mitre_use_es' == &quot;1&quot;">
+            <eval token="rules_q">if(mvindex(split('click.value2',"|"),3)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&source=]]>"),"|"),3),"*")</eval>
+            <link target="_blank">
+              <![CDATA[/app/SplunkEnterpriseSecuritySuite/incident_review?earliest=$atlas_time_field.earliest$&latest=$attack_time_field.latest$&urgency=critical&urgency=high&urgency=medium&urgency=low&urgency=informational&source=$rules_q|n$]]>
+            </link>
+          </condition>
+          <condition match="'mitre_use_es' == &quot;0&quot;">
+            <eval token="rules_q">if(mvindex(split('click.value2',"|"),3)!="NULL",mvindex(split(replace('click.value2',";","<![CDATA[&form.s_title=]]>"),"|"),3),"*")</eval>
+            <link target="_blank">
+              <![CDATA[/app/alert_manager/incident_posture?form.global_time.earliest=$atlas_time_field.earliest$&form.global_time.latest=$attack_time_field.latest$&form.owner=*&form.alert=*&form.category=*&form.subcategory=*&form.tags=*&form.tags=[Untagged]&form.status=status!%3D"*resolved" status!%3D"suppressed"&form.s_incident_id=&form.s_title=$rules_q|n$&form.impact=*&form.urgency=*&form.priority=*&form.freeform=]]>
+            </link>
+          </condition>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+</form>

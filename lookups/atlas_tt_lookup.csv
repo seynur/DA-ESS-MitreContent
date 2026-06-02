@@ -1,0 +1,203 @@
+tactic_id,tactic_name,technique_id,technique_name
+AML.TA0002,Reconnaissance,AML.T0006,Active Scanning
+AML.TA0002,Reconnaissance,AML.T0064,Gather RAG-Indexed Targets
+AML.TA0002,Reconnaissance,AML.T0087,Gather Victim Identity Information
+AML.TA0002,Reconnaissance,AML.T0004,Search Application Repositories
+AML.TA0002,Reconnaissance,AML.T0001,Search Open AI Vulnerability Analysis
+AML.TA0002,Reconnaissance,AML.T0000,Search Open Technical Databases
+AML.TA0002,Reconnaissance,AML.T0000.000,Journals and Conference Proceedings
+AML.TA0002,Reconnaissance,AML.T0000.001,Pre-Print Repositories
+AML.TA0002,Reconnaissance,AML.T0000.002,Technical Blogs
+AML.TA0002,Reconnaissance,AML.T0095,Search Open Websites/Domains
+AML.TA0002,Reconnaissance,AML.T0003,Search Victim-Owned Websites
+AML.TA0003,Resource Development,AML.T0008,Acquire Infrastructure
+AML.TA0003,Resource Development,AML.T0008.000,AI Development Workspaces
+AML.TA0003,Resource Development,AML.T0008.001,Consumer Hardware
+AML.TA0003,Resource Development,AML.T0002,Acquire Public AI Artifacts
+AML.TA0003,Resource Development,AML.T0002.000,Datasets
+AML.TA0003,Resource Development,AML.T0002.001,Models
+AML.TA0003,Resource Development,AML.T0017,Develop Capabilities
+AML.TA0003,Resource Development,AML.T0017.000,Adversarial AI Attacks
+AML.TA0003,Resource Development,AML.T0021,Establish Accounts
+AML.TA0003,Resource Development,AML.T0065,LLM Prompt Crafting
+AML.TA0003,Resource Development,AML.T0016,Obtain Capabilities
+AML.TA0003,Resource Development,AML.T0016.000,Adversarial AI Attack Implementations
+AML.TA0003,Resource Development,AML.T0016.001,Software Tools
+AML.TA0003,Resource Development,AML.T0020,Poison Training Data
+AML.TA0003,Resource Development,AML.T0060,Publish Hallucinated Entities
+AML.TA0003,Resource Development,AML.T0104,Publish Poisoned AI Agent Tool
+AML.TA0003,Resource Development,AML.T0011.003,Malicious Link
+AML.TA0003,Resource Development,AML.T0011.002,Poisoned AI Agent Tool
+AML.TA0003,Resource Development,AML.T0019,Publish Poisoned Datasets
+AML.TA0003,Resource Development,AML.T0058,Publish Poisoned Models
+AML.TA0003,Resource Development,AML.T0066,Retrieval Content Crafting
+AML.TA0003,Resource Development,AML.T0079,Stage Capabilities
+AML.TA0004,Initial Access,AML.T0010,AI Supply Chain Compromise
+AML.TA0004,Initial Access,AML.T0010.001,AI Software
+AML.TA0004,Initial Access,AML.T0010.002,Data
+AML.TA0004,Initial Access,AML.T0010.000,Hardware
+AML.TA0004,Initial Access,AML.T0010.003,Model
+AML.TA0004,Initial Access,AML.T0078,Drive-by Compromise
+AML.TA0004,Initial Access,AML.T0015,Evade AI Model
+AML.TA0004,Initial Access,AML.T0049,Exploit Public-Facing Application
+AML.TA0004,Initial Access,AML.T0052,Phishing
+AML.TA0004,Initial Access,AML.T0052.000,Spearphishing via Social Engineering LLM
+AML.TA0004,Initial Access,AML.T0093,Prompt Infiltration via Public-Facing Application
+AML.TA0004,Initial Access,AML.T0012,Valid Accounts
+AML.TA0000,AI Model Access,AML.T0040,AI Model Inference API Access
+AML.TA0000,AI Model Access,AML.T0100,AI Agent Clickbait
+AML.TA0000,AI Model Access,AML.T0047,AI-Enabled Product or Service
+AML.TA0000,AI Model Access,AML.T0053,AI Agent Tool Invocation
+AML.TA0000,AI Model Access,AML.T0044,Full AI Model Access
+AML.TA0000,AI Model Access,AML.T0050,Command and Scripting Interpreter
+AML.TA0000,AI Model Access,AML.T0041,Physical Environment Access
+AML.TA0000,AI Model Access,AML.T0103,Deploy AI Agent
+AML.TA0000,AI Model Access,AML.T0051,LLM Prompt Injection
+AML.TA0000,AI Model Access,AML.T0011,User Execution
+AML.TA0005,Execution,AML.T0100,AI Agent Clickbait
+AML.TA0005,Execution,AML.T0053,AI Agent Tool Invocation
+AML.TA0005,Execution,AML.T0050,Command and Scripting Interpreter
+AML.TA0005,Execution,AML.T0103,Deploy AI Agent
+AML.TA0005,Execution,AML.T0051,LLM Prompt Injection
+AML.TA0005,Execution,AML.T0051.000,Direct
+AML.TA0005,Execution,AML.T0051.001,Indirect
+AML.TA0005,Execution,AML.T0011,User Execution
+AML.TA0005,Execution,AML.T0011.000,Unsafe AI Artifacts
+AML.TA0006,Persistence,AML.T0080,AI Agent Context Poisoning
+AML.TA0006,Persistence,AML.T0080.000,Memory
+AML.TA0006,Persistence,AML.T0080.001,Thread
+AML.TA0006,Persistence,AML.T0099,AI Agent Tool Data Poisoning
+AML.TA0006,Persistence,AML.T0061,LLM Prompt Self-Replication
+AML.TA0006,Persistence,AML.T0018,Manipulate AI Model
+AML.TA0006,Persistence,AML.T0018.001,Modify AI Model Architecture
+AML.TA0006,Persistence,AML.T0018.000,Poison AI Model
+AML.TA0006,Persistence,AML.T0081,Modify AI Agent Configuration
+AML.TA0006,Persistence,AML.T0020,Poison Training Data
+AML.TA0006,Persistence,AML.T0093,Prompt Infiltration via Public-Facing Application
+AML.TA0006,Persistence,AML.T0070,RAG Poisoning
+AML.TA0012,Privilege Escalation,AML.T0053,AI Agent Tool Invocation
+AML.TA0012,Privilege Escalation,AML.T0076,Corrupt AI Model
+AML.TA0012,Privilege Escalation,AML.T0105,Escape to Host
+AML.TA0012,Privilege Escalation,AML.T0094,Delay Execution of LLM Instructions
+AML.TA0012,Privilege Escalation,AML.T0054,LLM Jailbreak
+AML.TA0012,Privilege Escalation,AML.T0015,Evade AI Model
+AML.TA0012,Privilege Escalation,AML.T0012,Valid Accounts
+AML.TA0012,Privilege Escalation,AML.T0107,Exploitation for Defense Evasion
+AML.TA0012,Privilege Escalation,AML.T0071,False RAG Entry Injection
+AML.TA0012,Privilege Escalation,AML.T0073,Impersonation
+AML.TA0012,Privilege Escalation,AML.T0054,LLM Jailbreak
+AML.TA0012,Privilege Escalation,AML.T0068,LLM Prompt Obfuscation
+AML.TA0012,Privilege Escalation,AML.T0067,LLM Trusted Output Components Manipulation
+AML.TA0012,Privilege Escalation,AML.T0092,Manipulate User LLM Chat History
+AML.TA0012,Privilege Escalation,AML.T0074,Masquerading
+AML.TA0012,Privilege Escalation,AML.T0081,Modify AI Agent Configuration
+AML.TA0012,Privilege Escalation,AML.T0097,Virtualization/Sandbox Evasion
+AML.TA0007,Defense Evasion,AML.T0076,Corrupt AI Model
+AML.TA0007,Defense Evasion,AML.T0094,Delay Execution of LLM Instructions
+AML.TA0007,Defense Evasion,AML.T0051.002,Triggered
+AML.TA0007,Defense Evasion,AML.T0015,Evade AI Model
+AML.TA0007,Defense Evasion,AML.T0107,Exploitation for Defense Evasion
+AML.TA0007,Defense Evasion,AML.T0071,False RAG Entry Injection
+AML.TA0007,Defense Evasion,AML.T0067.000,Citations
+AML.TA0007,Defense Evasion,AML.T0010.004,Container Registry
+AML.TA0007,Defense Evasion,AML.T0018.002,Embed Malware
+AML.TA0007,Defense Evasion,AML.T0073,Impersonation
+AML.TA0007,Defense Evasion,AML.T0054,LLM Jailbreak
+AML.TA0007,Defense Evasion,AML.T0068,LLM Prompt Obfuscation
+AML.TA0007,Defense Evasion,AML.T0067,LLM Trusted Output Components Manipulation
+AML.TA0007,Defense Evasion,AML.T0092,Manipulate User LLM Chat History
+AML.TA0007,Defense Evasion,AML.T0091.000,Application Access Token
+AML.TA0007,Defense Evasion,AML.T0074,Masquerading
+AML.TA0007,Defense Evasion,AML.T0081,Modify AI Agent Configuration
+AML.TA0007,Defense Evasion,AML.T0097,Virtualization/Sandbox Evasion
+AML.TA0013,Credential Access,AML.T0098,AI Agent Tool Credential Harvesting
+AML.TA0013,Credential Access,AML.T0075,Cloud Service Discovery
+AML.TA0013,Credential Access,AML.T0083,Credentials from AI Agent Configuration
+AML.TA0013,Credential Access,AML.T0084,Discover AI Agent Configuration
+AML.TA0013,Credential Access,AML.T0106,Exploitation for Credential Access
+AML.TA0013,Credential Access,AML.T0090,OS Credential Dumping
+AML.TA0013,Credential Access,AML.T0082,RAG Credential Harvesting
+AML.TA0013,Credential Access,AML.T0007,Discover AI Artifacts
+AML.TA0013,Credential Access,AML.T0055,Unsecured Credentials
+AML.TA0013,Credential Access,AML.T0014,Discover AI Model Family
+AML.TA0013,Credential Access,AML.T0013,Discover AI Model Ontology
+AML.TA0013,Credential Access,AML.T0063,Discover AI Model Outputs
+AML.TA0013,Credential Access,AML.T0062,Discover LLM Hallucinations
+AML.TA0013,Credential Access,AML.T0069,Discover LLM System Information
+AML.TA0013,Credential Access,AML.T0089,Process Discovery
+AML.TA0008,Discovery,AML.T0075,Cloud Service Discovery
+AML.TA0008,Discovery,AML.T0084,Discover AI Agent Configuration
+AML.TA0008,Discovery,AML.T0084.002,Activation Triggers
+AML.TA0008,Discovery,AML.T0084.000,Embedded Knowledge
+AML.TA0008,Discovery,AML.T0084.001,Tool Definitions
+AML.TA0008,Discovery,AML.T0007,Discover AI Artifacts
+AML.TA0008,Discovery,AML.T0014,Discover AI Model Family
+AML.TA0008,Discovery,AML.T0013,Discover AI Model Ontology
+AML.TA0008,Discovery,AML.T0063,Discover AI Model Outputs
+AML.TA0008,Discovery,AML.T0016.002,Generative AI
+AML.TA0008,Discovery,AML.T0062,Discover LLM Hallucinations
+AML.TA0008,Discovery,AML.T0008.002,Domains
+AML.TA0008,Discovery,AML.T0008.003,Physical Countermeasures
+AML.TA0008,Discovery,AML.T0069,Discover LLM System Information
+AML.TA0008,Discovery,AML.T0069.000,Special Character Sets
+AML.TA0008,Discovery,AML.T0069.001,System Instruction Keywords
+AML.TA0008,Discovery,AML.T0069.002,System Prompt
+AML.TA0008,Discovery,AML.T0089,Process Discovery
+AML.TA0015,Lateral Movement,AML.T0052,Phishing
+AML.TA0015,Lateral Movement,AML.T0052.000,Spearphishing via Social Engineering LLM
+AML.TA0015,Lateral Movement,AML.T0091,Use Alternate Authentication Material
+AML.TA0009,Collection,AML.T0035,AI Artifact Collection
+AML.TA0009,Collection,AML.T0085,Data from AI Services
+AML.TA0009,Collection,AML.T0085.001,AI Agent Tools
+AML.TA0009,Collection,AML.T0085.000,RAG Databases
+AML.TA0009,Collection,AML.T0036,Data from Information Repositories
+AML.TA0009,Collection,AML.T0037,Data from Local System
+AML.TA0001,AI Attack Staging,AML.T0043,Craft Adversarial Data
+AML.TA0001,AI Attack Staging,AML.T0043.001,Black-Box Optimization
+AML.TA0001,AI Attack Staging,AML.T0043.002,Black-Box Transfer
+AML.TA0001,AI Attack Staging,AML.T0043.004,Insert Backdoor Trigger
+AML.TA0001,AI Attack Staging,AML.T0043.003,Manual Modification
+AML.TA0001,AI Attack Staging,AML.T0043.000,White-Box Optimization
+AML.TA0001,AI Attack Staging,AML.T0005,Create Proxy AI Model
+AML.TA0001,AI Attack Staging,AML.T0005.000,Train Proxy via Gathered AI Artifacts
+AML.TA0001,AI Attack Staging,AML.T0005.001,Train Proxy via Replication
+AML.TA0001,AI Attack Staging,AML.T0005.002,Use Pre-Trained Model
+AML.TA0001,AI Attack Staging,AML.T0088,Generate Deepfakes
+AML.TA0001,AI Attack Staging,AML.T0102,Generate Malicious Commands
+AML.TA0001,AI Attack Staging,AML.T0018,Manipulate AI Model
+AML.TA0001,AI Attack Staging,AML.T0018.001,Modify AI Model Architecture
+AML.TA0001,AI Attack Staging,AML.T0018.000,Poison AI Model
+AML.TA0001,AI Attack Staging,AML.T0042,Verify Attack
+AML.TA0014,Command and Control,AML.T0108,AI Agent
+AML.TA0014,Command and Control,AML.T0086,Exfiltration via AI Agent Tool Invocation
+AML.TA0014,Command and Control,AML.T0096,AI Service API
+AML.TA0014,Command and Control,AML.T0024,Exfiltration via AI Inference API
+AML.TA0014,Command and Control,AML.T0072,Reverse Shell
+AML.TA0014,Command and Control,AML.T0025,Exfiltration via Cyber Means
+AML.TA0014,Command and Control,AML.T0056,Extract LLM System Prompt
+AML.TA0014,Command and Control,AML.T0057,LLM Data Leakage
+AML.TA0014,Command and Control,AML.T0077,LLM Response Rendering
+AML.TA0010,Exfiltration,AML.T0086,Exfiltration via AI Agent Tool Invocation
+AML.TA0010,Exfiltration,AML.T0024,Exfiltration via AI Inference API
+AML.TA0010,Exfiltration,AML.T0024.002,Extract AI Model
+AML.TA0010,Exfiltration,AML.T0024.000,Infer Training Data Membership
+AML.TA0010,Exfiltration,AML.T0024.001,Invert AI Model
+AML.TA0010,Exfiltration,AML.T0025,Exfiltration via Cyber Means
+AML.TA0010,Exfiltration,AML.T0056,Extract LLM System Prompt
+AML.TA0010,Exfiltration,AML.T0057,LLM Data Leakage
+AML.TA0010,Exfiltration,AML.T0077,LLM Response Rendering
+AML.TA0010,Exfiltration,AML.T0008.004,Serverless
+AML.TA0011,Impact,AML.T0034,Cost Harvesting
+AML.TA0011,Impact,AML.T0101,Data Destruction via AI Agent Tool Invocation
+AML.TA0011,Impact,AML.T0029,Denial of AI Service
+AML.TA0011,Impact,AML.T0031,Erode AI Model Integrity
+AML.TA0011,Impact,AML.T0059,Erode Dataset Integrity
+AML.TA0011,Impact,AML.T0011.001,Malicious Package
+AML.TA0011,Impact,AML.T0015,Evade AI Model
+AML.TA0011,Impact,AML.T0048,External Harms
+AML.TA0011,Impact,AML.T0048.004,AI Intellectual Property Theft
+AML.TA0011,Impact,AML.T0048.000,Financial Harm
+AML.TA0011,Impact,AML.T0048.001,Reputational Harm
+AML.TA0011,Impact,AML.T0048.002,Societal Harm
+AML.TA0011,Impact,AML.T0048.003,User Harm
+AML.TA0011,Impact,AML.T0046,Spamming AI System with Chaff Data

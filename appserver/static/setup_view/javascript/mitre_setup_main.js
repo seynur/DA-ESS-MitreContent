@@ -56,12 +56,12 @@ define(
                   });
 
                 });
-                var use_es_cb = $("input[class=checkbox-es]");
-                Splunk.get_current_conf_to_view(splunk_js_sdk_dummy,MACROS, use_es_cb.attr('id')).then((properties) => {
-                  if (properties.definition.match(/\S+1\S+/g)) {
-                    use_es_cb.prop('checked',true)
+                var atlas_cb = $("input[class=checkbox-atlas-setup]");
+                Splunk.get_current_conf_to_view(splunk_js_sdk_dummy, MACROS, 'atlas_rules').then((properties) => {
+                  if (properties.definition && properties.definition.match(/atlas_rules_from_notable/)) {
+                    atlas_cb.prop('checked', true);
                   } else {
-                    use_es_cb.prop('checked',false)
+                    atlas_cb.prop('checked', false);
                   }
                 });
                 return this;
@@ -77,11 +77,21 @@ define(
                   savedsearches_setup_options,
                   SAVED_SEARCHES
                 )
-                var macros_setup_options = this.get_macros_setup_options();
-                this.perform_setup(
-                  macros_setup_options,
-                  MACROS
-                )
+                var atlas_macros_options = this.get_atlas_macros_setup_options();
+                this.perform_setup(atlas_macros_options, MACROS);
+                if ($("input[class=checkbox-atlas-setup]").is(':checked')) {
+                  try {
+                    const rows = await Splunk.run_search_and_get_results(this.splunk_js_sdk_service, '| setupatlasannotation');
+                    const first = rows && rows[0];
+                    if (first && first.status === 'error') {
+                      this.display_error_output('<li>ATLAS annotation error: ' + first.message + '</li>');
+                      return;
+                    }
+                  } catch (err) {
+                    this.display_error_output('<li>ATLAS annotation failed: ' + err + '</li>');
+                    return;
+                  }
+                }
                 await Setup.complete_setup(this.splunk_js_sdk_service,app_name);
 
                 this.clear_error_output();
@@ -109,21 +119,12 @@ define(
               });
               return setup_options;
             },
-            get_macros_setup_options: function get_macros_setup_options(){
-              var setup_options = [];
-              var use_es_cb = $("input[class=checkbox-es]");
-              var use_es_stanza_object = {stanza: use_es_cb.attr('id'), properties: {definition:null}};
-              var mitre_rules_stanza_object = {stanza: 'mitre_rules', properties: {definition:null}}
-              if (use_es_cb.is(':checked')) {
-                use_es_stanza_object.properties.definition = '"1"';
-                mitre_rules_stanza_object.properties.definition = '`mitre_rules_from_notable`'
-              } else {
-                use_es_stanza_object.properties.definition = '"0"';
-                mitre_rules_stanza_object.properties.definition = '`mitre_rules_from_alerts`'
-              }
-              setup_options.push(use_es_stanza_object);
-              setup_options.push(mitre_rules_stanza_object);
-              return setup_options;
+            get_atlas_macros_setup_options: function get_atlas_macros_setup_options() {
+              var atlas_cb = $("input[class=checkbox-atlas-setup]");
+              var definition = atlas_cb.is(':checked')
+                ? '`atlas_rules_from_notable`'
+                : '`atlas_rules_from_alerts`';
+              return [{ stanza: 'atlas_rules', properties: { definition: definition } }];
             },
             perform_setup: async function perform_setup(setup_options,configuration_file_name) {
                 $("div[class='spinnerBG']").fadeIn();
