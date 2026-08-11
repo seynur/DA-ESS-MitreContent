@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "2.0.0",
+  "info": {
+    "title": "MITRE Framework",
+    "id": {
+      "group": null,
+      "name": "DA-ESS-MitreContent",
+      "version": "3.15.1"
+    },
+    "author": [
+      {
+        "name": "Seynur Bilgi Teknolojileri - Development Team",
+        "email": null,
+        "company": "Seynur Bilgi Teknolojileri"
+      }
+    ],
+    "releaseDate": null,
+    "description": "This application provides compliance and triage dashboards that are fully integrated with Splunk Enterprise Security and Splunk ES Content Update with drilldown capabilities.",
+    "classification": {
+      "intendedAudience": null,
+      "categories": [],
+      "developmentStatus": null
+    },
+    "commonInformationModels": null,
+    "license": {
+      "name": null,
+      "text": null,
+      "uri": null
+    },
+    "privacyPolicy": {
+      "name": null,
+      "text": null,
+      "uri": null
+    },
+    "releaseNotes": {
+      "name": "README",
+      "text": "./README.md",
+      "uri": null
+    }
+  },
+  "dependencies": null,
+  "tasks": null,
+  "inputGroups": null,
+  "incompatibleApps": null,
+  "platformRequirements": null,
+  "supportedDeployments": [
+    "_standalone",
+    "_distributed",
+    "_search_head_clustering"
+  ],
+  "targetWorkloads": [
+    "_search_heads"
+  ]
+}
