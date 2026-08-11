@@ -31,7 +31,7 @@ This application comes with predefined saved searches.  Lookup Gen searches are 
 
 #### Release Notes:
 Version 3.15.1
-- Date:
+- Date: 11 Aug 2026
 - Compatibility: Declared Python 3.9 and 3.13 support for the `setupatlasannotation` custom command via `python.required`, resolving Splunk Upgrade Readiness / App Inspect warnings about Python 3.13 incompatibility.
 
 Version 3.15.0
